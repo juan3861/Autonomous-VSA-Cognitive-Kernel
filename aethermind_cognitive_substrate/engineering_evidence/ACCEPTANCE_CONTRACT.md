@@ -63,6 +63,9 @@
 | **REQ-C7-68** | CFR+ Imperfect-Info Game Solver | Counterfactual Regret Minimization+ em Kuhn Poker (`err=3,3e-4`, `Exploit=0,00276`) em [`cfr_incomplete_info_solver.py`](file:///F:/AetherMind_Apotheosis_Final/aethermind_cognitive_substrate/planning/cfr_incomplete_info_solver.py). | `APPROVED` |
 | **REQ-C7-69** | Exact Simplex LP & Strong Duality | Programação Linear exata com regra de Bland e dualidade forte (`Gap=3,55e-15`) em [`simplex_linear_programming.py`](file:///F:/AetherMind_Apotheosis_Final/aethermind_cognitive_substrate/logic_symbolic/simplex_linear_programming.py). | `APPROVED` |
 | **REQ-C7-70** | GMM EM & Rust Spectral Power Kernel | Clustering EM monotônico (BIC/AIC) em [`expectation_maximization_gmm.py`](file:///F:/AetherMind_Apotheosis_Final/aethermind_cognitive_substrate/planning/expectation_maximization_gmm.py) + kernel Rust LTO `spectral_power_iteration_f64`. | `APPROVED` |
+| **REQ-C7-71** | VSA 10,240-bit Holographic Semantic Bus | Barramento desacoplado multi-órgão em $\mathcal{H} = \{-1, +1\}^{10240}$ com auto-inversão de binding e codificação termométrica contínua em [`vsa_semantic_bus.py`](file:///F:/AetherMind_Apotheosis_Final/aethermind_cognitive_substrate/memory_vault/vsa_semantic_bus.py). | `APPROVED` |
+| **REQ-C7-72** | Dynamic Autonomous Cognitive Composer | Síntese adaptativa de DAGs executáveis com blindagem formal CBF-QP/STL e recibos matemáticos em [`autonomous_cognitive_composer.py`](file:///F:/AetherMind_Apotheosis_Final/aethermind_cognitive_substrate/planning/autonomous_cognitive_composer.py). | `APPROVED` |
+| **REQ-C7-73** | Bare-Metal Rust OMP & RRT* SIMD Kernels | Kernels C-ABI compilados com LTO em `lib.rs` (`omp_sparse_project_f64`, `rrt_star_nearest_and_radius_f64`) acelerando K-SVD e RRT* diretamente em silício. | `APPROVED` |
 
 ---
 
