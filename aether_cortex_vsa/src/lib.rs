@@ -1,3 +1,6 @@
+pub mod vsa_graph_vm;
+pub use vsa_graph_vm::{VsaOp, vsa_eval_graph_bytecode};
+
 pub const WORDS: usize = 160;
 pub const BITS: usize = WORDS * 64;
 pub const EXPECTED_RANDOM_DIST: f64 = (BITS as f64) * 0.5; // 5120.0

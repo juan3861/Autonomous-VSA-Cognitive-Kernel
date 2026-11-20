@@ -10,6 +10,15 @@ from .hierarchical_paged_memory_os import HierarchicalPagedMemoryOS
 from .hnsw_submillisecond_graph_index import HNSWSubMillisecondGraphIndex
 from .tensor_mps_compressor import TensorNetworkMPSCompressor
 from .vsa_semantic_bus import VSAHyperdimensionalBus, VSAEvent
+from .vsa_expression_compiler import (
+    VSAExpressionCompiler,
+    VSAExpr,
+    VSAVar,
+    VSASeed,
+    VSABind,
+    VSAPermute,
+    VSABundleTwo,
+)
 
 __all__ = [
     "HippoRAGKnowledgeGraph",
@@ -24,5 +33,12 @@ __all__ = [
     "HNSWSubMillisecondGraphIndex",
     "TensorNetworkMPSCompressor",
     "VSAHyperdimensionalBus",
-    "VSAEvent"
+    "VSAEvent",
+    "VSAExpressionCompiler",
+    "VSAExpr",
+    "VSAVar",
+    "VSASeed",
+    "VSABind",
+    "VSAPermute",
+    "VSABundleTwo",
 ]

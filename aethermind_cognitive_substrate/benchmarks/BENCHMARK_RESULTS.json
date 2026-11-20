@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-11-20T17:48:37.083948",
+  "version": "7.2.0-APEX-V72-82-ORGANS-FUSED-SOVEREIGN",
+  "vsa_10240": {
+    "n_iters": 2000,
+    "numpy_10240_ms": 141.162,
+    "pytorch_10240_ms": 246.441,
+    "ctypes_rust_ms": 86.107,
+    "cython_zero_copy_ms": 7.926,
+    "cython_backend": "CYTHON_ZERO_COPY",
+    "fused_avx2_vm_ms": 11.211,
+    "speedup_fused_vs_numpy": 12.59,
+    "speedup_fused_vs_pytorch": 21.98,
+    "speedup_cython_vs_ctypes": 10.86,
+    "us_per_fused_graph": 5.606
+  },
+  "lyapunov_16x16": {
+    "n_iters": 200,
+    "scipy_lyapunov_ms": 69.536,
+    "rust_smith_doubling_ms": 120.161,
+    "speedup_rust_vs_scipy": 0.58,
+    "max_parity_error": 4.941e-06,
+    "native_accelerated": true
+  },
+  "simplex_lp": {
+    "n_iters": 100,
+    "scipy_highs_ms": 226.196,
+    "revised_simplex_ms": 14.24,
+    "speedup_vs_highs": 15.88,
+    "objective_parity_error": 2.857e-07,
+    "strong_duality_gap": 3.553e-15
+  },
+  "cbf_qp_safety": {
+    "n_iters": 100,
+    "cvxpy_clarabel_ms": 916.958,
+    "cbf_kkt_shield_ms": 9.794,
+    "speedup_cbf_vs_cvxpy": 93.62,
+    "us_per_safety_filter": 97.94
+  }
+}

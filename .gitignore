@@ -14,6 +14,8 @@
 !aether_cortex_vsa/
 !aether_cortex_vsa/Cargo.toml
 !aether_cortex_vsa/Cargo.lock
+!aether_cortex_vsa/include/
+!aether_cortex_vsa/include/**
 !aether_cortex_vsa/src/
 !aether_cortex_vsa/src/**
 
@@ -30,6 +32,9 @@ __pycache__/
 *.exe
 *.pdb
 *.lib
+*.obj
+*.exp
+aethermind_cognitive_substrate/physical_bridge/fast_vsa_ext.c
 *.db
 *.sqlite
 *.log

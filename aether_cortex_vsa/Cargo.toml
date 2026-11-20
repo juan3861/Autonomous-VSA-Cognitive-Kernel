@@ -5,7 +5,7 @@ edition = "2021"
 
 [lib]
 name = "aether_cortex_vsa"
-crate-type = ["cdylib", "rlib"]
+crate-type = ["cdylib", "staticlib", "rlib"]
 
 [profile.release]
 opt-level = 3

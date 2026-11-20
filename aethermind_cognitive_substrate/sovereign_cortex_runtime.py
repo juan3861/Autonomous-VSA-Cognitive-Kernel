@@ -12,249 +12,158 @@ Integra determinística e formalmente as 13 Áreas Especialistas:
 """
 from __future__ import annotations
 
+import importlib
 import os
 import time
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 os.environ.setdefault("MKL_NUM_THREADS", "1")
 
-import numpy as np
 
-# Importação dos Órgãos Modulares
-from .logic_symbolic import (
-    Z3FormalSolver, SymPyCASEngine, RuleDeductionEngine,
-    AhoCorasickDFA, ScientificPhysicsEngine,
-    ThermodynamicIsingMachine, KolmogorovArnoldSplineLayer, MorphogeneticCellularAutomata,
-    CEGISCodeSynthesizer, AdaptiveBSplineKANEngine,
-    ModernContinuousHopfieldNetwork, EGraphEqualitySaturationEngine,
-    ADMMConvexQPOptimizer, HamiltonianSymplecticIntegrator,
-    LyapunovSDPStabilityCertifier, OptimalTransportSinkhornEngine,
-    TopologicalPersistenceHomologyEngine, NormalizingFlowAffineEngine,
-    SparseDictionaryKSVDEngine, SpectralGraphChebyshevEngine,
-    HJBValueIterationMDPEngine, CMAESBlackBoxOptimizer, FFTSpectralPDESolver,
-    NewtonKrylovGMRESSolver, LevenbergMarquardtNLLSSolver,
-    AugmentedLagrangianConstrainedSolver, ChebyshevSpectralBVPSolver,
-    FiniteElementGalerkinSolver, RevisedSimplexLPSolver
-)
-from .planning import (
-    DAGTaskDecomposer, FastStateSpacePlanner, StructuralCausalEngine,
-    ActiveInferenceFristonEngine, CounterfactualReasoner,
-    AutonomousCausalDiscovery, VSACausalEngine,
-    ContinuousNOTEARSEngine, JEPAPredictiveWorldModel,
-    ModularMoESparseRouter, MambaSelectiveSSMEngine,
-    CoconutLatentCoTEngine, CausalMPCCBFController,
-    RWKVLinearRecurrentChannel, CausalActiveInferenceEngine,
-    LiquidNeuralODERK45Integrator, MCTSPUCTEpistemicPlanner,
-    KoopmanSpectralLinearizer, UnscentedKalmanStateEstimator,
-    GraphMPNNMessagePassingEngine, CyberneticClosedLoopPipeline,
-    ParticleFilterSMCEngine, MultiAgentMMapSTLCoordinator,
-    IMMRegimeSwitchingFilter, SparseGaussianProcessEstimator,
-    BayesianOptimizationEIEngine, OnlineSVDStreamingPCA,
-    RauchTungStriebelSmoother, PontryaginILQROptimizer,
-    HamiltonianMonteCarloSampler, DecentralizedInformationFilter,
-    ContextualBanditLinUCBThompson, HungarianOptimalAssignmentEngine,
-    DStarLiteDynamicPlanner, RRTStarOptimalMotionPlanner,
-    ZeroSumNashEquilibriumSolver, CounterfactualRegretCFRPlusSolver,
-    GaussianMixtureEMEngine,
-    AutonomousCognitiveComposer, CompositionReceipt
-)
-from .code_inspector import ASTCodeAnalyzer, ControlFlowGraphBuilder
-from .memory_vault import (
-    HippoRAGKnowledgeGraph, HDCVectorCompactor, KAIROSMemoryLifecycle,
-    TextRankDiscourseEngine, PoincaréHyperbolicMemory, KanervaHDC10000VSA,
-    NativeVSAFFI, VSA10240PersistenceBridge, HierarchicalPagedMemoryOS,
-    HNSWSubMillisecondGraphIndex, TensorNetworkMPSCompressor,
-    VSAHyperdimensionalBus, VSAEvent
-)
-from .metacognition import (
-    CEGISVerifier, LTILyapunovGovernor, HoareContractVerifier,
-    HRMDualTimescaleFixedPoint, KuramotoOscillatoryNetwork,
-    REMAutonomousDreamEngine, CBFControlBarrierShield,
-    ConformalPredictionUncertaintyShield, STLTemporalLogicMonitor
-)
-from .physical_bridge import (
-    Win32SystemSentinel, ClosedLoopVisionEye, LockFreeSPSCRingBuffer,
-    VulkanPolarisHeadlessDispatcher, VulkanPolarisComputePipeline,
-    VulkanZeroCopyVRAMBufferEngine, SharedMemoryMMapSPSCBridge,
-    RustNativePhysicsKernel
-)
+_LAZY_ORGAN_SPECS: Dict[str, Tuple[str, str, Dict[str, Any]]] = {
+    "z3_solver": (".logic_symbolic.z3_formal_solver", "Z3FormalSolver", {}),
+    "sympy_cas": (".logic_symbolic.sympy_cas_engine", "SymPyCASEngine", {}),
+    "rule_engine": (".logic_symbolic.rule_deduction_engine", "RuleDeductionEngine", {}),
+    "aho_corasick": (".logic_symbolic.aho_corasick_dfa", "AhoCorasickDFA", {}),
+    "physics_engine": (".logic_symbolic.scientific_physics_engine", "ScientificPhysicsEngine", {}),
+    "dag_decomposer": (".planning.dag_task_decomposer", "DAGTaskDecomposer", {}),
+    "strips_planner": (".planning.pddl_fast_search", "FastStateSpacePlanner", {}),
+    "causal_engine": (".planning.causal_inference_engine", "StructuralCausalEngine", {}),
+    "ast_analyzer": (".code_inspector.ast_code_analyzer", "ASTCodeAnalyzer", {}),
+    "cfg_builder": (".code_inspector.control_flow_graph", "ControlFlowGraphBuilder", {}),
+    "hipporag": (".memory_vault.hipporag_knowledge_graph", "HippoRAGKnowledgeGraph", {}),
+    "hdc": (".memory_vault.hdc_vector_compactor", "HDCVectorCompactor", {"dimension": 2048}),
+    "kairos": (".memory_vault.kairos_memory_lifecycle", "KAIROSMemoryLifecycle", {}),
+    "textrank": (".memory_vault.textrank_discourse_engine", "TextRankDiscourseEngine", {}),
+    "hyperbolic_memory": (".memory_vault.hyperbolic_graph_memory", "PoincaréHyperbolicMemory", {"dimension": 2}),
+    "cegis": (".metacognition.cegis_verifier", "CEGISVerifier", {}),
+    "lti_governor": (".metacognition.lti_lyapunov_governor", "LTILyapunovGovernor", {"state_dim": 16, "max_spectral_radius": 0.95}),
+    "hoare_verifier": (".metacognition.hoare_contract_verifier", "HoareContractVerifier", {}),
+    "sentinel": (".physical_bridge.win32_system_sentinel", "Win32SystemSentinel", {}),
+    "vision_eye": (".physical_bridge.closed_loop_vision_eye", "ClosedLoopVisionEye", {}),
+    "spsc_queue": (".physical_bridge.lockfree_spsc_ringbuffer", "LockFreeSPSCRingBuffer", {"capacity": 1024}),
+    "hrm_fixed_point": (".metacognition.hrm_dual_timescale_fixed_point", "HRMDualTimescaleFixedPoint", {"slow_dim": 16, "fast_dim": 32}),
+    "kuramoto_net": (".metacognition.kuramoto_phase_synchrony", "KuramotoOscillatoryNetwork", {"num_oscillators": 64}),
+    "active_inference": (".planning.active_inference_friston_engine", "ActiveInferenceFristonEngine", {"obs_dim": 16, "hidden_dim": 32}),
+    "kanerva_vsa": (".memory_vault.kanerva_hdc_10000_vsa", "KanervaHDC10000VSA", {"dimension": 10000}),
+    "ising_machine": (".logic_symbolic.thermodynamic_ising_engine", "ThermodynamicIsingMachine", {"num_spins": 64}),
+    "kan_layer": (".logic_symbolic.kolmogorov_arnold_spline", "KolmogorovArnoldSplineLayer", {"in_features": 4, "out_features": 4, "degree": 4}),
+    "nca_automata": (".logic_symbolic.kolmogorov_arnold_spline", "MorphogeneticCellularAutomata", {"grid_size": 16}),
+    "native_vsa_ffi": (".memory_vault.native_vsa_ffi", "NativeVSAFFI", {}),
+    "vsa_persistence": (".memory_vault.vsa_persistence_bridge", "VSA10240PersistenceBridge", {}),
+    "counterfactual_engine": (".planning.counterfactual_reasoner", "CounterfactualReasoner", {}),
+    "causal_discovery": (".planning.autonomous_causal_discovery", "AutonomousCausalDiscovery", {"alpha": 0.05}),
+    "cegis_synthesizer": (".logic_symbolic.cegis_code_synthesizer", "CEGISCodeSynthesizer", {}),
+    "notears_engine": (".planning.notears_continuous_causal", "ContinuousNOTEARSEngine", {"lambda1": 0.01, "w_threshold": 0.25}),
+    "jepa_world_model": (".planning.jepa_latent_world_model", "JEPAPredictiveWorldModel", {"obs_dim": 16, "action_dim": 4, "latent_dim": 32}),
+    "kan_bspline": (".logic_symbolic.kan_adaptive_bspline", "AdaptiveBSplineKANEngine", {"in_features": 4, "out_features": 2, "grid_intervals": 5}),
+    "moe_router": (".planning.modular_moe_sparse_router", "ModularMoESparseRouter", {"input_dim": 32, "num_experts": 8, "top_k": 2}),
+    "mamba_ssm": (".planning.mamba_selective_ssm", "MambaSelectiveSSMEngine", {"d_model": 16, "d_state": 32}),
+    "paged_memory": (".memory_vault.hierarchical_paged_memory_os", "HierarchicalPagedMemoryOS", {"max_hot_pages": 8, "max_warm_pages": 32}),
+    "coconut_cot": (".planning.coconut_latent_cot", "CoconutLatentCoTEngine", {"latent_dim": 32, "max_latent_steps": 8, "convergence_tol": 1e-3}),
+    "vulkan_dispatcher": (".physical_bridge.vulkan_polaris_headless_dispatcher", "VulkanPolarisHeadlessDispatcher", {}),
+    "cbf_shield": (".metacognition.cbf_control_barrier_shield", "CBFControlBarrierShield", {"state_dim": 4, "control_dim": 4, "gamma": 2.0}),
+    "causal_mpc_cbf": (".planning.causal_mpc_cbf_controller", "CausalMPCCBFController", {}),
+    "rwkv_channel": (".planning.rwkv_linear_recurrent_channel", "RWKVLinearRecurrentChannel", {"d_model": 16, "num_heads": 4, "head_dim": 8}),
+    "causal_ai_engine": (".planning.causal_active_inference_policy", "CausalActiveInferenceEngine", {"obs_dim": 16, "action_dim": 4, "latent_dim": 16}),
+    "vulkan_compute": (".physical_bridge.vulkan_polaris_compute_pipeline", "VulkanPolarisComputePipeline", {}),
+    "vulkan_zero_copy": (".physical_bridge.vulkan_zero_copy_vram_buffer", "VulkanZeroCopyVRAMBufferEngine", {}),
+    "modern_hopfield": (".logic_symbolic.modern_continuous_hopfield", "ModernContinuousHopfieldNetwork", {"dimension": 32, "beta": 8.0}),
+    "neural_ode_rk45": (".planning.neural_ode_rk45_integrator", "LiquidNeuralODERK45Integrator", {"state_dim": 16, "input_dim": 16}),
+    "egraph_optimizer": (".logic_symbolic.egraph_equality_saturation", "EGraphEqualitySaturationEngine", {}),
+    "conformal_shield": (".metacognition.conformal_prediction_uncertainty_shield", "ConformalPredictionUncertaintyShield", {"alpha_target": 0.10, "aci_gamma": 0.02}),
+    "mcts_puct": (".planning.mcts_puct_epistemic_planner", "MCTSPUCTEpistemicPlanner", {"state_dim": 16, "action_dim": 4, "c_puct": 1.414, "max_depth": 4}),
+    "koopman_linearizer": (".planning.koopman_spectral_linearizer", "KoopmanSpectralLinearizer", {"state_dim": 4, "ridge_alpha": 1e-4}),
+    "tensor_mps": (".memory_vault.tensor_mps_compressor", "TensorNetworkMPSCompressor", {"max_bond_dim": 16, "svd_rel_tol": 1e-4}),
+    "ukf_estimator": (".planning.unscented_kalman_estimator", "UnscentedKalmanStateEstimator", {"state_dim": 4, "obs_dim": 4}),
+    "admm_optimizer": (".logic_symbolic.admm_convex_optimizer", "ADMMConvexQPOptimizer", {}),
+    "graph_mpnn": (".planning.graph_mpnn_message_passing", "GraphMPNNMessagePassingEngine", {"hidden_dim": 16, "num_layers": 3}),
+    "cybernetic_loop": (".planning.cybernetic_closed_loop_pipeline", "CyberneticClosedLoopPipeline", {}),
+    "hamiltonian_symplectic": (".logic_symbolic.hamiltonian_symplectic_integrator", "HamiltonianSymplecticIntegrator", {"dof": 2, "mass": 1.0, "stiffness": 1.0, "anharmonic_beta": 0.25}),
+    "mmap_ipc": (".physical_bridge.shared_memory_mmap_ipc", "SharedMemoryMMapSPSCBridge", {"capacity_slots": 128}),
+    "stl_monitor": (".metacognition.ltl_temporal_logic_monitor", "STLTemporalLogicMonitor", {}),
+    "rust_physics_kernel": (".physical_bridge.rust_native_physics_bridge", "RustNativePhysicsKernel", {}),
+    "smc_particle_filter": (".planning.particle_filter_smc", "ParticleFilterSMCEngine", {"num_particles": 512, "state_dim": 1, "resample_ratio": 0.5}),
+    "multi_agent_mmap_stl": (".planning.multi_agent_mmap_stl_coordinator", "MultiAgentMMapSTLCoordinator", {"slot_capacity": 128}),
+    "imm_filter": (".planning.imm_regime_switching_filter", "IMMRegimeSwitchingFilter", {"dt": 0.1, "obs_noise_std": 0.08}),
+    "lyapunov_certifier": (".logic_symbolic.lyapunov_sdp_stability_certifier", "LyapunovSDPStabilityCertifier", {}),
+    "gp_estimator": (".planning.gaussian_process_cholesky", "SparseGaussianProcessEstimator", {"kernel": "rbf", "lengthscale": 1.0, "signal_variance": 1.0, "noise_variance": 1e-3}),
+    "sinkhorn_ot": (".logic_symbolic.optimal_transport_sinkhorn", "OptimalTransportSinkhornEngine", {"reg_epsilon": 0.05, "max_iters": 300, "tol": 1e-8}),
+    "bayesian_opt": (".planning.bayesian_optimization_ei", "BayesianOptimizationEIEngine", {"kernel": "matern52"}),
+    "tda_persistence": (".logic_symbolic.topological_persistence_homology", "TopologicalPersistenceHomologyEngine", {}),
+    "normalizing_flow": (".logic_symbolic.normalizing_flow_affine", "NormalizingFlowAffineEngine", {"dim": 2, "num_layers": 4}),
+    "streaming_pca": (".planning.online_svd_streaming_pca", "OnlineSVDStreamingPCA", {"n_components": 4}),
+    "ksvd_dict": (".logic_symbolic.sparse_dictionary_ksvd", "SparseDictionaryKSVDEngine", {"n_atoms": 16, "sparsity_k": 3, "n_iters": 15}),
+    "rts_smoother": (".planning.kalman_rts_smoother", "RauchTungStriebelSmoother", {"dt": 0.1}),
+    "cheb_graph": (".logic_symbolic.spectral_graph_chebyshev", "SpectralGraphChebyshevEngine", {"cheb_order": 8, "diffusion_time": 1.5}),
+    "ilqr_optimizer": (".planning.pontryagin_ilqr_trajectory_optimizer", "PontryaginILQROptimizer", {"dt": 0.05, "max_iters": 30}),
+    "hjb_mdp": (".logic_symbolic.hjb_value_iteration_mdp", "HJBValueIterationMDPEngine", {"gamma": 0.95, "tol": 1e-8}),
+    "hmc_sampler": (".planning.hamiltonian_hmc_sampler", "HamiltonianMonteCarloSampler", {"step_size": 0.12, "n_leapfrog": 12}),
+    "cmaes_opt": (".logic_symbolic.cma_es_evolution_optimizer", "CMAESBlackBoxOptimizer", {"dim": 4, "sigma0": 1.0}),
+    "info_filter": (".planning.kalman_information_filter", "DecentralizedInformationFilter", {"dt": 0.1}),
+    "fft_pde": (".logic_symbolic.fft_spectral_pde_solver", "FFTSpectralPDESolver", {"n_grid": 128, "advection_c": 1.0, "viscosity_nu": 0.05}),
+    "contextual_bandit": (".planning.bandit_thompson_linucb", "ContextualBanditLinUCBThompson", {"n_arms": 4, "context_dim": 5, "alpha": 1.2}),
+    "newton_krylov": (".logic_symbolic.newton_krylov_gmres_solver", "NewtonKrylovGMRESSolver", {"tol": 1e-10, "max_newton_iters": 25, "gmres_max_iter": 30}),
+    "hungarian_assign": (".planning.hungarian_linear_assignment", "HungarianOptimalAssignmentEngine", {}),
+    "lm_nlls": (".logic_symbolic.gauss_newton_bundle_adjustment", "LevenbergMarquardtNLLSSolver", {"tol": 1e-10, "max_iters": 50}),
+    "dstar_lite": (".planning.a_star_anytime_dstar_lite", "DStarLiteDynamicPlanner", {"rows": 12, "cols": 12}),
+    "alm_solver": (".logic_symbolic.lagrangian_augmented_constrained_opt", "AugmentedLagrangianConstrainedSolver", {"tol": 1e-6, "max_outer_iters": 20}),
+    "rrt_star": (".planning.voronoi_rrt_star_motion_planner", "RRTStarOptimalMotionPlanner", {"step_size": 0.8, "neighbor_radius": 1.8}),
+    "cheb_bvp": (".logic_symbolic.chebyshev_collocation_bvp", "ChebyshevSpectralBVPSolver", {"n_nodes": 16}),
+    "nash_minimax": (".planning.nash_minimax_equilibrium", "ZeroSumNashEquilibriumSolver", {"n_iters": 2000}),
+    "fem_galerkin": (".logic_symbolic.fem_poisson_galerkin", "FiniteElementGalerkinSolver", {"n_elements": 64}),
+    "cfr_plus": (".planning.cfr_incomplete_info_solver", "CounterfactualRegretCFRPlusSolver", {"n_iters": 1200}),
+    "simplex_lp": (".logic_symbolic.simplex_linear_programming", "RevisedSimplexLPSolver", {"max_pivots": 500, "tol": 1e-10}),
+    "gmm_em": (".planning.expectation_maximization_gmm", "GaussianMixtureEMEngine", {"n_components": 3, "max_iters": 60}),
+    "vsa_semantic_bus": (".memory_vault.vsa_semantic_bus", "VSAHyperdimensionalBus", {"dimension": 10240}),
+    "vsa_expression_compiler": (".memory_vault.vsa_expression_compiler", "VSAExpressionCompiler", {}),
+    "fast_vsa_bridge": (".physical_bridge.fast_vsa_bridge", "FastVSABridge", {}),
+}
 
 
 class SovereignCortexRuntime:
     """Motor de Execução Soberano do Substrato Cognitivo Não-LLM (AetherCOS)."""
 
     def __init__(self):
-        # Inicialização dos Órgãos Especialistas Clássicos
-        self.z3_solver = Z3FormalSolver()
-        self.sympy_cas = SymPyCASEngine()
-        self.rule_engine = RuleDeductionEngine()
-        self.aho_corasick = AhoCorasickDFA()
-        self.physics_engine = ScientificPhysicsEngine()
-        self.dag_decomposer = DAGTaskDecomposer()
-        self.strips_planner = FastStateSpacePlanner()
-        self.causal_engine = StructuralCausalEngine()
-        self.ast_analyzer = ASTCodeAnalyzer()
-        self.cfg_builder = ControlFlowGraphBuilder()
-        self.hipporag = HippoRAGKnowledgeGraph()
-        self.hdc = HDCVectorCompactor(dimension=2048)
-        self.kairos = KAIROSMemoryLifecycle()
-        self.textrank = TextRankDiscourseEngine()
-        self.hyperbolic_memory = PoincaréHyperbolicMemory(dimension=2)
-        self.cegis = CEGISVerifier()
-        self.lti_governor = LTILyapunovGovernor(state_dim=16, max_spectral_radius=0.95)
-        self.hoare_verifier = HoareContractVerifier()
-        self.sentinel = Win32SystemSentinel()
-        self.vision_eye = ClosedLoopVisionEye()
-        self.spsc_queue = LockFreeSPSCRingBuffer(capacity=1024)
-
-        # Núcleo Subterrâneo Pós-Backprop (HRM/TRM, Kuramoto, Active Inference, HDC 10k, Ising, KAN/NCA)
-        self.hrm_fixed_point = HRMDualTimescaleFixedPoint(slow_dim=16, fast_dim=32)
-        self.kuramoto_net = KuramotoOscillatoryNetwork(num_oscillators=64)
-        self.active_inference = ActiveInferenceFristonEngine(obs_dim=16, hidden_dim=32)
-        self.kanerva_vsa = KanervaHDC10000VSA(dimension=10000)
-        self.ising_machine = ThermodynamicIsingMachine(num_spins=64)
-        self.kan_layer = KolmogorovArnoldSplineLayer(in_features=4, out_features=4, degree=4)
-        self.nca_automata = MorphogeneticCellularAutomata(grid_size=16)
-
-        # Ponte Bare-Metal C-ABI FFI & Persistência de 10.240 bits
-        self.native_vsa_ffi = NativeVSAFFI()
-        self.vsa_persistence = VSA10240PersistenceBridge()
-
-        # Tríade Avançada de Domínio Causal (Pearl Nível 3, Descoberta PC, VSA Causal 10k)
-        self.counterfactual_engine = CounterfactualReasoner()
-        self.causal_discovery = AutonomousCausalDiscovery(alpha=0.05)
-        self.vsa_causal = VSACausalEngine(ffi=self.native_vsa_ffi)
-
-        # Motores AGI Autônomos (Sonho REM & Síntese CEGIS Provada em Z3)
-        self.rem_dream_engine = REMAutonomousDreamEngine(ffi=self.native_vsa_ffi)
-        self.cegis_synthesizer = CEGISCodeSynthesizer()
-
-        # Fronteiras Contínuas e Pós-Backprop (NOTEARS Causal DAG & JEPA World Model)
-        self.notears_engine = ContinuousNOTEARSEngine(lambda1=0.01, w_threshold=0.25)
-        self.jepa_world_model = JEPAPredictiveWorldModel(obs_dim=16, action_dim=4, latent_dim=32)
-
-        # Fronteiras KAN B-Spline Adaptativa (Cox-de Boor) & Aceleração Termodinâmica Polaris
-        self.kan_bspline = AdaptiveBSplineKANEngine(in_features=4, out_features=2, grid_intervals=5)
-
-        # Tríade de Arquitetura AGI Modular (MoE Router, Mamba SSM, Memória Paginada OS)
-        self.moe_router = ModularMoESparseRouter(input_dim=32, num_experts=8, top_k=2)
-        self.mamba_ssm = MambaSelectiveSSMEngine(d_model=16, d_state=32)
-        self.paged_memory = HierarchicalPagedMemoryOS(max_hot_pages=8, max_warm_pages=32)
-        self.hnsw_graph = self.paged_memory.hnsw_index
-        self.coconut_cot = CoconutLatentCoTEngine(latent_dim=32, max_latent_steps=8, convergence_tol=1e-3)
-        self.vulkan_dispatcher = VulkanPolarisHeadlessDispatcher()
-        self.cbf_shield = CBFControlBarrierShield(state_dim=4, control_dim=4, gamma=2.0)
-        self.causal_mpc_cbf = CausalMPCCBFController()
         self._last_stream_vec: Optional[List[float]] = None
+        # Registro canônico de metadados (boot instantâneo < 50 ms via Lazy Organ Registry)
+        self.version = "7.2.0-APEX-V72-82-ORGANS-FUSED-SOVEREIGN"
+        self.name = "AETHER-KAIROS (AetherCOS v7.2.0-APEX-V72-82-Organs-Fused-SOVEREIGN)"
 
-        # Órgãos 32-34: RWKV, Active Inference Causal e Vulkan Compute Pipeline
-        self.rwkv_channel = RWKVLinearRecurrentChannel(d_model=16, num_heads=4, head_dim=8)
-        self.causal_ai_engine = CausalActiveInferenceEngine(obs_dim=16, action_dim=4, latent_dim=16)
-        self.vulkan_compute = VulkanPolarisComputePipeline()
+    def __getattr__(self, name: str) -> Any:
+        # Órgãos com injeção explícita de dependência entre pares
+        if name == "hnsw_graph":
+            inst = self.paged_memory.hnsw_index
+            object.__setattr__(self, name, inst)
+            return inst
+        if name == "vsa_causal":
+            mod = importlib.import_module(".planning.vsa_causal_engine", package="aethermind_cognitive_substrate")
+            inst = mod.VSACausalEngine(ffi=self.native_vsa_ffi)
+            object.__setattr__(self, name, inst)
+            return inst
+        if name == "rem_dream_engine":
+            mod = importlib.import_module(".metacognition.rem_autonomous_dream_daemon", package="aethermind_cognitive_substrate")
+            inst = mod.REMAutonomousDreamEngine(ffi=self.native_vsa_ffi)
+            object.__setattr__(self, name, inst)
+            return inst
+        if name == "autonomous_composer":
+            mod = importlib.import_module(".planning.autonomous_cognitive_composer", package="aethermind_cognitive_substrate")
+            inst = mod.AutonomousCognitiveComposer(bus=self.vsa_semantic_bus)
+            object.__setattr__(self, name, inst)
+            return inst
 
-        # Órgãos 35-38: Vulkan Zero-Copy VRAM, Modern Continuous Hopfield, Liquid Neural ODE RK45, E-Graph Saturation
-        self.vulkan_zero_copy = VulkanZeroCopyVRAMBufferEngine()
-        self.modern_hopfield = ModernContinuousHopfieldNetwork(dimension=32, beta=8.0)
-        self.neural_ode_rk45 = LiquidNeuralODERK45Integrator(state_dim=16, input_dim=16)
-        self.egraph_optimizer = EGraphEqualitySaturationEngine()
+        spec = _LAZY_ORGAN_SPECS.get(name)
+        if spec is not None:
+            mod_rel, cls_name, kwargs = spec
+            mod = importlib.import_module(mod_rel, package="aethermind_cognitive_substrate")
+            cls = getattr(mod, cls_name)
+            inst = cls(**kwargs)
+            object.__setattr__(self, name, inst)
+            return inst
 
-        # Órgãos 39-40: Conformal Prediction Uncertainty Shield & AlphaZero PUCT Epistemic MCTS
-        self.conformal_shield = ConformalPredictionUncertaintyShield(alpha_target=0.10, aci_gamma=0.02)
-        self.mcts_puct = MCTSPUCTEpistemicPlanner(state_dim=16, action_dim=4, c_puct=1.414, max_depth=4)
-
-        # Órgãos 41-42: Koopman Operator Spectral Linearizer & Tensor Network MPS Compressor
-        self.koopman_linearizer = KoopmanSpectralLinearizer(state_dim=4, ridge_alpha=1e-4)
-        self.tensor_mps = TensorNetworkMPSCompressor(max_bond_dim=16, svd_rel_tol=1e-4)
-
-        # Órgãos 43-44: Unscented Kalman Filter (UKF) & ADMM Convex QP Optimizer
-        self.ukf_estimator = UnscentedKalmanStateEstimator(state_dim=4, obs_dim=4)
-        self.admm_optimizer = ADMMConvexQPOptimizer()
-
-        # Órgãos 45-46: Graph MPNN Message Passing & Closed-Loop Cybernetic Pipeline
-        self.graph_mpnn = GraphMPNNMessagePassingEngine(hidden_dim=16, num_layers=3)
-        self.cybernetic_loop = CyberneticClosedLoopPipeline()
-
-        # Órgãos 47-48: Hamiltonian Symplectic Integrator & Zero-Copy Shared Memory mmap IPC
-        self.hamiltonian_symplectic = HamiltonianSymplecticIntegrator(dof=2, mass=1.0, stiffness=1.0, anharmonic_beta=0.25)
-        self.mmap_ipc = SharedMemoryMMapSPSCBridge(capacity_slots=128)
-
-        # Órgãos 49-50: Formal STL/LTL Temporal Logic Monitor & Native Rust LTO Physics Kernel
-        self.stl_monitor = STLTemporalLogicMonitor()
-        self.rust_physics_kernel = RustNativePhysicsKernel()
-
-        # Órgãos 51-52: Sequential Monte Carlo Particle Filter & Multi-Agent Lock-Free mmap+STL Coordinator
-        self.smc_particle_filter = ParticleFilterSMCEngine(num_particles=512, state_dim=1, resample_ratio=0.5)
-        self.multi_agent_mmap_stl = MultiAgentMMapSTLCoordinator(slot_capacity=128)
-
-        # Órgãos 53-54: IMM Hybrid Regime-Switching Filter & Discrete Lyapunov/LQR DARE Certifier
-        self.imm_filter = IMMRegimeSwitchingFilter(dt=0.1, obs_noise_std=0.08)
-        self.lyapunov_certifier = LyapunovSDPStabilityCertifier()
-
-        # Órgãos 55-56: Sparse Gaussian Process Cholesky & Entropic Optimal Transport (Sinkhorn)
-        self.gp_estimator = SparseGaussianProcessEstimator(kernel="rbf", lengthscale=1.0, signal_variance=1.0, noise_variance=1e-3)
-        self.sinkhorn_ot = OptimalTransportSinkhornEngine(reg_epsilon=0.05, max_iters=300, tol=1e-8)
-
-        # Órgãos 57-58: Bayesian Optimization Expected Improvement & Topological Persistence Homology (TDA)
-        self.bayesian_opt = BayesianOptimizationEIEngine(kernel="matern52")
-        self.tda_persistence = TopologicalPersistenceHomologyEngine()
-
-        # Órgãos 59-60: Normalizing Flow Affine Coupling & Online SVD Streaming PCA
-        self.normalizing_flow = NormalizingFlowAffineEngine(dim=2, num_layers=4)
-        self.streaming_pca = OnlineSVDStreamingPCA(n_components=4)
-
-        # Órgãos 61-62: Sparse Dictionary K-SVD (OMP) & Rauch-Tung-Striebel Optimal Smoother
-        self.ksvd_dict = SparseDictionaryKSVDEngine(n_atoms=16, sparsity_k=3, n_iters=15)
-        self.rts_smoother = RauchTungStriebelSmoother(dt=0.1)
-
-        # Órgãos 63-64: Spectral Graph Chebyshev Filter & Pontryagin iLQR Nonlinear Trajectory Optimizer
-        self.cheb_graph = SpectralGraphChebyshevEngine(cheb_order=8, diffusion_time=1.5)
-        self.ilqr_optimizer = PontryaginILQROptimizer(dt=0.05, max_iters=30)
-
-        # Órgãos 65-66: HJB Value Iteration MDP Solver & Hamiltonian Monte Carlo (HMC) Sampler
-        self.hjb_mdp = HJBValueIterationMDPEngine(gamma=0.95, tol=1e-8)
-        self.hmc_sampler = HamiltonianMonteCarloSampler(step_size=0.12, n_leapfrog=12)
-
-        # Órgãos 67-68: CMA-ES Black-Box Optimizer & Decentralized Information Filter
-        self.cmaes_opt = CMAESBlackBoxOptimizer(dim=4, sigma0=1.0)
-        self.info_filter = DecentralizedInformationFilter(dt=0.1)
-
-        # Órgãos 69-70: FFT Spectral PDE Solver & Contextual Bandit (LinUCB / Thompson)
-        self.fft_pde = FFTSpectralPDESolver(n_grid=128, advection_c=1.0, viscosity_nu=0.05)
-        self.contextual_bandit = ContextualBanditLinUCBThompson(n_arms=4, context_dim=5, alpha=1.2)
-
-        # Órgãos 71-72: Matrix-Free Newton-Krylov GMRES & Hungarian Optimal Assignment
-        self.newton_krylov = NewtonKrylovGMRESSolver(tol=1e-10, max_newton_iters=25, gmres_max_iter=30)
-        self.hungarian_assign = HungarianOptimalAssignmentEngine()
-
-        # Órgãos 73-74: Levenberg-Marquardt NLLS & D* Lite Incremental Dynamic Planner
-        self.lm_nlls = LevenbergMarquardtNLLSSolver(tol=1e-10, max_iters=50)
-        self.dstar_lite = DStarLiteDynamicPlanner(rows=12, cols=12)
-
-        # Órgãos 75-76: Augmented Lagrangian (ALM) & RRT* Asymptotically Optimal Motion Planner
-        self.alm_solver = AugmentedLagrangianConstrainedSolver(tol=1e-6, max_outer_iters=20)
-        self.rrt_star = RRTStarOptimalMotionPlanner(step_size=0.8, neighbor_radius=1.8)
-
-        # Órgãos 77-78: Chebyshev Spectral BVP Solver & Zero-Sum Nash Minimax Solver
-        self.cheb_bvp = ChebyshevSpectralBVPSolver(n_nodes=16)
-        self.nash_minimax = ZeroSumNashEquilibriumSolver(n_iters=2000)
-
-        # Órgãos 79-80: FEM P1 Galerkin PDE Solver & CFR+ Imperfect-Information Game Solver
-        self.fem_galerkin = FiniteElementGalerkinSolver(n_elements=64)
-        self.cfr_plus = CounterfactualRegretCFRPlusSolver(n_iters=1200)
-
-        # Órgãos 81-82: Revised Simplex LP Solver & Expectation-Maximization GMM Engine
-        self.simplex_lp = RevisedSimplexLPSolver(max_pivots=500, tol=1e-10)
-        self.gmm_em = GaussianMixtureEMEngine(n_components=3, max_iters=60)
-
-        # Barramento Semântico VSA (10.240 bits) & Orquestrador Dinâmico Autônomo
-        self.vsa_semantic_bus = VSAHyperdimensionalBus(dimension=10240)
-        self.autonomous_composer = AutonomousCognitiveComposer(bus=self.vsa_semantic_bus)
-
-        # Registro canônico de metadados
-        self.version = "7.0.0-APEX-V7-82-ORGANS-SOVEREIGN"
-        self.name = "AETHER-KAIROS (AetherCOS v7.0-Apex-V7-82-Organs-SOVEREIGN)"
+        raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
 
     def get_system_health(self) -> Dict[str, Any]:
         """Verifica a integridade e prontidão operacional de todos os órgãos."""
@@ -343,6 +252,8 @@ class SovereignCortexRuntime:
             "cfr_plus_imperfect_info_active": True,
             "simplex_lp_solver_active": True,
             "gaussian_mixture_em_active": True,
+            "vsa_fused_graph_vm_ready": self.vsa_expression_compiler.is_native_ready,
+            "fast_vsa_bridge_mode": self.fast_vsa_bridge.backend_mode,
         }
 
     def ingest_telemetry_stream(self, custom_signal: Optional[List[float]] = None) -> Dict[str, Any]:
@@ -427,6 +338,8 @@ class SovereignCortexRuntime:
 
     def execute_cognitive_mission(self, mission_type: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """Ponto de entrada unificado para despachar missões para os órgãos formais."""
+        import numpy as np
+
         start = time.perf_counter()
         mission = mission_type.lower().strip()
 
@@ -439,11 +352,13 @@ class SovereignCortexRuntime:
         elif mission == "cas_calculus":
             res = self.sympy_cas.compute_calculus(payload["expr"], payload.get("var", "x"), payload.get("op", "diff"))
         elif mission == "plan_strips":
+            from .planning.pddl_fast_search import FastStateSpacePlanner
             planner = FastStateSpacePlanner()
             for act in payload.get("actions", []):
                 planner.add_action(act["name"], set(act["pre"]), set(act["add"]), set(act["del"]), act.get("cost", 1.0))
             res = planner.plan(set(payload["initial"]), set(payload["goal"]))
         elif mission == "plan_dag":
+            from .planning.dag_task_decomposer import DAGTaskDecomposer
             decomposer = DAGTaskDecomposer()
             for t in payload.get("tasks", []):
                 decomposer.add_task(
@@ -462,6 +377,7 @@ class SovereignCortexRuntime:
         elif mission == "lti_deliberate":
             res = self.lti_governor.deliberate_latent_steps(payload["input_vector"], payload.get("steps", 16))
         elif mission == "pattern_dfa_search":
+            from .logic_symbolic.aho_corasick_dfa import AhoCorasickDFA
             dfa = AhoCorasickDFA(payload.get("patterns", []))
             res = dfa.search_text(payload.get("text", ""))
         elif mission == "physics_dimensional_check":
@@ -1212,9 +1128,37 @@ class SovereignCortexRuntime:
                 "objective": receipt.objective,
                 "overall_success": receipt.overall_success,
                 "certified_safe": receipt.certified_safe,
+                "z3_preflight_proof": receipt.formal_certificate.get("z3_preflight_proof"),
                 "total_time_ms": receipt.total_time_ms,
                 "stages_count": len(receipt.stages),
                 "guarantees": receipt.formal_certificate.get("guarantees", [])
+            }
+        elif mission in ["vsa_fused_graph_eval", "vsa_jit_eval"]:
+            from .memory_vault.vsa_expression_compiler import VSASeed
+            s1 = VSASeed(int(payload.get("seed_a", 101)))
+            s2 = VSASeed(int(payload.get("seed_b", 202)))
+            expr = s1.permute(int(payload.get("permute_steps", 7))).bind(s2)
+            out_vecs, scalars = self.vsa_expression_compiler.evaluate(
+                bindings={},
+                outputs=[expr],
+                hamming_queries=[(expr, s1), (expr.bind(s2).unpermute(int(payload.get("permute_steps", 7))), s1)]
+            )
+            res = {
+                "status": "FUSED_VSA_VM_EXECUTED",
+                "output_shape": list(out_vecs.shape),
+                "hamming_bound_vs_a": int(scalars[0]),
+                "hamming_exact_recovery": int(scalars[1]),
+            }
+        elif mission in ["fast_vsa_bind_compare", "fast_vsa_cython"]:
+            va = self.fast_vsa_bridge.create_from_seed(int(payload.get("seed_a", 11)))
+            vb = self.fast_vsa_bridge.create_from_seed(int(payload.get("seed_b", 22)))
+            bound = self.fast_vsa_bridge.bind(va, vb)
+            recovered = self.fast_vsa_bridge.bind(bound, vb)
+            res = {
+                "status": "FAST_VSA_EXECUTED",
+                "backend_mode": self.fast_vsa_bridge.backend_mode,
+                "hamming_recovery": self.fast_vsa_bridge.hamming_distance(va, recovered),
+                "hamming_orthogonal": self.fast_vsa_bridge.hamming_distance(va, vb),
             }
         else:
             res = {"status": "UNKNOWN_MISSION", "error": f"Tipo de missão não reconhecido: {mission_type}"}

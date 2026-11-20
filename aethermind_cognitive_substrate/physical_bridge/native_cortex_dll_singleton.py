@@ -122,6 +122,20 @@ def get_native_cortex_dll() -> Optional[ctypes.CDLL]:
             ]
             lib.rrt_star_nearest_and_radius_f64.restype = ctypes.c_int32
 
+        # 9. Assinatura Fused VSA Expression Graph Bytecode VM (AVX2)
+        if hasattr(lib, "vsa_eval_graph_bytecode"):
+            lib.vsa_eval_graph_bytecode.argtypes = [
+                ctypes.c_void_p,
+                ctypes.c_size_t,
+                ctypes.POINTER(ctypes.c_uint64),
+                ctypes.c_size_t,
+                ctypes.POINTER(ctypes.c_uint64),
+                ctypes.c_size_t,
+                ctypes.POINTER(ctypes.c_uint32),
+                ctypes.c_size_t,
+            ]
+            lib.vsa_eval_graph_bytecode.restype = ctypes.c_int32
+
         _CACHED_LIB = lib
         return _CACHED_LIB
     except Exception:
