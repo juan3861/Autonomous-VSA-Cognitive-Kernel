@@ -12,6 +12,7 @@ Aprendizado de dicionarios supercompletos e codificacao esparsa determinista
 """
 from __future__ import annotations
 
+import ctypes
 import math
 import time
 from typing import Dict, Any, List, Optional
@@ -58,6 +59,15 @@ class SparseDictionaryKSVDEngine:
         s_max = min(sparsity_k or self.sparsity_k, d, K)
         X = np.zeros((K, n_samples), dtype=np.float64)
 
+        lib = None
+        try:
+            from ..physical_bridge.native_cortex_dll_singleton import get_native_cortex_dll
+            lib = get_native_cortex_dll()
+        except Exception:
+            lib = None
+
+        D_fortran = np.asfortranarray(D, dtype=np.float64) if lib is not None else None
+
         for n in range(n_samples):
             y = Y[:, n]
             residual = y.copy()
@@ -66,8 +76,20 @@ class SparseDictionaryKSVDEngine:
             for _ in range(s_max):
                 if float(np.linalg.norm(residual)) < tol:
                     break
-                # Correlacao com todos os atomos
-                proj = np.abs(D.T @ residual)
+
+                if lib is not None and hasattr(lib, "omp_sparse_project_f64") and D_fortran is not None:
+                    r_c = np.ascontiguousarray(residual, dtype=np.float64)
+                    corrs = np.zeros(K, dtype=np.float64)
+                    lib.omp_sparse_project_f64(
+                        D_fortran.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+                        d, K,
+                        r_c.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+                        corrs.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+                    )
+                    proj = np.abs(corrs)
+                else:
+                    proj = np.abs(D.T @ residual)
+
                 if support:
                     proj[support] = -1.0
                 best_atom = int(np.argmax(proj))

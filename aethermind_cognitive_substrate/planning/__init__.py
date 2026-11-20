@@ -36,6 +36,12 @@ from .voronoi_rrt_star_motion_planner import RRTStarOptimalMotionPlanner
 from .nash_minimax_equilibrium import ZeroSumNashEquilibriumSolver
 from .cfr_incomplete_info_solver import CounterfactualRegretCFRPlusSolver
 from .expectation_maximization_gmm import GaussianMixtureEMEngine
+from .autonomous_cognitive_composer import (
+    AutonomousCognitiveComposer,
+    CompositionReceipt,
+    OrganCapability,
+    PipelineStageResult
+)
 
 __all__ = [
     "DAGTaskDecomposer",
@@ -75,5 +81,9 @@ __all__ = [
     "RRTStarOptimalMotionPlanner",
     "ZeroSumNashEquilibriumSolver",
     "CounterfactualRegretCFRPlusSolver",
-    "GaussianMixtureEMEngine"
+    "GaussianMixtureEMEngine",
+    "AutonomousCognitiveComposer",
+    "CompositionReceipt",
+    "OrganCapability",
+    "PipelineStageResult"
 ]

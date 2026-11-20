@@ -10,6 +10,7 @@ Planejador de movimento continuo assintoticamente otimo (Karaman & Frazzoli, IJR
 """
 from __future__ import annotations
 
+import ctypes
 import math
 import time
 from typing import Dict, Any, List, Optional, Tuple
@@ -83,6 +84,13 @@ class RRTStarOptimalMotionPlanner:
         first_goal_cost: Optional[float] = None
         rewire_count = 0
 
+        lib = None
+        try:
+            from ..physical_bridge.native_cortex_dll_singleton import get_native_cortex_dll
+            lib = get_native_cortex_dll()
+        except Exception:
+            lib = None
+
         low, high = float(bounds[0]), float(bounds[1])
 
         for it in range(max_iters):
@@ -92,11 +100,31 @@ class RRTStarOptimalMotionPlanner:
             else:
                 rnd = self.rng.uniform(low, high, size=2)
 
-            # Nearest node
-            dists = [float(np.linalg.norm(nd - rnd)) for nd in nodes]
-            nearest_idx = int(np.argmin(dists))
-            nearest = nodes[nearest_idx]
-            dist = dists[nearest_idx]
+            # Nearest node search
+            if lib is not None and hasattr(lib, "rrt_star_nearest_and_radius_f64"):
+                nodes_arr = np.ascontiguousarray(nodes, dtype=np.float64)
+                rnd_c = np.ascontiguousarray(rnd, dtype=np.float64)
+                c_nearest = ctypes.c_size_t(0)
+                c_dist = ctypes.c_double(0.0)
+                null_size_t = ctypes.cast(ctypes.c_void_p(0), ctypes.POINTER(ctypes.c_size_t))
+                lib.rrt_star_nearest_and_radius_f64(
+                    nodes_arr.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+                    len(nodes), 2,
+                    rnd_c.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+                    0.0,
+                    ctypes.byref(c_nearest),
+                    ctypes.byref(c_dist),
+                    null_size_t, 0, null_size_t
+                )
+                nearest_idx = int(c_nearest.value)
+                nearest = nodes[nearest_idx]
+                dist = float(c_dist.value)
+            else:
+                dists = [float(np.linalg.norm(nd - rnd)) for nd in nodes]
+                nearest_idx = int(np.argmin(dists))
+                nearest = nodes[nearest_idx]
+                dist = dists[nearest_idx]
+
             if dist < 1e-9:
                 continue
 
@@ -109,10 +137,29 @@ class RRTStarOptimalMotionPlanner:
                 continue
 
             # Encontra vizinhos dentro de neighbor_radius
-            near_indices = [
-                i for i, nd in enumerate(nodes)
-                if float(np.linalg.norm(nd - new_pt)) <= self.neighbor_radius
-            ]
+            if lib is not None and hasattr(lib, "rrt_star_nearest_and_radius_f64"):
+                nodes_arr = np.ascontiguousarray(nodes, dtype=np.float64)
+                new_pt_c = np.ascontiguousarray(new_pt, dtype=np.float64)
+                n_nds = len(nodes)
+                c_near_arr = (ctypes.c_size_t * n_nds)()
+                c_near_cnt = ctypes.c_size_t(0)
+                null_size_t = ctypes.cast(ctypes.c_void_p(0), ctypes.POINTER(ctypes.c_size_t))
+                null_double = ctypes.cast(ctypes.c_void_p(0), ctypes.POINTER(ctypes.c_double))
+                lib.rrt_star_nearest_and_radius_f64(
+                    nodes_arr.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+                    n_nds, 2,
+                    new_pt_c.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+                    self.neighbor_radius,
+                    null_size_t, null_double,
+                    c_near_arr, n_nds,
+                    ctypes.byref(c_near_cnt)
+                )
+                near_indices = [int(c_near_arr[k]) for k in range(c_near_cnt.value)]
+            else:
+                near_indices = [
+                    i for i, nd in enumerate(nodes)
+                    if float(np.linalg.norm(nd - new_pt)) <= self.neighbor_radius
+                ]
 
             # Escolhe o melhor pai
             best_parent = nearest_idx

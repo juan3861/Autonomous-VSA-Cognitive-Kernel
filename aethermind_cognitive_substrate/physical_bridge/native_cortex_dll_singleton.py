@@ -2,32 +2,32 @@
 
 Elimina carregamento redundante via `ctypes.CDLL` entre múltiplos órgãos do sistema
 e mantém assinaturas C-ABI pré-configuradas para chamadas em microssegundos.
+Utiliza a camada de abstração de plataforma `platform_compat` para suporte multiplataforma.
 """
 from __future__ import annotations
 
 import ctypes
-from pathlib import Path
 from typing import Optional
+
+from .platform_compat import load_native_library
 
 _CACHED_LIB: Optional[ctypes.CDLL] = None
 _INIT_ATTEMPTED: bool = False
 
 
 def get_native_cortex_dll() -> Optional[ctypes.CDLL]:
-    """Retorna o handle singleton para `aether_cortex_vsa.dll` com assinaturas aquecidas."""
+    """Retorna o handle singleton para o kernel Rust nativo com assinaturas C-ABI aquecidas."""
     global _CACHED_LIB, _INIT_ATTEMPTED
     if _INIT_ATTEMPTED:
         return _CACHED_LIB
 
     _INIT_ATTEMPTED = True
-    dll_path = Path(__file__).parent.parent.parent / "aether_cortex_vsa" / "target" / "release" / "aether_cortex_vsa.dll"
-    if not dll_path.exists():
+    lib = load_native_library("aether_cortex_vsa")
+    if lib is None:
         _CACHED_LIB = None
         return None
 
     try:
-        lib = ctypes.CDLL(str(dll_path))
-
         # 1. Assinaturas VSA 10.240 bits
         if hasattr(lib, "vsa_create_from_seed"):
             lib.vsa_create_from_seed.argtypes = [ctypes.c_uint64, ctypes.POINTER(ctypes.c_uint64)]
@@ -94,6 +94,33 @@ def get_native_cortex_dll() -> Optional[ctypes.CDLL]:
                 ctypes.c_double,
             ]
             lib.spectral_power_iteration_f64.restype = ctypes.c_double
+
+        # 7. Assinatura Projeção Esparsa OMP (Orthogonal Matching Pursuit)
+        if hasattr(lib, "omp_sparse_project_f64"):
+            lib.omp_sparse_project_f64.argtypes = [
+                ctypes.POINTER(ctypes.c_double),
+                ctypes.c_size_t,
+                ctypes.c_size_t,
+                ctypes.POINTER(ctypes.c_double),
+                ctypes.POINTER(ctypes.c_double),
+            ]
+            lib.omp_sparse_project_f64.restype = ctypes.c_size_t
+
+        # 8. Assinatura RRT* Nearest Neighbor & Radius Rewiring
+        if hasattr(lib, "rrt_star_nearest_and_radius_f64"):
+            lib.rrt_star_nearest_and_radius_f64.argtypes = [
+                ctypes.POINTER(ctypes.c_double),
+                ctypes.c_size_t,
+                ctypes.c_size_t,
+                ctypes.POINTER(ctypes.c_double),
+                ctypes.c_double,
+                ctypes.POINTER(ctypes.c_size_t),
+                ctypes.POINTER(ctypes.c_double),
+                ctypes.POINTER(ctypes.c_size_t),
+                ctypes.c_size_t,
+                ctypes.POINTER(ctypes.c_size_t),
+            ]
+            lib.rrt_star_nearest_and_radius_f64.restype = ctypes.c_int32
 
         _CACHED_LIB = lib
         return _CACHED_LIB

@@ -4,6 +4,11 @@
 # Allow repository root metadata & documentation
 !.gitignore
 !README.md
+!LICENSE
+!pyproject.toml
+!requirements.txt
+!.github/
+!.github/**
 
 # Allow Bare-Metal Rust C-ABI VSA & Physics Kernel source
 !aether_cortex_vsa/

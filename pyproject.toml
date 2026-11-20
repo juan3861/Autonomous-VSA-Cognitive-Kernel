@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=65.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autonomous-vsa-cognitive-kernel"
+version = "7.0.0"
+description = "Autonomous Vector Symbolic Architecture (VSA) Cognitive Substrate: 82 Non-LLM Mathematical Organs with Provable Guarantees."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Mestre Ruan & AetherMind Core Developers" }
+]
+keywords = [
+    "hyperdimensional-computing",
+    "vector-symbolic-architectures",
+    "cognitive-architecture",
+    "formal-verification",
+    "control-barrier-functions",
+    "optimal-transport",
+    "autonomous-agent",
+    "z3-solver"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Rust",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "sympy>=1.12.0",
+    "z3-solver>=4.12.0",
+    "typing-extensions>=4.5.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-xdist>=3.3.0",
+    "ruff>=0.1.0"
+]
+vulkan = [
+    "vulkan>=1.3.0"
+]
+
+[project.scripts]
+titan = "aethermind_cognitive_substrate.sovereign_cortex_runtime:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["aethermind_cognitive_substrate*"]

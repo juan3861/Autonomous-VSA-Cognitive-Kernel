@@ -1,0 +1,9 @@
+# Autonomous VSA Cognitive Kernel - Core Dependencies
+numpy>=1.24.0
+scipy>=1.10.0
+sympy>=1.12.0
+z3-solver>=4.12.0
+typing-extensions>=4.5.0
+
+# Optional / Accelerated Hardware Modules
+# vulkan>=1.3.0  # Optional: For Polaris/RDNA headless compute shaders

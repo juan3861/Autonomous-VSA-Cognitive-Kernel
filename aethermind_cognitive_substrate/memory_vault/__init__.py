@@ -9,6 +9,7 @@ from .vsa_persistence_bridge import VSA10240PersistenceBridge
 from .hierarchical_paged_memory_os import HierarchicalPagedMemoryOS
 from .hnsw_submillisecond_graph_index import HNSWSubMillisecondGraphIndex
 from .tensor_mps_compressor import TensorNetworkMPSCompressor
+from .vsa_semantic_bus import VSAHyperdimensionalBus, VSAEvent
 
 __all__ = [
     "HippoRAGKnowledgeGraph",
@@ -21,5 +22,7 @@ __all__ = [
     "VSA10240PersistenceBridge",
     "HierarchicalPagedMemoryOS",
     "HNSWSubMillisecondGraphIndex",
-    "TensorNetworkMPSCompressor"
+    "TensorNetworkMPSCompressor",
+    "VSAHyperdimensionalBus",
+    "VSAEvent"
 ]

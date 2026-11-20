@@ -1,8 +1,11 @@
 # Autonomous VSA Cognitive Kernel
 
-**Version:** `7.0.0` (`7.0.0-APEX-V7-82-ORGANS-SOVEREIGN`)  
-**Architecture:** Deterministic Modular Non-LLM Cognitive Substrate + Bare-Metal Rust LTO C-ABI & Vulkan SPIR-V  
-**Verification:** `47 / 47` Empirical Audit Suites Passing (`Exit Code 0`, `53.67 s` parallel GPU-safe) | `27 / 27` Discovery-100 Sovereign Axes  
+**Version:** `7.1.0` (`7.1.0-APEX-TIER1-OPENSOURCE-VSA-BUS`)  
+**Architecture:** Deterministic Modular Non-LLM Cognitive Substrate + 10,240-bit VSA Semantic Bus + Dynamic Autonomous DAG Composer + Bare-Metal Rust LTO C-ABI & Vulkan SPIR-V  
+**Verification:** `48 / 48` Empirical Audit Suites Passing (`Exit Code 0`, `51.62 s` parallel GPU-safe) | `27 / 27` Discovery-100 Sovereign Axes  
+**Cryptographic Merkle Root:** `ce68abf21b3cb183c7886453ff7c8d2ccf25cd046188afcf52f044c31a1e144e`  
+**License:** Apache-2.0  
+**CI/CD:** Automated GitHub Actions Matrix (Python 3.10/3.11/3.12 + Rust Stable LTO)  
 
 ---
 
@@ -10,13 +13,15 @@
 
 **Autonomous VSA Cognitive Kernel** is a deterministic, zero-LLM-token modular cognitive architecture engineered to execute formal reasoning, causal discovery, optimal control, Bayesian state estimation, spectral PDE solving, and game-theoretic equilibrium computation directly on local silicon (CPU AVX2/LTO via Rust C-ABI, lock-free `mmap` IPC, and Vulkan 1.3 SPIR-V compute shaders).
 
-Rather than relying on autoregressive statistical token generation—which suffers from hallucination, $O(N^2)$ attention scaling, and opaque non-determinism—this kernel fuses **10,240-bit Vector Symbolic Architectures (VSA / Hyperdimensional Computing)** with **82 specialized, mathematically grounded cognitive organs** governed by strict **Lyapunov asymptotic stability** ($\rho(A) \le 0.95$) and **Banach fixed-point contractivity**.
+Rather than relying on autoregressive statistical token generation—which suffers from hallucination, $O(N^2)$ attention scaling, and opaque non-determinism—this kernel fuses a **10,240-bit Vector Symbolic Architecture (VSA / Hyperdimensional Computing) Semantic Bus** with **82 specialized, mathematically grounded cognitive organs** orchestrated dynamically by the **Autonomous Cognitive Composer** under strict **Lyapunov asymptotic stability** ($\rho(A) \le 0.95$) and **Banach fixed-point contractivity**.
 
 ### Core Engineering Guarantees
 - **Zero Cloud Tokens / Zero Hallucination:** Every inference, optimization, and control step is backed by exact linear algebra, formal SMT proofs (Z3), symplectic integration, or bounded conformal prediction intervals.
-- **Bare-Metal Rust C-ABI Acceleration:** Critical inner loops (10,240-bit VSA operations, 4th-order Yoshida symplectic integration, STL temporal robustness, SMC particle tracking, Stein/Lyapunov Smith doubling, and Rayleigh spectral radius estimation) compile with LTO into `aether_cortex_vsa.dll` with sub-millisecond Python `ctypes` singleton dispatch.
+- **VSA 10,240-bit Semantic Bus:** Complete cross-organ state fabric enabling decoupled event publication, holographic similarity queries, and field unbinding across all 82 organs.
+- **Autonomous Dynamic DAG Composition:** Autonomous meta-orchestrator that translates unstructured goals into formally verified multi-organ pipelines (`UKF -> NOTEARS -> iLQR -> CBF-QP -> Z3/STL`) with automatic backtracking.
+- **Bare-Metal Rust C-ABI Acceleration (19 Exported Functions):** Critical inner loops (10,240-bit VSA operations, 4th-order Yoshida symplectic integration, STL temporal robustness, SMC particle tracking, Stein/Lyapunov Smith doubling, Rayleigh spectral radius, OMP sparse projection, and RRT* nearest-neighbor/rewiring) compile with LTO into `aether_cortex_vsa.dll` with sub-millisecond Python `ctypes` singleton dispatch.
 - **Hardware-First Compute:** Supports headless Vulkan 1.3 SPIR-V compute dispatch (`vulkan-1.dll`) with zero-copy host-visible VRAM buffers (`VkBuffer` / `VkDeviceMemory`) for thermodynamic Ising relaxation.
-- **Empirical Verification Discipline:** No change is accepted without passing `AetherMind_Strict_Auditor.py` (`Exit Code 0`), full regression across all 47 test suites, and cryptographic SHA-256 Merkle-root sealing in `AUDIT_LEDGER_ROOT.json`.
+- **Empirical Verification Discipline:** No change is accepted without passing `AetherMind_Strict_Auditor.py` (`Exit Code 0`), full regression across all 48 test suites, and cryptographic SHA-256 Merkle-root sealing in `AUDIT_LEDGER_ROOT.json`.
 
 ---
 

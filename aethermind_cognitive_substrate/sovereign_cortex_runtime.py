@@ -57,14 +57,16 @@ from .planning import (
     ContextualBanditLinUCBThompson, HungarianOptimalAssignmentEngine,
     DStarLiteDynamicPlanner, RRTStarOptimalMotionPlanner,
     ZeroSumNashEquilibriumSolver, CounterfactualRegretCFRPlusSolver,
-    GaussianMixtureEMEngine
+    GaussianMixtureEMEngine,
+    AutonomousCognitiveComposer, CompositionReceipt
 )
 from .code_inspector import ASTCodeAnalyzer, ControlFlowGraphBuilder
 from .memory_vault import (
     HippoRAGKnowledgeGraph, HDCVectorCompactor, KAIROSMemoryLifecycle,
     TextRankDiscourseEngine, PoincaréHyperbolicMemory, KanervaHDC10000VSA,
     NativeVSAFFI, VSA10240PersistenceBridge, HierarchicalPagedMemoryOS,
-    HNSWSubMillisecondGraphIndex, TensorNetworkMPSCompressor
+    HNSWSubMillisecondGraphIndex, TensorNetworkMPSCompressor,
+    VSAHyperdimensionalBus, VSAEvent
 )
 from .metacognition import (
     CEGISVerifier, LTILyapunovGovernor, HoareContractVerifier,
@@ -245,6 +247,10 @@ class SovereignCortexRuntime:
         # Órgãos 81-82: Revised Simplex LP Solver & Expectation-Maximization GMM Engine
         self.simplex_lp = RevisedSimplexLPSolver(max_pivots=500, tol=1e-10)
         self.gmm_em = GaussianMixtureEMEngine(n_components=3, max_iters=60)
+
+        # Barramento Semântico VSA (10.240 bits) & Orquestrador Dinâmico Autônomo
+        self.vsa_semantic_bus = VSAHyperdimensionalBus(dimension=10240)
+        self.autonomous_composer = AutonomousCognitiveComposer(bus=self.vsa_semantic_bus)
 
         # Registro canônico de metadados
         self.version = "7.0.0-APEX-V7-82-ORGANS-SOVEREIGN"
@@ -1170,6 +1176,46 @@ class SovereignCortexRuntime:
                 X_data=payload.get("X_data"),
                 n_components=payload.get("n_components"),
             )
+        elif mission in ["vsa_bus_publish", "vsa_publish"]:
+            evt = self.vsa_semantic_bus.publish(
+                topic=payload.get("topic", "general"),
+                payload=payload.get("data", {}),
+                organ_id=payload.get("organ_id", "external"),
+                confidence=payload.get("confidence", 1.0)
+            )
+            res = {
+                "event_id": evt.event_id,
+                "topic": evt.topic,
+                "organ_id": evt.organ_id,
+                "timestamp": evt.timestamp,
+                "confidence": evt.confidence,
+                "status": "PUBLISHED"
+            }
+        elif mission in ["vsa_bus_query", "vsa_query"]:
+            topic = payload.get("topic")
+            if topic:
+                events = self.vsa_semantic_bus.query_by_topic(topic, limit=payload.get("limit", 10))
+                res = {
+                    "count": len(events),
+                    "events": [{"event_id": e.event_id, "organ_id": e.organ_id, "payload": e.payload} for e in events]
+                }
+            else:
+                summary = self.vsa_semantic_bus.get_bus_state_summary()
+                res = summary
+        elif mission in ["autonomous_compose_pipeline", "autonomous_compose", "compose_pipeline"]:
+            receipt = self.autonomous_composer.execute_pipeline(
+                objective=payload.get("objective", "safe_stabilization"),
+                spec=payload.get("spec", {})
+            )
+            res = {
+                "receipt_id": receipt.receipt_id,
+                "objective": receipt.objective,
+                "overall_success": receipt.overall_success,
+                "certified_safe": receipt.certified_safe,
+                "total_time_ms": receipt.total_time_ms,
+                "stages_count": len(receipt.stages),
+                "guarantees": receipt.formal_certificate.get("guarantees", [])
+            }
         else:
             res = {"status": "UNKNOWN_MISSION", "error": f"Tipo de missão não reconhecido: {mission_type}"}
 
@@ -1179,3 +1225,6 @@ class SovereignCortexRuntime:
             "result": res,
             "orchestration_overhead_ms": round(elapsed_ms, 3)
         }
+
+    execute_mission = execute_cognitive_mission
+

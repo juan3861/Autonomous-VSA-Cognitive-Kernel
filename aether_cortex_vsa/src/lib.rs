@@ -816,3 +816,159 @@ pub extern "C" fn spectral_power_iteration_f64(
     }
 }
 
+
+/// Projeção esparsa OMP (Orthogonal Matching Pursuit) de ultra-alta velocidade.
+/// Dado um dicionário D (col-major N x K) e resíduo r (N),
+/// calcula argmax_j |D_j^T r| e retorna o índice ótimo.
+#[no_mangle]
+pub extern "C" fn omp_sparse_project_f64(
+    dict_ptr: *const f64,
+    n_rows: usize,
+    n_cols: usize,
+    residual_ptr: *const f64,
+    out_correlations: *mut f64,
+) -> usize {
+    if dict_ptr.is_null() || residual_ptr.is_null() || n_rows == 0 || n_cols == 0 {
+        return 0;
+    }
+
+    let dict = unsafe { std::slice::from_raw_parts(dict_ptr, n_rows * n_cols) };
+    let residual = unsafe { std::slice::from_raw_parts(residual_ptr, n_rows) };
+
+    let mut best_idx = 0usize;
+    let mut max_abs_corr = -1.0f64;
+
+    for j in 0..n_cols {
+        let col = &dict[j * n_rows..(j + 1) * n_rows];
+        let mut dot = 0.0f64;
+        for i in 0..n_rows {
+            dot += col[i] * residual[i];
+        }
+
+        if !out_correlations.is_null() {
+            unsafe {
+                *out_correlations.add(j) = dot;
+            }
+        }
+
+        let abs_dot = dot.abs();
+        if abs_dot > max_abs_corr {
+            max_abs_corr = abs_dot;
+            best_idx = j;
+        }
+    }
+
+    best_idx
+}
+
+/// RRT* Nearest Neighbor & Radius Rewiring Batch Kernel.
+/// Encontra o vizinho mais próximo e filtra nós dentro do raio R.
+#[no_mangle]
+pub extern "C" fn rrt_star_nearest_and_radius_f64(
+    tree_nodes_ptr: *const f64,
+    n_nodes: usize,
+    dim: usize,
+    query_ptr: *const f64,
+    radius: f64,
+    out_nearest_idx: *mut usize,
+    out_min_dist: *mut f64,
+    out_near_indices: *mut usize,
+    max_near: usize,
+    out_near_count: *mut usize,
+) -> i32 {
+    if tree_nodes_ptr.is_null() || query_ptr.is_null() || n_nodes == 0 || dim == 0 {
+        return -1;
+    }
+
+    let nodes = unsafe { std::slice::from_raw_parts(tree_nodes_ptr, n_nodes * dim) };
+    let query = unsafe { std::slice::from_raw_parts(query_ptr, dim) };
+
+    let mut min_dist_sq = f64::MAX;
+    let mut nearest_idx = 0usize;
+    let r_sq = radius * radius;
+    let mut near_count = 0usize;
+
+    for i in 0..n_nodes {
+        let node_pt = &nodes[i * dim..(i + 1) * dim];
+        let mut d_sq = 0.0f64;
+        for d in 0..dim {
+            let diff = node_pt[d] - query[d];
+            d_sq += diff * diff;
+        }
+
+        if d_sq < min_dist_sq {
+            min_dist_sq = d_sq;
+            nearest_idx = i;
+        }
+
+        if d_sq <= r_sq && !out_near_indices.is_null() && near_count < max_near {
+            unsafe {
+                *out_near_indices.add(near_count) = i;
+            }
+            near_count += 1;
+        }
+    }
+
+    unsafe {
+        if !out_nearest_idx.is_null() {
+            *out_nearest_idx = nearest_idx;
+        }
+        if !out_min_dist.is_null() {
+            *out_min_dist = min_dist_sq.sqrt();
+        }
+        if !out_near_count.is_null() {
+            *out_near_count = near_count;
+        }
+    }
+
+    0
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_omp_sparse_project() {
+        let dict = vec![1.0, 0.0, 0.0, 0.0, 1.0, 0.0];
+        let residual = vec![0.1, 0.9, 0.0];
+        let mut corrs = vec![0.0; 2];
+
+        let best = omp_sparse_project_f64(dict.as_ptr(), 3, 2, residual.as_ptr(), corrs.as_mut_ptr());
+        assert_eq!(best, 1);
+        assert!((corrs[1] - 0.9).abs() < 1e-9);
+    }
+
+    #[test]
+    fn test_rrt_star_nearest_and_radius() {
+        let nodes = vec![
+            0.0, 0.0,
+            1.0, 1.0,
+            5.0, 5.0,
+        ];
+        let query = vec![0.9, 0.9];
+        let mut nearest_idx = 0usize;
+        let mut min_dist = 0.0f64;
+        let mut near_indices = vec![0usize; 3];
+        let mut near_count = 0usize;
+
+        let status = rrt_star_nearest_and_radius_f64(
+            nodes.as_ptr(),
+            3,
+            2,
+            query.as_ptr(),
+            0.5,
+            &mut nearest_idx,
+            &mut min_dist,
+            near_indices.as_mut_ptr(),
+            3,
+            &mut near_count,
+        );
+
+        assert_eq!(status, 0);
+        assert_eq!(nearest_idx, 1);
+        assert!(min_dist < 0.2);
+        assert_eq!(near_count, 1);
+        assert_eq!(near_indices[0], 1);
+    }
+}
