@@ -1,0 +1,48 @@
+#version 450
+layout(local_size_x = 64, local_size_y = 1, local_size_z = 1) in; // Wave64 optimal for AMD GCN 4.0 (Polaris / RX 580)
+
+layout(std430, binding = 0) readonly buffer CouplingBuffer {
+    float J[];
+};
+
+layout(std430, binding = 1) readonly buffer BiasBuffer {
+    float h[];
+};
+
+layout(std430, binding = 2) buffer SpinBuffer {
+    int spins[];
+};
+
+layout(push_constant) uniform PushConstants {
+    uint num_spins;
+    uint block_parity; // 0 for Block A (even), 1 for Block B (odd)
+    float beta;
+    uint seed;
+} pc;
+
+uint pcg_hash(uint input_val) {
+    uint state = input_val * 747796405u + 2891336453u;
+    uint word = ((state >> ((state >> 28u) + 4u)) ^ state) * 277803737u;
+    return (word >> 22u) ^ word;
+}
+
+void main() {
+    uint idx = gl_GlobalInvocationID.x;
+    if (idx >= pc.num_spins) return;
+
+    if ((idx % 2u) != pc.block_parity) return;
+
+    float field = h[idx];
+    uint row_offset = idx * pc.num_spins;
+
+    for (uint j = 0u; j < pc.num_spins; ++j) {
+        field += J[row_offset + j] * float(spins[j]);
+    }
+
+    float prob_plus = 1.0 / (1.0 + exp(-2.0 * pc.beta * field));
+
+    uint rand_int = pcg_hash(idx ^ (pc.seed * 1664525u + 1013904223u));
+    float rand_uniform = float(rand_int & 0x00FFFFFFu) / 16777216.0;
+
+    spins[idx] = (rand_uniform < prob_plus) ? 1 : -1;
+}

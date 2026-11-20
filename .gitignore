@@ -1,0 +1,37 @@
+# Default ignore at workspace root to protect credentials, logs, models, and personal artifacts
+*
+
+# Allow repository root metadata & documentation
+!.gitignore
+!README.md
+
+# Allow Bare-Metal Rust C-ABI VSA & Physics Kernel source
+!aether_cortex_vsa/
+!aether_cortex_vsa/Cargo.toml
+!aether_cortex_vsa/Cargo.lock
+!aether_cortex_vsa/src/
+!aether_cortex_vsa/src/**
+
+# Allow the 82-Organ Cognitive Substrate, Tests, Shaders, and Evidence
+!aethermind_cognitive_substrate/
+!aethermind_cognitive_substrate/**
+
+# Exclude compiled artifacts, caches, databases, and binary test dumps inside allowed trees
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.dll
+*.exe
+*.pdb
+*.lib
+*.db
+*.sqlite
+*.log
+*.bin
+aether_cortex_vsa/target/
+
+# Allow canonical CLI & Strict Empirical Auditor entrypoints
+!aethermind_apotheosis/
+!aethermind_apotheosis/aether.py
+!aethermind_apotheosis/AetherMind_Strict_Auditor.py

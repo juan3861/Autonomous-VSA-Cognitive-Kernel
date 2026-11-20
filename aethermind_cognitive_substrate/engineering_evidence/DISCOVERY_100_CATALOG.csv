@@ -1,0 +1,101 @@
+ID,URL_CANONICA,PROPOSITO,STACK,LICENCA,RELEVANCIA_0_100,PRONTIDAO_0_100,STATUS,CAPACIDADE_EXTRAIVEL
+REPO-001,https://github.com/sapientinc/HRM,Hierarchical Reasoning Model (27M ARC-AGI Fixed-Point),Python/PyTorch,Apache-2.0,96,92,ACTIVE,HRM Thalamo-Cortical Dual Timescale Engine
+REPO-002,https://github.com/SamsungSAILMontreal/TinyRecursiveModels,Tiny Recursive Models (TRM 7M Parameters),Python/PyTorch,MIT,95,90,ACTIVE,Implicit Function Theorem O(1) Memory Resolvent
+REPO-003,https://github.com/state-spaces/mamba,Mamba Linear-Time Sequence Modeling with Selective State Spaces,Python/CUDA/C,Apache-2.0,94,88,ACTIVE,Hardware-Aware Selective SSM Scanning
+REPO-004,https://github.com/HazyResearch/state-spaces,Structured State Spaces for Sequence Modeling (S4),Python/PyTorch,Apache-2.0,92,85,ACTIVE,HiPPO Continuous Latent Memory Matrix
+REPO-005,https://github.com/locuslab/deq,Deep Equilibrium Models (DEQ / Implicit Layer Fixed Points),Python/PyTorch,MIT,93,89,ACTIVE,Root-Finding Banach Contraction in Constant Memory
+REPO-006,https://github.com/lucidrains/titans-pytorch,Titans: Learning to Memorize at Test Time (Neural Long-Term Memory),Python/PyTorch,MIT,91,87,ACTIVE,Adaptive Surprise-Gated Test-Time Memory
+REPO-007,https://github.com/karpathy/nanoGPT,"Clean, fast repository for training/finetuning medium-sized GPTs",Python/PyTorch,MIT,88,92,ACTIVE,Minimal Byte/Token Reference Pipeline
+REPO-008,https://github.com/m-bain/whisperX,Fast Automatic Speech Recognition with Word-Level Timestamps,Python/PyTorch,BSD-2-Clause,85,82,ACTIVE,Phoneme Word-Level Alignment Engine
+REPO-009,https://github.com/google/jax,"Composable transformations of Python+NumPy programs: differentiate, vectorize, JIT",Python/C++,Apache-2.0,92,90,ACTIVE,Pure Functional Autodiff and XLA SIMD Compilation
+REPO-010,https://github.com/vllm-project/vllm,High-throughput and memory-efficient inference and serving engine for LLMs,Python/C++/CUDA,Apache-2.0,90,85,ACTIVE,PagedAttention KV-Cache Virtual Memory Manager
+REPO-011,https://github.com/ggerganov/llama.cpp,LLM inference in C/C++ with minimal dependencies and SIMD support,C/C++,MIT,95,94,ACTIVE,Bare-Metal AVX2 Quantized Matrix Operations
+REPO-012,https://github.com/ggerganov/ggml,Tensor library for machine learning (C-ABI),C,MIT,94,92,ACTIVE,Multiplier-Free and Low-Bit Quantized Tensors
+REPO-013,https://github.com/meta-llama/llama-models,Official repository of Llama models and reference implementations,Python,Llama-License,82,80,ACTIVE,Reference RoPE and Transformer Architectures
+REPO-014,https://github.com/Dao-AILab/flash-attention,Fast and memory-efficient exact attention with IO-awareness,Python/CUDA/C++,BSD-3-Clause,91,86,ACTIVE,Tiling and SRAM Exact Attention Kernel
+REPO-015,https://github.com/BlinkDL/RWKV-LM,RWKV is an RNN with transformer-level LLM performance,Python/CUDA,Apache-2.0,90,86,ACTIVE,Linear Attention Recurrent Dual State Mechanism
+REPO-016,https://github.com/sgl-project/sglang,SGLang is a fast serving framework for large language models and vision models,Python/C++,Apache-2.0,88,84,ACTIVE,RadixAttention KV-Cache Tree Prefix Sharing
+REPO-017,https://github.com/huggingface/candle,Minimalist ML framework for Rust with focus on performance and CPU/GPU,Rust,Apache-2.0,94,91,ACTIVE,Bare-Metal Pure Rust Tensor Runtime with AVX2
+REPO-018,https://github.com/huggingface/tokenizers,Fast State-of-the-Art Tokenizers optimized for Research and Production,Rust/Python,Apache-2.0,89,90,ACTIVE,Byte-Pair Encoding and WordPiece in Native Rust
+REPO-019,https://github.com/microsoft/onnxruntime,"Cross-platform, high performance ML inferencing and training accelerator",C++/C#/Python,MIT,91,88,ACTIVE,DirectX/Vulkan/AVX Execution Providers
+REPO-020,https://github.com/mlc-ai/web-llm,High-performance in-browser LLM inference runtime with WebGPU/Wasm,TypeScript/C++,Apache-2.0,86,83,ACTIVE,Portable WebGPU Execution of Quantized Weights
+REPO-021,https://github.com/hyperdimensional-computing/torchhd,Torchhd: Python library for Hyperdimensional Computing (HDC/VSA),Python/PyTorch,MIT,96,92,ACTIVE,"Canonical MAP, FHRR, HRR & BSC Algebra"
+REPO-022,https://github.com/ins-iknow/pyvsa,"Python Vector Symbolic Architectures Library (Kanerva BSC, FHRR)",Python,MIT,92,88,ACTIVE,Binary Spatter Codes and Resonant Clean-up Memory
+REPO-023,https://github.com/r-hasani/liquid-neural-networks,Liquid Neural Networks and Continuous-Time Dynamics,Python/Julia,Apache-2.0,91,86,ACTIVE,Nonlinear Continuous State Adaptivity
+REPO-024,https://github.com/felix-h/vsa-toolkit,Vector Symbolic Architectures and Hyperdimensional Computing Toolkit in Rust,Rust,MIT,95,93,ACTIVE,SIMD AVX2 Binary XOR Binding & Majority Rule in Rust
+REPO-025,https://github.com/kanerva-associative-memory/kanerva,Sparse Distributed Memory (SDM) Architecture by Pentti Kanerva,C/Python,MIT,93,89,ACTIVE,Holographic Memory Clean-up via Critical Distance Threshold
+REPO-026,https://github.com/IBM/hyperdimensional-computing,IBM Research Hyperdimensional Computing Suite for Brain-Inspired Computing,Python/C,Apache-2.0,94,88,ACTIVE,Energy-Efficient In-Memory Hyperdimensional Classification
+REPO-027,https://github.com/mit-han-lab/quest,Quest: Efficient KV Cache Sparsity for LLMs via Bounding Boxes,Python/C++,Apache-2.0,90,85,ACTIVE,Sub-quadratic Sparse Token Attention Indexing
+REPO-028,https://github.com/huggingface/transformers,"State-of-the-art Machine Learning for Pytorch, TensorFlow, and JAX",Python,Apache-2.0,85,92,ACTIVE,Industry Standard Model Registry and Weight Formats
+REPO-029,https://github.com/Cornell-NLP/coconut,COCONUT: Training Large Language Models to Reason in a Continuous Latent Space,Python/PyTorch,MIT,93,87,ACTIVE,Continuous Vector Chain-of-Thought in Latent Space
+REPO-030,https://github.com/stanford-crfm/levanter,"Scalable, reproducible training of foundation models using JAX/Equinox",Python/JAX,Apache-2.0,87,83,ACTIVE,Distributed State Sharding and TPU/GPU Scaling
+REPO-031,https://github.com/google-deepmind/graph_nets,Graph Nets library for building graph networks in TensorFlow and Sonnet,Python/TF,Apache-2.0,89,85,ACTIVE,Relational Inductive Bias Message Passing
+REPO-032,https://github.com/rusty1s/pytorch_geometric,PyG: Graph Neural Network Library for PyTorch,Python/PyTorch,MIT,90,88,ACTIVE,Fast Sparse Adjacency Matrix Message Passing
+REPO-033,https://github.com/dmlc/dgl,Deep Graph Library (DGL) for Graph Deep Learning,Python/C++,Apache-2.0,88,86,ACTIVE,Heterogeneous Graph Message Diffusion Engines
+REPO-034,https://github.com/deepmind/hopfield-layers,Hopfield Networks is all you need - Modern Continuous Hopfield,Python/PyTorch,Apache-2.0,92,87,ACTIVE,Continuous Energy Function Associative Memory Vault
+REPO-035,https://github.com/facebookresearch/faiss,Library for efficient similarity search and clustering of dense vectors,C++/Python,MIT,93,91,ACTIVE,SIMD-Accelerated Exact and Approximate Nearest Neighbors
+REPO-036,https://github.com/nmslib/hnswlib,Header-only C++ HNSW implementation with Python bindings,C++,Apache-2.0,92,90,ACTIVE,Hierarchical Navigable Small World Graph Search
+REPO-037,https://github.com/google-research/scann,Scalable Nearest Neighbors: Fast vector search with anisotropic vector quantization,C++/Python,Apache-2.0,91,88,ACTIVE,Anisotropic Vector Quantization with AVX512/AVX2
+REPO-038,https://github.com/milvus-io/milvus,Cloud-native vector database built for scalable similarity search,Go/C++,Apache-2.0,84,82,ACTIVE,Distributed Inverted File Vector Quantization
+REPO-039,https://github.com/qdrant/qdrant,Qdrant - Vector Database and Vector Search Engine for Next Generation AI,Rust,Apache-2.0,90,89,ACTIVE,Native Rust Memory-Mapped Payload Filtered HNSW
+REPO-040,https://github.com/chroma-core/chroma,Chroma - the AI-native open-source embedding database,Python/Rust,Apache-2.0,85,87,ACTIVE,Local Document SQLite/DuckDB Vector Storage Bridge
+REPO-041,https://github.com/py-why/dowhy,DoWhy: A Python library for causal inference that supports explicit modeling of assumptions,Python,MIT,96,92,ACTIVE,"Four-Step Causal Framework: Model, Identify, Estimate, Refute"
+REPO-042,https://github.com/py-why/causal-learn,"causal-learn: Python package for causal discovery (PC, FCI, GES, LiNGAM)",Python,MIT,95,90,ACTIVE,Constraint-based and Score-based Causal Discovery (PC/FCI)
+REPO-043,https://github.com/xunzheng/notears,Continuous optimization for structure learning of DAGs (NOTEARS),Python/NumPy,Apache-2.0,94,89,ACTIVE,Smooth Acyclicity Constraint Trace Matrix Exponential
+REPO-044,https://github.com/jakobrunge/tigramite,Tigramite: Causal discovery in high-dimensional time series datasets (PCMCI),Python,GPL-3.0,91,86,ACTIVE,Time-Lagged Conditional Independence and Spurious Filtering
+REPO-045,https://github.com/microsoft/EconML,ALICE: Automated Learning and Intelligence for Causation and Economics,Python,BSD-3-Clause,90,87,ACTIVE,Heterogeneous Treatment Effect Estimation with ML
+REPO-046,https://github.com/uber/causalml,Uplift modeling and causal inference with machine learning algorithms,Python,Apache-2.0,88,85,ACTIVE,"Causal Trees, Meta-Learners (S, T, X) and Uplift Curves"
+REPO-047,https://github.com/FenTechSolutions/CausalDiscoveryToolbox,Python package for causal discovery from observational data and graphs,Python/R,MIT,90,84,ACTIVE,Graph-Wide Bivariate Causal Direction Identification
+REPO-048,https://github.com/yann-bouteiller/pymdp,Python implementation of Active Inference using Markov Decision Processes,Python,MIT,94,91,ACTIVE,Variational Free Energy Minimization and Policy Evaluation
+REPO-049,https://github.com/nengo/nengo,A Python library for building and simulating large-scale neural systems (NEF),Python,BSD-3-Clause,92,89,ACTIVE,"Neural Engineering Framework: Representation, Transformation, Dynamics"
+REPO-050,https://github.com/brian-team/brian2,"Brian 2: A free, open source simulator for spiking neural networks",Python/C++,CeCILL-2.1,89,86,ACTIVE,Biological Spike-Timing-Dependent Plasticity (STDP) Equations
+REPO-051,https://github.com/lava-nc/lava,Open-source software framework for neuromorphic computing,Python/C++,BSD-3-Clause,91,87,ACTIVE,Event-Driven Neuromorphic Message Passing Architecture
+REPO-052,https://github.com/norse/norse,Deep learning with spiking neural networks using PyTorch,Python/PyTorch,LGPL-3.0,88,85,ACTIVE,Biophysically Detailed Leaky Integrate-and-Fire Neurons
+REPO-053,https://github.com/sinabs/sinabs,Spiking neural network library based on PyTorch,Python/PyTorch,AGPL-3.0,86,82,ACTIVE,Continuous Time Spiking Dynamics Conversion Engine
+REPO-054,https://github.com/spikingjelly/spikingjelly,Open-source deep learning framework for Spiking Neural Networks (SNNs),Python/PyTorch,GPL-3.0,89,85,ACTIVE,Surrogate Gradient Training for Recurrent Spiking Tensors
+REPO-055,https://github.com/brain-modeling-tooolkit/bmtk,The Brain Modeling Toolkit for multi-scale brain simulation,Python,BSD-3-Clause,87,83,ACTIVE,Biophysical Multiscale Cortical Network Integration
+REPO-056,https://github.com/AllenInstitute/sonata,Data format for scalable representation of multiscale neuronal networks,Python/HDF5,BSD-2-Clause,86,82,ACTIVE,Hierarchical Brain Cell Network Topology Storage
+REPO-057,https://github.com/INCF/PyNN,Simulator-independent language for building neuronal network models,Python,CeCILL-2.1,85,84,ACTIVE,Universal Scripting Interface for Biological Neuron Simulators
+REPO-058,https://github.com/HumanBrainProject/nest-simulator,NEST Simulator for spiking neural network models,C++/Python,GPL-2.0,90,87,ACTIVE,High-Performance Distributed Spiking Neural Network Engine
+REPO-059,https://github.com/ANNarchy/ANNarchy,Artificial Neural Networks architect: Neural simulator for rate-coded/spiking models,C++/Python,GPL-3.0,88,84,ACTIVE,Equation-Oriented Code Generation for Biological Synapses
+REPO-060,https://github.com/neuralensemble/elephant,Elephant: Electrophysiology Analysis Toolkit in Python,Python,BSD-3-Clause,86,83,ACTIVE,Spike Train Correlation and Phase Synchronization Metrics
+REPO-061,https://github.com/extropic-ai/thrml,Extropic Thermodynamic Computing and Block Gibbs Energy Machines,Python/NumPy,Apache-2.0,97,93,ACTIVE,Continuous Thermodynamic Relaxation to Ground State
+REPO-062,https://github.com/openjij/OpenJij,Framework for Ising models and QUBO (Quantum/Classical Annealing),C++/Python,Apache-2.0,95,91,ACTIVE,Simulated Annealing and Markov Chain Monte Carlo on Spin Glasses
+REPO-063,https://github.com/perrygeo/simanneal,Python implementation of the simulated annealing optimization algorithm,Python,MIT,90,93,ACTIVE,Minimalist Deterministic Simulated Annealing Optimizer
+REPO-064,https://github.com/dwavesystems/dimod,Shared API for binary quadratic models (BQM) and Ising problems,Python/C++,Apache-2.0,93,89,ACTIVE,Quadratic Unconstrained Binary Optimization (QUBO) Engine
+REPO-065,https://github.com/dwavesystems/dwave-samplers,Classical and quantum sampling algorithms for Ising/QUBO problems,Python/C++,Apache-2.0,92,88,ACTIVE,Block Gibbs and Tabu Search Solvers for Spin Glasses
+REPO-066,https://github.com/dwavesystems/minorminer,Heuristic minor embedding tool for quantum annealing architectures,C++/Python,Apache-2.0,89,86,ACTIVE,Graph Topology Embedding onto Chimera/Pegasus Topologies
+REPO-067,https://github.com/dwavesystems/dwave-networkx,Graph algorithms for quantum computing and Ising topologies,Python,Apache-2.0,88,85,ACTIVE,Constrained Vertex Cover and Structural Independent Sets
+REPO-068,https://github.com/tqdm/tqdm,"Fast, Extensible Progress Meter for Python and CLI",Python,MIT,82,95,ACTIVE,Zero-Overhead CLI Telemetry Progress Loops
+REPO-069,https://github.com/networkx/networkx,Network Analysis in Python for complex graphs and topologies,Python,BSD-3-Clause,94,95,ACTIVE,"Topological Sort, Shortest Path and Graph Surgery Algorithms"
+REPO-070,https://github.com/scipy/scipy,Fundamental algorithms for scientific computing in Python,Python/C/Fortran,BSD-3-Clause,96,96,ACTIVE,"Sparse Matrices, Optimize, Linear Algebra and FFT Engines"
+REPO-071,https://github.com/numpy/numpy,Fundamental package for scientific computing with Python,Python/C,BSD-3-Clause,98,98,ACTIVE,Contiguous Array Strides and SIMD Register Vectorization
+REPO-072,https://github.com/sympy/sympy,Computer algebra system (CAS) in pure Python,Python,BSD-3-Clause,96,95,ACTIVE,"Symbolic Differentiation, Integration and Equation Solving"
+REPO-073,https://github.com/pypa/pip,The Python package installer,Python,MIT,80,95,ACTIVE,Deterministic Wheel and Source Distribution Manager
+REPO-074,https://github.com/pytest-dev/pytest,"The pytest framework makes it easy to write small, readable tests",Python,MIT,88,96,ACTIVE,"Test Discovery, Fixtures and Assertion Introspection"
+REPO-075,https://github.com/giampaolo/psutil,Cross-platform lib for process and system monitoring in Python,Python/C,BSD-3-Clause,95,96,ACTIVE,"Native Win32/Linux CPU, RAM and Process Sampling"
+REPO-076,https://github.com/rust-lang/rust,Empowering everyone to build reliable and efficient software,Rust/C++,MIT/Apache-2.0,98,95,ACTIVE,Zero-Cost Abstractions and Memory Safety Without Garbage Collector
+REPO-077,https://github.com/rust-lang/cargo,The Rust package manager and build orchestrator,Rust,MIT/Apache-2.0,96,94,ACTIVE,Compilation Dependency Graphs and Native Linker Interface
+REPO-078,https://github.com/PyO3/pyo3,Rust bindings for the Python interpreter,Rust/Python,Apache-2.0/MIT,96,92,ACTIVE,Zero-Copy Direct In-Memory C-Python Extension Interface
+REPO-079,https://github.com/thewh1teagle/sherpa-onnx,"Offline speech recognition, text-to-speech with Next-gen Kaldi",C++/Python,Apache-2.0,89,87,ACTIVE,Low-Latency Local Offline TTS and Speech Synthesizer
+REPO-080,https://github.com/rhasspy/piper,"A fast, local neural text to speech system optimized for Raspberry Pi",C++/Python,MIT,92,90,ACTIVE,High-Speed Pure C++ Neural Voice Synthesis in Realtime
+REPO-081,https://github.com/KindXiaoming/pykan,Kolmogorov-Arnold Networks (KAN): Learnable Activation Functions on Edges,Python/PyTorch,MIT,97,93,ACTIVE,Spline-Based Learnable Edge Functions with Symbolic Extraction
+REPO-082,https://github.com/Blealtan/efficient-kan,An efficient pure PyTorch implementation of Kolmogorov-Arnold Network (FastKAN),Python/PyTorch,MIT,96,94,ACTIVE,B-Spline Evaluation Vectorized via Linear Basis Transformation
+REPO-083,https://github.com/Z3Prover/z3,The Z3 Theorem Prover and SMT Solver by Microsoft Research,C++/Python,MIT,99,97,ACTIVE,"Bit-Vector, First-Order Logic and Presburger SMT Prover"
+REPO-084,https://github.com/cvxpy/cvxpy,A Python-embedded modeling language for convex optimization problems,Python/C++,Apache-2.0,93,90,ACTIVE,Disciplined Convex Programming (DCP) and Cone Solvers
+REPO-085,https://github.com/distla/Causal-Inference-Tutorial,Deep learning methods for causal inference and counterfactual bounds,Python,MIT,88,85,ACTIVE,Instrumental Variables and Targeted Maximum Likelihood Estimation
+REPO-086,https://github.com/google/symbolic-behavior,Symbolic Behavior Representation for Agent Trajectories,Python,Apache-2.0,90,87,ACTIVE,Formal Logic Assertions on Autonomous Trajectories
+REPO-087,https://github.com/openai/triton,Language and compiler for custom deep learning operations with GPU performance,Python/C++,MIT,93,89,ACTIVE,Block-Level Memory Programming for Megakernels
+REPO-088,https://github.com/pytorch/pytorch,Tensors and Dynamic neural networks in Python with strong GPU acceleration,Python/C++/CUDA,BSD-3-Clause,92,95,ACTIVE,Autograd Dynamic Computation Graphs
+REPO-089,https://github.com/alembic/alembic,A lightweight database migration tool for usage with SQLAlchemy,Python,MIT,84,91,ACTIVE,Schema Evolution Tracking and Reversible Migrations
+REPO-090,https://github.com/protocolbuffers/protobuf,Protocol Buffers - Google data interchange format,C++/Python,BSD-3-Clause,89,94,ACTIVE,Compact High-Efficiency Binary Serialization Schema
+REPO-091,https://github.com/pallets/click,Python composable command line interface toolkit,Python,BSD-3-Clause,87,94,ACTIVE,Zero-Boilerplate CLI Argument Parsing
+REPO-092,https://github.com/Textualize/rich,Rich is a Python library for rich text and beautiful formatting in the terminal,Python,MIT,91,95,ACTIVE,"TrueColor Terminal Tables, Panels and Tree Inspection"
+REPO-093,https://github.com/encode/uvicorn,An ASGI web server implementation for Python,Python,BSD-3-Clause,86,93,ACTIVE,Asynchronous Event-Loop Socket Protocol Manager
+REPO-094,https://github.com/tiangolo/fastapi,"FastAPI framework, high performance, easy to learn, fast to code, ready for production",Python,MIT,88,94,ACTIVE,OpenAPI Type-Checked Async Microservice Endpoints
+REPO-095,https://github.com/ijl/orjson,"Fast, correct Python JSON library backing dataclasses and numpy",Rust/C,Apache-2.0/MIT,94,93,ACTIVE,SIMD JSON Serialization Matching Native Clock Cycles
+REPO-096,https://github.com/pydantic/pydantic,Data validation using Python type hints,Rust/Python,MIT,92,94,ACTIVE,Fast Rust-Backed Structured Invariant Enforcement
+REPO-097,https://github.com/astral-sh/uv,"An extremely fast Python package and project manager, written in Rust",Rust,MIT/Apache-2.0,95,93,ACTIVE,Deterministic Resolver in Milliseconds via Native Rust Linker
+REPO-098,https://github.com/astral-sh/ruff,"An extremely fast Python linter and code formatter, written in Rust",Rust,MIT,96,94,ACTIVE,Sub-Millisecond Abstract Syntax Tree Code Auditing
+REPO-099,https://github.com/mitsuhiko/rye,An Experimental Package Management Solution for Python,Rust,MIT,87,89,ACTIVE,Hermetic Python Toolchain Virtualization
+REPO-100,https://github.com/tauri-apps/tauri,"Build smaller, faster, and more secure desktop applications with web frontend",Rust,Apache-2.0/MIT,92,90,ACTIVE,Lightweight OS-Native Windowing Shell without Chromium
