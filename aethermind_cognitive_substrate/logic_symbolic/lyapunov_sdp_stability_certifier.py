@@ -17,8 +17,11 @@ from __future__ import annotations
 import ctypes
 import time
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Tuple
 import numpy as np
+
+_CACHED_CY_EXT = None
+_CY_PROBED = False
 
 
 class LyapunovSDPStabilityCertifier:
@@ -33,6 +36,21 @@ class LyapunovSDPStabilityCertifier:
         self.tol = float(tol)
         self._native_fn = None
         self._native_checked = False
+        self._cy_fn = self._probe_cy_fn()
+
+    @staticmethod
+    def _probe_cy_fn():
+        global _CACHED_CY_EXT, _CY_PROBED
+        if not _CY_PROBED:
+            _CY_PROBED = True
+            try:
+                from ..physical_bridge.fast_vsa_bridge import _load_cython_ext
+                _CACHED_CY_EXT = _load_cython_ext()
+            except Exception:
+                _CACHED_CY_EXT = None
+        if _CACHED_CY_EXT is not None and hasattr(_CACHED_CY_EXT, "cy_lyapunov_smith_doubling"):
+            return _CACHED_CY_EXT.cy_lyapunov_smith_doubling
+        return None
 
     def _get_native_fn(self):
         if self._native_checked:
@@ -49,11 +67,64 @@ class LyapunovSDPStabilityCertifier:
             self._native_fn = None
         return self._native_fn
 
+    def solve_discrete_lyapunov_fast(
+        self,
+        A: np.ndarray,
+        Q: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, float, int]:
+        """Fast-path zero-copy Rust/Cython solver returning (P_matrix, stein_residual_fro, iters).
+
+        Bypasses Python eigvals checks and JSON nested-list rounding for high-frequency control loops.
+        """
+        a_c = np.ascontiguousarray(A, dtype=np.float64)
+        n = a_c.shape[0]
+        q_c = np.eye(n, dtype=np.float64) if Q is None else np.ascontiguousarray(Q, dtype=np.float64)
+        p_out = np.empty((n, n), dtype=np.float64)
+
+        if self._cy_fn is not None and n <= 64:
+            res_val, iters_used = self._cy_fn(a_c, q_c, p_out, self.max_doubling_iters, self.tol)
+            if res_val >= 0.0:
+                return p_out, float(res_val), int(iters_used)
+
+        native_fn = self._get_native_fn() if n <= 64 else None
+        if native_fn is not None:
+            iters_c = ctypes.c_size_t(0)
+            res_val = float(
+                native_fn(
+                    a_c.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+                    q_c.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+                    n,
+                    self.max_doubling_iters,
+                    self.tol,
+                    p_out.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
+                    ctypes.byref(iters_c),
+                )
+            )
+            if res_val >= 0.0:
+                return p_out, res_val, int(iters_c.value)
+
+        # Pure NumPy Smith Doubling fallback
+        Ak = a_c.copy()
+        Pk = q_c.copy()
+        iters_used = 0
+        for it in range(self.max_doubling_iters):
+            iters_used = it + 1
+            delta = Ak.T @ Pk @ Ak
+            Pk_next = 0.5 * ((Pk + delta) + (Pk + delta).T)
+            if float(np.linalg.norm(delta, ord="fro")) < self.tol:
+                Pk = Pk_next
+                break
+            Pk = Pk_next
+            Ak = Ak @ Ak
+        residual = float(np.linalg.norm(a_c.T @ Pk @ a_c - Pk + q_c, ord="fro"))
+        return Pk, residual, iters_used
+
     def certify_discrete_lyapunov(
         self,
         A: List[List[float]] | np.ndarray,
         Q: Optional[List[List[float]] | np.ndarray] = None,
         prefer_native: bool = True,
+        raw_matrix: bool = False,
     ) -> Dict[str, Any]:
         """
         Resolve A^T P A - P = -Q por duplicação quadrática de Smith e certifica rho(A) < 1 e P > 0.
@@ -125,6 +196,16 @@ class LyapunovSDPStabilityCertifier:
 
             residual = float(np.linalg.norm(A_mat.T @ Pk @ A_mat - Pk + Q_mat, ord="fro"))
             backend = "numpy_python"
+
+        if raw_matrix:
+            return {
+                "status": "LYAPUNOV_FAST_MATRIX",
+                "backend": backend,
+                "stein_residual_fro": float(residual),
+                "smith_doubling_iters": iters_used,
+                "lyapunov_matrix_P": Pk,
+                "elapsed_us": round((time.perf_counter() - t0) * 1e6, 2),
+            }
 
         p_eigs = np.linalg.eigvalsh(Pk)
         min_eig_p = float(np.min(p_eigs))

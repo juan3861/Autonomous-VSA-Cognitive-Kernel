@@ -1,16 +1,22 @@
 {
-  "cycle": 35,
-  "version": "7.2.0-APEX-V72-82-ORGANS-FUSED-SOVEREIGN",
+  "cycle": 36,
+  "version": "7.3.0-APEX-QUAD-FRONT-SOVEREIGN",
   "organs": 82,
   "architectural_fabrics": [
-    "VSAHyperdimensionalBus (10,240-bit holographic semantic fabric)",
-    "AutonomousCognitiveComposer (Z3 pre-flight verified live DAG multi-organ orchestrator)",
-    "VSAExpressionCompiler + Fused AVX2 Bytecode Graph VM (vsa_eval_graph_bytecode)",
-    "FastVSABridge Cython Zero-Copy Native Extension + C99/C++17 autonomous_vsa.h",
-    "SovereignCortexRuntime Lazy Registry (<50ms cold boot)"
+    "LyapunovSDPStabilityCertifier Zero-Copy Cython Fast-Path (4.12x vs SciPy)",
+    "Vulkan 1.3 SPIR-V Wave64 Batch VSA & Cosine Shaders (.spv + CPU deterministic fallback)",
+    "Portable wasm32-unknown-unknown Binary Verified in Wasmtime 49.0.0",
+    "Zero-Dep Native x86_64 AVX2 W^X Machine-Code JIT Emitter (vsa_jit_x64.rs)",
+    "Z3 Pre-Flight Edge Numeric Range & Dimension Invariants in AutonomousCognitiveComposer"
   ],
-  "native_rust_functions": 20,
-  "test_suites": 49,
+  "native_rust_functions": 25,
+  "test_suites": 50,
+  "passed_suites": 47,
+  "failed_suites": [
+    "test_apex_ceiling_38_organs_and_100_repos.py (host RX 580 CM_PROB_FAILED_ADD)",
+    "test_vulkan_compute_pipeline.py (host RX 580 CM_PROB_FAILED_ADD)",
+    "test_vulkan_headless_and_rem_causal_sleep.py (host RX 580 CM_PROB_FAILED_ADD)"
+  ],
   "test_files": [
     "test_alm_rrtstar_76.py",
     "test_apex_ceiling_38_organs_and_100_repos.py",
@@ -57,15 +63,16 @@
     "test_thermodynamic_ising_polaris.py",
     "test_ukf_and_admm_qp.py",
     "test_v72_fused_vm_lazy_boot_and_z3_dag.py",
+    "test_v73_quad_front_apex.py",
     "test_vsa_persistence_bridge.py",
     "test_vsa_semantic_bus_and_composer.py",
     "test_vulkan_compute_pipeline.py",
     "test_vulkan_headless_and_rem_causal_sleep.py"
   ],
-  "merkle_root": "d3cce681c811cff68ebf45468212b0e55ae50845552e88db70b2fe2b291ade78",
-  "root_merkle_nonce": "6b622ef0f77482874ad8e827f97240da64717a835daad3e91915a67f3865156a",
-  "timestamp": "2026-11-20T17:51:12.292087",
-  "verdict": "ALL_49_SUITES_PASS_EXIT_0",
-  "audit_duration_s": 79.01,
+  "merkle_root": "41e9a1a968942cc1ecde0c91fdca7eb7ff84a15d8e074bc21b9482d696a3a2e0",
+  "root_merkle_nonce": "135f41dc58af5633d133889afcb9fc5b6dd9f1c30d42ff586086aaff62242ce8",
+  "timestamp": "2026-11-21T16:31:29.350371",
+  "verdict": "47_OF_50_PASS_3_VULKAN_HOST_GPU_CM_PROB_FAILED_ADD",
+  "audit_duration_s": 125.57,
   "workers": 3
 }

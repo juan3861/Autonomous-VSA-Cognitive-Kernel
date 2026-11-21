@@ -8,6 +8,8 @@ from .shared_memory_mmap_ipc import SharedMemoryMMapSPSCBridge
 from .rust_native_physics_bridge import RustNativePhysicsKernel
 from .native_cortex_dll_singleton import get_native_cortex_dll
 from .fast_vsa_bridge import FastVSABridge
+from .vulkan_batch_vsa_engine import VulkanBatchVSAEngine
+from .wasm_sandbox_bridge import WasmSandboxBridge
 from .platform_compat import (
     is_windows,
     is_linux,
@@ -30,6 +32,8 @@ __all__ = [
     "RustNativePhysicsKernel",
     "get_native_cortex_dll",
     "FastVSABridge",
+    "VulkanBatchVSAEngine",
+    "WasmSandboxBridge",
     "is_windows",
     "is_linux",
     "is_macos",

@@ -37,16 +37,29 @@ def build_windows() -> int:
         Path(r"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"),
     ]
     vcvars = next((p for p in vcvars_candidates if p.exists()), None)
-    vcvars_prefix = f'call "{vcvars}" && ' if vcvars else ""
+    import tempfile
 
-    cmd = (
-        f'{vcvars_prefix}"{sys.executable}" -m cython -3 "{PYX_PATH}" -o "{c_out}" && '
+    lines = []
+    if vcvars:
+        lines.append(f'@call "{vcvars}"')
+    lines.append(f'"{sys.executable}" -m cython -3 "{PYX_PATH}" -o "{c_out}"')
+    lines.append('if errorlevel 1 exit /b %errorlevel%')
+    lines.append(
         f'cl.exe /O2 /MD /LD /I"{py_inc}" /I"{np_inc}" /I"{INCLUDE_DIR}" '
         f'"{c_out}" /Fe:"{out_pyd}" /link '
         f'/LIBPATH:"{py_libs}" /LIBPATH:"{LIB_DIR}" aether_cortex_vsa.dll.lib {py_lib}'
     )
-    proc = subprocess.run(["cmd.exe", "/c", cmd], cwd=str(ROOT))
-    return proc.returncode
+    with tempfile.NamedTemporaryFile("w", suffix=".cmd", delete=False, encoding="utf-8") as tf:
+        tf.write("\r\n".join(lines) + "\r\n")
+        bat_path = tf.name
+    try:
+        proc = subprocess.run(["cmd.exe", "/c", bat_path], cwd=str(ROOT))
+        return proc.returncode
+    finally:
+        try:
+            os.remove(bat_path)
+        except OSError:
+            pass
 
 
 def build_posix() -> int:

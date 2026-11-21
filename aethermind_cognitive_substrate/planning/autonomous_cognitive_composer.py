@@ -40,6 +40,11 @@ class OrganCapability:
     outputs: List[str]
     formal_guarantee: str
     latency_class: str = "microsecond"
+    in_min: float = -100.0
+    in_max: float = 100.0
+    out_min: float = -100.0
+    out_max: float = 100.0
+    state_dim: int = 4
 
 
 @dataclass
@@ -116,7 +121,12 @@ class AutonomousCognitiveComposer:
                 description="Control Barrier Function Quadratic Program online safety shield.",
                 inputs=["nominal_control", "current_state", "barrier_params"],
                 outputs=["safe_control", "safety_margin", "slack"],
-                formal_guarantee="Provable forward invariance of safe set C via Nagumo condition."
+                formal_guarantee="Provable forward invariance of safe set C via Nagumo condition.",
+                in_min=-10.0,
+                in_max=10.0,
+                out_min=-5.0,
+                out_max=5.0,
+                state_dim=4,
             ),
             OrganCapability(
                 organ_id="stl_temporal_logic_monitor",
@@ -124,7 +134,12 @@ class AutonomousCognitiveComposer:
                 description="Signal Temporal Logic space-robustness quantitative monitor.",
                 inputs=["trajectory", "stl_specification"],
                 outputs=["robustness_degree", "is_satisfied"],
-                formal_guarantee="Sound quantitative semantics: rho >= 0 implies trajectory |= phi."
+                formal_guarantee="Sound quantitative semantics: rho >= 0 implies trajectory |= phi.",
+                in_min=-10.0,
+                in_max=10.0,
+                out_min=0.0,
+                out_max=10.0,
+                state_dim=4,
             ),
             OrganCapability(
                 organ_id="z3_formal_solver",
@@ -217,12 +232,45 @@ class AutonomousCognitiveComposer:
         solver.add(rho >= z3.RealVal("0.0"))
 
         ready_vars = []
+        edge_bounds_verified = 0
+        # Propagate numeric domain bounds along each directed edge u -> v in Z3 Reals
+        obs_vals = spec.get("observations")
+        cur_lo = float(min(obs_vals)) if isinstance(obs_vals, (list, tuple)) and len(obs_vals) > 0 else float(spec.get("state_min", -2.0))
+        cur_hi = float(max(obs_vals)) if isinstance(obs_vals, (list, tuple)) and len(obs_vals) > 0 else float(spec.get("state_max", 2.0))
+
+        prev_out_lo = z3.Real("edge_0_in_lo")
+        prev_out_hi = z3.Real("edge_0_in_hi")
+        solver.add(prev_out_lo == z3.RealVal(str(cur_lo)))
+        solver.add(prev_out_hi == z3.RealVal(str(cur_hi)))
+        solver.add(prev_out_lo <= prev_out_hi)
+
         for idx, org in enumerate(pipeline_organs):
             v = z3.Bool(f"stage_{idx}_{org}_ready")
             is_known = org in self.capabilities
             solver.add(v == z3.BoolVal(is_known))
             solver.add(v == True)
             ready_vars.append(v)
+
+            if is_known:
+                cap = self.capabilities[org]
+                s_in_lo = z3.Real(f"stage_{idx}_in_lo")
+                s_in_hi = z3.Real(f"stage_{idx}_in_hi")
+                s_out_lo = z3.Real(f"stage_{idx}_out_lo")
+                s_out_hi = z3.Real(f"stage_{idx}_out_hi")
+                # Directed edge contract: upstream output interval must lie inside stage input domain
+                solver.add(s_in_lo == z3.RealVal(str(cap.in_min)))
+                solver.add(s_in_hi == z3.RealVal(str(cap.in_max)))
+                solver.add(prev_out_lo >= s_in_lo)
+                solver.add(prev_out_hi <= s_in_hi)
+                # Stage produces certified output envelope bounded by capability invariants
+                out_min_val = z3.RealVal(str(cap.out_min))
+                out_max_val = z3.RealVal(str(cap.out_max))
+                solver.add(s_out_lo == z3.If(prev_out_lo > out_min_val, prev_out_lo, out_min_val))
+                solver.add(s_out_hi == z3.If(prev_out_hi < out_max_val, prev_out_hi, out_max_val))
+                solver.add(s_out_lo <= s_out_hi)
+                prev_out_lo = s_out_lo
+                prev_out_hi = s_out_hi
+                edge_bounds_verified += 1
 
         # Formal safety guarantee: require at least one certifier organ in pipeline
         certifier_set = {"cbf_control_barrier_shield", "stl_temporal_logic_monitor", "z3_formal_solver"}
@@ -242,6 +290,7 @@ class AutonomousCognitiveComposer:
             "lyapunov_rho": rho_val,
             "has_formal_certifier": has_certifier,
             "stages_verified": len(pipeline_organs),
+            "edge_numeric_invariants_proven": edge_bounds_verified if verified else 0,
             "elapsed_ms": round(elapsed_ms, 3),
         }
 

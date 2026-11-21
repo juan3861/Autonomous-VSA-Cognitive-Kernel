@@ -1,25 +1,31 @@
-# HDC-Arena / VSA-Bench Reproducible Results
+# HDC-Arena / VSA-Bench Reproducible Results (`v7.3.0`)
 
-**Generated:** `2026-11-20T17:48:37.083948`  
-**Kernel Version:** `7.2.0-APEX-V72-82-ORGANS-FUSED-SOVEREIGN`  
+**Generated:** `2026-11-21T16:27:19.956087`  
+**Kernel Version:** `7.3.0-APEX-QUAD-FRONT-SOVEREIGN`  
 **Environment:** Single-thread BLAS (`OMP/OPENBLAS/MKL=1`)
 
 ## 1. 10,240-bit Chained VSA Workload (`permute -> bind -> bind -> unpermute -> hamming`, 2000 iters)
 
-| Backend | Wall Time (ms) | Relative Speedup vs NumPy | Speedup vs PyTorch |
+| Backend | Wall Time (ms) | Speedup vs NumPy | Speedup vs TorchHD |
 |---|---:|---:|---:|
-| **Pure NumPy (`int8` bipolar)** | 141.162 ms | 1.0x | — |
-| **PyTorch CPU (`torch 2.11`, `int8`)** | 246.441 ms | — | 1.0x |
-| **Rust C-ABI via Python `ctypes`** | 86.107 ms | 1.64x | 2.86x |
-| **Cython Zero-Copy (`CYTHON_ZERO_COPY`)** | 7.926 ms | 17.81x | 31.09x |
-| **Fused AVX2 Graph VM (`vsa_eval_graph_bytecode`)** | **11.211 ms** | **12.59x** | **21.98x** |
+| **Pure NumPy (`int8` bipolar)** | 183.897 ms | 1.0x | — |
+| **PyTorch CPU (`torch 2.11`, `int8`)** | 265.063 ms | 0.69x | — |
+| **TorchHD (`torch_hd 5.8.4`, BSC)** | 984.511 ms | — | 1.0x |
+| **Rust C-ABI via Python `ctypes`** | 90.366 ms | 2.04x | — |
+| **Cython Zero-Copy (`CYTHON_ZERO_COPY`)** | **16.356 ms** | **11.24x** | **60.19x** |
+| **Fused AVX2 Graph VM (`vsa_eval_graph_bytecode`)** | **15.021 ms** | **12.24x** | **65.54x** |
 
-*Cython vs `ctypes` bind/hamming speedup:* **`10.86x`** | *Fused Graph latency:* **`5.606 µs/graph`**
+- *Native x86_64 AVX2 W^X JIT (5-way XOR chain, 2000 iters):* **`3.639 ms`**
+- *Cython vs `ctypes` speedup:* **`5.52x`** | *Fused Graph latency:* **`7.511 µs/graph`**
 
 ## 2. Mathematical & Control Solver Benchmarks vs Scientific Python Baselines
 
 | Benchmark Workload | Baseline Time (ms) | Autonomous Kernel Time (ms) | Speedup | Numerical Parity Error |
 |---|---:|---:|---:|---:|
-| **Discrete Lyapunov 16×16** (`scipy.linalg` vs Rust Smith) | 69.536 ms | **120.161 ms** | **0.58x** | `4.941e-06` |
-| **Simplex LP** (`scipy.linprog` HiGHS vs `RevisedSimplex`) | 226.196 ms | **14.24 ms** | **15.88x** | `2.857e-07` |
-| **CBF-QP Safety Filter** (`cvxpy` CLARABEL vs `CBFControlBarrierShield`) | 916.958 ms | **9.794 ms** | **93.62x** | Exact KKT (`97.94 µs/step`) |
+| **Discrete Lyapunov 16×16** (`scipy.linalg` vs Cython+Rust Fast-Path) | 76.965 ms | **18.686 ms** | **4.12x** | `3.553e-15` |
+| **Simplex LP** (`scipy.linprog` HiGHS vs `RevisedSimplex`) | 376.265 ms | **16.808 ms** | **22.39x** | `2.857e-07` |
+| **CBF-QP Safety Filter** (`cvxpy` CLARABEL vs `CBFControlBarrierShield`) | 1222.965 ms | **21.016 ms** | **58.19x** | Exact KKT (`210.16 µs/step`) |
+
+## 3. Massive Batch VSA Search (4096 × 10,240-bit vectors)
+- **Backend Executed:** `CPU_NUMPY_FALLBACK` (`gpu_executed=False`)
+- **Elapsed Time:** `144.614 ms` (`gpu_queue_ms=0.0 ms`)

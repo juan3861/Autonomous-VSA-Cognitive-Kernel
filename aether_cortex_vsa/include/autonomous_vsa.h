@@ -63,6 +63,12 @@ int32_t  vsa_eval_graph_bytecode(
     size_t       n_scalars
 );
 
+/* Native x86_64 AVX2 Machine-Code W^X JIT Compiler */
+typedef struct JitXorHandle JitXorHandle;
+JitXorHandle* vsa_jit_compile_xor_chain(size_t n_inputs);
+int32_t       vsa_jit_exec_xor_chain(const JitXorHandle* handle, const uint64_t* const* in_ptrs, uint64_t* out_buf);
+void          vsa_jit_free_xor_chain(JitXorHandle* handle);
+
 /* -------------------------------------------------------------------------- */
 /* 2. Biophysical & Neural Solvers (HRM Fixed-Point & Ising Spin Glass)       */
 /* -------------------------------------------------------------------------- */

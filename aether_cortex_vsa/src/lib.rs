@@ -1,5 +1,28 @@
 pub mod vsa_graph_vm;
 pub use vsa_graph_vm::{VsaOp, vsa_eval_graph_bytecode};
+pub mod vsa_jit_x64;
+pub use vsa_jit_x64::{JitXorHandle, vsa_jit_compile_xor_chain, vsa_jit_exec_xor_chain, vsa_jit_free_xor_chain};
+
+#[no_mangle]
+pub extern "C" fn vsa_wasm_alloc(bytes: usize) -> *mut u8 {
+    if bytes == 0 {
+        return core::ptr::null_mut();
+    }
+    let mut buf = Vec::<u8>::with_capacity(bytes);
+    let ptr = buf.as_mut_ptr();
+    core::mem::forget(buf);
+    ptr
+}
+
+#[no_mangle]
+pub extern "C" fn vsa_wasm_free(ptr: *mut u8, bytes: usize) {
+    if ptr.is_null() || bytes == 0 {
+        return;
+    }
+    unsafe {
+        let _ = Vec::from_raw_parts(ptr, 0, bytes);
+    }
+}
 
 pub const WORDS: usize = 160;
 pub const BITS: usize = WORDS * 64;

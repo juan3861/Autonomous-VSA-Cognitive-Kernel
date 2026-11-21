@@ -47,9 +47,9 @@ unsafe fn bind_avx2(a: &[u64; WORDS], b: &[u64; WORDS], out: &mut [u64; WORDS]) 
 }
 
 #[inline(always)]
-fn bind_fast(a: &Hypervector, b: &Hypervector, out: &mut Hypervector, use_avx2: bool) {
+fn bind_fast(a: &Hypervector, b: &Hypervector, out: &mut Hypervector, _use_avx2: bool) {
     #[cfg(target_arch = "x86_64")]
-    if use_avx2 {
+    if _use_avx2 {
         unsafe {
             bind_avx2(&a.0, &b.0, &mut out.0);
         }

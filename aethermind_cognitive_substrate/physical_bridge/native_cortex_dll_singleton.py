@@ -136,6 +136,21 @@ def get_native_cortex_dll() -> Optional[ctypes.CDLL]:
             ]
             lib.vsa_eval_graph_bytecode.restype = ctypes.c_int32
 
+        # 10. Assinaturas Native x86_64 AVX2 W^X JIT Emitter
+        if hasattr(lib, "vsa_jit_compile_xor_chain"):
+            lib.vsa_jit_compile_xor_chain.argtypes = [ctypes.c_size_t]
+            lib.vsa_jit_compile_xor_chain.restype = ctypes.c_void_p
+        if hasattr(lib, "vsa_jit_exec_xor_chain"):
+            lib.vsa_jit_exec_xor_chain.argtypes = [
+                ctypes.c_void_p,
+                ctypes.POINTER(ctypes.POINTER(ctypes.c_uint64)),
+                ctypes.POINTER(ctypes.c_uint64),
+            ]
+            lib.vsa_jit_exec_xor_chain.restype = ctypes.c_int32
+        if hasattr(lib, "vsa_jit_free_xor_chain"):
+            lib.vsa_jit_free_xor_chain.argtypes = [ctypes.c_void_p]
+            lib.vsa_jit_free_xor_chain.restype = None
+
         _CACHED_LIB = lib
         return _CACHED_LIB
     except Exception:

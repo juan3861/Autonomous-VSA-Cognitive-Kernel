@@ -1,0 +1,32 @@
+#version 450
+layout(local_size_x = 64, local_size_y = 1, local_size_z = 1) in; // Wave64 optimal for AMD Polaris RX 580
+
+// 10,240 bits = 320 uint32 words per hypervector (packed uint32 avoids int64 shader extensions)
+layout(std430, binding = 0) readonly buffer QueryBuffer {
+    uint query_words[320];
+};
+
+layout(std430, binding = 1) readonly buffer CandidateBuffer {
+    uint candidate_words[];
+};
+
+layout(std430, binding = 2) writeonly buffer OutputDistances {
+    uint distances[];
+};
+
+layout(push_constant) uniform PushConstants {
+    uint num_candidates;
+    uint words_per_vec; // 320
+} pc;
+
+void main() {
+    uint idx = gl_GlobalInvocationID.x;
+    if (idx >= pc.num_candidates) return;
+
+    uint base = idx * pc.words_per_vec;
+    uint dist = 0u;
+    for (uint w = 0u; w < 320u; ++w) {
+        dist += bitCount(query_words[w] ^ candidate_words[base + w]);
+    }
+    distances[idx] = dist;
+}

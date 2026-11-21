@@ -30,6 +30,15 @@ cdef extern from "autonomous_vsa.h":
         size_t          n_scalars
     ) nogil
     double   spectral_power_iteration_f64(const double* a_ptr, size_t n, size_t max_iters, double tol) nogil
+    double   lyapunov_smith_doubling_f64(
+        const double* a_ptr,
+        const double* q_ptr,
+        size_t        n,
+        size_t        max_iters,
+        double        tol,
+        double*       p_out_ptr,
+        size_t*       iters_out_ptr
+    ) nogil
 
 
 DEF VSA_WORDS = 160
@@ -117,3 +126,21 @@ def cy_eval_graph(
             sc_ptr, <size_t>out_scalars.shape[0],
         )
     return int(st)
+
+
+def cy_lyapunov_smith_doubling(
+    const double[:, ::1] a,
+    const double[:, ::1] q,
+    double[:, ::1] p_out,
+    size_t max_iters=64,
+    double tol=1e-12,
+):
+    """Zero-copy Cython dispatch to Rust LTO Smith Doubling Lyapunov solver."""
+    cdef size_t n = a.shape[0]
+    if n == 0 or a.shape[1] != n or q.shape[0] != n or q.shape[1] != n or p_out.shape[0] != n or p_out.shape[1] != n:
+        raise ValueError("Matrices A, Q, P_out must have identical square shape (n, n).")
+    cdef size_t iters_used = 0
+    cdef double res
+    with nogil:
+        res = lyapunov_smith_doubling_f64(&a[0, 0], &q[0, 0], n, max_iters, tol, &p_out[0, 0], &iters_used)
+    return (res, int(iters_used))
