@@ -1,0 +1,10 @@
+{
+  "model": "gpt-oss-20b-antidoom.i1-IQ4_XS",
+  "size_gb": 12.1,
+  "prompt_per_second": 26.360782061417822,
+  "predicted_per_second": 9.476637679474685,
+  "completion_tokens": 120,
+  "elapsed_seconds": 17.726784467697144,
+  "response_text": "The user writes in Portuguese: \"Olá! Apresente-se ao Mestre Ruan, explique a sua arquitetura neural de 20B com 3.6B parâmetros ativos (MoE) e confirme como você está operando com estabilidade e sem repetições.\"\n\nThey want me to present myself to \"Mestre Ruan\" and explain my architecture: 20B with 3.6B active parameters (MoE) and confirm that I'm operating with stability and no repetitions.\n\nThe user is basically asking for a description. There's no disallowed content. It's a normal request.",
+  "timestamp": "2026-10-22 21:03:18"
+}

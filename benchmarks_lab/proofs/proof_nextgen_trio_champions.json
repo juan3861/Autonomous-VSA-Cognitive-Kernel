@@ -1,0 +1,92 @@
+{
+  "yuxinlu1_gemma4_coder_fable5": {
+    "name": "gemma-4-12B-coder-fable5-composer2.5-v1",
+    "filename": "gemma4-coding-Q4_K_M.gguf",
+    "maintainer": "yuxinlu1",
+    "repo": "yuxinlu1/gemma-4-12B-coder-fable5-composer2.5-v1-GGUF",
+    "teacher": "Fable 5 Coder + Composer 2.5",
+    "arch": "Gemma 4 12B Dense",
+    "quant": "Q4_K_M",
+    "size_gb": 6.87,
+    "speeds": {
+      "prompt_per_second": 11.32,
+      "predicted_per_second": 4.06
+    },
+    "opus_passed": 4,
+    "opus_total": 10,
+    "opus_pct": 40.0,
+    "opus_details": {
+      "OPUS_01_regex_plus_star_dot": "FAIL",
+      "OPUS_02_parser_unario_potencia_direita": "FAIL",
+      "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+      "OPUS_04_maior_retangulo_matriz_binaria": "PASS (Lambda-RLM)",
+      "OPUS_05_bitmask_dp_tsp_aberto": "PASS (Lambda-RLM)",
+      "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+      "OPUS_07_maior_parenteses_valido_trap": "PASS (Lambda-RLM)",
+      "OPUS_08_trapping_rain_water": "PASS (Lambda-RLM)",
+      "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+      "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+    },
+    "timestamp": "2026-11-04 16:49:48"
+  },
+  "yuxinlu1_mellum2_claude_opus": {
+    "name": "Mellum2-12B-A2.5B-Claude-4.6-4.8-Opus-Thinking",
+    "filename": "mellum2-claude-Q4_K_M.gguf",
+    "maintainer": "yuxinlu1",
+    "repo": "yuxinlu1/Mellum2-12B-A2.5B-Claude-4.6-4.8-Opus-Thinking-GGUF",
+    "teacher": "Claude 4.6-4.8 Opus Thinking",
+    "arch": "Mellum 2 MoE 12B (2.5B ativos - A2.5B)",
+    "quant": "Q4_K_M",
+    "size_gb": 7.52,
+    "speeds": {
+      "prompt_per_second": 17.04,
+      "predicted_per_second": 13.54
+    },
+    "opus_passed": 1,
+    "opus_total": 10,
+    "opus_pct": 10.0,
+    "opus_details": {
+      "OPUS_01_regex_plus_star_dot": "FAIL",
+      "OPUS_02_parser_unario_potencia_direita": "FAIL",
+      "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+      "OPUS_04_maior_retangulo_matriz_binaria": "PASS (Lambda-RLM)",
+      "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+      "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+      "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+      "OPUS_08_trapping_rain_water": "FAIL",
+      "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+      "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+    },
+    "timestamp": "2026-11-04 17:47:12"
+  },
+  "teichai_qwen3_8_fable_iq4_xs": {
+    "name": "Qwen3.8-27B-Fable-Distill-IQ4_XS",
+    "filename": "Qwen3.8-27B-Fable-Distill-IQ4_XS.gguf",
+    "maintainer": "TeichAI",
+    "repo": "TeichAI/Qwen3.8-27B-Fable-Distill-GGUF",
+    "teacher": "Fable 5 Distill",
+    "arch": "Qwen 3.8 MoE 27B",
+    "quant": "IQ4_XS",
+    "size_gb": 14.94,
+    "speeds": {
+      "prompt_per_second": 0.0,
+      "predicted_per_second": 0.0
+    },
+    "opus_passed": 0,
+    "opus_total": 10,
+    "opus_pct": 0.0,
+    "opus_details": {
+      "OPUS_01_regex_plus_star_dot": "FAIL",
+      "OPUS_02_parser_unario_potencia_direita": "FAIL",
+      "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+      "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+      "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+      "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+      "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+      "OPUS_08_trapping_rain_water": "FAIL",
+      "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+      "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+    },
+    "timestamp": "2026-11-04 19:22:45"
+  }
+}

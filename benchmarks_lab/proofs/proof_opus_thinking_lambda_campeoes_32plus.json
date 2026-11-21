@@ -1,0 +1,378 @@
+{
+  "tinyqwen3_distill_06b__q5_k_m": {
+    "id": "tinyqwen3_distill_06b__q5_k_m",
+    "name": "TinyQwen3-Distill-0.6B [Q5_K_M]",
+    "champ": "TinyQwen3-Distill-0.6B",
+    "teacher": "DeepSeek-R1 Distillation",
+    "quant": "Q5_K_M",
+    "score_13_areas": 34,
+    "pct_13_areas": 87.18,
+    "boot_seconds": 4.57,
+    "score_opus_zero_shot_thinking": 0,
+    "score_opus_thinking_rlm": 0,
+    "pct_opus_thinking_rlm": 0.0,
+    "details_opus": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": {
+          "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+          "passed": false,
+          "result": "FAIL (Timeout excedido (6.0s) - provável loop infin)",
+          "thought_and_code_tokens": 4238,
+          "elapsed_seconds": 239.22
+        },
+        "OPUS_02_parser_unario_potencia_direita": {
+          "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+          "passed": false,
+          "result": "FAIL (SyntaxError na linha 59: '[' was never closed)",
+          "thought_and_code_tokens": 4335,
+          "elapsed_seconds": 219.59
+        },
+        "OPUS_03_dijkstra_k_pedagios_gratis": {
+          "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+          "passed": false,
+          "result": "FAIL (Timeout excedido (6.0s) - provável loop infin)",
+          "thought_and_code_tokens": 4175,
+          "elapsed_seconds": 231.39
+        },
+        "OPUS_04_maior_retangulo_matriz_binaria": {
+          "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+          "passed": false,
+          "result": "FAIL (RUNTIME_ERROR[0]: IndexError: list index out )",
+          "thought_and_code_tokens": 3944,
+          "elapsed_seconds": 245.34
+        },
+        "OPUS_05_bitmask_dp_tsp_aberto": {
+          "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[1]: assert tsp_aberto([[0, 10,)",
+          "thought_and_code_tokens": 3676,
+          "elapsed_seconds": 256.07
+        },
+        "OPUS_06_mediana_dois_arrays_ordenados": {
+          "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert float(mediana_orden)",
+          "thought_and_code_tokens": 3654,
+          "elapsed_seconds": 242.76
+        },
+        "OPUS_07_maior_parenteses_valido_trap": {
+          "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert maior_parenteses_va)",
+          "thought_and_code_tokens": 2283,
+          "elapsed_seconds": 240.01
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert agua_retida([0,1,0,)",
+          "thought_and_code_tokens": 3257,
+          "elapsed_seconds": 212.01
+        },
+        "OPUS_09_arvore_caminho_maximo_negativos": {
+          "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[1]: assert maior_caminho_arvor)",
+          "thought_and_code_tokens": 3325,
+          "elapsed_seconds": 224.22
+        },
+        "OPUS_10_solver_dpll_sat_cnf": {
+          "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+          "passed": false,
+          "result": "FAIL (RUNTIME_ERROR[0]: IndexError: tuple index out)",
+          "thought_and_code_tokens": 3364,
+          "elapsed_seconds": 195.93
+        }
+      }
+    },
+    "completed": true,
+    "timestamp": "2026-11-16 21:38:01"
+  },
+  "tinyqwen3_distill_06b__q6_k": {
+    "id": "tinyqwen3_distill_06b__q6_k",
+    "name": "TinyQwen3-Distill-0.6B [Q6_K]",
+    "champ": "TinyQwen3-Distill-0.6B",
+    "teacher": "DeepSeek-R1 Distillation",
+    "quant": "Q6_K",
+    "score_13_areas": 33,
+    "pct_13_areas": 84.62,
+    "boot_seconds": 4.54,
+    "score_opus_zero_shot_thinking": 0,
+    "score_opus_thinking_rlm": 0,
+    "pct_opus_thinking_rlm": 0.0,
+    "details_opus": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": {
+          "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+          "passed": false,
+          "result": "FAIL (Timeout excedido (6.0s) - provável loop infin)",
+          "thought_and_code_tokens": 2835,
+          "elapsed_seconds": 305.57
+        },
+        "OPUS_02_parser_unario_potencia_direita": {
+          "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+          "passed": false,
+          "result": "FAIL (Timeout excedido (6.0s) - provável loop infin)",
+          "thought_and_code_tokens": 3714,
+          "elapsed_seconds": 288.89
+        },
+        "OPUS_03_dijkstra_k_pedagios_gratis": {
+          "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+          "passed": false,
+          "result": "FAIL (RUNTIME_ERROR[0]: IndexError: list index out )",
+          "thought_and_code_tokens": 4221,
+          "elapsed_seconds": 299.74
+        },
+        "OPUS_04_maior_retangulo_matriz_binaria": {
+          "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert maior_retangulo_bin)",
+          "thought_and_code_tokens": 3478,
+          "elapsed_seconds": 228.51
+        },
+        "OPUS_05_bitmask_dp_tsp_aberto": {
+          "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+          "passed": false,
+          "result": "FAIL (RUNTIME_ERROR[0]: ValueError: min() arg is an)",
+          "thought_and_code_tokens": 3822,
+          "elapsed_seconds": 272.76
+        },
+        "OPUS_06_mediana_dois_arrays_ordenados": {
+          "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert float(mediana_orden)",
+          "thought_and_code_tokens": 3284,
+          "elapsed_seconds": 202.23
+        },
+        "OPUS_07_maior_parenteses_valido_trap": {
+          "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[1]: assert maior_parenteses_va)",
+          "thought_and_code_tokens": 2307,
+          "elapsed_seconds": 235.18
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert agua_retida([0,1,0,)",
+          "thought_and_code_tokens": 3345,
+          "elapsed_seconds": 236.33
+        },
+        "OPUS_09_arvore_caminho_maximo_negativos": {
+          "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+          "passed": false,
+          "result": "FAIL (SyntaxError na linha 7: invalid syntax. Perha)",
+          "thought_and_code_tokens": 3565,
+          "elapsed_seconds": 235.98
+        },
+        "OPUS_10_solver_dpll_sat_cnf": {
+          "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: r1 = resolver_sat_cnf(2, [)",
+          "thought_and_code_tokens": 3708,
+          "elapsed_seconds": 255.14
+        }
+      }
+    },
+    "completed": true,
+    "timestamp": "2026-11-16 22:21:04"
+  },
+  "qwen3_06b_distill_30b__q4_k_m": {
+    "id": "qwen3_06b_distill_30b__q4_k_m",
+    "name": "Qwen3-0.6B-Distill-30B [Q4_K_M]",
+    "champ": "Qwen3-0.6B-Distilled-30B-Thinking-SFT",
+    "teacher": "Qwen3-30B-A3B-Thinking SFT",
+    "quant": "Q4_K_M",
+    "score_13_areas": 32,
+    "pct_13_areas": 82.05,
+    "boot_seconds": 4.05,
+    "score_opus_zero_shot_thinking": 0,
+    "score_opus_thinking_rlm": 0,
+    "pct_opus_thinking_rlm": 0.0,
+    "details_opus": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": {
+          "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+          "passed": false,
+          "result": "FAIL (Timeout excedido (6.0s) - provável loop infin)",
+          "thought_and_code_tokens": 3588,
+          "elapsed_seconds": 228.67
+        },
+        "OPUS_02_parser_unario_potencia_direita": {
+          "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+          "passed": false,
+          "result": "FAIL (Timeout excedido (6.0s) - provável loop infin)",
+          "thought_and_code_tokens": 3567,
+          "elapsed_seconds": 206.41
+        },
+        "OPUS_03_dijkstra_k_pedagios_gratis": {
+          "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+          "passed": false,
+          "result": "FAIL (RUNTIME_ERROR[0]: ValueError: too many values)",
+          "thought_and_code_tokens": 3735,
+          "elapsed_seconds": 212.85
+        },
+        "OPUS_04_maior_retangulo_matriz_binaria": {
+          "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert maior_retangulo_bin)",
+          "thought_and_code_tokens": 3407,
+          "elapsed_seconds": 191.34
+        },
+        "OPUS_05_bitmask_dp_tsp_aberto": {
+          "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+          "passed": false,
+          "result": "FAIL (RUNTIME_ERROR[0]: TypeError: tsp_aberto() mis)",
+          "thought_and_code_tokens": 3528,
+          "elapsed_seconds": 189.18
+        },
+        "OPUS_06_mediana_dois_arrays_ordenados": {
+          "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+          "passed": false,
+          "result": "FAIL (SyntaxError na linha 26: expected ':' -> if l)",
+          "thought_and_code_tokens": 3830,
+          "elapsed_seconds": 200.88
+        },
+        "OPUS_07_maior_parenteses_valido_trap": {
+          "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert maior_parenteses_va)",
+          "thought_and_code_tokens": 3305,
+          "elapsed_seconds": 191.42
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert agua_retida([0,1,0,)",
+          "thought_and_code_tokens": 3200,
+          "elapsed_seconds": 190.33
+        },
+        "OPUS_09_arvore_caminho_maximo_negativos": {
+          "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+          "passed": false,
+          "result": "FAIL (RUNTIME_ERROR[0]: TypeError: 'NoneType' objec)",
+          "thought_and_code_tokens": 3783,
+          "elapsed_seconds": 245.13
+        },
+        "OPUS_10_solver_dpll_sat_cnf": {
+          "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: r1 = resolver_sat_cnf(2, [)",
+          "thought_and_code_tokens": 2385,
+          "elapsed_seconds": 138.59
+        }
+      }
+    },
+    "completed": true,
+    "timestamp": "2026-11-16 22:54:35"
+  },
+  "qwen3_06b_opus46__q8_0": {
+    "id": "qwen3_06b_opus46__q8_0",
+    "name": "Qwen3-0.6B-Opus4.6 [Q8_0]",
+    "champ": "Qwen3-0.6B-Opus4.6-Abliterated",
+    "teacher": "Claude 4.6 Opus (Pure Reasoning)",
+    "quant": "Q8_0",
+    "score_13_areas": 32,
+    "pct_13_areas": 82.05,
+    "boot_seconds": 4.56,
+    "score_opus_zero_shot_thinking": 0,
+    "score_opus_thinking_rlm": 0,
+    "pct_opus_thinking_rlm": 0.0,
+    "details_opus": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": {
+          "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[1]: assert casamento_padrao('a)",
+          "thought_and_code_tokens": 3911,
+          "elapsed_seconds": 276.3
+        },
+        "OPUS_02_parser_unario_potencia_direita": {
+          "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+          "passed": false,
+          "result": "FAIL (SyntaxError na linha 70: expected an indented)",
+          "thought_and_code_tokens": 4196,
+          "elapsed_seconds": 287.06
+        },
+        "OPUS_03_dijkstra_k_pedagios_gratis": {
+          "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[1]: assert menor_custo_k_grati)",
+          "thought_and_code_tokens": 4060,
+          "elapsed_seconds": 316.48
+        },
+        "OPUS_04_maior_retangulo_matriz_binaria": {
+          "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert maior_retangulo_bin)",
+          "thought_and_code_tokens": 3859,
+          "elapsed_seconds": 261.63
+        },
+        "OPUS_05_bitmask_dp_tsp_aberto": {
+          "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+          "passed": false,
+          "result": "FAIL (SyntaxError na linha 50: expected an indented)",
+          "thought_and_code_tokens": 3851,
+          "elapsed_seconds": 253.77
+        },
+        "OPUS_06_mediana_dois_arrays_ordenados": {
+          "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+          "passed": false,
+          "result": "FAIL (RUNTIME_ERROR[0]: IndexError: list index out )",
+          "thought_and_code_tokens": 3210,
+          "elapsed_seconds": 210.07
+        },
+        "OPUS_07_maior_parenteses_valido_trap": {
+          "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert maior_parenteses_va)",
+          "thought_and_code_tokens": 3042,
+          "elapsed_seconds": 192.76
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert agua_retida([0,1,0,)",
+          "thought_and_code_tokens": 3231,
+          "elapsed_seconds": 209.85
+        },
+        "OPUS_09_arvore_caminho_maximo_negativos": {
+          "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: assert maior_caminho_arvor)",
+          "thought_and_code_tokens": 3313,
+          "elapsed_seconds": 238.83
+        },
+        "OPUS_10_solver_dpll_sat_cnf": {
+          "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+          "passed": false,
+          "result": "FAIL (FAIL_ASSERTION[0]: r1 = resolver_sat_cnf(2, [)",
+          "thought_and_code_tokens": 4163,
+          "elapsed_seconds": 282.35
+        }
+      }
+    },
+    "completed": true,
+    "timestamp": "2026-11-16 23:37:00"
+  }
+}

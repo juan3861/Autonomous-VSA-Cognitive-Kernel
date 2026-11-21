@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-10-22 22:14:49",
+  "model": "gpt-oss-20b-antidoom.i1-IQ4_XS",
+  "optimizations_active": [
+    "spec-type ngram-simple (PLD)",
+    "draft 8 (draft-p-min 0.70)",
+    "flash-attn on",
+    "threads 8 (-C 0x5555 affinity)",
+    "poll 100",
+    "prio 2",
+    "ctk q4_0, ctv q4_0",
+    "cache-reuse 256",
+    "min-p 0.05, dynatemp 0.4, dry 0.8"
+  ],
+  "timings": {
+    "cache_n": 69,
+    "prompt_n": 69,
+    "prompt_ms": 2555.698,
+    "prompt_per_token_ms": 37.03910144927536,
+    "prompt_per_second": 26.998495127358556,
+    "predicted_n": 160,
+    "predicted_ms": 15024.905,
+    "predicted_per_token_ms": 93.90565625,
+    "predicted_per_second": 10.648985800575776
+  },
+  "tokens": 160,
+  "elapsed": 17.70395827293396,
+  "sample": "The user wants a concise technical explanation in Portuguese, presumably about \"MoE\" architecture. They mention \"Mistura de Especialistas\" (probably \"Mixture of Experts\") and \"GPT-OSS 20B\" (maybe a reference to GPT-3.5 or GPT-4?). They want to highlight 4 active experts out of 32, memory efficiency,"
+}

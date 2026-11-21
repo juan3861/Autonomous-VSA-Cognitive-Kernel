@@ -1,0 +1,145 @@
+{
+  "qwen_qwen3_30b_a3b_q4_k_m": {
+    "id": "qwen_qwen3_30b_a3b_q4_k_m",
+    "name": "Qwen_Qwen3-30B-A3B-Q4_K_M",
+    "filename": "Qwen_Qwen3-30B-A3B-Q4_K_M.gguf",
+    "size_gb": 17.35,
+    "score_13": "35/39",
+    "score_13_pct": 89.74,
+    "score_opus": "1/10",
+    "score_opus_pct": 10.0,
+    "timestamp": "2026-11-02 17:31:56"
+  },
+  "qwen3_6_35b_claude_4_7_opus": {
+    "id": "qwen3_6_35b_claude_4_7_opus",
+    "name": "Qwen3.6-35B-A3B-Claude-4.7-Opus-Reasoning-Distilled",
+    "filename": "Qwen3.6-35B-A3B-Claude-4.7-Opus-Reasoning-Distilled.Q4_K_M.gguf",
+    "size_gb": 19.71,
+    "score_13": "35/39",
+    "score_13_pct": 89.74,
+    "score_opus": "0/10",
+    "score_opus_pct": 0.0,
+    "timestamp": "2026-11-02 20:37:15"
+  },
+  "gemma_4_26b_claude_opus_distill_v2": {
+    "id": "gemma_4_26b_claude_opus_distill_v2",
+    "name": "gemma-4-26B-A4B-it-Claude-Opus-Distill-v2",
+    "filename": "gemma-4-26B-A4B-it-Claude-Opus-Distill.q4_k_m.gguf",
+    "size_gb": 15.64,
+    "score_13": "34/39",
+    "score_13_pct": 87.18,
+    "score_opus": "1/10",
+    "score_opus_pct": 10.0,
+    "timestamp": "2026-11-03 10:00:16"
+  },
+  "jackrong_gemopus_4_26b_preview": {
+    "id": "jackrong_gemopus_4_26b_preview",
+    "name": "Gemopus-4-26B-A4B-it-Preview-Q4_K_M",
+    "filename": "Gemopus-4-26B-A4B-it-Preview-Q4_K_M.gguf",
+    "size_gb": 15.64,
+    "score_13": "32/39",
+    "score_13_pct": 82.05,
+    "score_opus": "0/10",
+    "score_opus_pct": 0.0,
+    "timestamp": "2026-11-03 13:11:50"
+  },
+  "glyphsoftware_gemma_4_26b_opus": {
+    "id": "glyphsoftware_gemma_4_26b_opus",
+    "name": "gemma-4-26b-a4b-opus-4.7-distilled.Q4_K_M",
+    "filename": "gemma-4-26b-a4b-opus-4.7-distilled.Q4_K_M.gguf",
+    "size_gb": 15.64,
+    "score_13": "34/39",
+    "score_13_pct": 87.18,
+    "score_opus": "1/10",
+    "score_opus_pct": 10.0,
+    "timestamp": "2026-11-03 14:24:47"
+  },
+  "qwen_qwen3_30b_iq3m": {
+    "id": "qwen_qwen3_30b_iq3m",
+    "name": "Qwen_Qwen3-30B-A3B-IQ3_M",
+    "filename": "Qwen_Qwen3-30B-A3B-IQ3_M.gguf",
+    "size_gb": 13.11,
+    "score_13": "36/39",
+    "score_13_pct": 92.31,
+    "score_opus": "0/10",
+    "score_opus_pct": 0.0,
+    "timestamp": "2026-11-03 16:20:58"
+  },
+  "mudler_gemopus_4_26b_apex": {
+    "id": "mudler_gemopus_4_26b_apex",
+    "name": "gemopus-4-26B-A4B-APEX-Balanced",
+    "filename": "gemopus-4-26B-A4B-APEX-Balanced.gguf",
+    "size_gb": 18.17,
+    "score_13": "34/39",
+    "score_13_pct": 87.18,
+    "score_opus": "0/10",
+    "score_opus_pct": 0.0,
+    "timestamp": "2026-11-03 17:17:00"
+  },
+  "unsloth_qwen3_5_35b": {
+    "id": "unsloth_qwen3_5_35b",
+    "name": "Qwen3.5-35B-A3B-Q4_K_M",
+    "filename": "Qwen3.5-35B-A3B-Q4_K_M.gguf",
+    "size_gb": 20.5,
+    "score_13": "12/39",
+    "score_13_pct": 30.77,
+    "score_opus": "0/10",
+    "score_opus_pct": 0.0,
+    "timestamp": "2026-11-03 21:53:32"
+  },
+  "unsloth_qwen3_30b_thinking": {
+    "id": "unsloth_qwen3_30b_thinking",
+    "name": "Qwen3-30B-A3B-Thinking-2507-Q4_K_M",
+    "filename": "Qwen3-30B-A3B-Thinking-2507-Q4_K_M.gguf",
+    "size_gb": 17.28,
+    "score_13": "8/39",
+    "score_13_pct": 20.51,
+    "score_opus": "0/10",
+    "score_opus_pct": 0.0,
+    "timestamp": "2026-11-04 00:32:33"
+  },
+  "teichai_qwen3_30b_sonnet": {
+    "id": "teichai_qwen3_30b_sonnet",
+    "name": "Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill-q4_k_m",
+    "filename": "Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill-q4_k_m.gguf",
+    "size_gb": 17.28,
+    "score_13": "30/39",
+    "score_13_pct": 76.92,
+    "score_opus": "6/10",
+    "score_opus_pct": 60.0,
+    "timestamp": "2026-11-04 01:55:49"
+  },
+  "ibm_granite_4_0_h_small": {
+    "id": "ibm_granite_4_0_h_small",
+    "name": "granite-4.0-h-small-Q4_K_M",
+    "filename": "granite-4.0-h-small-Q4_K_M.gguf",
+    "size_gb": 18.14,
+    "score_13": "33/39",
+    "score_13_pct": 84.62,
+    "score_opus": "0/10",
+    "score_opus_pct": 0.0,
+    "timestamp": "2026-11-04 04:08:01"
+  },
+  "jackrong_qwopus_3_6_35b_coder": {
+    "id": "jackrong_qwopus_3_6_35b_coder",
+    "name": "Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M",
+    "filename": "Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M.gguf",
+    "size_gb": 20.22,
+    "score_13": "18/39",
+    "score_13_pct": 46.15,
+    "score_opus": "1/10",
+    "score_opus_pct": 10.0,
+    "timestamp": "2026-11-04 06:29:05"
+  },
+  "achilles_fable_coder_35b": {
+    "id": "achilles_fable_coder_35b",
+    "name": "fable-coder-35B-A3B-Q4_K_M",
+    "filename": "fable-coder-35B-A3B-Q4_K_M.gguf",
+    "size_gb": 20.22,
+    "score_13": "23/39",
+    "score_13_pct": 58.97,
+    "score_opus": "0/10",
+    "score_opus_pct": 0.0,
+    "timestamp": "2026-11-04 10:00:59"
+  }
+}

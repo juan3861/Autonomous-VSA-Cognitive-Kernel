@@ -1,0 +1,10 @@
+{
+  "status": "DIVIDA_QUITADA_100%",
+  "model": "gpt-oss-20b-antidoom.i1-IQ4_XS",
+  "repack_size_mib": 10422.42,
+  "prompt_processing_speed": 31.29,
+  "generation_speed": 31.29,
+  "eval_ms_per_token": 31.961709401709403,
+  "total_tokens_evaluated": 234,
+  "hardware": "Intel Xeon E5-2697 v3 (10 Cores Fisicos 0x15555 AVX2)"
+}

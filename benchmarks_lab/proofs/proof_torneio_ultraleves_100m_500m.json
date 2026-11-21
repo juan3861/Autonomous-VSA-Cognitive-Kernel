@@ -1,0 +1,1222 @@
+{
+  "smollm2_135m_q4_k_m": {
+    "name": "SmolLM2-135M-Instruct-Q4_K_M",
+    "local_path": "F:\\models\\ultraleves_100m_500m\\SmolLM2-135M-Instruct-Q4_K_M.gguf",
+    "params": "135M",
+    "tier": "100M-200M",
+    "quant": "Q4_K_M",
+    "teacher": "SmolLM2 Foundation / HuggingFaceTB",
+    "size_mb": 100.57,
+    "speeds": {
+      "boot_seconds": 1.04,
+      "prompt_per_second": 684.69,
+      "predicted_per_second": 57.45
+    },
+    "areas_13": {
+      "baseline_passed": 15,
+      "baseline_pct": 38.46,
+      "passed": 17,
+      "total": 39,
+      "pct": 43.59,
+      "perfect_areas_count": 3,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 00:56:17"
+  },
+  "smollm2_135m_q8_0": {
+    "name": "SmolLM2-135M-Instruct-Q8_0",
+    "local_path": "F:\\models\\ultraleves_100m_500m\\SmolLM2-135M-Instruct-Q8_0.gguf",
+    "params": "135M",
+    "tier": "100M-200M",
+    "quant": "Q8_0",
+    "teacher": "SmolLM2 Foundation / HuggingFaceTB",
+    "size_mb": 138.1,
+    "speeds": {
+      "boot_seconds": 1.01,
+      "prompt_per_second": 662.78,
+      "predicted_per_second": 36.5
+    },
+    "areas_13": {
+      "baseline_passed": 2,
+      "baseline_pct": 5.13,
+      "passed": 2,
+      "total": 39,
+      "pct": 5.13,
+      "perfect_areas_count": 0,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 01:07:51"
+  },
+  "smollm2_135m_f16": {
+    "name": "SmolLM2-135M-Instruct-F16",
+    "local_path": "F:\\models\\ultraleves_100m_500m\\SmolLM2-135M-Instruct-f16.gguf",
+    "params": "135M",
+    "tier": "100M-200M",
+    "quant": "F16",
+    "teacher": "SmolLM2 Foundation / HuggingFaceTB",
+    "size_mb": 258.34,
+    "speeds": {
+      "boot_seconds": 3.62,
+      "prompt_per_second": 758.95,
+      "predicted_per_second": 41.58
+    },
+    "areas_13": {
+      "baseline_passed": 18,
+      "baseline_pct": 46.15,
+      "passed": 21,
+      "total": 39,
+      "pct": 53.85,
+      "perfect_areas_count": 4,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 0,
+          "passed": 1,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 01:19:00"
+  },
+  "granite_4_0_h_350m_gemini3_pro_think_q4_k_m": {
+    "name": "granite-4.0-h-350m-DISTILL-gemini-3-pro-think-q4_k_m",
+    "local_path": "F:\\models\\pesos_mosca_200m_15b\\glogwa68_granite4_350m_gemini3_pro__granite-4.0-h-350m-DISTILL-gemini-3-pro-think-q4_k_m.gguf",
+    "params": "350M",
+    "tier": "300M-400M",
+    "quant": "Q4_K_M",
+    "teacher": "Google Gemini 3 Pro Thinking",
+    "size_mb": 212.3,
+    "speeds": {
+      "boot_seconds": 4.53,
+      "prompt_per_second": 214.47,
+      "predicted_per_second": 4.74
+    },
+    "areas_13": {
+      "baseline_passed": 18,
+      "baseline_pct": 46.15,
+      "passed": 26,
+      "total": 39,
+      "pct": 66.67,
+      "perfect_areas_count": 4,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 01:46:10"
+  },
+  "granite_4_0_h_350m_bf16": {
+    "name": "granite-4.0-h-350m-BF16",
+    "local_path": "F:\\models\\ultraleves_100m_500m\\granite-4.0-h-350m-BF16.gguf",
+    "params": "350M",
+    "tier": "300M-400M",
+    "quant": "BF16",
+    "teacher": "IBM Granite 4.0 Foundation",
+    "size_mb": 653.2,
+    "speeds": {
+      "boot_seconds": 5.62,
+      "prompt_per_second": 456.39,
+      "predicted_per_second": 22.64
+    },
+    "areas_13": {
+      "baseline_passed": 19,
+      "baseline_pct": 48.72,
+      "passed": 29,
+      "total": 39,
+      "pct": 74.36,
+      "perfect_areas_count": 6,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 1,
+          "passed": 3,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 1,
+          "passed": 3,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 0,
+          "passed": 1,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 0,
+          "passed": 1,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 1,
+          "passed": 3,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 01:50:17"
+  },
+  "smollm2_360m_q4_k_m": {
+    "name": "SmolLM2-360M-Instruct-Q4_K_M",
+    "local_path": "E:\\models\\gguf\\cpu_bench\\SmolLM2-360M-Instruct-Q4_K_M.gguf",
+    "params": "360M",
+    "tier": "300M-400M",
+    "quant": "Q4_K_M",
+    "teacher": "SmolLM2 Foundation / HuggingFaceTB",
+    "size_mb": 258.1,
+    "speeds": {
+      "boot_seconds": 9.2,
+      "prompt_per_second": 233.45,
+      "predicted_per_second": 9.89
+    },
+    "areas_13": {
+      "baseline_passed": 18,
+      "baseline_pct": 46.15,
+      "passed": 22,
+      "total": 39,
+      "pct": 56.41,
+      "perfect_areas_count": 4,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 1,
+          "passed": 3,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 01:55:43"
+  },
+  "qwen25_05b_open_r1_distill_q4_k_m": {
+    "name": "Qwen2.5-0.5B-Open-R1-Distill_Q4_K_M",
+    "local_path": "F:\\models\\ultraleves_100m_500m\\Qwen2.5-0.5B-Open-R1-Distill_Q4_K_M.gguf",
+    "params": "500M",
+    "tier": "400M-500M",
+    "quant": "Q4_K_M",
+    "teacher": "DeepSeek-R1 Distill",
+    "size_mb": 379.38,
+    "speeds": {
+      "boot_seconds": 3.06,
+      "prompt_per_second": 246.76,
+      "predicted_per_second": 42.02
+    },
+    "areas_13": {
+      "baseline_passed": 22,
+      "baseline_pct": 56.41,
+      "passed": 27,
+      "total": 39,
+      "pct": 69.23,
+      "perfect_areas_count": 6,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 0,
+          "passed": 1,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 02:04:29"
+  },
+  "qwq_05b_distilled_sft_q4_k_m": {
+    "name": "QwQ-0.5B-Distilled-SFT.Q4_K_M",
+    "local_path": "F:\\models\\ultraleves_100m_500m\\QwQ-0.5B-Distilled-SFT.Q4_K_M.gguf",
+    "params": "500M",
+    "tier": "400M-500M",
+    "quant": "Q4_K_M",
+    "teacher": "Alibaba QwQ / OpenAI o1 Reasoning",
+    "size_mb": 379.38,
+    "speeds": {
+      "boot_seconds": 3.56,
+      "prompt_per_second": 257.69,
+      "predicted_per_second": 42.24
+    },
+    "areas_13": {
+      "baseline_passed": 24,
+      "baseline_pct": 61.54,
+      "passed": 29,
+      "total": 39,
+      "pct": 74.36,
+      "perfect_areas_count": 7,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 1,
+          "passed": 3,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 02:17:22"
+  },
+  "gemini_distill_qwen25_05b_q4_k_m": {
+    "name": "Gemini-Distill-Qwen2.5-0.5B-ead-Q4_K_M",
+    "local_path": "F:\\models\\pesos_mosca_200m_15b\\geraldine_gemini_qwen25_05b__Gemini-Distill-Qwen2.5-0.5B-ead-Q4_K_M.gguf",
+    "params": "500M",
+    "tier": "400M-500M",
+    "quant": "Q4_K_M",
+    "teacher": "Google Gemini Pro Distill",
+    "size_mb": 379.1,
+    "speeds": {
+      "boot_seconds": 3.04,
+      "prompt_per_second": 284.99,
+      "predicted_per_second": 42.13
+    },
+    "areas_13": {
+      "baseline_passed": 14,
+      "baseline_pct": 35.9,
+      "passed": 20,
+      "total": 39,
+      "pct": 51.28,
+      "perfect_areas_count": 4,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 1,
+          "passed": 3,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 1,
+          "passed": 1,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 0,
+          "passed": 1,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 1,
+          "passed": 2,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 02:23:08"
+  },
+  "minicpm4_05b_q4_k_m": {
+    "name": "MiniCPM4-0.5B-Q4_K_M",
+    "local_path": "E:\\models\\gguf\\cpu_bench\\MiniCPM4-0.5B-Q4_K_M.gguf",
+    "params": "500M",
+    "tier": "400M-500M",
+    "quant": "Q4_K_M",
+    "teacher": "OpenBMB MiniCPM4 Base",
+    "size_mb": 265.8,
+    "speeds": {
+      "boot_seconds": 5.18,
+      "prompt_per_second": 373.43,
+      "predicted_per_second": 51.92
+    },
+    "areas_13": {
+      "baseline_passed": 23,
+      "baseline_pct": 58.97,
+      "passed": 29,
+      "total": 39,
+      "pct": 74.36,
+      "perfect_areas_count": 6,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "baseline_passed": 3,
+          "passed": 3,
+          "total": 3
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "baseline_passed": 0,
+          "passed": 1,
+          "total": 3
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "baseline_passed": 0,
+          "passed": 0,
+          "total": 3
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "baseline_passed": 2,
+          "passed": 3,
+          "total": 3
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "baseline_passed": 2,
+          "passed": 2,
+          "total": 3
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "baseline_passed": 1,
+          "passed": 3,
+          "total": 3
+        }
+      }
+    },
+    "opus_10": {
+      "baseline_passed": 0,
+      "baseline_pct": 0.0,
+      "passed": 0,
+      "total": 10,
+      "pct": 0.0,
+      "details": {
+        "OPUS_01_regex_plus_star_dot": "FAIL",
+        "OPUS_02_parser_unario_potencia_direita": "FAIL",
+        "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+        "OPUS_04_maior_retangulo_matriz_binaria": "FAIL",
+        "OPUS_05_bitmask_dp_tsp_aberto": "FAIL",
+        "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+        "OPUS_07_maior_parenteses_valido_trap": "FAIL",
+        "OPUS_08_trapping_rain_water": "FAIL",
+        "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+        "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+      }
+    },
+    "timestamp": "2026-11-17 02:29:21"
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "gemopus_4_26b_preview": {
+    "name": "Gemopus-4-26B-A4B-it-Preview-Q4_K_M",
+    "repo": "Jackrong/Gemopus-4-26B-A4B-it-GGUF",
+    "file": "Gemopus-4-26B-A4B-it-Preview-Q4_K_M.gguf",
+    "size_gb": 15.64,
+    "benchmark": {
+      "status": "FAIL_BOOT",
+      "pp_tok_s": 0.0,
+      "tg_tok_s": 0.0,
+      "score": "0/3"
+    },
+    "cloud_mirrored": true,
+    "completed": true,
+    "timestamp": "2026-10-28 11:57:25"
+  },
+  "gemma_4_26b_opus_distill": {
+    "name": "gemma-4-26b-a4b-opus-4.7-distilled-Q4_K_M",
+    "repo": "glyphsoftware/gemma-4-26b-a4b-opus-4.7-distilled-gguf",
+    "file": "gemma-4-26b-a4b-opus-4.7-distilled.Q4_K_M.gguf",
+    "size_gb": 15.64,
+    "benchmark": {
+      "status": "FAIL_BOOT",
+      "pp_tok_s": 0.0,
+      "tg_tok_s": 0.0,
+      "score": "0/3"
+    },
+    "cloud_mirrored": true,
+    "completed": true,
+    "timestamp": "2026-10-28 13:17:48"
+  },
+  "teichai_qwen3_30b_sonnet": {
+    "name": "Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill",
+    "repo": "TeichAI/Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill-GGUF",
+    "file": "Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill-q4_k_m.gguf",
+    "size_gb": 17.28,
+    "benchmark": {
+      "status": "FAIL_BOOT",
+      "pp_tok_s": 0.0,
+      "tg_tok_s": 0.0,
+      "score": "0/3"
+    },
+    "cloud_mirrored": true,
+    "completed": true,
+    "timestamp": "2026-10-28 14:32:42"
+  },
+  "ibm_granite_4_0_h_small": {
+    "name": "granite-4.0-h-small-Q4_K_M",
+    "repo": "ibm-granite/granite-4.0-h-small-GGUF",
+    "file": "granite-4.0-h-small-Q4_K_M.gguf",
+    "size_gb": 18.14,
+    "benchmark": {
+      "status": "COMPLETED",
+      "pp_tok_s": 3.79,
+      "tg_tok_s": 4.72,
+      "score": "3/3"
+    },
+    "cloud_mirrored": true,
+    "completed": true,
+    "timestamp": "2026-10-28 23:24:51"
+  },
+  "achilles_fable_coder_35b": {
+    "name": "fable-coder-35B-A3B-Q4_K_M",
+    "repo": "Achilles1089/fable-coder-35B-A3B-GGUF",
+    "file": "fable-coder-35B-A3B-Q4_K_M.gguf",
+    "size_gb": 20.22,
+    "benchmark": {
+      "status": "FAIL_BOOT",
+      "pp_tok_s": 0.0,
+      "tg_tok_s": 0.0,
+      "score": "0/3"
+    },
+    "cloud_mirrored": true,
+    "completed": true,
+    "timestamp": "2026-10-28 18:41:43"
+  },
+  "jackrong_qwopus_3_6_35b_coder": {
+    "name": "Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M",
+    "repo": "Jackrong/Qwopus3.6-35B-A3B-Coder-MTP-GGUF",
+    "file": "Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M.gguf",
+    "size_gb": 20.22,
+    "benchmark": {
+      "status": "FAIL_BOOT",
+      "pp_tok_s": 0.0,
+      "tg_tok_s": 0.0,
+      "score": "0/3"
+    },
+    "cloud_mirrored": true,
+    "completed": true,
+    "timestamp": "2026-10-28 21:56:29"
+  },
+  "unsloth_qwen3_30b_thinking": {
+    "name": "Qwen3-30B-A3B-Thinking-2507-Q4_K_M",
+    "repo": "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF",
+    "file": "Qwen3-30B-A3B-Thinking-2507-Q4_K_M.gguf",
+    "size_gb": 17.28,
+    "benchmark": {
+      "status": "COMPLETED",
+      "pp_tok_s": 1.28,
+      "tg_tok_s": 4.58,
+      "score": "0/3"
+    },
+    "cloud_mirrored": true,
+    "completed": true,
+    "timestamp": "2026-10-29 01:04:38"
+  },
+  "gemopus_4_26b_apex": {
+    "name": "gemopus-4-26B-A4B-APEX-Balanced",
+    "repo": "mudler/Gemopus-4-26B-A4B-it-Preview-APEX-GGUF",
+    "file": "gemopus-4-26B-A4B-APEX-Balanced.gguf",
+    "size_gb": 18.17,
+    "benchmark": {
+      "status": "COMPLETED",
+      "pp_tok_s": 2.02,
+      "tg_tok_s": 3.76,
+      "score": "1/3"
+    },
+    "cloud_mirrored": true,
+    "completed": true,
+    "timestamp": "2026-10-29 03:16:47"
+  },
+  "unsloth_qwen3_5_35b": {
+    "name": "Qwen3.5-35B-A3B-Q4_K_M",
+    "repo": "unsloth/Qwen3.5-35B-A3B-GGUF",
+    "file": "Qwen3.5-35B-A3B-Q4_K_M.gguf",
+    "size_gb": 20.5,
+    "benchmark": {
+      "status": "COMPLETED",
+      "pp_tok_s": 1.27,
+      "tg_tok_s": 3.0,
+      "score": "1/3"
+    },
+    "cloud_mirrored": true,
+    "completed": true,
+    "timestamp": "2026-10-29 04:37:42"
+  }
+}

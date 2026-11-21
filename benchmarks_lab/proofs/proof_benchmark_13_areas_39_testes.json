@@ -1,0 +1,1470 @@
+{
+  "timestamp": "2026-10-23T00:39:38",
+  "total_areas": 13,
+  "tests_per_area": 3,
+  "total_tests_per_model": 39,
+  "total_hardware_executions": 117,
+  "models": {
+    "4b-rlm": {
+      "boot_info": {
+        "status": "ONLINE",
+        "profile_key": "4b-rlm",
+        "model_name": "Qwen3-4B-Instruct-2507-RLM-SFT-v3-Q4_K_M",
+        "vram_size_gb": 2.33,
+        "quant_type": "Q4_K_M",
+        "port": 8081,
+        "load_time_s": 15.58
+      },
+      "total_passed": 18,
+      "total_tests": 39,
+      "accuracy_pct": 46.15,
+      "avg_raw_tok_per_s": 12.63,
+      "avg_effective_tok_per_s": 13.49,
+      "total_suite_latency_s": 89.64,
+      "areas": {
+        "01_reflexo_triagem": {
+          "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 12.34,
+          "area_latency_ms": 6284.95,
+          "tests": [
+            {
+              "test_id": "T01_1",
+              "test_name": "Classificação de Emergência Infra",
+              "passed": true,
+              "raw_tok_per_s": 11.29,
+              "effective_tok_per_s": 11.29,
+              "latency_ms": 2026.24,
+              "output_preview": "INFRA_EMERGENCY"
+            },
+            {
+              "test_id": "T01_2",
+              "test_name": "Despacho de Tier por Complexidade",
+              "passed": true,
+              "raw_tok_per_s": 12.97,
+              "effective_tok_per_s": 12.97,
+              "latency_ms": 2195.6,
+              "output_preview": "{\"tier\": 2}"
+            },
+            {
+              "test_id": "T01_3",
+              "test_name": "Extração Léxica Rápida",
+              "passed": true,
+              "raw_tok_per_s": 12.75,
+              "effective_tok_per_s": 12.75,
+              "latency_ms": 2063.11,
+              "output_preview": "450|9981"
+            }
+          ]
+        },
+        "02_engenharia_codigo": {
+          "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "score": "1/3",
+          "passed_count": 1,
+          "avg_tok_per_s": 10.77,
+          "area_latency_ms": 20085.68,
+          "tests": [
+            {
+              "test_id": "T02_1",
+              "test_name": "Busca Binária Exata",
+              "passed": false,
+              "raw_tok_per_s": 10.64,
+              "effective_tok_per_s": 12.88,
+              "latency_ms": 3254.82,
+              "output_preview": "```python\ndef 15212122121212:\n    pass\n```"
+            },
+            {
+              "test_id": "T02_2",
+              "test_name": "Patch de Palíndromo Normalizado",
+              "passed": false,
+              "raw_tok_per_s": 11.29,
+              "effective_tok_per_s": 13.03,
+              "latency_ms": 3835.22,
+              "output_preview": "```python\ndef 111111:\n    s = s.lower().replace(\" \", \"\")\n    return s == s[::-1]\n```"
+            },
+            {
+              "test_id": "T02_3",
+              "test_name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+              "passed": true,
+              "raw_tok_per_s": 10.37,
+              "effective_tok_per_s": 10.73,
+              "latency_ms": 12995.64,
+              "output_preview": "```python\ndef max_nao_adj(nums):\n    if not nums:\n        return 0\n    if len(nums) == 1:\n        return nums[0]\n    if len(nums) == 2:\n        return max(nums["
+            }
+          ]
+        },
+        "03_matematica_provas": {
+          "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 11.52,
+          "area_latency_ms": 8846.49,
+          "tests": [
+            {
+              "test_id": "T03_1",
+              "test_name": "Expansão Polinomial Simbólica (SymPy)",
+              "passed": true,
+              "raw_tok_per_s": 11.48,
+              "effective_tok_per_s": 21.2,
+              "latency_ms": 3822.77,
+              "output_preview": "{\"status\":\"VERIFIED\",\"final_answer\":\"4*x**2 - 12*x + 9\"}"
+            },
+            {
+              "test_id": "T03_2",
+              "test_name": "Derivada Simbólica (SymPy)",
+              "passed": true,
+              "raw_tok_per_s": 11.49,
+              "effective_tok_per_s": 21.21,
+              "latency_ms": 2679.75,
+              "output_preview": "{\"status\":\"VERIFIED\",\"final_answer\":\"3*x**2 - 10*x + 6\"}"
+            },
+            {
+              "test_id": "T03_3",
+              "test_name": "Sistema de Restrições Inteira (Z3 SMT)",
+              "passed": true,
+              "raw_tok_per_s": 11.58,
+              "effective_tok_per_s": 21.72,
+              "latency_ms": 2343.97,
+              "output_preview": "{\"solution\":{\"x\":15,\"y\":15}}"
+            }
+          ]
+        },
+        "04_automacao_so_rpa": {
+          "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "score": "1/3",
+          "passed_count": 1,
+          "avg_tok_per_s": 11.34,
+          "area_latency_ms": 7846.32,
+          "tests": [
+            {
+              "test_id": "T04_1",
+              "test_name": "Seleção de Coordenada OCR Closed-Loop",
+              "passed": true,
+              "raw_tok_per_s": 10.34,
+              "effective_tok_per_s": 10.34,
+              "latency_ms": 2830.18,
+              "output_preview": "420,310"
+            },
+            {
+              "test_id": "T04_2",
+              "test_name": "Prevenção de Clique Cego (Zero Open-Loop)",
+              "passed": false,
+              "raw_tok_per_s": 11.18,
+              "effective_tok_per_s": 11.18,
+              "latency_ms": 3847.14,
+              "output_preview": "Ação escolhida: **BLIND_CLICK**\n\nJustificativa:  \nDe acordo com a regra de T"
+            },
+            {
+              "test_id": "T04_3",
+              "test_name": "Cmdlet Nativo PowerShell de Processos",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1169.0,
+              "output_preview": ""
+            }
+          ]
+        },
+        "05_memoria_perene": {
+          "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "score": "2/3",
+          "passed_count": 2,
+          "avg_tok_per_s": 11.89,
+          "area_latency_ms": 7454.88,
+          "tests": [
+            {
+              "test_id": "T05_1",
+              "test_name": "Extração de Tripla para Grafo HippoRAG",
+              "passed": true,
+              "raw_tok_per_s": 9.29,
+              "effective_tok_per_s": 9.29,
+              "latency_ms": 3702.96,
+              "output_preview": "{\"Xeon E5-2698 v3\": \"Haswell-EP\"}"
+            },
+            {
+              "test_id": "T05_2",
+              "test_name": "Resolução de Conflito Temporal (KAIROS)",
+              "passed": true,
+              "raw_tok_per_s": 13.88,
+              "effective_tok_per_s": 13.88,
+              "latency_ms": 1868.57,
+              "output_preview": "8083"
+            },
+            {
+              "test_id": "T05_3",
+              "test_name": "Deduplicação de Fatos Redundantes",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1883.35,
+              "output_preview": ""
+            }
+          ]
+        },
+        "06_metacognicao": {
+          "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "score": "1/3",
+          "passed_count": 1,
+          "avg_tok_per_s": 13.08,
+          "area_latency_ms": 4610.41,
+          "tests": [
+            {
+              "test_id": "T06_1",
+              "test_name": "Detecção de Premissa Contraditória",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1333.14,
+              "output_preview": ""
+            },
+            {
+              "test_id": "T06_2",
+              "test_name": "Auto-Correção de Alucinação Numérica",
+              "passed": true,
+              "raw_tok_per_s": 14.24,
+              "effective_tok_per_s": 14.24,
+              "latency_ms": 1644.67,
+              "output_preview": "1024"
+            },
+            {
+              "test_id": "T06_3",
+              "test_name": "Critério de Estabilidade LTI Discreta",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1632.6,
+              "output_preview": ""
+            }
+          ]
+        },
+        "07_cadinho_redteam": {
+          "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "score": "0/3",
+          "passed_count": 0,
+          "avg_tok_per_s": 12.5,
+          "area_latency_ms": 4158.78,
+          "tests": [
+            {
+              "test_id": "T07_1",
+              "test_name": "Auditoria de SQL Injection",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1141.4,
+              "output_preview": ""
+            },
+            {
+              "test_id": "T07_2",
+              "test_name": "Detecção de RCE via eval()",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1820.63,
+              "output_preview": ""
+            },
+            {
+              "test_id": "T07_3",
+              "test_name": "Classificação de Path Traversal",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1196.75,
+              "output_preview": ""
+            }
+          ]
+        },
+        "08_sintese_vocal": {
+          "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "score": "0/3",
+          "passed_count": 0,
+          "avg_tok_per_s": 13.91,
+          "area_latency_ms": 4317.82,
+          "tests": [
+            {
+              "test_id": "T08_1",
+              "test_name": "Expansão Monetária para TTS",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1154.18,
+              "output_preview": ""
+            },
+            {
+              "test_id": "T08_2",
+              "test_name": "Expansão de Unidade Física para TTS",
+              "passed": false,
+              "raw_tok_per_s": 12.64,
+              "effective_tok_per_s": 12.64,
+              "latency_ms": 1605.83,
+              "output_preview": "100 quilômetros por hora"
+            },
+            {
+              "test_id": "T08_3",
+              "test_name": "Inserção de Tag SSML de Pausa",
+              "passed": false,
+              "raw_tok_per_s": 16.6,
+              "effective_tok_per_s": 16.6,
+              "latency_ms": 1557.81,
+              "output_preview": "Iniciando"
+            }
+          ]
+        },
+        "09_multimodal_visao": {
+          "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "score": "1/3",
+          "passed_count": 1,
+          "avg_tok_per_s": 13.49,
+          "area_latency_ms": 5579.31,
+          "tests": [
+            {
+              "test_id": "T09_1",
+              "test_name": "Cálculo de Área de Interseção (Bounding Boxes)",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 2335.81,
+              "output_preview": ""
+            },
+            {
+              "test_id": "T09_2",
+              "test_name": "Inspeção Geométrica de Código SVG",
+              "passed": true,
+              "raw_tok_per_s": 15.47,
+              "effective_tok_per_s": 15.47,
+              "latency_ms": 1852.35,
+              "output_preview": "80"
+            },
+            {
+              "test_id": "T09_3",
+              "test_name": "Restauração de Texto OCR com Ruído Leetspeak",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1391.15,
+              "output_preview": ""
+            }
+          ]
+        },
+        "10_planejamento_deliberativo": {
+          "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "score": "2/3",
+          "passed_count": 2,
+          "avg_tok_per_s": 13.79,
+          "area_latency_ms": 5186.0,
+          "tests": [
+            {
+              "test_id": "T10_1",
+              "test_name": "Ordenação Topológica de Dependências",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1565.66,
+              "output_preview": ""
+            },
+            {
+              "test_id": "T10_2",
+              "test_name": "Sequenciamento Causal PDDL",
+              "passed": true,
+              "raw_tok_per_s": 14.21,
+              "effective_tok_per_s": 14.21,
+              "latency_ms": 1860.92,
+              "output_preview": "3->2->1"
+            },
+            {
+              "test_id": "T10_3",
+              "test_name": "Diagnóstico Formal de Deadlock",
+              "passed": true,
+              "raw_tok_per_s": 14.66,
+              "effective_tok_per_s": 14.66,
+              "latency_ms": 1759.42,
+              "output_preview": "DEADLOCK"
+            }
+          ]
+        },
+        "11_raciocinio_cientifico": {
+          "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "score": "1/3",
+          "passed_count": 1,
+          "avg_tok_per_s": 13.49,
+          "area_latency_ms": 4522.1,
+          "tests": [
+            {
+              "test_id": "T11_1",
+              "test_name": "Física: Dissipação de Potência (P = I^2 * R)",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1559.07,
+              "output_preview": ""
+            },
+            {
+              "test_id": "T11_2",
+              "test_name": "Química: Balanceamento Estequiométrico",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1427.06,
+              "output_preview": ""
+            },
+            {
+              "test_id": "T11_3",
+              "test_name": "Engenharia: Teto de Largura de Banda (Roofline)",
+              "passed": true,
+              "raw_tok_per_s": 15.47,
+              "effective_tok_per_s": 15.47,
+              "latency_ms": 1535.97,
+              "output_preview": "20"
+            }
+          ]
+        },
+        "12_linguagem_discurso": {
+          "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "score": "2/3",
+          "passed_count": 2,
+          "avg_tok_per_s": 12.97,
+          "area_latency_ms": 5735.05,
+          "tests": [
+            {
+              "test_id": "T12_1",
+              "test_name": "Compressão Densa de Telemetria",
+              "passed": true,
+              "raw_tok_per_s": 11.41,
+              "effective_tok_per_s": 11.41,
+              "latency_ms": 2469.24,
+              "output_preview": "Xeon atinge 10.94 ts"
+            },
+            {
+              "test_id": "T12_2",
+              "test_name": "Dedução Silogística Estrita",
+              "passed": true,
+              "raw_tok_per_s": 15.0,
+              "effective_tok_per_s": 15.0,
+              "latency_ms": 1983.41,
+              "output_preview": "Wave64"
+            },
+            {
+              "test_id": "T12_3",
+              "test_name": "Resolução Correferencial (Anáfora)",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1282.4,
+              "output_preview": ""
+            }
+          ]
+        },
+        "13_governador_hardware": {
+          "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "score": "1/3",
+          "passed_count": 1,
+          "avg_tok_per_s": 13.04,
+          "area_latency_ms": 5012.1,
+          "tests": [
+            {
+              "test_id": "T13_1",
+              "test_name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+              "passed": true,
+              "raw_tok_per_s": 14.13,
+              "effective_tok_per_s": 14.13,
+              "latency_ms": 2015.35,
+              "output_preview": "REJECT_OOM"
+            },
+            {
+              "test_id": "T13_2",
+              "test_name": "Proteção Térmica (Hardware Watchdog)",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1482.43,
+              "output_preview": ""
+            },
+            {
+              "test_id": "T13_3",
+              "test_name": "Escalonamento de Núcleos Físicos AVX2",
+              "passed": false,
+              "raw_tok_per_s": 12.5,
+              "effective_tok_per_s": 12.5,
+              "latency_ms": 1514.32,
+              "output_preview": ""
+            }
+          ]
+        }
+      }
+    },
+    "8b-rlm": {
+      "boot_info": {
+        "status": "ONLINE",
+        "profile_key": "8b-rlm",
+        "model_name": "rlm-qwen3-8b-v0.1-Q4_K_M",
+        "vram_size_gb": 4.68,
+        "quant_type": "Q4_K_M",
+        "port": 8081,
+        "load_time_s": 29.7
+      },
+      "total_passed": 37,
+      "total_tests": 39,
+      "accuracy_pct": 94.87,
+      "avg_raw_tok_per_s": 7.78,
+      "avg_effective_tok_per_s": 8.29,
+      "total_suite_latency_s": 171.24,
+      "areas": {
+        "01_reflexo_triagem": {
+          "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.3,
+          "area_latency_ms": 10720.11,
+          "tests": [
+            {
+              "test_id": "T01_1",
+              "test_name": "Classificação de Emergência Infra",
+              "passed": true,
+              "raw_tok_per_s": 6.89,
+              "effective_tok_per_s": 6.89,
+              "latency_ms": 3374.03,
+              "output_preview": "INFRA_EMERGENCY"
+            },
+            {
+              "test_id": "T01_2",
+              "test_name": "Despacho de Tier por Complexidade",
+              "passed": true,
+              "raw_tok_per_s": 7.79,
+              "effective_tok_per_s": 7.79,
+              "latency_ms": 3565.5,
+              "output_preview": "{\"tier\": 2}"
+            },
+            {
+              "test_id": "T01_3",
+              "test_name": "Extração Léxica Rápida",
+              "passed": true,
+              "raw_tok_per_s": 7.23,
+              "effective_tok_per_s": 7.23,
+              "latency_ms": 3780.58,
+              "output_preview": "450|9981"
+            }
+          ]
+        },
+        "02_engenharia_codigo": {
+          "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "score": "2/3",
+          "passed_count": 2,
+          "avg_tok_per_s": 6.66,
+          "area_latency_ms": 32635.4,
+          "tests": [
+            {
+              "test_id": "T02_1",
+              "test_name": "Busca Binária Exata",
+              "passed": true,
+              "raw_tok_per_s": 6.39,
+              "effective_tok_per_s": 6.68,
+              "latency_ms": 16459.77,
+              "output_preview": "```python\ndef busca_binaria(arr, x):\n    esq, dir = 0, len(arr) - 1\n    while esq <= dir:\n        mid = (esq + dir) // 2\n        if arr[mid] == x:\n            r"
+            },
+            {
+              "test_id": "T02_2",
+              "test_name": "Patch de Palíndromo Normalizado",
+              "passed": false,
+              "raw_tok_per_s": 7.03,
+              "effective_tok_per_s": 8.9,
+              "latency_ms": 4503.88,
+              "output_preview": "```python\ndef eh_palindromo(s):\n    return s == s[::-1]\n```"
+            },
+            {
+              "test_id": "T02_3",
+              "test_name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+              "passed": true,
+              "raw_tok_per_s": 6.57,
+              "effective_tok_per_s": 7.01,
+              "latency_ms": 11671.75,
+              "output_preview": "```python\ndef max_nao_adj(nums):\n    if not nums:\n        return 0\n    prev, curr = 0, nums[0]\n    for i in range(1, len(nums)):\n        prev, curr = curr, max("
+            }
+          ]
+        },
+        "03_matematica_provas": {
+          "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 6.73,
+          "area_latency_ms": 12050.15,
+          "tests": [
+            {
+              "test_id": "T03_1",
+              "test_name": "Expansão Polinomial Simbólica (SymPy)",
+              "passed": true,
+              "raw_tok_per_s": 6.75,
+              "effective_tok_per_s": 12.46,
+              "latency_ms": 3883.14,
+              "output_preview": "{\"status\":\"VERIFIED\",\"final_answer\":\"4*x^2 - 12*x + 9\"}"
+            },
+            {
+              "test_id": "T03_2",
+              "test_name": "Derivada Simbólica (SymPy)",
+              "passed": true,
+              "raw_tok_per_s": 6.45,
+              "effective_tok_per_s": 11.91,
+              "latency_ms": 4456.97,
+              "output_preview": "{\"status\":\"VERIFIED\",\"final_answer\":\"3*x**2 - 10*x + 6\"}"
+            },
+            {
+              "test_id": "T03_3",
+              "test_name": "Sistema de Restrições Inteira (Z3 SMT)",
+              "passed": true,
+              "raw_tok_per_s": 6.98,
+              "effective_tok_per_s": 13.08,
+              "latency_ms": 3710.04,
+              "output_preview": "{\"solution\":{\"x\":15,\"y\":15}}"
+            }
+          ]
+        },
+        "04_automacao_so_rpa": {
+          "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.58,
+          "area_latency_ms": 10478.42,
+          "tests": [
+            {
+              "test_id": "T04_1",
+              "test_name": "Seleção de Coordenada OCR Closed-Loop",
+              "passed": true,
+              "raw_tok_per_s": 6.89,
+              "effective_tok_per_s": 6.89,
+              "latency_ms": 4399.06,
+              "output_preview": "420\n310"
+            },
+            {
+              "test_id": "T04_2",
+              "test_name": "Prevenção de Clique Cego (Zero Open-Loop)",
+              "passed": true,
+              "raw_tok_per_s": 8.28,
+              "effective_tok_per_s": 8.28,
+              "latency_ms": 3408.75,
+              "output_preview": "WAIT_AND_RESCAN"
+            },
+            {
+              "test_id": "T04_3",
+              "test_name": "Cmdlet Nativo PowerShell de Processos",
+              "passed": true,
+              "raw_tok_per_s": 7.57,
+              "effective_tok_per_s": 7.57,
+              "latency_ms": 2670.61,
+              "output_preview": "Get-Process"
+            }
+          ]
+        },
+        "05_memoria_perene": {
+          "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "score": "2/3",
+          "passed_count": 2,
+          "avg_tok_per_s": 9.57,
+          "area_latency_ms": 14795.05,
+          "tests": [
+            {
+              "test_id": "T05_1",
+              "test_name": "Extração de Tripla para Grafo HippoRAG",
+              "passed": true,
+              "raw_tok_per_s": 6.29,
+              "effective_tok_per_s": 6.29,
+              "latency_ms": 7915.88,
+              "output_preview": "{\"triplo\": [\"Xeon E5-2698 v3\", \"possui arquitetura\", \"Haswell-EP\"]}"
+            },
+            {
+              "test_id": "T05_2",
+              "test_name": "Resolução de Conflito Temporal (KAIROS)",
+              "passed": true,
+              "raw_tok_per_s": 8.37,
+              "effective_tok_per_s": 8.37,
+              "latency_ms": 3250.02,
+              "output_preview": "8083"
+            },
+            {
+              "test_id": "T05_3",
+              "test_name": "Deduplicação de Fatos Redundantes",
+              "passed": false,
+              "raw_tok_per_s": 14.06,
+              "effective_tok_per_s": 14.06,
+              "latency_ms": 3629.15,
+              "output_preview": "3"
+            }
+          ]
+        },
+        "06_metacognicao": {
+          "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.75,
+          "area_latency_ms": 10597.76,
+          "tests": [
+            {
+              "test_id": "T06_1",
+              "test_name": "Detecção de Premissa Contraditória",
+              "passed": true,
+              "raw_tok_per_s": 7.61,
+              "effective_tok_per_s": 7.61,
+              "latency_ms": 3383.32,
+              "output_preview": "IMPOSSIVEL"
+            },
+            {
+              "test_id": "T06_2",
+              "test_name": "Auto-Correção de Alucinação Numérica",
+              "passed": true,
+              "raw_tok_per_s": 8.15,
+              "effective_tok_per_s": 8.15,
+              "latency_ms": 3156.88,
+              "output_preview": "1024"
+            },
+            {
+              "test_id": "T06_3",
+              "test_name": "Critério de Estabilidade LTI Discreta",
+              "passed": true,
+              "raw_tok_per_s": 7.5,
+              "effective_tok_per_s": 7.5,
+              "latency_ms": 4057.56,
+              "output_preview": "MENOR_QUE_1"
+            }
+          ]
+        },
+        "07_cadinho_redteam": {
+          "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 8.36,
+          "area_latency_ms": 8721.81,
+          "tests": [
+            {
+              "test_id": "T07_1",
+              "test_name": "Auditoria de SQL Injection",
+              "passed": true,
+              "raw_tok_per_s": 8.75,
+              "effective_tok_per_s": 8.75,
+              "latency_ms": 2303.88,
+              "output_preview": "SQL_INJECTION"
+            },
+            {
+              "test_id": "T07_2",
+              "test_name": "Detecção de RCE via eval()",
+              "passed": true,
+              "raw_tok_per_s": 8.57,
+              "effective_tok_per_s": 8.57,
+              "latency_ms": 3440.56,
+              "output_preview": "json.loads()"
+            },
+            {
+              "test_id": "T07_3",
+              "test_name": "Classificação de Path Traversal",
+              "passed": true,
+              "raw_tok_per_s": 7.77,
+              "effective_tok_per_s": 7.77,
+              "latency_ms": 2977.37,
+              "output_preview": "PATH_TRAVERSAL"
+            }
+          ]
+        },
+        "08_sintese_vocal": {
+          "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 6.69,
+          "area_latency_ms": 12152.04,
+          "tests": [
+            {
+              "test_id": "T08_1",
+              "test_name": "Expansão Monetária para TTS",
+              "passed": true,
+              "raw_tok_per_s": 7.15,
+              "effective_tok_per_s": 7.15,
+              "latency_ms": 4050.9,
+              "output_preview": "Quinze reais e cinquenta centavos"
+            },
+            {
+              "test_id": "T08_2",
+              "test_name": "Expansão de Unidade Física para TTS",
+              "passed": true,
+              "raw_tok_per_s": 6.4,
+              "effective_tok_per_s": 6.4,
+              "latency_ms": 3124.88,
+              "output_preview": "Cem quilômetros por hora"
+            },
+            {
+              "test_id": "T08_3",
+              "test_name": "Inserção de Tag SSML de Pausa",
+              "passed": true,
+              "raw_tok_per_s": 6.53,
+              "effective_tok_per_s": 6.53,
+              "latency_ms": 4976.26,
+              "output_preview": "Concluído.<break time=\"500ms\"/> Iniciando"
+            }
+          ]
+        },
+        "09_multimodal_visao": {
+          "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.68,
+          "area_latency_ms": 13142.54,
+          "tests": [
+            {
+              "test_id": "T09_1",
+              "test_name": "Cálculo de Área de Interseção (Bounding Boxes)",
+              "passed": true,
+              "raw_tok_per_s": 7.49,
+              "effective_tok_per_s": 7.49,
+              "latency_ms": 5665.22,
+              "output_preview": "2500"
+            },
+            {
+              "test_id": "T09_2",
+              "test_name": "Inspeção Geométrica de Código SVG",
+              "passed": true,
+              "raw_tok_per_s": 8.58,
+              "effective_tok_per_s": 8.58,
+              "latency_ms": 4046.36,
+              "output_preview": "80"
+            },
+            {
+              "test_id": "T09_3",
+              "test_name": "Restauração de Texto OCR com Ruído Leetspeak",
+              "passed": true,
+              "raw_tok_per_s": 6.98,
+              "effective_tok_per_s": 6.98,
+              "latency_ms": 3430.96,
+              "output_preview": "O sistema foi validado."
+            }
+          ]
+        },
+        "10_planejamento_deliberativo": {
+          "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.67,
+          "area_latency_ms": 11806.08,
+          "tests": [
+            {
+              "test_id": "T10_1",
+              "test_name": "Ordenação Topológica de Dependências",
+              "passed": true,
+              "raw_tok_per_s": 6.86,
+              "effective_tok_per_s": 6.86,
+              "latency_ms": 4354.08,
+              "output_preview": "B->A->C"
+            },
+            {
+              "test_id": "T10_2",
+              "test_name": "Sequenciamento Causal PDDL",
+              "passed": true,
+              "raw_tok_per_s": 7.23,
+              "effective_tok_per_s": 7.23,
+              "latency_ms": 4183.02,
+              "output_preview": "3->2->1"
+            },
+            {
+              "test_id": "T10_3",
+              "test_name": "Diagnóstico Formal de Deadlock",
+              "passed": true,
+              "raw_tok_per_s": 8.91,
+              "effective_tok_per_s": 8.91,
+              "latency_ms": 3268.98,
+              "output_preview": "DEADLOCK"
+            }
+          ]
+        },
+        "11_raciocinio_cientifico": {
+          "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 10.37,
+          "area_latency_ms": 9034.16,
+          "tests": [
+            {
+              "test_id": "T11_1",
+              "test_name": "Física: Dissipação de Potência (P = I^2 * R)",
+              "passed": true,
+              "raw_tok_per_s": 9.96,
+              "effective_tok_per_s": 9.96,
+              "latency_ms": 3130.11,
+              "output_preview": "90"
+            },
+            {
+              "test_id": "T11_2",
+              "test_name": "Química: Balanceamento Estequiométrico",
+              "passed": true,
+              "raw_tok_per_s": 11.83,
+              "effective_tok_per_s": 11.83,
+              "latency_ms": 2833.23,
+              "output_preview": "6"
+            },
+            {
+              "test_id": "T11_3",
+              "test_name": "Engenharia: Teto de Largura de Banda (Roofline)",
+              "passed": true,
+              "raw_tok_per_s": 9.31,
+              "effective_tok_per_s": 9.31,
+              "latency_ms": 3070.82,
+              "output_preview": "20"
+            }
+          ]
+        },
+        "12_linguagem_discurso": {
+          "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.12,
+          "area_latency_ms": 12793.78,
+          "tests": [
+            {
+              "test_id": "T12_1",
+              "test_name": "Compressão Densa de Telemetria",
+              "passed": true,
+              "raw_tok_per_s": 6.65,
+              "effective_tok_per_s": 6.65,
+              "latency_ms": 4836.51,
+              "output_preview": "Xeon atingiu 10.94 tokens/s"
+            },
+            {
+              "test_id": "T12_2",
+              "test_name": "Dedução Silogística Estrita",
+              "passed": true,
+              "raw_tok_per_s": 6.56,
+              "effective_tok_per_s": 6.56,
+              "latency_ms": 4436.14,
+              "output_preview": "Wave64"
+            },
+            {
+              "test_id": "T12_3",
+              "test_name": "Resolução Correferencial (Anáfora)",
+              "passed": true,
+              "raw_tok_per_s": 8.16,
+              "effective_tok_per_s": 8.16,
+              "latency_ms": 3521.13,
+              "output_preview": "hipótese"
+            }
+          ]
+        },
+        "13_governador_hardware": {
+          "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.62,
+          "area_latency_ms": 12309.0,
+          "tests": [
+            {
+              "test_id": "T13_1",
+              "test_name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+              "passed": true,
+              "raw_tok_per_s": 9.03,
+              "effective_tok_per_s": 9.03,
+              "latency_ms": 4049.53,
+              "output_preview": "REJECT"
+            },
+            {
+              "test_id": "T13_2",
+              "test_name": "Proteção Térmica (Hardware Watchdog)",
+              "passed": true,
+              "raw_tok_per_s": 6.33,
+              "effective_tok_per_s": 6.33,
+              "latency_ms": 4379.64,
+              "output_preview": "THROTTLE_AND_COOL"
+            },
+            {
+              "test_id": "T13_3",
+              "test_name": "Escalonamento de Núcleos Físicos AVX2",
+              "passed": true,
+              "raw_tok_per_s": 7.49,
+              "effective_tok_per_s": 7.49,
+              "latency_ms": 3879.83,
+              "output_preview": "NUCLEOS_FISICOS"
+            }
+          ]
+        }
+      }
+    },
+    "9b-heretic": {
+      "boot_info": {
+        "status": "ONLINE",
+        "profile_key": "9b-heretic",
+        "model_name": "Qwen3.8-9B-Heretic-IQ4_XS",
+        "vram_size_gb": 4.99,
+        "quant_type": "IQ4_XS",
+        "port": 8081,
+        "load_time_s": 29.68
+      },
+      "total_passed": 33,
+      "total_tests": 39,
+      "accuracy_pct": 84.62,
+      "avg_raw_tok_per_s": 7.02,
+      "avg_effective_tok_per_s": 7.31,
+      "total_suite_latency_s": 237.19,
+      "areas": {
+        "01_reflexo_triagem": {
+          "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "score": "2/3",
+          "passed_count": 2,
+          "avg_tok_per_s": 7.79,
+          "area_latency_ms": 12711.76,
+          "tests": [
+            {
+              "test_id": "T01_1",
+              "test_name": "Classificação de Emergência Infra",
+              "passed": true,
+              "raw_tok_per_s": 7.46,
+              "effective_tok_per_s": 7.46,
+              "latency_ms": 3596.89,
+              "output_preview": "INFRA_EMERGENCY"
+            },
+            {
+              "test_id": "T01_2",
+              "test_name": "Despacho de Tier por Complexidade",
+              "passed": true,
+              "raw_tok_per_s": 9.27,
+              "effective_tok_per_s": 9.27,
+              "latency_ms": 4650.58,
+              "output_preview": "{\"tier\": 2}"
+            },
+            {
+              "test_id": "T01_3",
+              "test_name": "Extração Léxica Rápida",
+              "passed": false,
+              "raw_tok_per_s": 6.64,
+              "effective_tok_per_s": 6.64,
+              "latency_ms": 4464.29,
+              "output_preview": "450|998"
+            }
+          ]
+        },
+        "02_engenharia_codigo": {
+          "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 6.65,
+          "area_latency_ms": 53126.31,
+          "tests": [
+            {
+              "test_id": "T02_1",
+              "test_name": "Busca Binária Exata",
+              "passed": true,
+              "raw_tok_per_s": 6.32,
+              "effective_tok_per_s": 6.55,
+              "latency_ms": 21071.45,
+              "output_preview": "```python\ndef busca_binaria(arr,  x):\n    low =  0\n    high =  len(arr) -  1\n    while  low <=  high:\n        mid =  (low +  high) //  2\n        if  arr[mid] =="
+            },
+            {
+              "test_id": "T02_2",
+              "test_name": "Patch de Palíndromo Normalizado",
+              "passed": true,
+              "raw_tok_per_s": 6.85,
+              "effective_tok_per_s": 7.68,
+              "latency_ms": 8785.67,
+              "output_preview": "```python\ndef eh_palindromo(s: str) -> bool:\n    s = s.replace(\" \", \"\").lower()\n    return s == s[::-1]\n```"
+            },
+            {
+              "test_id": "T02_3",
+              "test_name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+              "passed": true,
+              "raw_tok_per_s": 6.79,
+              "effective_tok_per_s": 7.0,
+              "latency_ms": 23269.19,
+              "output_preview": "```python\ndef max_nao_adj(nums):\n    if not nums:\n        return 0\n    n = len(nums)\n    if n == 1:\n        return nums[0]\n    dp = [0] * (n + 1)\n    dp[1] = nu"
+            }
+          ]
+        },
+        "03_matematica_provas": {
+          "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "score": "2/3",
+          "passed_count": 2,
+          "avg_tok_per_s": 5.91,
+          "area_latency_ms": 23254.64,
+          "tests": [
+            {
+              "test_id": "T03_1",
+              "test_name": "Expansão Polinomial Simbólica (SymPy)",
+              "passed": false,
+              "raw_tok_per_s": 5.87,
+              "effective_tok_per_s": 7.22,
+              "latency_ms": 11069.97,
+              "output_preview": "{\"status\":\"VERIFIED\",\"final_answer\":\"4*x**2 - 12*x + 9,reasoning:Expand (2x - 3)² using the identity (a - b)² = a² - 2ab + b²: (2x\"}"
+            },
+            {
+              "test_id": "T03_2",
+              "test_name": "Derivada Simbólica (SymPy)",
+              "passed": true,
+              "raw_tok_per_s": 5.35,
+              "effective_tok_per_s": 9.89,
+              "latency_ms": 6530.5,
+              "output_preview": "{\"status\":\"VERIFIED\",\"final_answer\":\"3*x**2 - 10*x + 6\"}"
+            },
+            {
+              "test_id": "T03_3",
+              "test_name": "Sistema de Restrições Inteira (Z3 SMT)",
+              "passed": true,
+              "raw_tok_per_s": 6.5,
+              "effective_tok_per_s": 10.64,
+              "latency_ms": 5654.17,
+              "output_preview": "{\"solution\":{\"x\":15, \"y\": 15}}"
+            }
+          ]
+        },
+        "04_automacao_so_rpa": {
+          "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.29,
+          "area_latency_ms": 14115.8,
+          "tests": [
+            {
+              "test_id": "T04_1",
+              "test_name": "Seleção de Coordenada OCR Closed-Loop",
+              "passed": true,
+              "raw_tok_per_s": 6.07,
+              "effective_tok_per_s": 6.07,
+              "latency_ms": 5875.74,
+              "output_preview": "420,310"
+            },
+            {
+              "test_id": "T04_2",
+              "test_name": "Prevenção de Clique Cego (Zero Open-Loop)",
+              "passed": true,
+              "raw_tok_per_s": 5.99,
+              "effective_tok_per_s": 5.99,
+              "latency_ms": 4711.79,
+              "output_preview": "WAIT_AND_RESCAN"
+            },
+            {
+              "test_id": "T04_3",
+              "test_name": "Cmdlet Nativo PowerShell de Processos",
+              "passed": true,
+              "raw_tok_per_s": 9.82,
+              "effective_tok_per_s": 9.82,
+              "latency_ms": 3528.27,
+              "output_preview": "Get-Process"
+            }
+          ]
+        },
+        "05_memoria_perene": {
+          "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "score": "1/3",
+          "passed_count": 1,
+          "avg_tok_per_s": 5.88,
+          "area_latency_ms": 20940.23,
+          "tests": [
+            {
+              "test_id": "T05_1",
+              "test_name": "Extração de Tripla para Grafo HippoRAG",
+              "passed": false,
+              "raw_tok_per_s": 6.42,
+              "effective_tok_per_s": 6.42,
+              "latency_ms": 11491.5,
+              "output_preview": "{\n  \"tripla\": {\n    \"sujeito\": \"Xeon E5-2687 v3\",\n    \"predicado\": \"possui arquitetura\",\n    \"objeto\": \"Has"
+            },
+            {
+              "test_id": "T05_2",
+              "test_name": "Resolução de Conflito Temporal (KAIROS)",
+              "passed": true,
+              "raw_tok_per_s": 6.48,
+              "effective_tok_per_s": 6.48,
+              "latency_ms": 4341.85,
+              "output_preview": "8083"
+            },
+            {
+              "test_id": "T05_3",
+              "test_name": "Deduplicação de Fatos Redundantes",
+              "passed": false,
+              "raw_tok_per_s": 4.73,
+              "effective_tok_per_s": 4.73,
+              "latency_ms": 5106.88,
+              "output_preview": "3"
+            }
+          ]
+        },
+        "06_metacognicao": {
+          "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "score": "2/3",
+          "passed_count": 2,
+          "avg_tok_per_s": 7.36,
+          "area_latency_ms": 13683.1,
+          "tests": [
+            {
+              "test_id": "T06_1",
+              "test_name": "Detecção de Premissa Contraditória",
+              "passed": true,
+              "raw_tok_per_s": 6.94,
+              "effective_tok_per_s": 6.94,
+              "latency_ms": 4479.07,
+              "output_preview": "IMPOSSIVEL"
+            },
+            {
+              "test_id": "T06_2",
+              "test_name": "Auto-Correção de Alucinação Numérica",
+              "passed": true,
+              "raw_tok_per_s": 6.24,
+              "effective_tok_per_s": 6.24,
+              "latency_ms": 4352.67,
+              "output_preview": "1024"
+            },
+            {
+              "test_id": "T06_3",
+              "test_name": "Critério de Estabilidade LTI Discreta",
+              "passed": false,
+              "raw_tok_per_s": 8.9,
+              "effective_tok_per_s": 8.9,
+              "latency_ms": 4851.36,
+              "output_preview": "MAIOR_QUE_1"
+            }
+          ]
+        },
+        "07_cadinho_redteam": {
+          "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.51,
+          "area_latency_ms": 11272.11,
+          "tests": [
+            {
+              "test_id": "T07_1",
+              "test_name": "Auditoria de SQL Injection",
+              "passed": true,
+              "raw_tok_per_s": 10.27,
+              "effective_tok_per_s": 10.27,
+              "latency_ms": 3105.95,
+              "output_preview": "SQL_INJECTION"
+            },
+            {
+              "test_id": "T07_2",
+              "test_name": "Detecção de RCE via eval()",
+              "passed": true,
+              "raw_tok_per_s": 6.31,
+              "effective_tok_per_s": 6.31,
+              "latency_ms": 4190.5,
+              "output_preview": "json.loads"
+            },
+            {
+              "test_id": "T07_3",
+              "test_name": "Classificação de Path Traversal",
+              "passed": true,
+              "raw_tok_per_s": 5.95,
+              "effective_tok_per_s": 5.95,
+              "latency_ms": 3975.66,
+              "output_preview": "PATH_TRAVERSAL"
+            }
+          ]
+        },
+        "08_sintese_vocal": {
+          "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 5.59,
+          "area_latency_ms": 15357.08,
+          "tests": [
+            {
+              "test_id": "T08_1",
+              "test_name": "Expansão Monetária para TTS",
+              "passed": true,
+              "raw_tok_per_s": 5.58,
+              "effective_tok_per_s": 5.58,
+              "latency_ms": 5093.65,
+              "output_preview": "Quinze reais e cinquenta centavos"
+            },
+            {
+              "test_id": "T08_2",
+              "test_name": "Expansão de Unidade Física para TTS",
+              "passed": true,
+              "raw_tok_per_s": 4.69,
+              "effective_tok_per_s": 4.69,
+              "latency_ms": 3963.52,
+              "output_preview": "cem quilômetros por hora"
+            },
+            {
+              "test_id": "T08_3",
+              "test_name": "Inserção de Tag SSML de Pausa",
+              "passed": true,
+              "raw_tok_per_s": 6.49,
+              "effective_tok_per_s": 6.49,
+              "latency_ms": 6299.91,
+              "output_preview": "Concluído.<break time=\"500ms\"/>Iniciando"
+            }
+          ]
+        },
+        "09_multimodal_visao": {
+          "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 7.95,
+          "area_latency_ms": 15557.04,
+          "tests": [
+            {
+              "test_id": "T09_1",
+              "test_name": "Cálculo de Área de Interseção (Bounding Boxes)",
+              "passed": true,
+              "raw_tok_per_s": 6.35,
+              "effective_tok_per_s": 6.35,
+              "latency_ms": 7398.89,
+              "output_preview": "2500"
+            },
+            {
+              "test_id": "T09_2",
+              "test_name": "Inspeção Geométrica de Código SVG",
+              "passed": true,
+              "raw_tok_per_s": 8.22,
+              "effective_tok_per_s": 8.22,
+              "latency_ms": 4295.27,
+              "output_preview": "80"
+            },
+            {
+              "test_id": "T09_3",
+              "test_name": "Restauração de Texto OCR com Ruído Leetspeak",
+              "passed": true,
+              "raw_tok_per_s": 9.29,
+              "effective_tok_per_s": 9.29,
+              "latency_ms": 3862.88,
+              "output_preview": "O sistema foi validado."
+            }
+          ]
+        },
+        "10_planejamento_deliberativo": {
+          "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 8.68,
+          "area_latency_ms": 13303.08,
+          "tests": [
+            {
+              "test_id": "T10_1",
+              "test_name": "Ordenação Topológica de Dependências",
+              "passed": true,
+              "raw_tok_per_s": 8.16,
+              "effective_tok_per_s": 8.16,
+              "latency_ms": 4422.24,
+              "output_preview": "B->A->C"
+            },
+            {
+              "test_id": "T10_2",
+              "test_name": "Sequenciamento Causal PDDL",
+              "passed": true,
+              "raw_tok_per_s": 7.95,
+              "effective_tok_per_s": 7.95,
+              "latency_ms": 4524.04,
+              "output_preview": "3->2->1"
+            },
+            {
+              "test_id": "T10_3",
+              "test_name": "Diagnóstico Formal de Deadlock",
+              "passed": true,
+              "raw_tok_per_s": 9.94,
+              "effective_tok_per_s": 9.94,
+              "latency_ms": 4356.8,
+              "output_preview": "DEADLOCK"
+            }
+          ]
+        },
+        "11_raciocinio_cientifico": {
+          "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "score": "2/3",
+          "passed_count": 2,
+          "avg_tok_per_s": 6.43,
+          "area_latency_ms": 12287.34,
+          "tests": [
+            {
+              "test_id": "T11_1",
+              "test_name": "Física: Dissipação de Potência (P = I^2 * R)",
+              "passed": true,
+              "raw_tok_per_s": 7.53,
+              "effective_tok_per_s": 7.53,
+              "latency_ms": 4014.76,
+              "output_preview": "90"
+            },
+            {
+              "test_id": "T11_2",
+              "test_name": "Química: Balanceamento Estequiométrico",
+              "passed": false,
+              "raw_tok_per_s": 4.54,
+              "effective_tok_per_s": 4.54,
+              "latency_ms": 4328.87,
+              "output_preview": "4"
+            },
+            {
+              "test_id": "T11_3",
+              "test_name": "Engenharia: Teto de Largura de Banda (Roofline)",
+              "passed": true,
+              "raw_tok_per_s": 7.21,
+              "effective_tok_per_s": 7.21,
+              "latency_ms": 3943.71,
+              "output_preview": "20"
+            }
+          ]
+        },
+        "12_linguagem_discurso": {
+          "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 8.2,
+          "area_latency_ms": 15536.09,
+          "tests": [
+            {
+              "test_id": "T12_1",
+              "test_name": "Compressão Densa de Telemetria",
+              "passed": true,
+              "raw_tok_per_s": 4.89,
+              "effective_tok_per_s": 4.89,
+              "latency_ms": 6193.74,
+              "output_preview": "Xeon fez benchmark: 10.94"
+            },
+            {
+              "test_id": "T12_2",
+              "test_name": "Dedução Silogística Estrita",
+              "passed": true,
+              "raw_tok_per_s": 9.65,
+              "effective_tok_per_s": 9.65,
+              "latency_ms": 5329.77,
+              "output_preview": "Wave64"
+            },
+            {
+              "test_id": "T12_3",
+              "test_name": "Resolução Correferencial (Anáfora)",
+              "passed": true,
+              "raw_tok_per_s": 10.05,
+              "effective_tok_per_s": 10.05,
+              "latency_ms": 4012.58,
+              "output_preview": "hipótese"
+            }
+          ]
+        },
+        "13_governador_hardware": {
+          "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "score": "3/3",
+          "passed_count": 3,
+          "avg_tok_per_s": 6.0,
+          "area_latency_ms": 16044.78,
+          "tests": [
+            {
+              "test_id": "T13_1",
+              "test_name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+              "passed": true,
+              "raw_tok_per_s": 5.7,
+              "effective_tok_per_s": 5.7,
+              "latency_ms": 5355.97,
+              "output_preview": "REJECT_OOM"
+            },
+            {
+              "test_id": "T13_2",
+              "test_name": "Proteção Térmica (Hardware Watchdog)",
+              "passed": true,
+              "raw_tok_per_s": 6.49,
+              "effective_tok_per_s": 6.49,
+              "latency_ms": 5361.81,
+              "output_preview": "THROTTLE_AND_COOL"
+            },
+            {
+              "test_id": "T13_3",
+              "test_name": "Escalonamento de Núcleos Físicos AVX2",
+              "passed": true,
+              "raw_tok_per_s": 5.81,
+              "effective_tok_per_s": 5.81,
+              "latency_ms": 5327.0,
+              "output_preview": "NUCLEOS_FISICOS"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

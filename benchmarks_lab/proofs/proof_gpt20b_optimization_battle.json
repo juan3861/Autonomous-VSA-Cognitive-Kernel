@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-10-22 21:30:46",
+  "model": "gpt-oss-20b-antidoom.i1-IQ4_XS",
+  "optimized_results": {
+    "mode": "HIPER-OTIMIZADO (8 Threads + Afinidade Física + Poll 100 + Prio 2)",
+    "elapsed": 19.758015632629395,
+    "completion_tokens": 140,
+    "prompt_per_second": 19.758702125671867,
+    "predicted_per_second": 9.635536519406074,
+    "sample": "**Teoria dos Jogos – Vis"
+  }
+}

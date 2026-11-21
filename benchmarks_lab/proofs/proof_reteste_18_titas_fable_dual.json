@@ -1,0 +1,4301 @@
+{
+  "timestamp": "2026-10-26T14:00:21",
+  "hardware": "Intel Xeon E5-2680 v4 (Haswell AVX2, 12 threads) - Anti-TDR Safe Tier",
+  "contenders": {
+    "1.0B_ibm_grok4_coder": {
+      "name": "IBM-Grok4-UltraFast-Coder-1B",
+      "filename": "IBM-Grok4-UltraFast-Coder-1B.Q4_K_M.gguf",
+      "category": "01_Auxiliar_Escravo_500M_1B",
+      "tier": "1B Micro Coder",
+      "size_gb": 0.95,
+      "normal": {
+        "p1_areas_passed": 0,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 0,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 0,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 0,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 0,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 0,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 0,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 0,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 0,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 0,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 0,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 0,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 0,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 0.0
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 30,
+        "p1_total": 39,
+        "p2_opus_passed": 3,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 3,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 2,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 1,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 2,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 12.08
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 16.34
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 14.02
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 14.09
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 10.32
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": true,
+            "tps": 6.7
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": true,
+            "tps": 10.55
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": true,
+            "tps": 14.47
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 8.9
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 15.52
+          }
+        }
+      },
+      "completed": true
+    },
+    "0.6B_qwen3_micro": {
+      "name": "Qwen3-0.6B-Q4_K_M",
+      "filename": "Qwen3-0.6B-Q4_K_M.gguf",
+      "category": "01_Auxiliar_Escravo_500M_1B",
+      "tier": "600M Ultra-Leve",
+      "size_gb": 0.37,
+      "normal": {
+        "p1_areas_passed": 25,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 2,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 1,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 1,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 2,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 1,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 1,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 30.49
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 14.91
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 31.57
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 36.69
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 25.96
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 26.67
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 30.75
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 32.21
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 14.05
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 35.92
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 30,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 17.37
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 20.12
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 16.4
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 18.15
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 19.11
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 15.34
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 20.75
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 20.82
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 15.59
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 19.51
+          }
+        }
+      },
+      "completed": true
+    },
+    "0.8B_nasledielab_karpy": {
+      "name": "NasledieLab-Qwen3.5-0.8B-Karpy",
+      "filename": "NasledieLab-Qwen3.5-0.8B-Karpy-Q4_K_M.gguf",
+      "category": "01_Auxiliar_Escravo_500M_1B",
+      "tier": "800M Micro Karp",
+      "size_gb": 0.49,
+      "normal": {
+        "p1_areas_passed": 5,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 1,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 0,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 0,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 0,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 0,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 0,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 0,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 2,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 0,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 1,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 0,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 1,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 12.68
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 12.71
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 12.59
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 11.95
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 13.84
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 9.72
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 10.74
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 8.82
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 12.1
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 11.53
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 5,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 1,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 0,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 0,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 0,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 0,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 0,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 0,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 1,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 0,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 2,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 0,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 1,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 4.74
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 4.78
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 7.45
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 5.83
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 7.06
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 5.27
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 4.68
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 3.99
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 6.88
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 4.6
+          }
+        }
+      },
+      "completed": true
+    },
+    "1.5B_codemate_qwen_fable5": {
+      "name": "CodeMate-Qwen-1.5B-Claude-Fable-5",
+      "filename": "CodeMate-Qwen-1.5B-32K-Distilled-on-Claude-Fable-5.Q4_K_M.gguf",
+      "category": "02_Mosca_1.5B_3B",
+      "tier": "1.5B Fable 5 32K",
+      "size_gb": 0.92,
+      "normal": {
+        "p1_areas_passed": 17,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 2,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 0,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 1,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 0,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 1,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 1,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 2,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 1,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 1,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 1,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 22.65
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 26.25
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 21.83
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 23.31
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 21.03
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 10.83
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 23.58
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 24.46
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 21.09
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 23.79
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 30,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 3,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 1,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 3,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 10.44
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 15.41
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 7.8
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 12.01
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 10.51
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 5.95
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 8.24
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 11.45
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 6.26
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 10.48
+          }
+        }
+      },
+      "completed": true
+    },
+    "1.5B_deepseek_r1_distill_qwen": {
+      "name": "DeepSeek-R1-Distill-Qwen-1.5B",
+      "filename": "DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf",
+      "category": "02_Mosca_1.5B_3B",
+      "tier": "1.5B R1 Reasoning",
+      "size_gb": 1.04,
+      "normal": {
+        "p1_areas_passed": 22,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 0,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 1,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 1,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 1,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 1,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 28.41
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 28.42
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 28.78
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 27.68
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 26.59
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 26.12
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 30.67
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 13.0
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 28.81
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 32.36
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 25,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 2,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 1,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 2,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 2,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 1,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 3,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 15.24
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 13.82
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 14.84
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 13.37
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 14.26
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 15.8
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 15.11
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 13.35
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 13.61
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 14.19
+          }
+        }
+      },
+      "completed": true
+    },
+    "1.5B_kimina_prover": {
+      "name": "Kimina-Prover-Preview-Distill-1.5B",
+      "filename": "Kimina-Prover-Preview-Distill-1.5B.Q4_K_M.gguf",
+      "category": "02_Mosca_1.5B_3B",
+      "tier": "1.5B Prover",
+      "size_gb": 1.04,
+      "normal": {
+        "p1_areas_passed": 17,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 2,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 1,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 0,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 1,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 1,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 2,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 1,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 0,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 1,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 27.16
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 9.51
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 23.06
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 32.49
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 24.35
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 24.23
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 28.99
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 29.36
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 27.67
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 22.22
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 20,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 2,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 0,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 1,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 2,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 0,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 1,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 12.78
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 13.67
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 11.28
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 12.96
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 12.58
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 13.2
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 14.45
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 12.5
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 12.49
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 11.57
+          }
+        }
+      },
+      "completed": true
+    },
+    "3.0B_gpt5_distill_llama32": {
+      "name": "GPT-5-Distill-llama3.2-3B-Instruct",
+      "filename": "GPT-5-Distill-llama3.2-3B-Instruct-Q4_K_M.gguf",
+      "category": "03_Pena_3B_4B",
+      "tier": "3B GPT-5 Distill",
+      "size_gb": 1.88,
+      "normal": {
+        "p1_areas_passed": 30,
+        "p1_total": 39,
+        "p2_opus_passed": 4,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 2,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 1,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 2,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 11.52
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 18.44
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 13.87
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": true,
+            "tps": 13.41
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 12.78
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": true,
+            "tps": 13.33
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": true,
+            "tps": 19.83
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": true,
+            "tps": 18.91
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 13.8
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 15.53
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 29,
+        "p1_total": 39,
+        "p2_opus_passed": 3,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 3,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 2,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 1,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 8.85
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 14.66
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 11.21
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": true,
+            "tps": 9.84
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 9.54
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 9.04
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": true,
+            "tps": 8.66
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": true,
+            "tps": 10.96
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 8.06
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 12.47
+          }
+        }
+      },
+      "completed": true
+    },
+    "3.0B_sentie_fable5_kimi_distill": {
+      "name": "Sentie-3B-Claude-Fable5-KimiK3-Distill",
+      "filename": "Sentie1.0-3B.Q4_K_M.gguf",
+      "category": "03_Pena_3B_4B",
+      "tier": "3B Fable5 + KimiK3",
+      "size_gb": 2.28,
+      "normal": {
+        "p1_areas_passed": 28,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 1,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 3,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 1,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 10.99
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 18.84
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 15.89
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 14.45
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 5.41
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 12.42
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 17.21
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 17.65
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 14.29
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 15.18
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 33,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 3,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 3,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 4.67
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 8.4
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 4.99
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 2.94
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 6.96
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 4.28
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 6.45
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 7.41
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 6.86
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 2.94
+          }
+        }
+      },
+      "completed": true
+    },
+    "3.0B_deephermes3_llama32": {
+      "name": "NousResearch-DeepHermes-3-Llama3-3B",
+      "filename": "NousResearch_DeepHermes-3-Llama-3-3B-Preview-Q4_K_M.gguf",
+      "category": "03_Pena_3B_4B",
+      "tier": "3B DeepHermes",
+      "size_gb": 1.88,
+      "normal": {
+        "p1_areas_passed": 17,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 1,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 1,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 1,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 0,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 2,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 1,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 1,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 14.9
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 16.45
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 11.54
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 15.36
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 15.1
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 18.03
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 18.07
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 15.81
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 17.88
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 17.08
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 22,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 1,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 1,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 1,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 2,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 2,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 1,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 6.8
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 16.3
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 12.54
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 11.69
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 11.33
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 7.54
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 8.26
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 10.78
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 13.92
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 6.57
+          }
+        }
+      },
+      "completed": true
+    },
+    "4.0B_parable_qwen3_fable5": {
+      "name": "Parable-Qwen3-4B-Claude-Fable-5",
+      "filename": "Parable-Qwen3-4B-Claude-Fable-5-Q4_K_M.gguf",
+      "category": "04_Estagiario_4B_8B",
+      "tier": "4B Fable 5 Champion",
+      "size_gb": 2.33,
+      "normal": {
+        "p1_areas_passed": 31,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 1,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 13.59
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 13.05
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 11.15
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 13.89
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 14.01
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 15.15
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 13.49
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 16.06
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 13.97
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 13.63
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 35,
+        "p1_total": 39,
+        "p2_opus_passed": 5,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 3,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 2,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 3,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 1.68
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 5.86
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 3.72
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": true,
+            "tps": 2.72
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": true,
+            "tps": 2.14
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": true,
+            "tps": 1.49
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": true,
+            "tps": 1.57
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": true,
+            "tps": 2.83
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 1.5
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 1.99
+          }
+        }
+      },
+      "completed": true
+    },
+    "4.5B_gemma4_e4b_opus": {
+      "name": "deadbydawn101-Gemma4-E4B-Opus-Reasoning",
+      "filename": "gemma4-e4b-opus-Q4_K_M.gguf",
+      "category": "04_Estagiario_4B_8B",
+      "tier": "4.5B PLE Opus",
+      "size_gb": 4.97,
+      "normal": {
+        "p1_areas_passed": 24,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 2,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 2,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 0,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 1,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 2,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 2,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 1,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 8.22
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 4.55
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 6.55
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 8.78
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 7.37
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 4.95
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 7.01
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 7.51
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 4.4
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 4.29
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 34,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 3,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 3,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 3,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 3.78
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 4.2
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 3.73
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 4.11
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 3.41
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 4.05
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 4.35
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 3.79
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 4.17
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 4.29
+          }
+        }
+      },
+      "completed": true
+    },
+    "4.0B_qwen3_hybrid": {
+      "name": "unsloth-Qwen3-4B-Hybrid",
+      "filename": "Qwen3-4B-Q4_K_M.gguf",
+      "category": "04_Estagiario_4B_8B",
+      "tier": "4B Hybrid",
+      "size_gb": 2.33,
+      "normal": {
+        "p1_areas_passed": 29,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 1,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 2,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 10.48
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 17.04
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 15.03
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 16.08
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 15.66
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 16.62
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 14.42
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 13.65
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 12.08
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 14.87
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 31,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 1,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 2,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 3,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 5.59
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 6.09
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 5.97
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 7.43
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 6.01
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 6.72
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 5.13
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 5.54
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 6.6
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 6.08
+          }
+        }
+      },
+      "completed": true
+    },
+    "9.0B_mimo_v26_distill_qwen": {
+      "name": "MiMo-V2.6-Distill-Qwen-9B",
+      "filename": "MiMo-V2.6-Distill-Qwen-9B-Q4_K_M.gguf",
+      "category": "05_Jovem_Tita_9B_12B",
+      "tier": "9B Grand Leader",
+      "size_gb": 5.44,
+      "normal": {
+        "p1_areas_passed": 31,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 1,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 3,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 1,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 2,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 5.39
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 6.15
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 4.24
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 5.04
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 4.34
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 5.69
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 5.41
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 5.15
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 4.92
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 5.23
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 38,
+        "p1_total": 39,
+        "p2_opus_passed": 3,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 3,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 3,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 3,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 3,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 3,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 2.12
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 5.35
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 4.43
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": true,
+            "tps": 3.39
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 1.37
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 4.68
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 2.97
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": true,
+            "tps": 4.19
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": true,
+            "tps": 5.0
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 4.45
+          }
+        }
+      },
+      "completed": true
+    },
+    "12.0B_gemma4_agentic_v2": {
+      "name": "yuxinlu1-Gemma4-12B-Agentic-Fable5-Composer25",
+      "filename": "gemma4-v2-Q4_K_M.gguf",
+      "category": "05_Jovem_Tita_9B_12B",
+      "tier": "12B Dense Agentic",
+      "size_gb": 6.87,
+      "normal": {
+        "p1_areas_passed": 24,
+        "p1_total": 39,
+        "p2_opus_passed": 3,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 1,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 3,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 3,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 2,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 0,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 2,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 0,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 1,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 4.19
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 0.04
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 3.14
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 0.04
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": true,
+            "tps": 3.22
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": true,
+            "tps": 3.49
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 3.75
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": true,
+            "tps": 4.04
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 3.43
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 0.04
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 38,
+        "p1_total": 39,
+        "p2_opus_passed": 6,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 3,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 3,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 3,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 3,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 3,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 1.4
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 1.37
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 0.46
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": true,
+            "tps": 1.74
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": true,
+            "tps": 1.01
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": true,
+            "tps": 0.59
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": true,
+            "tps": 1.28
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": true,
+            "tps": 1.29
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": true,
+            "tps": 0.81
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 2.48
+          }
+        }
+      },
+      "completed": true
+    },
+    "26.0B_gemma4_moe_a4b": {
+      "name": "TeichAI-Gemma4-26B-A4B-Opus-MoE",
+      "filename": "gemma-4-26B-A4B-it-Claude-Opus-Distill.q3_k_m.gguf",
+      "category": "06_MoE_Especialista_12B_35B_A4B",
+      "tier": "26B MoE (3.8B Ativos)",
+      "size_gb": 12.37,
+      "normal": {
+        "p1_areas_passed": 14,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 1,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 1,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 1,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 1,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 1,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 2,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 2,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 1,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 0,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 1,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 0,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 0,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 14.87
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 14.77
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 14.7
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 14.42
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 14.88
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 14.7
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 14.73
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 14.62
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 14.78
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 14.93
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 22,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 3,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 3,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 3,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 1,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 0,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 0,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 0,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 0,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 0,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 0.38
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 0.46
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 0.38
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 0.3
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 0.18
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 0.59
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 0.59
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 0.59
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 0.45
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 0.59
+          }
+        }
+      },
+      "completed": true
+    },
+    "3.8B_phi4_mini_reasoning": {
+      "name": "Phi-4-mini-reasoning-Q4_K_M",
+      "filename": "Phi-4-mini-reasoning-Q4_K_M.gguf",
+      "category": "03_Pena_3B_4B",
+      "tier": "3.8B Reasoning Champion",
+      "size_gb": 2.32,
+      "normal": {
+        "p1_areas_passed": 7,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 1,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 0,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 0,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 0,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 1,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 0,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 0,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 1,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 0,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 1,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 1,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 11.02
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 7.96
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 8.18
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 10.69
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 5.56
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 13.5
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 3.49
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 7.73
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 29,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 1,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 5.57
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 7.73
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 6.17
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 6.34
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 5.67
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 5.96
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 6.9
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 8.17
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 6.79
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 6.65
+          }
+        }
+      },
+      "completed": true
+    },
+    "4.0B_procreations_dory_beam": {
+      "name": "ProCreations-Dory-Beam-4B",
+      "filename": "dory-beam-4b-q5_k_m.gguf",
+      "category": "04_Estagiario_4B_8B",
+      "tier": "4B nGPT Beam Traces",
+      "size_gb": 3.42,
+      "architecture": "dory_ngpt_native_pytorch",
+      "normal": {
+        "p1_areas_passed": 29,
+        "p1_total": 39,
+        "p2_opus_passed": 1,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 2,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 1,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 1,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 3,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 2,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 2,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 0.16
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 0.17
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 0.14
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 0.18
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 0.17
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": true,
+            "tps": 0.2
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 0.22
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 0.18
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 0.17
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 0.15
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 32,
+        "p1_total": 39,
+        "p2_opus_passed": 1,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 2,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 1,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 3,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 2,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 3,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 0.15
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 0.16
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 0.14
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 0.17
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 0.16
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": true,
+            "tps": 0.2
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 0.2
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 0.17
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 0.16
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 0.14
+          }
+        }
+      },
+      "completed": true
+    },
+    "4.0B_nvidia_nemotron_dory1": {
+      "name": "NVIDIA-Nemotron-Labs-Dory1.0-4B",
+      "filename": "NVIDIA-Nemotron-Labs-Dory1.0-4B-Q5_K_M.gguf",
+      "category": "04_Estagiario_4B_8B",
+      "tier": "4B nGPT Base Titan",
+      "size_gb": 3.42,
+      "status": "BLOQUEADO_ARQUITETURA_DORY",
+      "reason": "Arquitetura nGPT/Dory de recorrencia continua ainda nao integrada na branch mestre do llama.cpp.",
+      "completed": true
+    },
+    "14.0B_phi4_reasoning_full": {
+      "name": "unsloth-Phi-4-reasoning-14B",
+      "filename": "phi-4-reasoning-Q4_K_M.gguf",
+      "category": "05_Jovem_Tita_9B_12B",
+      "tier": "14B Full Reasoning Titan",
+      "size_gb": 8.43,
+      "normal": {
+        "p1_areas_passed": 3,
+        "p1_total": 39,
+        "p2_opus_passed": 0,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 0,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 1,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 0,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 0,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 0,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 0,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 0,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 0,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 0,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 1,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 1,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 0,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 0.0
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 0.0
+          }
+        }
+      },
+      "lambda_rlm": {
+        "p1_areas_passed": 31,
+        "p1_total": 39,
+        "p2_opus_passed": 1,
+        "p2_total": 10,
+        "areas": {
+          "01_triage": {
+            "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+            "passed": 3,
+            "total": 3
+          },
+          "02_code_engineering": {
+            "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+            "passed": 0,
+            "total": 3
+          },
+          "03_math_and_proofs": {
+            "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+            "passed": 2,
+            "total": 3
+          },
+          "04_os_automation_rpa": {
+            "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+            "passed": 3,
+            "total": 3
+          },
+          "05_perennial_memory": {
+            "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+            "passed": 2,
+            "total": 3
+          },
+          "06_metacognition": {
+            "name": "06. Metacognition (Self-Correction & LTI Stability)",
+            "passed": 2,
+            "total": 3
+          },
+          "07_red_team_security": {
+            "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+            "passed": 3,
+            "total": 3
+          },
+          "08_speech_synthesis_vocal": {
+            "name": "08. Speech Synthesis & Vocal Formatting",
+            "passed": 3,
+            "total": 3
+          },
+          "09_multimodal_vision": {
+            "name": "09. Multimodal & Visual Coordinate Space",
+            "passed": 3,
+            "total": 3
+          },
+          "10_deliberative_planning": {
+            "name": "10. Deliberative Planning & Dependency Graphs",
+            "passed": 2,
+            "total": 3
+          },
+          "11_scientific_reasoning": {
+            "name": "11. Scientific & Physics Invariants",
+            "passed": 3,
+            "total": 3
+          },
+          "12_language_and_discourse": {
+            "name": "12. Language & Discourse Logic",
+            "passed": 2,
+            "total": 3
+          },
+          "13_hardware_governor": {
+            "name": "13. Hardware Governor & Silicon Limits",
+            "passed": 3,
+            "total": 3
+          }
+        },
+        "opus": {
+          "OPUS_01_regex_pure": {
+            "passed": false,
+            "tps": 2.28
+          },
+          "OPUS_02_parser_unary_power": {
+            "passed": false,
+            "tps": 2.43
+          },
+          "OPUS_03_dijkstra_2d_free_edges": {
+            "passed": false,
+            "tps": 1.88
+          },
+          "OPUS_04_max_rectangle_binary_matrix": {
+            "passed": false,
+            "tps": 2.11
+          },
+          "OPUS_05_bitmask_dp_open_tsp": {
+            "passed": false,
+            "tps": 1.83
+          },
+          "OPUS_06_median_two_sorted_arrays": {
+            "passed": false,
+            "tps": 2.3
+          },
+          "OPUS_07_longest_valid_parentheses_trap": {
+            "passed": false,
+            "tps": 2.5
+          },
+          "OPUS_08_trapping_rain_water": {
+            "passed": true,
+            "tps": 2.36
+          },
+          "OPUS_09_binary_tree_max_path_sum": {
+            "passed": false,
+            "tps": 2.11
+          },
+          "OPUS_10_dpll_sat_solver_cnf": {
+            "passed": false,
+            "tps": 2.12
+          }
+        }
+      },
+      "completed": true
+    }
+  }
+}

@@ -1,0 +1,1170 @@
+{
+  "4b-rlm": {
+    "canonical_name": "4b-rlm",
+    "benchmarks": [
+      {
+        "proof_file": "proof_benchmark_13_areas_39_testes.json",
+        "summary": {
+          "total_tests": 39
+        }
+      }
+    ]
+  },
+  "8b-rlm": {
+    "canonical_name": "8b-rlm",
+    "benchmarks": [
+      {
+        "proof_file": "proof_benchmark_13_areas_39_testes.json",
+        "summary": {
+          "total_tests": 39
+        }
+      },
+      {
+        "proof_file": "proof_duelo_codigo_8b_vs_9b.json",
+        "summary": {
+          "total_tests": 10
+        }
+      },
+      {
+        "proof_file": "proof_duelo_opus_8b_vs_9b.json",
+        "summary": {
+          "total_tests": 10
+        }
+      }
+    ]
+  },
+  "9b-heretic": {
+    "canonical_name": "9b-heretic",
+    "benchmarks": [
+      {
+        "proof_file": "proof_benchmark_13_areas_39_testes.json",
+        "summary": {
+          "total_tests": 39
+        }
+      },
+      {
+        "proof_file": "proof_duelo_codigo_8b_vs_9b.json",
+        "summary": {
+          "total_tests": 10
+        }
+      },
+      {
+        "proof_file": "proof_duelo_opus_8b_vs_9b.json",
+        "summary": {
+          "total_tests": 10
+        }
+      }
+    ]
+  },
+  "ibm_grok4_1b": {
+    "canonical_name": "ibm_grok4_1b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_comparativo_lambda_rlm_reversao.json",
+        "summary": {}
+      }
+    ]
+  },
+  "deepseek_r1_1_5b": {
+    "canonical_name": "deepseek_r1_1_5b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_comparativo_lambda_rlm_reversao.json",
+        "summary": {}
+      }
+    ]
+  },
+  "part1_13_areas": {
+    "canonical_name": "part1_13_areas",
+    "benchmarks": [
+      {
+        "proof_file": "proof_g9v3_english_benchmark.json",
+        "summary": {}
+      },
+      {
+        "proof_file": "proof_g9v3_lambda_rlm_english.json",
+        "summary": {}
+      }
+    ]
+  },
+  "part2_opus_10": {
+    "canonical_name": "part2_opus_10",
+    "benchmarks": [
+      {
+        "proof_file": "proof_g9v3_english_benchmark.json",
+        "summary": {
+          "zero_shot_passes": 1,
+          "final_passes": 1,
+          "repaired_passes": 0,
+          "final_pct": 10.0,
+          "avg_tps": 21.74,
+          "total_time_s": 191.96
+        }
+      },
+      {
+        "proof_file": "proof_g9v3_lambda_rlm_english.json",
+        "summary": {
+          "zero_shot_passes": 1,
+          "final_passes": 1,
+          "repaired_passes": 0,
+          "final_pct": 10.0,
+          "avg_tps": 10.96,
+          "total_time_s": 868.51
+        }
+      }
+    ]
+  },
+  "part1_summary": {
+    "canonical_name": "part1_summary",
+    "benchmarks": [
+      {
+        "proof_file": "proof_g9v3_english_benchmark.json",
+        "summary": {
+          "passed": 27,
+          "total": 39,
+          "pct": 69.23,
+          "avg_tps": 20.06,
+          "total_time_s": 131.99
+        }
+      },
+      {
+        "proof_file": "proof_g9v3_lambda_rlm_english.json",
+        "summary": {
+          "passed": 38,
+          "total": 39,
+          "pct": 97.44,
+          "avg_tps": 1.8,
+          "total_time_s": 969.46
+        }
+      }
+    ]
+  },
+  "unit_formal_audit": {
+    "canonical_name": "unit_formal_audit",
+    "benchmarks": [
+      {
+        "proof_file": "proof_harness_rlm_omega.json",
+        "summary": {
+          "sympy_fail_counterexample": "Contraexemplo em (x=2): sua expressão 'x**2 + 1' avalia para 5, mas o valor correto é 9.",
+          "sympy_pass_latency_ms": 8.95,
+          "z3_pass_latency_ms": 2.39,
+          "python_fail_counterexample": "FAIL_ASSERTION[0]: assert fatorial(0) == 1",
+          "python_pass_latency_ms": 219.01,
+          "fastforward_unit_speedup_pct": 437.5
+        }
+      }
+    ]
+  },
+  "gpu_pluggable_shootout": {
+    "canonical_name": "gpu_pluggable_shootout",
+    "benchmarks": [
+      {
+        "proof_file": "proof_harness_rlm_omega.json",
+        "summary": {}
+      }
+    ]
+  },
+  "gemopus_4_26b_preview": {
+    "canonical_name": "gemopus_4_26b_preview",
+    "benchmarks": [
+      {
+        "proof_file": "proof_high_titans_master.json",
+        "summary": {
+          "name": "Gemopus-4-26B-A4B-it-Preview-Q4_K_M",
+          "repo": "Jackrong/Gemopus-4-26B-A4B-it-GGUF",
+          "file": "Gemopus-4-26B-A4B-it-Preview-Q4_K_M.gguf",
+          "size_gb": 15.64,
+          "cloud_mirrored": true,
+          "completed": true,
+          "timestamp": "2026-10-28 11:57:25"
+        }
+      }
+    ]
+  },
+  "gemma_4_26b_opus_distill": {
+    "canonical_name": "gemma_4_26b_opus_distill",
+    "benchmarks": [
+      {
+        "proof_file": "proof_high_titans_master.json",
+        "summary": {
+          "name": "gemma-4-26b-a4b-opus-4.7-distilled-Q4_K_M",
+          "repo": "glyphsoftware/gemma-4-26b-a4b-opus-4.7-distilled-gguf",
+          "file": "gemma-4-26b-a4b-opus-4.7-distilled.Q4_K_M.gguf",
+          "size_gb": 15.64,
+          "cloud_mirrored": true,
+          "completed": true,
+          "timestamp": "2026-10-28 13:17:48"
+        }
+      }
+    ]
+  },
+  "teichai_qwen3_30b_sonnet": {
+    "canonical_name": "teichai_qwen3_30b_sonnet",
+    "benchmarks": [
+      {
+        "proof_file": "proof_high_titans_master.json",
+        "summary": {
+          "name": "Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill",
+          "repo": "TeichAI/Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill-GGUF",
+          "file": "Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill-q4_k_m.gguf",
+          "size_gb": 17.28,
+          "cloud_mirrored": true,
+          "completed": true,
+          "timestamp": "2026-10-28 14:32:42"
+        }
+      },
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  },
+  "ibm_granite_4_0_h_small": {
+    "canonical_name": "ibm_granite_4_0_h_small",
+    "benchmarks": [
+      {
+        "proof_file": "proof_high_titans_master.json",
+        "summary": {
+          "name": "granite-4.0-h-small-Q4_K_M",
+          "repo": "ibm-granite/granite-4.0-h-small-GGUF",
+          "file": "granite-4.0-h-small-Q4_K_M.gguf",
+          "size_gb": 18.14,
+          "cloud_mirrored": true,
+          "completed": true,
+          "timestamp": "2026-10-28 23:24:51"
+        }
+      },
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  },
+  "achilles_fable_coder_35b": {
+    "canonical_name": "achilles_fable_coder_35b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_high_titans_master.json",
+        "summary": {
+          "name": "fable-coder-35B-A3B-Q4_K_M",
+          "repo": "Achilles1089/fable-coder-35B-A3B-GGUF",
+          "file": "fable-coder-35B-A3B-Q4_K_M.gguf",
+          "size_gb": 20.22,
+          "cloud_mirrored": true,
+          "completed": true,
+          "timestamp": "2026-10-28 18:41:43"
+        }
+      },
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "FAIL_BOOT"
+        }
+      }
+    ]
+  },
+  "jackrong_qwopus_3_6_35b_coder": {
+    "canonical_name": "jackrong_qwopus_3_6_35b_coder",
+    "benchmarks": [
+      {
+        "proof_file": "proof_high_titans_master.json",
+        "summary": {
+          "name": "Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M",
+          "repo": "Jackrong/Qwopus3.6-35B-A3B-Coder-MTP-GGUF",
+          "file": "Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M.gguf",
+          "size_gb": 20.22,
+          "cloud_mirrored": true,
+          "completed": true,
+          "timestamp": "2026-10-28 21:56:29"
+        }
+      },
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "FAIL_BOOT"
+        }
+      }
+    ]
+  },
+  "unsloth_qwen3_30b_thinking": {
+    "canonical_name": "unsloth_qwen3_30b_thinking",
+    "benchmarks": [
+      {
+        "proof_file": "proof_high_titans_master.json",
+        "summary": {
+          "name": "Qwen3-30B-A3B-Thinking-2507-Q4_K_M",
+          "repo": "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF",
+          "file": "Qwen3-30B-A3B-Thinking-2507-Q4_K_M.gguf",
+          "size_gb": 17.28,
+          "cloud_mirrored": true,
+          "completed": true,
+          "timestamp": "2026-10-29 01:04:38"
+        }
+      },
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  },
+  "gemopus_4_26b_apex": {
+    "canonical_name": "gemopus_4_26b_apex",
+    "benchmarks": [
+      {
+        "proof_file": "proof_high_titans_master.json",
+        "summary": {
+          "name": "gemopus-4-26B-A4B-APEX-Balanced",
+          "repo": "mudler/Gemopus-4-26B-A4B-it-Preview-APEX-GGUF",
+          "file": "gemopus-4-26B-A4B-APEX-Balanced.gguf",
+          "size_gb": 18.17,
+          "cloud_mirrored": true,
+          "completed": true,
+          "timestamp": "2026-10-29 03:16:47"
+        }
+      }
+    ]
+  },
+  "unsloth_qwen3_5_35b": {
+    "canonical_name": "unsloth_qwen3_5_35b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_high_titans_master.json",
+        "summary": {
+          "name": "Qwen3.5-35B-A3B-Q4_K_M",
+          "repo": "unsloth/Qwen3.5-35B-A3B-GGUF",
+          "file": "Qwen3.5-35B-A3B-Q4_K_M.gguf",
+          "size_gb": 20.5,
+          "cloud_mirrored": true,
+          "completed": true,
+          "timestamp": "2026-10-29 04:37:42"
+        }
+      },
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  },
+  "mudler_gemopus_4_26b_apex": {
+    "canonical_name": "mudler_gemopus_4_26b_apex",
+    "benchmarks": [
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  },
+  "qwen_qwen3_30b_iq3m": {
+    "canonical_name": "qwen_qwen3_30b_iq3m",
+    "benchmarks": [
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  },
+  "qwen35_4b_opus_distill": {
+    "canonical_name": "qwen35_4b_opus_distill",
+    "benchmarks": [
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "FAIL_BOOT"
+        }
+      }
+    ]
+  },
+  "karpy_0_8b": {
+    "canonical_name": "karpy_0_8b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  },
+  "gemma_4_assistant": {
+    "canonical_name": "gemma_4_assistant",
+    "benchmarks": [
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "FAIL_BOOT"
+        }
+      }
+    ]
+  },
+  "jackrong_gemopus_4_26b_preview": {
+    "canonical_name": "jackrong_gemopus_4_26b_preview",
+    "benchmarks": [
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  },
+  "glyphsoftware_gemma_4_26b_opus": {
+    "canonical_name": "glyphsoftware_gemma_4_26b_opus",
+    "benchmarks": [
+      {
+        "proof_file": "proof_omega_titans_13areas_10opus.json",
+        "summary": {
+          "status": "COMPLETED"
+        }
+      }
+    ]
+  },
+  "qwen3_30b_iq3_m": {
+    "canonical_name": "qwen3_30b_iq3_m",
+    "benchmarks": [
+      {
+        "proof_file": "proof_qwen3_moe_iq3_vs_q4km.json",
+        "summary": {
+          "status": "OPERATIONAL_CHAMPION"
+        }
+      }
+    ]
+  },
+  "qwen3_30b_q4_k_m": {
+    "canonical_name": "qwen3_30b_q4_k_m",
+    "benchmarks": [
+      {
+        "proof_file": "proof_qwen3_moe_iq3_vs_q4km.json",
+        "summary": {
+          "status": "BLOCKED_BY_RAM_REPACK_LIMIT"
+        }
+      }
+    ]
+  },
+  "1.0B_ibm_grok4_coder": {
+    "canonical_name": "1.0B_ibm_grok4_coder",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "IBM-Grok4-UltraFast-Coder-1B",
+          "filename": "IBM-Grok4-UltraFast-Coder-1B.Q4_K_M.gguf",
+          "category": "01_Auxiliar_Escravo_500M_1B",
+          "tier": "1B Micro Coder",
+          "size_gb": 0.95,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_novos_campeoes_fable_kimi.json",
+        "summary": {
+          "name": "IBM-Grok4-UltraFast-Coder-1B",
+          "filename": "IBM-Grok4-UltraFast-Coder-1B.Q4_K_M.gguf",
+          "tier": "1B Micro Coder",
+          "arch": "qwen",
+          "framework": "Lambda-RLM",
+          "size_gb": 0.95,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "0.6B_qwen3_micro": {
+    "canonical_name": "0.6B_qwen3_micro",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "Qwen3-0.6B-Q4_K_M",
+          "filename": "Qwen3-0.6B-Q4_K_M.gguf",
+          "category": "01_Auxiliar_Escravo_500M_1B",
+          "tier": "600M Ultra-Leve",
+          "size_gb": 0.37,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "0.8B_nasledielab_karpy": {
+    "canonical_name": "0.8B_nasledielab_karpy",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "NasledieLab-Qwen3.5-0.8B-Karpy",
+          "filename": "NasledieLab-Qwen3.5-0.8B-Karpy-Q4_K_M.gguf",
+          "category": "01_Auxiliar_Escravo_500M_1B",
+          "tier": "800M Micro Karp",
+          "size_gb": 0.49,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_micro_pesos_pena.json",
+        "summary": {
+          "name": "NasledieLab-Qwen3.5-0.8B-Karpy",
+          "filename": "NasledieLab-Qwen3.5-0.8B-Karpy-Q4_K_M.gguf",
+          "tier": "Micro 0.8B",
+          "arch": "qwen",
+          "size_gb": 0.49,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "1.5B_codemate_qwen_fable5": {
+    "canonical_name": "1.5B_codemate_qwen_fable5",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "CodeMate-Qwen-1.5B-Claude-Fable-5",
+          "filename": "CodeMate-Qwen-1.5B-32K-Distilled-on-Claude-Fable-5.Q4_K_M.gguf",
+          "category": "02_Mosca_1.5B_3B",
+          "tier": "1.5B Fable 5 32K",
+          "size_gb": 0.92,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_sprint_vestibular_titas.json",
+        "summary": {
+          "name": "CodeMate-Qwen-1.5B-Claude-Fable-5",
+          "tier": "1.5B Micro Code Fable 5",
+          "cat": "02_Mosca_1.5B_3B",
+          "size_gb": 0.92,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "1.5B_deepseek_r1_distill_qwen": {
+    "canonical_name": "1.5B_deepseek_r1_distill_qwen",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "DeepSeek-R1-Distill-Qwen-1.5B",
+          "filename": "DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf",
+          "category": "02_Mosca_1.5B_3B",
+          "tier": "1.5B R1 Reasoning",
+          "size_gb": 1.04,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_sprint_vestibular_titas.json",
+        "summary": {
+          "name": "DeepSeek-R1-Distill-Qwen-1.5B",
+          "tier": "1.5B Micro Reasoning R1",
+          "cat": "02_Mosca_1.5B_3B",
+          "size_gb": 1.04,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "1.5B_kimina_prover": {
+    "canonical_name": "1.5B_kimina_prover",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "Kimina-Prover-Preview-Distill-1.5B",
+          "filename": "Kimina-Prover-Preview-Distill-1.5B.Q4_K_M.gguf",
+          "category": "02_Mosca_1.5B_3B",
+          "tier": "1.5B Prover",
+          "size_gb": 1.04,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_micro_pesos_pena.json",
+        "summary": {
+          "name": "Kimina-Prover-Preview-Distill-1.5B",
+          "filename": "Kimina-Prover-Preview-Distill-1.5B.Q4_K_M.gguf",
+          "tier": "Micro 1.5B",
+          "arch": "qwen",
+          "size_gb": 1.04,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_novos_campeoes_fable_kimi.json",
+        "summary": {
+          "name": "Kimina-Prover-Preview-Distill-1.5B",
+          "filename": "Kimina-Prover-Preview-Distill-1.5B.Q4_K_M.gguf",
+          "tier": "1.5B Micro",
+          "arch": "qwen",
+          "framework": "Lambda-RLM",
+          "size_gb": 1.04,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "3.0B_gpt5_distill_llama32": {
+    "canonical_name": "3.0B_gpt5_distill_llama32",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "GPT-5-Distill-llama3.2-3B-Instruct",
+          "filename": "GPT-5-Distill-llama3.2-3B-Instruct-Q4_K_M.gguf",
+          "category": "03_Pena_3B_4B",
+          "tier": "3B GPT-5 Distill",
+          "size_gb": 1.88,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_lambda_rlm_champions.json",
+        "summary": {
+          "name": "Jackrong-GPT-5-Distill-Llama3.2-3B",
+          "filename": "GPT-5-Distill-llama3.2-3B-Instruct-Q4_K_M.gguf",
+          "tier": "Sweet Spot 3B",
+          "arch": "llama",
+          "framework": "Lambda-RLM",
+          "size_gb": 1.88,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_micro_pesos_pena.json",
+        "summary": {
+          "name": "Jackrong-GPT-5-Distill-Llama3.2-3B",
+          "filename": "GPT-5-Distill-llama3.2-3B-Instruct-Q4_K_M.gguf",
+          "tier": "Sweet Spot 3B",
+          "arch": "llama",
+          "size_gb": 1.88,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_novos_campeoes_fable_kimi.json",
+        "summary": {
+          "name": "GPT-5-Distill-llama3.2-3B-Instruct",
+          "filename": "GPT-5-Distill-llama3.2-3B-Instruct-Q4_K_M.gguf",
+          "tier": "Sweet Spot 3B",
+          "arch": "llama",
+          "framework": "Lambda-RLM",
+          "size_gb": 1.88,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "3.0B_sentie_fable5_kimi_distill": {
+    "canonical_name": "3.0B_sentie_fable5_kimi_distill",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "Sentie-3B-Claude-Fable5-KimiK3-Distill",
+          "filename": "Sentie1.0-3B.Q4_K_M.gguf",
+          "category": "03_Pena_3B_4B",
+          "tier": "3B Fable5 + KimiK3",
+          "size_gb": 2.28,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_sprint_vestibular_titas.json",
+        "summary": {
+          "name": "Sentie-3B-Claude-Fable5-KimiK3-Distill",
+          "tier": "3B Fable 5 + Kimi K3",
+          "cat": "03_Pena_3B_4B",
+          "size_gb": 2.28,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "3.0B_deephermes3_llama32": {
+    "canonical_name": "3.0B_deephermes3_llama32",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "NousResearch-DeepHermes-3-Llama3-3B",
+          "filename": "NousResearch_DeepHermes-3-Llama-3-3B-Preview-Q4_K_M.gguf",
+          "category": "03_Pena_3B_4B",
+          "tier": "3B DeepHermes",
+          "size_gb": 1.88,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_novos_campeoes_fable_kimi.json",
+        "summary": {
+          "name": "NousResearch-DeepHermes-3-Llama3-3B",
+          "filename": "NousResearch_DeepHermes-3-Llama-3-3B-Preview-Q4_K_M.gguf",
+          "tier": "Sweet Spot 3B",
+          "arch": "llama",
+          "framework": "Lambda-RLM",
+          "size_gb": 1.88,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "4.0B_parable_qwen3_fable5": {
+    "canonical_name": "4.0B_parable_qwen3_fable5",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "Parable-Qwen3-4B-Claude-Fable-5",
+          "filename": "Parable-Qwen3-4B-Claude-Fable-5-Q4_K_M.gguf",
+          "category": "04_Estagiario_4B_8B",
+          "tier": "4B Fable 5 Champion",
+          "size_gb": 2.33,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_novos_campeoes_fable_kimi.json",
+        "summary": {
+          "name": "Parable-Qwen3-4B-Claude-Fable-5",
+          "filename": "Parable-Qwen3-4B-Claude-Fable-5-Q4_K_M.gguf",
+          "tier": "Sweet Spot 4B",
+          "arch": "qwen",
+          "framework": "Lambda-RLM",
+          "size_gb": 2.33,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "4.5B_gemma4_e4b_opus": {
+    "canonical_name": "4.5B_gemma4_e4b_opus",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "deadbydawn101-Gemma4-E4B-Opus-Reasoning",
+          "filename": "gemma4-e4b-opus-Q4_K_M.gguf",
+          "category": "04_Estagiario_4B_8B",
+          "tier": "4.5B PLE Opus",
+          "size_gb": 4.97,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_sprint_vestibular_titas.json",
+        "summary": {
+          "name": "deadbydawn101-Gemma4-E4B-Opus-Reasoning",
+          "tier": "4.5B PLE Opus Reasoning",
+          "cat": "04_Estagiario_4B_8B",
+          "size_gb": 4.97,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "4.0B_qwen3_hybrid": {
+    "canonical_name": "4.0B_qwen3_hybrid",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "unsloth-Qwen3-4B-Hybrid",
+          "filename": "Qwen3-4B-Q4_K_M.gguf",
+          "category": "04_Estagiario_4B_8B",
+          "tier": "4B Hybrid",
+          "size_gb": 2.33,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_novos_campeoes_fable_kimi.json",
+        "summary": {
+          "name": "unsloth-Qwen3-4B-Hybrid",
+          "filename": "Qwen3-4B-Q4_K_M.gguf",
+          "tier": "Sweet Spot 4B",
+          "arch": "qwen",
+          "framework": "Lambda-RLM",
+          "size_gb": 2.33,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "9.0B_mimo_v26_distill_qwen": {
+    "canonical_name": "9.0B_mimo_v26_distill_qwen",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "MiMo-V2.6-Distill-Qwen-9B",
+          "filename": "MiMo-V2.6-Distill-Qwen-9B-Q4_K_M.gguf",
+          "category": "05_Jovem_Tita_9B_12B",
+          "tier": "9B Grand Leader",
+          "size_gb": 5.44,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_novos_campeoes_fable_kimi.json",
+        "summary": {
+          "name": "MiMo-V2.6-Distill-Qwen-9B",
+          "filename": "MiMo-V2.6-Distill-Qwen-9B-Q4_K_M.gguf",
+          "tier": "9B Teto Geral",
+          "arch": "qwen",
+          "framework": "Lambda-RLM",
+          "size_gb": 5.44,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "12.0B_gemma4_agentic_v2": {
+    "canonical_name": "12.0B_gemma4_agentic_v2",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "yuxinlu1-Gemma4-12B-Agentic-Fable5-Composer25",
+          "filename": "gemma4-v2-Q4_K_M.gguf",
+          "category": "05_Jovem_Tita_9B_12B",
+          "tier": "12B Dense Agentic",
+          "size_gb": 6.87,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "26.0B_gemma4_moe_a4b": {
+    "canonical_name": "26.0B_gemma4_moe_a4b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "TeichAI-Gemma4-26B-A4B-Opus-MoE",
+          "filename": "gemma-4-26B-A4B-it-Claude-Opus-Distill.q3_k_m.gguf",
+          "category": "06_MoE_Especialista_12B_35B_A4B",
+          "tier": "26B MoE (3.8B Ativos)",
+          "size_gb": 12.37,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_sprint_vestibular_titas.json",
+        "summary": {
+          "name": "TeichAI-Gemma4-26B-A4B-Opus-MoE",
+          "tier": "26B MoE (3.8B Ativos por token)",
+          "cat": "06_MoE_Especialista_12B_35B_A4B",
+          "size_gb": 12.37,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "3.8B_phi4_mini_reasoning": {
+    "canonical_name": "3.8B_phi4_mini_reasoning",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "Phi-4-mini-reasoning-Q4_K_M",
+          "filename": "Phi-4-mini-reasoning-Q4_K_M.gguf",
+          "category": "03_Pena_3B_4B",
+          "tier": "3.8B Reasoning Champion",
+          "size_gb": 2.32,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "4.0B_procreations_dory_beam": {
+    "canonical_name": "4.0B_procreations_dory_beam",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "ProCreations-Dory-Beam-4B",
+          "filename": "dory-beam-4b-q5_k_m.gguf",
+          "category": "04_Estagiario_4B_8B",
+          "tier": "4B nGPT Beam Traces",
+          "size_gb": 3.42,
+          "architecture": "dory_ngpt_native_pytorch",
+          "completed": true
+        }
+      }
+    ]
+  },
+  "4.0B_nvidia_nemotron_dory1": {
+    "canonical_name": "4.0B_nvidia_nemotron_dory1",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "status": "BLOQUEADO_ARQUITETURA_DORY"
+        }
+      }
+    ]
+  },
+  "14.0B_phi4_reasoning_full": {
+    "canonical_name": "14.0B_phi4_reasoning_full",
+    "benchmarks": [
+      {
+        "proof_file": "proof_reteste_18_titas_fable_dual.json",
+        "summary": {
+          "name": "unsloth-Phi-4-reasoning-14B",
+          "filename": "phi-4-reasoning-Q4_K_M.gguf",
+          "category": "05_Jovem_Tita_9B_12B",
+          "tier": "14B Full Reasoning Titan",
+          "size_gb": 8.43,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "4.0B_grok3_gemma3_reasoning": {
+    "canonical_name": "4.0B_grok3_gemma3_reasoning",
+    "benchmarks": [
+      {
+        "proof_file": "proof_sprint_vestibular_titas.json",
+        "summary": {
+          "name": "mradermacher-Grok3-Reasoning-Gemma3-4B",
+          "tier": "4B Grok 3 Reasoning",
+          "cat": "04_Estagiario_4B_8B",
+          "size_gb": 2.32,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "ai9stars_g9v3_3b_control": {
+    "canonical_name": "ai9stars_g9v3_3b_control",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_lambda_rlm_champions.json",
+        "summary": {
+          "name": "ai9stars/G9v3-3B (Control Baseline Lambda-RLM)",
+          "filename": "ai9stars_G9v3-3B-Q4_K_M.gguf",
+          "tier": "Sweet Spot 3B",
+          "arch": "minicpm5",
+          "size_gb": 1.77,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_micro_pesos_pena.json",
+        "summary": {
+          "name": "ai9stars/G9v3-3B (Control Baseline)",
+          "filename": "ai9stars_G9v3-3B-Q4_K_M.gguf",
+          "tier": "Sweet Spot 3B",
+          "arch": "minicpm5",
+          "size_gb": 1.77,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "4.0B_parable_claude_fable": {
+    "canonical_name": "4.0B_parable_claude_fable",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_lambda_rlm_champions.json",
+        "summary": {
+          "name": "Parable-Qwen3-4B-Claude-Fable-5",
+          "filename": "Parable-Qwen3-4B-Claude-Fable-5-Q4_K_M.gguf",
+          "tier": "Sweet Spot 4B",
+          "arch": "qwen",
+          "framework": "Lambda-RLM",
+          "size_gb": 2.33,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_micro_pesos_pena.json",
+        "summary": {
+          "name": "Parable-Qwen3-4B-Claude-Fable-5",
+          "filename": "Parable-Qwen3-4B-Claude-Fable-5-Q4_K_M.gguf",
+          "tier": "Sweet Spot 4B",
+          "arch": "qwen",
+          "size_gb": 2.33,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "3.0B_deepseek_r1_llama32": {
+    "canonical_name": "3.0B_deepseek_r1_llama32",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_lambda_rlm_champions.json",
+        "summary": {
+          "name": "DeepSeek-R1-Distill-Llama-3B",
+          "filename": "deepseek-r1-distill-llama-3b-q4_k_m.gguf",
+          "tier": "Sweet Spot 3B",
+          "arch": "llama",
+          "framework": "Lambda-RLM",
+          "size_gb": 1.88,
+          "completed": true
+        }
+      },
+      {
+        "proof_file": "proof_torneio_micro_pesos_pena.json",
+        "summary": {
+          "name": "DeepSeek-R1-Distill-Llama-3B",
+          "filename": "deepseek-r1-distill-llama-3b-q4_k_m.gguf",
+          "tier": "Sweet Spot 3B",
+          "arch": "llama",
+          "size_gb": 1.88,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "2.0B_jackrong_opus_reasoning": {
+    "canonical_name": "2.0B_jackrong_opus_reasoning",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_micro_pesos_pena.json",
+        "summary": {
+          "name": "Jackrong-Qwen3.5-2B-Opus-Reasoning",
+          "filename": "Jackrong-Qwen3.5-2B-Opus-Reasoning-Q4_K_M.gguf",
+          "tier": "Micro 2B",
+          "arch": "qwen",
+          "size_gb": 1.18,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "3.0B_smollm3_deepseek_v4": {
+    "canonical_name": "3.0B_smollm3_deepseek_v4",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_micro_pesos_pena.json",
+        "summary": {
+          "name": "SmolLM3-3B-DeepSeek-V4",
+          "filename": "SmolLM3-3B-DeepSeek-V4-Q4_K_M.gguf",
+          "tier": "Sweet Spot 3B",
+          "arch": "llama",
+          "size_gb": 1.78,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "9.0B_qwable_claude_fable5": {
+    "canonical_name": "9.0B_qwable_claude_fable5",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_novos_campeoes_fable_kimi.json",
+        "summary": {
+          "name": "empero-Qwable-9B-Claude-Fable-5",
+          "filename": "Qwable-9B-Claude-Fable-5-Q4_K_M.gguf",
+          "tier": "9B Teto Geral",
+          "arch": "qwen",
+          "framework": "Lambda-RLM",
+          "size_gb": 5.24,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "8.0B_deepseek_r1_0528_qwen3": {
+    "canonical_name": "8.0B_deepseek_r1_0528_qwen3",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_novos_campeoes_fable_kimi.json",
+        "summary": {
+          "name": "unsloth-DeepSeek-R1-0528-Qwen3-8B",
+          "filename": "DeepSeek-R1-0528-Qwen3-8B-Q4_K_M.gguf",
+          "tier": "8B DeepSeek",
+          "arch": "qwen",
+          "framework": "Lambda-RLM",
+          "size_gb": 4.68,
+          "completed": true
+        }
+      }
+    ]
+  },
+  "mimo-9b": {
+    "canonical_name": "mimo-9b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_opus_9b_distills.json",
+        "summary": {
+          "name": "MiMo-V2.6-Distill-Qwen-9B",
+          "file": "MiMo-V2.6-Distill-Qwen-9B-Q4_K_M.gguf",
+          "zero_shot_passes": 1,
+          "final_passes": 2,
+          "repaired_passes": 1,
+          "final_pct": 20.0,
+          "avg_tps": 4.03,
+          "total_wall_s": 847.12
+        }
+      }
+    ]
+  },
+  "ornith-9b": {
+    "canonical_name": "ornith-9b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_opus_9b_distills.json",
+        "summary": {
+          "name": "Ornith-1.5-9B",
+          "file": "Ornith-1.5-9B-Q4_K_M.gguf",
+          "zero_shot_passes": 4,
+          "final_passes": 5,
+          "repaired_passes": 1,
+          "final_pct": 50.0,
+          "avg_tps": 4.15,
+          "total_wall_s": 726.41
+        }
+      }
+    ]
+  },
+  "qwopus-9b": {
+    "canonical_name": "qwopus-9b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_opus_9b_distills.json",
+        "summary": {
+          "name": "Qwopus3.5-9B-v3",
+          "file": "Qwopus3.5-9B-v3.Q4_K_M.gguf",
+          "zero_shot_passes": 2,
+          "final_passes": 3,
+          "repaired_passes": 1,
+          "final_pct": 30.0,
+          "avg_tps": 4.49,
+          "total_wall_s": 713.89
+        }
+      }
+    ]
+  },
+  "qwen35-pure-9b": {
+    "canonical_name": "qwen35-pure-9b",
+    "benchmarks": [
+      {
+        "proof_file": "proof_torneio_opus_9b_distills.json",
+        "summary": {
+          "name": "Qwen3.5-9B-Pure",
+          "file": "Qwen_Qwen3.5-9B-Q4_K_M.gguf",
+          "zero_shot_passes": 2,
+          "final_passes": 4,
+          "repaired_passes": 2,
+          "final_pct": 40.0,
+          "avg_tps": 4.4,
+          "total_wall_s": 807.29
+        }
+      }
+    ]
+  }
+}

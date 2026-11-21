@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-10-22 22:21:45",
+  "results": [
+    {
+      "label": "8 Cores F\u00edsicos Isolados",
+      "threads": 8,
+      "affinity": "0x5555",
+      "prompt_per_second": 24.017499186023475,
+      "predicted_per_second": 10.150363865168655,
+      "elapsed": 19.450710773468018,
+      "tokens": 140
+    },
+    {
+      "label": "10 Cores F\u00edsicos",
+      "threads": 10,
+      "affinity": "0x15555",
+      "prompt_per_second": 26.889242200502363,
+      "predicted_per_second": 10.472928265902262,
+      "elapsed": 18.426525354385376,
+      "tokens": 140
+    },
+    {
+      "label": "12 Cores F\u00edsicos",
+      "threads": 12,
+      "affinity": "0x555555",
+      "prompt_per_second": 27.63350410700358,
+      "predicted_per_second": 9.714243050916235,
+      "elapsed": 19.385408639907837,
+      "tokens": 140
+    }
+  ]
+}

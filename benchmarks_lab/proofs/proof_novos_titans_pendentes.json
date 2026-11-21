@@ -1,0 +1,1544 @@
+{
+  "claude_qwen35_v2": {
+    "name": "Claude-Qwen3.5-V2 (mondk)",
+    "file": "E:\\models\\Claude-Qwen3.5-V2-model.Q6_K.gguf",
+    "size_gb": 3.56,
+    "status": "FAIL_BOOT",
+    "error": "Timeout de boot ou incompatibilidade de arquitetura"
+  },
+  "gpt_5_6_sol": {
+    "name": "GPT-5.6-Sol (oroboros-labs)",
+    "file": "E:\\models\\gpt-5.6-sol-model.gguf",
+    "size_gb": 5.03,
+    "arch": "Dense 8B/9B Sol Distill",
+    "status": "COMPLETED",
+    "score_13_areas": 7,
+    "score_13_areas_pct": 17.95,
+    "avg_pp_tok_s": 20.84,
+    "avg_tg_tok_s": 7.55,
+    "score_opus_10": 0,
+    "score_opus_10_pct": 0.0,
+    "opus_zero_shot": 0,
+    "opus_repaired": 0,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "passed": 1,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T01_1",
+            "passed": false,
+            "latency_s": 6.15
+          },
+          {
+            "test_id": "T01_2",
+            "passed": false,
+            "latency_s": 6.81
+          },
+          {
+            "test_id": "T01_3",
+            "passed": true,
+            "latency_s": 6.09
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "passed": 0,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T02_1",
+            "passed": false,
+            "latency_s": 24.8
+          },
+          {
+            "test_id": "T02_2",
+            "passed": false,
+            "latency_s": 25.06
+          },
+          {
+            "test_id": "T02_3",
+            "passed": false,
+            "latency_s": 26.33
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "passed": 0,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T03_1",
+            "passed": false,
+            "latency_s": 8.09
+          },
+          {
+            "test_id": "T03_2",
+            "passed": false,
+            "latency_s": 9.37
+          },
+          {
+            "test_id": "T03_3",
+            "passed": false,
+            "latency_s": 7.5
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "passed": 0,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T04_1",
+            "passed": false,
+            "latency_s": 6.79
+          },
+          {
+            "test_id": "T04_2",
+            "passed": false,
+            "latency_s": 6.64
+          },
+          {
+            "test_id": "T04_3",
+            "passed": false,
+            "latency_s": 5.43
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "passed": 2,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T05_1",
+            "passed": true,
+            "latency_s": 9.93
+          },
+          {
+            "test_id": "T05_2",
+            "passed": true,
+            "latency_s": 6.13
+          },
+          {
+            "test_id": "T05_3",
+            "passed": false,
+            "latency_s": 6.29
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "passed": 1,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T06_1",
+            "passed": false,
+            "latency_s": 5.64
+          },
+          {
+            "test_id": "T06_2",
+            "passed": true,
+            "latency_s": 5.66
+          },
+          {
+            "test_id": "T06_3",
+            "passed": false,
+            "latency_s": 6.58
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "passed": 0,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T07_1",
+            "passed": false,
+            "latency_s": 5.19
+          },
+          {
+            "test_id": "T07_2",
+            "passed": false,
+            "latency_s": 6.44
+          },
+          {
+            "test_id": "T07_3",
+            "passed": false,
+            "latency_s": 5.29
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "passed": 0,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T08_1",
+            "passed": false,
+            "latency_s": 6.76
+          },
+          {
+            "test_id": "T08_2",
+            "passed": false,
+            "latency_s": 5.85
+          },
+          {
+            "test_id": "T08_3",
+            "passed": false,
+            "latency_s": 7.03
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "passed": 0,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T09_1",
+            "passed": false,
+            "latency_s": 9.13
+          },
+          {
+            "test_id": "T09_2",
+            "passed": false,
+            "latency_s": 7.16
+          },
+          {
+            "test_id": "T09_3",
+            "passed": false,
+            "latency_s": 5.59
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "passed": 1,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T10_1",
+            "passed": false,
+            "latency_s": 6.0
+          },
+          {
+            "test_id": "T10_2",
+            "passed": false,
+            "latency_s": 6.36
+          },
+          {
+            "test_id": "T10_3",
+            "passed": true,
+            "latency_s": 6.61
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "passed": 1,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T11_1",
+            "passed": false,
+            "latency_s": 5.95
+          },
+          {
+            "test_id": "T11_2",
+            "passed": false,
+            "latency_s": 5.87
+          },
+          {
+            "test_id": "T11_3",
+            "passed": true,
+            "latency_s": 5.47
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "passed": 1,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T12_1",
+            "passed": false,
+            "latency_s": 5.64
+          },
+          {
+            "test_id": "T12_2",
+            "passed": false,
+            "latency_s": 6.64
+          },
+          {
+            "test_id": "T12_3",
+            "passed": true,
+            "latency_s": 5.76
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "passed": 0,
+        "total": 3,
+        "tests": [
+          {
+            "test_id": "T13_1",
+            "passed": false,
+            "latency_s": 6.86
+          },
+          {
+            "test_id": "T13_2",
+            "passed": false,
+            "latency_s": 5.99
+          },
+          {
+            "test_id": "T13_3",
+            "passed": false,
+            "latency_s": 6.28
+          }
+        ]
+      }
+    },
+    "opus_details": {
+      "OPUS_01_regex_plus_star_dot": {
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 7: unterminated str)"
+      },
+      "OPUS_02_parser_unario_potencia_direita": {
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+      },
+      "OPUS_03_dijkstra_k_pedagios_gratis": {
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+      },
+      "OPUS_04_maior_retangulo_matriz_binaria": {
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 6: invalid decimal )"
+      },
+      "OPUS_05_bitmask_dp_tsp_aberto": {
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+      },
+      "OPUS_06_mediana_dois_arrays_ordenados": {
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+      },
+      "OPUS_07_maior_parenteses_valido_trap": {
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+      },
+      "OPUS_08_trapping_rain_water": {
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+      },
+      "OPUS_09_arvore_caminho_maximo_negativos": {
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+      },
+      "OPUS_10_solver_dpll_sat_cnf": {
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+      }
+    },
+    "timestamp": "2026-10-30 16:07:32"
+  },
+  "ornith_1_5_9b": {
+    "name": "Ornith-1.5-9B (xoykor)",
+    "file": "E:\\models\\Ornith-1.5-9B.Q5_K_M.gguf",
+    "size_gb": 6.64,
+    "status": "FAIL_BOOT",
+    "error": "Timeout de boot ou incompatibilidade de arquitetura"
+  },
+  "gemma_4_26b_claude_opus_distill_v2": {
+    "id": "gemma_4_26b_claude_opus_distill_v2",
+    "name": "gemma-4-26B-A4B-it-Claude-Opus-Distill-v2",
+    "file": "F:\\AetherMind_Contenders\\gemma-4-26B-A4B-it-Claude-Opus-Distill.q4_k_m.gguf",
+    "size_gb": 15.64,
+    "arch": "Dense/MoE 26B Gemma-4 Claude Opus Distill v2",
+    "status": "COMPLETED",
+    "benchmark_13_areas": {
+      "passed_total": 29,
+      "total_tests": 39,
+      "pass_rate_pct": 74.36,
+      "avg_pp_tok_s": 27.34,
+      "avg_tg_tok_s": 51291.02,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T01_1",
+              "passed": true,
+              "latency_s": 29.09
+            },
+            {
+              "test_id": "T01_2",
+              "passed": true,
+              "latency_s": 17.87
+            },
+            {
+              "test_id": "T01_3",
+              "passed": true,
+              "latency_s": 6.34
+            }
+          ]
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T02_1",
+              "passed": false,
+              "latency_s": 26.03
+            },
+            {
+              "test_id": "T02_2",
+              "passed": true,
+              "latency_s": 8.03
+            },
+            {
+              "test_id": "T02_3",
+              "passed": false,
+              "latency_s": 21.98
+            }
+          ]
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T03_1",
+              "passed": false,
+              "latency_s": 5.4
+            },
+            {
+              "test_id": "T03_2",
+              "passed": false,
+              "latency_s": 4.96
+            },
+            {
+              "test_id": "T03_3",
+              "passed": true,
+              "latency_s": 4.72
+            }
+          ]
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T04_1",
+              "passed": false,
+              "latency_s": 3.25
+            },
+            {
+              "test_id": "T04_2",
+              "passed": false,
+              "latency_s": 25.7
+            },
+            {
+              "test_id": "T04_3",
+              "passed": true,
+              "latency_s": 52.97
+            }
+          ]
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T05_1",
+              "passed": true,
+              "latency_s": 16.62
+            },
+            {
+              "test_id": "T05_2",
+              "passed": true,
+              "latency_s": 9.48
+            },
+            {
+              "test_id": "T05_3",
+              "passed": true,
+              "latency_s": 9.9
+            }
+          ]
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T06_1",
+              "passed": true,
+              "latency_s": 6.68
+            },
+            {
+              "test_id": "T06_2",
+              "passed": true,
+              "latency_s": 4.43
+            },
+            {
+              "test_id": "T06_3",
+              "passed": true,
+              "latency_s": 12.77
+            }
+          ]
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T07_1",
+              "passed": true,
+              "latency_s": 9.65
+            },
+            {
+              "test_id": "T07_2",
+              "passed": true,
+              "latency_s": 7.04
+            },
+            {
+              "test_id": "T07_3",
+              "passed": false,
+              "latency_s": 5.97
+            }
+          ]
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T08_1",
+              "passed": true,
+              "latency_s": 4.24
+            },
+            {
+              "test_id": "T08_2",
+              "passed": true,
+              "latency_s": 3.1
+            },
+            {
+              "test_id": "T08_3",
+              "passed": true,
+              "latency_s": 6.8
+            }
+          ]
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T09_1",
+              "passed": true,
+              "latency_s": 10.84
+            },
+            {
+              "test_id": "T09_2",
+              "passed": true,
+              "latency_s": 9.78
+            },
+            {
+              "test_id": "T09_3",
+              "passed": true,
+              "latency_s": 6.83
+            }
+          ]
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T10_1",
+              "passed": false,
+              "latency_s": 4.9
+            },
+            {
+              "test_id": "T10_2",
+              "passed": true,
+              "latency_s": 4.14
+            },
+            {
+              "test_id": "T10_3",
+              "passed": true,
+              "latency_s": 4.23
+            }
+          ]
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T11_1",
+              "passed": false,
+              "latency_s": 3.68
+            },
+            {
+              "test_id": "T11_2",
+              "passed": false,
+              "latency_s": 3.02
+            },
+            {
+              "test_id": "T11_3",
+              "passed": true,
+              "latency_s": 2.9
+            }
+          ]
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T12_1",
+              "passed": true,
+              "latency_s": 3.84
+            },
+            {
+              "test_id": "T12_2",
+              "passed": true,
+              "latency_s": 8.7
+            },
+            {
+              "test_id": "T12_3",
+              "passed": true,
+              "latency_s": 6.8
+            }
+          ]
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T13_1",
+              "passed": true,
+              "latency_s": 6.18
+            },
+            {
+              "test_id": "T13_2",
+              "passed": true,
+              "latency_s": 7.39
+            },
+            {
+              "test_id": "T13_3",
+              "passed": true,
+              "latency_s": 4.38
+            }
+          ]
+        }
+      }
+    },
+    "benchmark_10_opus": {
+      "passed_total": 1,
+      "total_tests": 10,
+      "pass_rate_pct": 10.0,
+      "zero_shot_passed": 1,
+      "repaired_passed": 0,
+      "challenges": {
+        "OPUS_01_regex_plus_star_dot": {
+          "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 48: closing parenth)"
+        },
+        "OPUS_02_parser_unario_potencia_direita": {
+          "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 4: unterminated str)"
+        },
+        "OPUS_03_dijkstra_k_pedagios_gratis": {
+          "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_04_maior_retangulo_matriz_binaria": {
+          "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_05_bitmask_dp_tsp_aberto": {
+          "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_06_mediana_dois_arrays_ordenados": {
+          "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 14: expected ':' ->)"
+        },
+        "OPUS_07_maior_parenteses_valido_trap": {
+          "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+          "passed": true,
+          "zero_shot": true,
+          "repaired": false,
+          "status": "PASS (Zero-Shot)"
+        },
+        "OPUS_09_arvore_caminho_maximo_negativos": {
+          "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_10_solver_dpll_sat_cnf": {
+          "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        }
+      }
+    },
+    "total_elapsed_s": 1354.0,
+    "timestamp": "2026-10-30 17:15:27"
+  },
+  "qwen3_6_35b_claude_4_7_opus": {
+    "id": "qwen3_6_35b_claude_4_7_opus",
+    "name": "Qwen3.6-35B-A3B-Claude-4.7-Opus-Reasoning-Distilled",
+    "file": "F:\\AetherMind_Contenders\\Qwen3.6-35B-A3B-Claude-4.7-Opus-Reasoning-Distilled.Q4_K_M.gguf",
+    "size_gb": 19.71,
+    "arch": "MoE 35B (3B active) Claude 4.7 Opus Distilled",
+    "status": "COMPLETED",
+    "benchmark_13_areas": {
+      "passed_total": 14,
+      "total_tests": 39,
+      "pass_rate_pct": 35.9,
+      "avg_pp_tok_s": 18.16,
+      "avg_tg_tok_s": 3.72,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T01_1",
+              "passed": false,
+              "latency_s": 33.18
+            },
+            {
+              "test_id": "T01_2",
+              "passed": true,
+              "latency_s": 12.44
+            },
+            {
+              "test_id": "T01_3",
+              "passed": false,
+              "latency_s": 11.29
+            }
+          ]
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T02_1",
+              "passed": false,
+              "latency_s": 34.83
+            },
+            {
+              "test_id": "T02_2",
+              "passed": true,
+              "latency_s": 16.81
+            },
+            {
+              "test_id": "T02_3",
+              "passed": true,
+              "latency_s": 17.65
+            }
+          ]
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T03_1",
+              "passed": false,
+              "latency_s": 9.9
+            },
+            {
+              "test_id": "T03_2",
+              "passed": false,
+              "latency_s": 10.83
+            },
+            {
+              "test_id": "T03_3",
+              "passed": true,
+              "latency_s": 11.44
+            }
+          ]
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T04_1",
+              "passed": false,
+              "latency_s": 12.57
+            },
+            {
+              "test_id": "T04_2",
+              "passed": false,
+              "latency_s": 8.35
+            },
+            {
+              "test_id": "T04_3",
+              "passed": true,
+              "latency_s": 12.5
+            }
+          ]
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T05_1",
+              "passed": true,
+              "latency_s": 22.15
+            },
+            {
+              "test_id": "T05_2",
+              "passed": false,
+              "latency_s": 21.02
+            },
+            {
+              "test_id": "T05_3",
+              "passed": false,
+              "latency_s": 21.01
+            }
+          ]
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T06_1",
+              "passed": false,
+              "latency_s": 20.69
+            },
+            {
+              "test_id": "T06_2",
+              "passed": true,
+              "latency_s": 16.59
+            },
+            {
+              "test_id": "T06_3",
+              "passed": false,
+              "latency_s": 57.51
+            }
+          ]
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T07_1",
+              "passed": true,
+              "latency_s": 47.06
+            },
+            {
+              "test_id": "T07_2",
+              "passed": true,
+              "latency_s": 39.07
+            },
+            {
+              "test_id": "T07_3",
+              "passed": true,
+              "latency_s": 32.97
+            }
+          ]
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T08_1",
+              "passed": false,
+              "latency_s": 41.13
+            },
+            {
+              "test_id": "T08_2",
+              "passed": false,
+              "latency_s": 14.05
+            },
+            {
+              "test_id": "T08_3",
+              "passed": true,
+              "latency_s": 27.66
+            }
+          ]
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "passed": 0,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T09_1",
+              "passed": false,
+              "latency_s": 32.65
+            },
+            {
+              "test_id": "T09_2",
+              "passed": false,
+              "latency_s": 56.98
+            },
+            {
+              "test_id": "T09_3",
+              "passed": false,
+              "latency_s": 28.35
+            }
+          ]
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T10_1",
+              "passed": true,
+              "latency_s": 53.87
+            },
+            {
+              "test_id": "T10_2",
+              "passed": false,
+              "latency_s": 48.14
+            },
+            {
+              "test_id": "T10_3",
+              "passed": true,
+              "latency_s": 34.18
+            }
+          ]
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "passed": 0,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T11_1",
+              "passed": false,
+              "latency_s": 44.2
+            },
+            {
+              "test_id": "T11_2",
+              "passed": false,
+              "latency_s": 54.6
+            },
+            {
+              "test_id": "T11_3",
+              "passed": false,
+              "latency_s": 66.28
+            }
+          ]
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "passed": 0,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T12_1",
+              "passed": false,
+              "latency_s": 45.85
+            },
+            {
+              "test_id": "T12_2",
+              "passed": false,
+              "latency_s": 43.98
+            },
+            {
+              "test_id": "T12_3",
+              "passed": false,
+              "latency_s": 48.43
+            }
+          ]
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T13_1",
+              "passed": true,
+              "latency_s": 16.05
+            },
+            {
+              "test_id": "T13_2",
+              "passed": false,
+              "latency_s": 31.3
+            },
+            {
+              "test_id": "T13_3",
+              "passed": false,
+              "latency_s": 103.74
+            }
+          ]
+        }
+      }
+    },
+    "benchmark_10_opus": {
+      "passed_total": 0,
+      "total_tests": 10,
+      "pass_rate_pct": 0.0,
+      "zero_shot_passed": 0,
+      "repaired_passed": 0,
+      "challenges": {
+        "OPUS_01_regex_plus_star_dot": {
+          "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_02_parser_unario_potencia_direita": {
+          "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_03_dijkstra_k_pedagios_gratis": {
+          "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_04_maior_retangulo_matriz_binaria": {
+          "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_05_bitmask_dp_tsp_aberto": {
+          "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (Timeout excedido (4.0s) - provável loop )"
+        },
+        "OPUS_06_mediana_dois_arrays_ordenados": {
+          "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_07_maior_parenteses_valido_trap": {
+          "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_09_arvore_caminho_maximo_negativos": {
+          "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_10_solver_dpll_sat_cnf": {
+          "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        }
+      }
+    },
+    "total_elapsed_s": 4373.49,
+    "timestamp": "2026-10-30 20:29:11"
+  },
+  "qwen_qwen3_30b_a3b_q4_k_m": {
+    "id": "qwen_qwen3_30b_a3b_q4_k_m",
+    "name": "Qwen_Qwen3-30B-A3B-Q4_K_M",
+    "file": "F:\\AetherMind_Contenders\\Qwen_Qwen3-30B-A3B-Q4_K_M.gguf",
+    "size_gb": 17.35,
+    "arch": "MoE 30B (3B active) Qwen3 Q4_K_M",
+    "status": "COMPLETED",
+    "benchmark_13_areas": {
+      "passed_total": 21,
+      "total_tests": 39,
+      "pass_rate_pct": 53.85,
+      "avg_pp_tok_s": 25.86,
+      "avg_tg_tok_s": 8.14,
+      "areas": {
+        "01_reflexo_triagem": {
+          "name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T01_1",
+              "passed": true,
+              "latency_s": 34.68
+            },
+            {
+              "test_id": "T01_2",
+              "passed": true,
+              "latency_s": 20.64
+            },
+            {
+              "test_id": "T01_3",
+              "passed": false,
+              "latency_s": 16.69
+            }
+          ]
+        },
+        "02_engenharia_codigo": {
+          "name": "02. Engenharia de Código (Código, Refactor, Patches)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T02_1",
+              "passed": true,
+              "latency_s": 33.28
+            },
+            {
+              "test_id": "T02_2",
+              "passed": true,
+              "latency_s": 55.77
+            },
+            {
+              "test_id": "T02_3",
+              "passed": true,
+              "latency_s": 23.76
+            }
+          ]
+        },
+        "03_matematica_provas": {
+          "name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+          "passed": 0,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T03_1",
+              "passed": false,
+              "latency_s": 29.45
+            },
+            {
+              "test_id": "T03_2",
+              "passed": false,
+              "latency_s": 15.14
+            },
+            {
+              "test_id": "T03_3",
+              "passed": false,
+              "latency_s": 10.76
+            }
+          ]
+        },
+        "04_automacao_so_rpa": {
+          "name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T04_1",
+              "passed": true,
+              "latency_s": 11.51
+            },
+            {
+              "test_id": "T04_2",
+              "passed": false,
+              "latency_s": 24.13
+            },
+            {
+              "test_id": "T04_3",
+              "passed": true,
+              "latency_s": 19.59
+            }
+          ]
+        },
+        "05_memoria_perene": {
+          "name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T05_1",
+              "passed": true,
+              "latency_s": 10.58
+            },
+            {
+              "test_id": "T05_2",
+              "passed": true,
+              "latency_s": 7.16
+            },
+            {
+              "test_id": "T05_3",
+              "passed": false,
+              "latency_s": 12.16
+            }
+          ]
+        },
+        "06_metacognicao": {
+          "name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T06_1",
+              "passed": false,
+              "latency_s": 10.72
+            },
+            {
+              "test_id": "T06_2",
+              "passed": false,
+              "latency_s": 14.42
+            },
+            {
+              "test_id": "T06_3",
+              "passed": true,
+              "latency_s": 33.32
+            }
+          ]
+        },
+        "07_cadinho_redteam": {
+          "name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T07_1",
+              "passed": true,
+              "latency_s": 42.06
+            },
+            {
+              "test_id": "T07_2",
+              "passed": true,
+              "latency_s": 18.23
+            },
+            {
+              "test_id": "T07_3",
+              "passed": true,
+              "latency_s": 16.66
+            }
+          ]
+        },
+        "08_sintese_vocal": {
+          "name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T08_1",
+              "passed": true,
+              "latency_s": 10.91
+            },
+            {
+              "test_id": "T08_2",
+              "passed": true,
+              "latency_s": 4.51
+            },
+            {
+              "test_id": "T08_3",
+              "passed": false,
+              "latency_s": 12.33
+            }
+          ]
+        },
+        "09_multimodal_visao": {
+          "name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+          "passed": 0,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T09_1",
+              "passed": false,
+              "latency_s": 19.55
+            },
+            {
+              "test_id": "T09_2",
+              "passed": false,
+              "latency_s": 10.26
+            },
+            {
+              "test_id": "T09_3",
+              "passed": false,
+              "latency_s": 4.85
+            }
+          ]
+        },
+        "10_planejamento_deliberativo": {
+          "name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T10_1",
+              "passed": false,
+              "latency_s": 11.55
+            },
+            {
+              "test_id": "T10_2",
+              "passed": true,
+              "latency_s": 9.07
+            },
+            {
+              "test_id": "T10_3",
+              "passed": true,
+              "latency_s": 14.48
+            }
+          ]
+        },
+        "11_raciocinio_cientifico": {
+          "name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+          "passed": 0,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T11_1",
+              "passed": false,
+              "latency_s": 7.73
+            },
+            {
+              "test_id": "T11_2",
+              "passed": false,
+              "latency_s": 6.15
+            },
+            {
+              "test_id": "T11_3",
+              "passed": false,
+              "latency_s": 5.23
+            }
+          ]
+        },
+        "12_linguagem_discurso": {
+          "name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T12_1",
+              "passed": false,
+              "latency_s": 3.53
+            },
+            {
+              "test_id": "T12_2",
+              "passed": false,
+              "latency_s": 6.02
+            },
+            {
+              "test_id": "T12_3",
+              "passed": true,
+              "latency_s": 5.56
+            }
+          ]
+        },
+        "13_governador_hardware": {
+          "name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "test_id": "T13_1",
+              "passed": true,
+              "latency_s": 5.67
+            },
+            {
+              "test_id": "T13_2",
+              "passed": true,
+              "latency_s": 5.82
+            },
+            {
+              "test_id": "T13_3",
+              "passed": true,
+              "latency_s": 4.07
+            }
+          ]
+        }
+      }
+    },
+    "benchmark_10_opus": {
+      "passed_total": 2,
+      "total_tests": 10,
+      "pass_rate_pct": 20.0,
+      "zero_shot_passed": 2,
+      "repaired_passed": 0,
+      "challenges": {
+        "OPUS_01_regex_plus_star_dot": {
+          "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_02_parser_unario_potencia_direita": {
+          "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_03_dijkstra_k_pedagios_gratis": {
+          "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_04_maior_retangulo_matriz_binaria": {
+          "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+          "passed": true,
+          "zero_shot": true,
+          "repaired": false,
+          "status": "PASS (Zero-Shot)"
+        },
+        "OPUS_05_bitmask_dp_tsp_aberto": {
+          "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+          "passed": true,
+          "zero_shot": true,
+          "repaired": false,
+          "status": "PASS (Zero-Shot)"
+        },
+        "OPUS_06_mediana_dois_arrays_ordenados": {
+          "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_07_maior_parenteses_valido_trap": {
+          "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_09_arvore_caminho_maximo_negativos": {
+          "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        },
+        "OPUS_10_solver_dpll_sat_cnf": {
+          "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+          "passed": false,
+          "zero_shot": false,
+          "repaired": false,
+          "status": "FAIL (SyntaxError na linha 1: invalid syntax -)"
+        }
+      }
+    },
+    "total_elapsed_s": 1235.62,
+    "timestamp": "2026-11-02 01:29:09"
+  }
+}

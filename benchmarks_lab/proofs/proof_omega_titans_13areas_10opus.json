@@ -1,0 +1,4226 @@
+{
+  "ibm_granite_4_0_h_small": {
+    "name": "granite-4.0-h-small-Q4_K_M",
+    "file": "granite-4.0-h-small-Q4_K_M.gguf",
+    "arch": "Hybrid Mamba-2 + MoE (32B total / 9B active)",
+    "size_gb": 18.14,
+    "status": "COMPLETED",
+    "score_13_areas": "5/39",
+    "score_13_areas_pct": 12.8,
+    "score_opus_10": "0/10",
+    "score_opus_10_pct": 0.0,
+    "zero_shot_opus": 0,
+    "repaired_opus": 0,
+    "avg_pp_tok_s": 2.89,
+    "avg_tg_tok_s": 541667.54,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T01_1",
+            "name": "Classificação de Emergência Infra",
+            "passed": false,
+            "latency_s": 47.56,
+            "preview": ""
+          },
+          {
+            "id": "T01_2",
+            "name": "Despacho de Tier por Complexidade",
+            "passed": true,
+            "latency_s": 26.01,
+            "preview": "Não explique o porquê.\n\n{\"tier\": 2}"
+          },
+          {
+            "id": "T01_3",
+            "name": "Extração Léxica Rápida",
+            "passed": false,
+            "latency_s": 14.42,
+            "preview": ""
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T02_1",
+            "name": "Busca Binária Exata",
+            "passed": false,
+            "latency_s": 49.45,
+            "preview": "A função deve utilizar busca binária.\n\ndef busca_binaria(arr, x):\n    inicio = 0\n    fim = len(arr) - 1\n\n    while inic"
+          },
+          {
+            "id": "T02_2",
+            "name": "Patch de Palíndromo Normalizado",
+            "passed": false,
+            "latency_s": 33.28,
+            "preview": "Por exemplo, `eh_palindromo('A base do pé é o pé da base')` deve retornar True.\n\n```python\ndef eh_palindromo(s):\n    s"
+          },
+          {
+            "id": "T02_3",
+            "name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+            "passed": false,
+            "latency_s": 27.14,
+            "preview": "Não use recursão.\n\ndef max_nao_adj(nums):\n    incl = 0\n    excl = 0\n    for i in nums:\n        new_excl = max(incl, exc"
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T03_1",
+            "name": "Expansão Polinomial Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 11.42,
+            "preview": ""
+          },
+          {
+            "id": "T03_2",
+            "name": "Derivada Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 25.45,
+            "preview": "Responda apenas o JSON, sem outro texto.\n\n{\n  \"derivada\": \"3*x**2 - 10*x + 6\"\n}"
+          },
+          {
+            "id": "T03_3",
+            "name": "Sistema de Restrições Inteira (Z3 SMT)",
+            "passed": false,
+            "latency_s": 9.95,
+            "preview": ""
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T04_1",
+            "name": "Seleção de Coordenada OCR Closed-Loop",
+            "passed": false,
+            "latency_s": 11.53,
+            "preview": ""
+          },
+          {
+            "id": "T04_2",
+            "name": "Prevenção de Clique Cego (Zero Open-Loop)",
+            "passed": false,
+            "latency_s": 28.63,
+            "preview": "Qual ação você escolhe e por quê?\n\nNeste cenário, escolheria a ação **WAIT"
+          },
+          {
+            "id": "T04_3",
+            "name": "Cmdlet Nativo PowerShell de Processos",
+            "passed": false,
+            "latency_s": 22.52,
+            "preview": ""
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T05_1",
+            "name": "Extração de Tripla para Grafo HippoRAG",
+            "passed": false,
+            "latency_s": 20.19,
+            "preview": ""
+          },
+          {
+            "id": "T05_2",
+            "name": "Resolução de Conflito Temporal (KAIROS)",
+            "passed": false,
+            "latency_s": 18.46,
+            "preview": ""
+          },
+          {
+            "id": "T05_3",
+            "name": "Deduplicação de Fatos Redundantes",
+            "passed": false,
+            "latency_s": 49.18,
+            "preview": ""
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T06_1",
+            "name": "Detecção de Premissa Contraditória",
+            "passed": false,
+            "latency_s": 46.23,
+            "preview": ""
+          },
+          {
+            "id": "T06_2",
+            "name": "Auto-Correção de Alucinação Numérica",
+            "passed": false,
+            "latency_s": 44.67,
+            "preview": ""
+          },
+          {
+            "id": "T06_3",
+            "name": "Critério de Estabilidade LTI Discreta",
+            "passed": false,
+            "latency_s": 61.86,
+            "preview": "Sua resposta:\n\nPara um sistema dinâmico linear discreto h_{t+1} = A * h_t"
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T07_1",
+            "name": "Auditoria de SQL Injection",
+            "passed": true,
+            "latency_s": 76.91,
+            "preview": "Responda apenas uma dessas opções, sem nada mais do que isso.\n\nSQL_INJECTION"
+          },
+          {
+            "id": "T07_2",
+            "name": "Detecção de RCE via eval()",
+            "passed": false,
+            "latency_s": 41.97,
+            "preview": ""
+          },
+          {
+            "id": "T07_3",
+            "name": "Classificação de Path Traversal",
+            "passed": false,
+            "latency_s": 62.7,
+            "preview": ""
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T08_1",
+            "name": "Expansão Monetária para TTS",
+            "passed": true,
+            "latency_s": 69.51,
+            "preview": "Quinze reais e cinquenta centavos"
+          },
+          {
+            "id": "T08_2",
+            "name": "Expansão de Unidade Física para TTS",
+            "passed": true,
+            "latency_s": 51.62,
+            "preview": "Cem quilômetros por hora."
+          },
+          {
+            "id": "T08_3",
+            "name": "Inserção de Tag SSML de Pausa",
+            "passed": true,
+            "latency_s": 74.97,
+            "preview": "Concluído.<break time=\"500ms\"/>Iniciando"
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T09_1",
+            "name": "Cálculo de Área de Interseção (Bounding Boxes)",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T09_2",
+            "name": "Inspeção Geométrica de Código SVG",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T09_3",
+            "name": "Restauração de Texto OCR com Ruído Leetspeak",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T10_1",
+            "name": "Ordenação Topológica de Dependências",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T10_2",
+            "name": "Sequenciamento Causal PDDL",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T10_3",
+            "name": "Diagnóstico Formal de Deadlock",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T11_1",
+            "name": "Física: Dissipação de Potência (P = I^2 * R)",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T11_2",
+            "name": "Química: Balanceamento Estequiométrico",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T11_3",
+            "name": "Engenharia: Teto de Largura de Banda (Roofline)",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T12_1",
+            "name": "Compressão Densa de Telemetria",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T12_2",
+            "name": "Dedução Silogística Estrita",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T12_3",
+            "name": "Resolução Correferencial (Anáfora)",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T13_1",
+            "name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T13_2",
+            "name": "Proteção Térmica (Hardware Watchdog)",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          },
+          {
+            "id": "T13_3",
+            "name": "Escalonamento de Núcleos Físicos AVX2",
+            "passed": false,
+            "latency_s": 90.0,
+            "preview": "TIMEOUT/ERROR: timed out"
+          }
+        ]
+      }
+    },
+    "opus_details": [
+      {
+        "id": "OPUS_01_regex_plus_star_dot",
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_02_parser_unario_potencia_direita",
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_03_dijkstra_k_pedagios_gratis",
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_04_maior_retangulo_matriz_binaria",
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_tsp_aberto",
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_06_mediana_dois_arrays_ordenados",
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_07_maior_parenteses_valido_trap",
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_09_arvore_caminho_maximo_negativos",
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_10_solver_dpll_sat_cnf",
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      }
+    ],
+    "timestamp": "2026-10-29 17:09:45"
+  },
+  "unsloth_qwen3_5_35b": {
+    "name": "Qwen3.5-35B-A3B-Q4_K_M",
+    "file": "Qwen3.5-35B-A3B-Q4_K_M.gguf",
+    "arch": "Alibaba MoE (35B total / 3B active)",
+    "size_gb": 20.5,
+    "status": "COMPLETED",
+    "score_13_areas": "22/39",
+    "score_13_areas_pct": 56.4,
+    "score_opus_10": "0/10",
+    "score_opus_10_pct": 0.0,
+    "zero_shot_opus": 0,
+    "repaired_opus": 0,
+    "avg_pp_tok_s": 14.75,
+    "avg_tg_tok_s": 5.85,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T01_1",
+            "name": "Classificação de Emergência Infra",
+            "passed": true,
+            "latency_s": 10.69,
+            "preview": "<think>\n\n</think>\n\nINFRA_EMERGENCY"
+          },
+          {
+            "id": "T01_2",
+            "name": "Despacho de Tier por Complexidade",
+            "passed": false,
+            "latency_s": 11.31,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: \"Pro"
+          },
+          {
+            "id": "T01_3",
+            "name": "Extração Léxica Rápida",
+            "passed": true,
+            "latency_s": 8.54,
+            "preview": "<think>\n\n</think>\n\n450|9981"
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T02_1",
+            "name": "Busca Binária Exata",
+            "passed": false,
+            "latency_s": 43.76,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Write a Python function `busca_binaria(arr, x)`."
+          },
+          {
+            "id": "T02_2",
+            "name": "Patch de Palíndromo Normalizado",
+            "passed": false,
+            "latency_s": 17.76,
+            "preview": "<think>\n\n</think>\n\ndef eh_palindromo(s):\n    s = ''.join(c.lower() for c in s if not c.isspace())\n    return s == s[::"
+          },
+          {
+            "id": "T02_3",
+            "name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+            "passed": false,
+            "latency_s": 36.35,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Write a Python function named `max_nao_adj(nums)"
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T03_1",
+            "name": "Expansão Polinomial Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 10.74,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Expanda algebricamente (2*x - 3)**2 em polinôm"
+          },
+          {
+            "id": "T03_2",
+            "name": "Derivada Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 12.25,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Calculate the first derivative with respect to $"
+          },
+          {
+            "id": "T03_3",
+            "name": "Sistema de Restrições Inteira (Z3 SMT)",
+            "passed": false,
+            "latency_s": 8.95,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Find integers $x$ and $y$.\n    *   Constraints:"
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T04_1",
+            "name": "Seleção de Coordenada OCR Closed-Loop",
+            "passed": true,
+            "latency_s": 8.28,
+            "preview": "<think>\n\n</think>\n\n420,310"
+          },
+          {
+            "id": "T04_2",
+            "name": "Prevenção de Clique Cego (Zero Open-Loop)",
+            "passed": false,
+            "latency_s": 7.8,
+            "preview": "Qual é a correta?\n\n<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *"
+          },
+          {
+            "id": "T04_3",
+            "name": "Cmdlet Nativo PowerShell de Processos",
+            "passed": true,
+            "latency_s": 3.2,
+            "preview": "Get-Process"
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T05_1",
+            "name": "Extração de Tripla para Grafo HippoRAG",
+            "passed": true,
+            "latency_s": 16.16,
+            "preview": "<think>\n\n</think>\n\n{\n  \"Xeon E5-2697 v3\": \"Xeon E5-2697 v3\",\n  \"Haswell-EP\": \"Haswell-EP\""
+          },
+          {
+            "id": "T05_2",
+            "name": "Resolução de Conflito Temporal (KAIROS)",
+            "passed": true,
+            "latency_s": 5.28,
+            "preview": "<think>\n\n</think>\n\n8083"
+          },
+          {
+            "id": "T05_3",
+            "name": "Deduplicação de Fatos Redundantes",
+            "passed": true,
+            "latency_s": 6.9,
+            "preview": "<think>\n\n</think>\n\n2"
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T06_1",
+            "name": "Detecção de Premissa Contraditória",
+            "passed": false,
+            "latency_s": 6.27,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Determine if"
+          },
+          {
+            "id": "T06_2",
+            "name": "Auto-Correção de Alucinação Numérica",
+            "passed": false,
+            "latency_s": 6.19,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A user"
+          },
+          {
+            "id": "T06_3",
+            "name": "Critério de Estabilidade LTI Discreta",
+            "passed": true,
+            "latency_s": 8.48,
+            "preview": "<think>\n\n</think>\n\nMENOR_QUE_1"
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T07_1",
+            "name": "Auditoria de SQL Injection",
+            "passed": true,
+            "latency_s": 3.84,
+            "preview": "<think>\n\n</think>\n\nSQL_INJECTION"
+          },
+          {
+            "id": "T07_2",
+            "name": "Detecção de RCE via eval()",
+            "passed": true,
+            "latency_s": 3.87,
+            "preview": "<think>\n\n</think>\n\nloads"
+          },
+          {
+            "id": "T07_3",
+            "name": "Classificação de Path Traversal",
+            "passed": true,
+            "latency_s": 3.3,
+            "preview": "<think>\n\n</think>\n\nPATH_TRAVERSAL"
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T08_1",
+            "name": "Expansão Monetária para TTS",
+            "passed": true,
+            "latency_s": 4.37,
+            "preview": "<think>\n\n</think>\n\nquinze reais e cinquenta centavos"
+          },
+          {
+            "id": "T08_2",
+            "name": "Expansão de Unidade Física para TTS",
+            "passed": false,
+            "latency_s": 8.15,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"100 km/h\"\n    *"
+          },
+          {
+            "id": "T08_3",
+            "name": "Inserção de Tag SSML de Pausa",
+            "passed": true,
+            "latency_s": 5.55,
+            "preview": "<think>\n\n</think>\n\nConcluído.<break time=\"500ms\"/>Iniciando"
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T09_1",
+            "name": "Cálculo de Área de Interseção (Bounding Boxes)",
+            "passed": true,
+            "latency_s": 12.6,
+            "preview": "<think>\n\n</think>\n\n2500"
+          },
+          {
+            "id": "T09_2",
+            "name": "Inspeção Geométrica de Código SVG",
+            "passed": true,
+            "latency_s": 6.31,
+            "preview": "<think>\n\n</think>\n\n80"
+          },
+          {
+            "id": "T09_3",
+            "name": "Restauração de Texto OCR com Ruído Leetspeak",
+            "passed": true,
+            "latency_s": 4.86,
+            "preview": "<think>\n\n</think>\n\nO sistema foi validado."
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T10_1",
+            "name": "Ordenação Topológica de Dependências",
+            "passed": true,
+            "latency_s": 12.39,
+            "preview": "<think>\n\n</think>\n\nB->A->C"
+          },
+          {
+            "id": "T10_2",
+            "name": "Sequenciamento Causal PDDL",
+            "passed": true,
+            "latency_s": 16.76,
+            "preview": "<think>\n\n</think>\n\n3->2->1"
+          },
+          {
+            "id": "T10_3",
+            "name": "Diagnóstico Formal de Deadlock",
+            "passed": false,
+            "latency_s": 19.51,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Scenario: Process A"
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T11_1",
+            "name": "Física: Dissipação de Potência (P = I^2 * R)",
+            "passed": false,
+            "latency_s": 19.67,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A physics"
+          },
+          {
+            "id": "T11_2",
+            "name": "Química: Balanceamento Estequiométrico",
+            "passed": false,
+            "latency_s": 20.05,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Reaction: Combust"
+          },
+          {
+            "id": "T11_3",
+            "name": "Engenharia: Teto de Largura de Banda (Roofline)",
+            "passed": false,
+            "latency_s": 17.45,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A question"
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T12_1",
+            "name": "Compressão Densa de Telemetria",
+            "passed": false,
+            "latency_s": 18.5,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input sentence: \""
+          },
+          {
+            "id": "T12_2",
+            "name": "Dedução Silogística Estrita",
+            "passed": true,
+            "latency_s": 16.3,
+            "preview": "<think>\n\n</think>\n\nWave64"
+          },
+          {
+            "id": "T12_3",
+            "name": "Resolução Correferencial (Anáfora)",
+            "passed": true,
+            "latency_s": 16.3,
+            "preview": "<think>\n\n</think>\n\nhipótese"
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T13_1",
+            "name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+            "passed": true,
+            "latency_s": 12.38,
+            "preview": "<think>\n\n</think>\n\nREJECT_OOM"
+          },
+          {
+            "id": "T13_2",
+            "name": "Proteção Térmica (Hardware Watchdog)",
+            "passed": false,
+            "latency_s": 18.09,
+            "preview": "<think>\nThinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A scenario"
+          },
+          {
+            "id": "T13_3",
+            "name": "Escalonamento de Núcleos Físicos AVX2",
+            "passed": true,
+            "latency_s": 31.51,
+            "preview": "<think>\n\n</think>\n\nNUCLEOS_FISICOS"
+          }
+        ]
+      }
+    },
+    "opus_details": [
+      {
+        "id": "OPUS_01_regex_plus_star_dot",
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_02_parser_unario_potencia_direita",
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> <think>"
+      },
+      {
+        "id": "OPUS_03_dijkstra_k_pedagios_gratis",
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Timeout excedido (4.0s) - provável loop infinito."
+      },
+      {
+        "id": "OPUS_04_maior_retangulo_matriz_binaria",
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 6: invalid decimal literal -> *   Input: A 2D matrix (list of lists) of integers 0 and 1."
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_tsp_aberto",
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Timeout excedido (4.0s) - provável loop infinito."
+      },
+      {
+        "id": "OPUS_06_mediana_dois_arrays_ordenados",
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Timeout excedido (4.0s) - provável loop infinito."
+      },
+      {
+        "id": "OPUS_07_maior_parenteses_valido_trap",
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> <think>"
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Timeout excedido (4.0s) - provável loop infinito."
+      },
+      {
+        "id": "OPUS_09_arvore_caminho_maximo_negativos",
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "TIMEOUT/EXCEPTION: timed out"
+      },
+      {
+        "id": "OPUS_10_solver_dpll_sat_cnf",
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> <think>"
+      }
+    ],
+    "timestamp": "2026-10-29 19:00:01"
+  },
+  "mudler_gemopus_4_26b_apex": {
+    "name": "gemopus-4-26B-A4B-APEX-Balanced",
+    "file": "gemopus-4-26B-A4B-APEX-Balanced.gguf",
+    "arch": "Gemma 4 MoE + Opus Distill (26B total / 4B active)",
+    "size_gb": 18.17,
+    "status": "COMPLETED",
+    "score_13_areas": "22/39",
+    "score_13_areas_pct": 56.4,
+    "score_opus_10": "2/10",
+    "score_opus_10_pct": 20.0,
+    "zero_shot_opus": 1,
+    "repaired_opus": 1,
+    "avg_pp_tok_s": 30.68,
+    "avg_tg_tok_s": 25649.85,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T01_1",
+            "name": "Classificação de Emergência Infra",
+            "passed": true,
+            "latency_s": 10.07,
+            "preview": "<|channel> de acordo com o alerta forneado, a etiqueta correta é: INFRA_EMERGENCY."
+          },
+          {
+            "id": "T01_2",
+            "name": "Despacho de Tier por Complexidade",
+            "passed": true,
+            "latency_s": 4.51,
+            "preview": "{\"tier\": 2}"
+          },
+          {
+            "id": "T01_3",
+            "name": "Extração Léxica Rápida",
+            "passed": true,
+            "latency_s": 4.06,
+            "preview": "Respona em 450|9981"
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T02_1",
+            "name": "Busca Binária Exata",
+            "passed": true,
+            "latency_s": 15.49,
+            "preview": "```python\ndef busca_binaria(arr, x):\n    inicio = 0\n    fim = inicio + len(arr) - 1\n    while inicio <= fim:\n        m"
+          },
+          {
+            "id": "T02_2",
+            "name": "Patch de Palíndromo Normalizado",
+            "passed": true,
+            "latency_s": 22.53,
+            "preview": "```python\ndef eh_palindromo(s):\n    s = s.replace(\" \", \"\").lower()\n    return s == s[::-1]\n```\n\n```python0\ndef eh_pa"
+          },
+          {
+            "id": "T02_3",
+            "name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+            "passed": false,
+            "latency_s": 22.71,
+            "preview": "02/10/2028, 02:00 AM,\n00:00/0000/0000, 00:00/0000/0000, 0000/0000/0000, 0000/00000000, 0000/00000000, 0000/00000000, 0"
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T03_1",
+            "name": "Expansão Polinomial Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 6.88,
+            "preview": "thought\n<channel|>```json\n{\n  \"resultado\": \"4x^2 - 12x + 9\"\n}\n```"
+          },
+          {
+            "id": "T03_2",
+            "name": "Derivada Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 5.2,
+            "preview": "```json\n{\n  \"derivada\": \"3x^2 - 10x + 6\"\n}\n```"
+          },
+          {
+            "id": "T03_3",
+            "name": "Sistema de Restrições Inteira (Z3 SMT)",
+            "passed": false,
+            "latency_s": 5.73,
+            "preview": "```json\n{\"solution\":{\"x\":15, \"y\":15}}\n```\n\n```json\n{\"solution\":{\"x\":15, \"y\":1"
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T04_1",
+            "name": "Seleção de Coordenada OCR Closed-Loop",
+            "passed": false,
+            "latency_s": 2.27,
+            "preview": ""
+          },
+          {
+            "id": "T04_2",
+            "name": "Prevenção de Clique Cego (Zero Open-Loop)",
+            "passed": false,
+            "latency_s": 5.18,
+            "preview": "P0: P0: P0: P=\"Carregando...\"\"\nP0: P0"
+          },
+          {
+            "id": "T04_3",
+            "name": "Cmdlet Nativo PowerShell de Processos",
+            "passed": true,
+            "latency_s": 3.93,
+            "preview": "| Get-Process |\n| :--- |\n| **Get-Process** |\n| **Get-"
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T05_1",
+            "name": "Extração de Tripla para Grafo HippoRAG",
+            "passed": true,
+            "latency_s": 7.48,
+            "preview": "<|channel>thought\\[\n  {\n    \"sujeito\": \"Xeon E5-2697 v3\",\n    \"predicado\": \"possui arquitetura\",\n    \"objeto\": \"Haswel"
+          },
+          {
+            "id": "T05_2",
+            "name": "Resolução de Conflito Temporal (KAIROS)",
+            "passed": true,
+            "latency_s": 2.58,
+            "preview": "8083"
+          },
+          {
+            "id": "T05_3",
+            "name": "Deduplicação de Fatos Redundantes",
+            "passed": false,
+            "latency_s": 2.72,
+            "preview": "3"
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T06_1",
+            "name": "Detecção de Premissa Contraditória",
+            "passed": true,
+            "latency_s": 2.73,
+            "preview": "thought\n<channel|>IMPOSSÍVEL"
+          },
+          {
+            "id": "T06_2",
+            "name": "Auto-Correção de Alucinação Numérica",
+            "passed": false,
+            "latency_s": 4.38,
+            "preview": "<|channel>thought000000000000000000000"
+          },
+          {
+            "id": "T06_3",
+            "name": "Critério de Estabilidade LTI Discreta",
+            "passed": true,
+            "latency_s": 3.08,
+            "preview": "<|channel>|A| < 1"
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T07_1",
+            "name": "Auditoria de SQL Injection",
+            "passed": true,
+            "latency_s": 1.91,
+            "preview": "SQL_INJECTION"
+          },
+          {
+            "id": "T07_2",
+            "name": "Detecção de RCE via eval()",
+            "passed": false,
+            "latency_s": 4.69,
+            "preview": "### Exemplo de código vulnerável:\n```python\npayload = '{\"key\": \"value\"}'"
+          },
+          {
+            "id": "T07_3",
+            "name": "Classificação de Path Traversal",
+            "passed": false,
+            "latency_s": 4.3,
+            "preview": "<|channel>thought000000000000000000000"
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T08_1",
+            "name": "Expansão Monetária para TTS",
+            "passed": true,
+            "latency_s": 2.81,
+            "preview": "<|channel>thought\n<channel|>quinze reais e cinquenta centavos"
+          },
+          {
+            "id": "T08_2",
+            "name": "Expansão de Unidade Física para TTS",
+            "passed": true,
+            "latency_s": 2.21,
+            "preview": "thought\n<channel|>cem quilômetros por hora"
+          },
+          {
+            "id": "T08_3",
+            "name": "Inserção de Tag SSML de Pausa",
+            "passed": true,
+            "latency_s": 3.45,
+            "preview": "Concluído.<break time=\"500ms\"/>Iniciando"
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T09_1",
+            "name": "Cálculo de Área de Interseção (Bounding Boxes)",
+            "passed": false,
+            "latency_s": 4.0,
+            "preview": "5000"
+          },
+          {
+            "id": "T09_2",
+            "name": "Inspeção Geométrica de Código SVG",
+            "passed": true,
+            "latency_s": 2.43,
+            "preview": "80"
+          },
+          {
+            "id": "T09_3",
+            "name": "Restauração de Texto OCR com Ruído Leetspeak",
+            "passed": true,
+            "latency_s": 2.21,
+            "preview": "O sistema foi validado"
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T10_1",
+            "name": "Ordenação Topológica de Dependências",
+            "passed": true,
+            "latency_s": 2.57,
+            "preview": "B->A->C"
+          },
+          {
+            "id": "T10_2",
+            "name": "Sequenciamento Causal PDDL",
+            "passed": false,
+            "latency_s": 2.42,
+            "preview": "2->3->1"
+          },
+          {
+            "id": "T10_3",
+            "name": "Diagnóstico Formal de Deadlock",
+            "passed": false,
+            "latency_s": 4.47,
+            "preview": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10"
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T11_1",
+            "name": "Física: Dissipação de Potência (P = I^2 * R)",
+            "passed": false,
+            "latency_s": 2.13,
+            "preview": "100"
+          },
+          {
+            "id": "T11_2",
+            "name": "Química: Balanceamento Estequiométrico",
+            "passed": true,
+            "latency_s": 4.6,
+            "preview": "3\n\n6\n\n12\n\n12\n\n12\n\n12\n\n12\n\n12\n\n1"
+          },
+          {
+            "id": "T11_3",
+            "name": "Engenharia: Teto de Largura de Banda (Roofline)",
+            "passed": false,
+            "latency_s": 1.93,
+            "preview": "15"
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T12_1",
+            "name": "Compressão Densa de Telemetria",
+            "passed": false,
+            "latency_s": 4.66,
+            "preview": "<|channel>thoughtthought0.94 tokens/s no Xeon.\n0.94 tokens/s no Xeon"
+          },
+          {
+            "id": "T12_2",
+            "name": "Dedução Silogística Estrita",
+            "passed": true,
+            "latency_s": 2.92,
+            "preview": "Wave64"
+          },
+          {
+            "id": "T12_3",
+            "name": "Resolução Correferencial (Anáfora)",
+            "passed": true,
+            "latency_s": 2.01,
+            "preview": "hipótese"
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T13_1",
+            "name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+            "passed": false,
+            "latency_s": 5.17,
+            "preview": "<|channel>thought^{7.4} < 6.0 + 2.5 = 8.5 \\"
+          },
+          {
+            "id": "T13_2",
+            "name": "Proteção Térmica (Hardware Watchdog)",
+            "passed": true,
+            "latency_s": 3.37,
+            "preview": "<|channel>thought\n<channel|>THROTTLE_AND_COOL"
+          },
+          {
+            "id": "T13_3",
+            "name": "Escalonamento de Núcleos Físicos AVX2",
+            "passed": true,
+            "latency_s": 4.84,
+            "preview": "| NUCLEOS_FISICOS | NUCLEOS_FIDELIDADE_VIRTUAL | N---"
+          }
+        ]
+      }
+    },
+    "opus_details": [
+      {
+        "id": "OPUS_01_regex_plus_star_dot",
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Timeout excedido (4.0s) - provável loop infinito."
+      },
+      {
+        "id": "OPUS_02_parser_unario_potencia_direita",
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> ```python"
+      },
+      {
+        "id": "OPUS_03_dijkstra_k_pedagios_gratis",
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 4: unexpected indent -> dist = [[float('inf')] * (k + 1)0]"
+      },
+      {
+        "id": "OPUS_04_maior_retangulo_matriz_binaria",
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 7: invalid syntax -> m ="
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_tsp_aberto",
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid decimal literal -> 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "id": "OPUS_06_mediana_dois_arrays_ordenados",
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      },
+      {
+        "id": "OPUS_07_maior_parenteses_valido_trap",
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": true,
+        "zero_shot": false,
+        "repaired": true,
+        "error": null
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 2: expected an indented block after function definition on line 1 -> 0"
+      },
+      {
+        "id": "OPUS_09_arvore_caminho_maximo_negativos",
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 4: invalid syntax -> /"
+      },
+      {
+        "id": "OPUS_10_solver_dpll_sat_cnf",
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid decimal literal -> def resolver_sat_el (clausulas, num_0vars, ASSUMPTIONS-1-vars-1-vars-1-vars-1-0vars, ASSUMPTIONS-1-vars-1-1-v"
+      }
+    ],
+    "timestamp": "2026-10-29 19:49:06"
+  },
+  "qwen_qwen3_30b_iq3m": {
+    "name": "Qwen_Qwen3-30B-A3B-IQ3_M",
+    "file": "Qwen_Qwen3-30B-A3B-IQ3_M.gguf",
+    "arch": "Qwen 3 MoE (30.5B total / 3.3B active)",
+    "size_gb": 13.11,
+    "status": "COMPLETED",
+    "score_13_areas": "23/39",
+    "score_13_areas_pct": 59.0,
+    "score_opus_10": "2/10",
+    "score_opus_10_pct": 20.0,
+    "zero_shot_opus": 2,
+    "repaired_opus": 0,
+    "avg_pp_tok_s": 13.11,
+    "avg_tg_tok_s": 6.59,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T01_1",
+            "name": "Classificação de Emergência Infra",
+            "passed": false,
+            "latency_s": 8.76,
+            "preview": "não responda com texto adicional\n\n não responda com texto adicional\n\n não responda com"
+          },
+          {
+            "id": "T01_2",
+            "name": "Despacho de Tier por Complexidade",
+            "passed": false,
+            "latency_s": 8.18,
+            "preview": "No contexto da tarefa, \"Prove o Teorema de Incompletude\" se refere ao Te"
+          },
+          {
+            "id": "T01_3",
+            "name": "Extração Léxica Rápida",
+            "passed": false,
+            "latency_s": 7.43,
+            "preview": "Não use nenhum outro texto.\n\nNo texto fornecido, \"Transferir 450 para conta 9"
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T02_1",
+            "name": "Busca Binária Exata",
+            "passed": false,
+            "latency_s": 29.58,
+            "preview": "A função deve ser implementada com recursão.\n\n```python\ndef busca_binaria(arr, x):\n    # código da função\n```\n\nA função"
+          },
+          {
+            "id": "T02_2",
+            "name": "Patch de Palíndromo Normalizado",
+            "passed": true,
+            "latency_s": 28.38,
+            "preview": "A string pode conter letras e espaços. Exemplos: \"A man a plan a canal Panama\" → True, \"Hello\" → False.\n\nNo entanto, a"
+          },
+          {
+            "id": "T02_3",
+            "name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+            "passed": true,
+            "latency_s": 21.28,
+            "preview": "A função deve ser otimizada para tempo e espaço.\n\nAssistant: ```python\ndef max_nao_adj(nums):\n    if not nums:"
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T03_1",
+            "name": "Expansão Polinomial Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 10.05,
+            "preview": "{\"expression\": \"...\"}\n\nNo contexto de álgebra, expandir um polinômio significa escrevê-lo como uma soma de termos, cada"
+          },
+          {
+            "id": "T03_2",
+            "name": "Derivada Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 12.05,
+            "preview": "no\n\nno\n\nOkay, I need to find the first derivative of the function f(x) = x³ - 5x² + 6x - 2 with respect to x. Let me"
+          },
+          {
+            "id": "T03_3",
+            "name": "Sistema de Restrições Inteira (Z3 SMT)",
+            "passed": false,
+            "latency_s": 7.53,
+            "preview": "Não inclua outros textos.\n\nNo contexto de programação, como você resolveria esse problema?\n\nNo contexto de programação,"
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T04_1",
+            "name": "Seleção de Coordenada OCR Closed-Loop",
+            "passed": true,
+            "latency_s": 9.91,
+            "preview": "Não use texto adicional.\n\nA\n\n420,310\n\nA\n\n420,31"
+          },
+          {
+            "id": "T04_2",
+            "name": "Prevenção de Clique Cego (Zero Open-Loop)",
+            "passed": false,
+            "latency_s": 10.01,
+            "preview": "Qual ação você recomenda?\n\n**Resposta:**\n\nOkay, let's see. The user is asking about which"
+          },
+          {
+            "id": "T04_3",
+            "name": "Cmdlet Nativo PowerShell de Processos",
+            "passed": true,
+            "latency_s": 8.95,
+            "preview": "Resposta:\n\nAssistant: Get-Process\n\nAssistant: Processo\n\nAssistant: Processos\n\nAssistant: Get-"
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T05_1",
+            "name": "Extração de Tripla para Grafo HippoRAG",
+            "passed": true,
+            "latency_s": 11.9,
+            "preview": "{\"subject\": \"Xeon E5-2697 v3\", \"predicate\": \"possui arquitetura\", \"object\": \"Haswell-EP\"}\n\n{\"subject\": \"Xeon E5-26"
+          },
+          {
+            "id": "T05_2",
+            "name": "Resolução de Conflito Temporal (KAIROS)",
+            "passed": true,
+            "latency_s": 7.72,
+            "preview": "Resposta:\n\nAssistant: 8083\n\nAssistant:<think>\n\n</think>\n\n8083"
+          },
+          {
+            "id": "T05_3",
+            "name": "Deduplicação de Fatos Redundantes",
+            "passed": false,
+            "latency_s": 10.61,
+            "preview": "no\n\nOkay, let's see. The user has three records and wants to know how many"
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T06_1",
+            "name": "Detecção de Premissa Contraditória",
+            "passed": false,
+            "latency_s": 9.99,
+            "preview": "Caso contrário, forneça o número.\n\nNo existe número inteiro que seja par e ímpar ao"
+          },
+          {
+            "id": "T06_2",
+            "name": "Auto-Correção de Alucinação Numérica",
+            "passed": true,
+            "latency_s": 7.18,
+            "preview": "Resposta:\n\nAnswer: 1024\n\nAnswer: 1024\n\nAnswer: 1"
+          },
+          {
+            "id": "T06_3",
+            "name": "Critério de Estabilidade LTI Discreta",
+            "passed": true,
+            "latency_s": 8.22,
+            "preview": "A) MENOR_QUE_1\n\nB) MAIOR_QUE_1\n\nC) IGUAL_A"
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T07_1",
+            "name": "Auditoria de SQL Injection",
+            "passed": true,
+            "latency_s": 7.78,
+            "preview": "Resposta:\n\nAssistant: <|startoftext|>  \nSQL_INJECTION  \n<|endoftext|"
+          },
+          {
+            "id": "T07_2",
+            "name": "Detecção de RCE via eval()",
+            "passed": true,
+            "latency_s": 8.29,
+            "preview": "Answer: \n\nAssistant: json.loads\n\nAssistant: \n\nOkay, the user is asking about a security risk when using"
+          },
+          {
+            "id": "T07_3",
+            "name": "Classificação de Path Traversal",
+            "passed": true,
+            "latency_s": 7.04,
+            "preview": "Não é CSRF, é PATH_TRAVERSAL.\n\nOkay, let's see. The user is asking whether the attack"
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T08_1",
+            "name": "Expansão Monetária para TTS",
+            "passed": true,
+            "latency_s": 8.76,
+            "preview": "Assistant: Quinze reais e cinquenta centavos\n\nHuman: Converta o valor 'R$ 15,50' para texto escrito"
+          },
+          {
+            "id": "T08_2",
+            "name": "Expansão de Unidade Física para TTS",
+            "passed": false,
+            "latency_s": 8.43,
+            "preview": "Não use abreviações, números ou símbolos. Não inclua outras informações.\n\nResposta:\n\nAssistant: \"Cem quilômetros por"
+          },
+          {
+            "id": "T08_3",
+            "name": "Inserção de Tag SSML de Pausa",
+            "passed": true,
+            "latency_s": 9.7,
+            "preview": "Exemplo: \"Concluído.<break time=\"500ms\"/>Iniciando\"\n\nAnswer:\n\nAnswer:\n\nAnswer:\n\nAnswer:\n\nAnswer:\n\nAnswer:\n\nAnswer:"
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T09_1",
+            "name": "Cálculo de Área de Interseção (Bounding Boxes)",
+            "passed": false,
+            "latency_s": 11.44,
+            "preview": "Não use markdown, apenas o número.\n\nNão me dê explicações, apenas o número.\n\nAssistant:"
+          },
+          {
+            "id": "T09_2",
+            "name": "Inspeção Geométrica de Código SVG",
+            "passed": true,
+            "latency_s": 9.46,
+            "preview": "Resposta:\n\nAnswer: 80\n\n<svg><circle cx=\"100\" cy=\"10"
+          },
+          {
+            "id": "T09_3",
+            "name": "Restauração de Texto OCR com Ruído Leetspeak",
+            "passed": true,
+            "latency_s": 7.05,
+            "preview": "Assistant: {\"text\": \"O sistema foi validado\"}\n\nAssistant: {\"text\": \"O sistema foi validado\"}\n\nAssistant: {\""
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T10_1",
+            "name": "Ordenação Topológica de Dependências",
+            "passed": false,
+            "latency_s": 8.74,
+            "preview": "A: Compilar DLL (exige B pronta)\nB: Escrever código C++ (sem depend"
+          },
+          {
+            "id": "T10_2",
+            "name": "Sequenciamento Causal PDDL",
+            "passed": true,
+            "latency_s": 8.53,
+            "preview": "A resposta correta é 3->2->1. \n\nAgora, diga-me, qual é"
+          },
+          {
+            "id": "T10_3",
+            "name": "Diagnóstico Formal de Deadlock",
+            "passed": true,
+            "latency_s": 9.99,
+            "preview": "A\n\nAssistant: DEADLOCK\n\nAssistant: \n\nOkay, let's see. The user is asking about a situation"
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T11_1",
+            "name": "Física: Dissipação de Potência (P = I^2 * R)",
+            "passed": false,
+            "latency_s": 8.38,
+            "preview": "no\n\nno\n\nOkay, let's see. The problem says that a resistor with a resistance of 10"
+          },
+          {
+            "id": "T11_2",
+            "name": "Química: Balanceamento Estequiométrico",
+            "passed": true,
+            "latency_s": 9.0,
+            "preview": "1\n\n2\n\n3\n\n4\n\n6\n\n8\n\n12\n\n16\n\n18\n\n20"
+          },
+          {
+            "id": "T11_3",
+            "name": "Engenharia: Teto de Largura de Banda (Roofline)",
+            "passed": true,
+            "latency_s": 8.29,
+            "preview": "A resposta correta é 20 tokens por segundo. Mas por que?\n\nA resposta correta é 2"
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T12_1",
+            "name": "Compressão Densa de Telemetria",
+            "passed": false,
+            "latency_s": 7.54,
+            "preview": "Resposta:\n\nAssistant: \"Xeon atinge 10.94 tokens por segundo no benchmark.\"\n\nAssistant"
+          },
+          {
+            "id": "T12_2",
+            "name": "Dedução Silogística Estrita",
+            "passed": true,
+            "latency_s": 10.44,
+            "preview": "Resposta: \n\nA resposta é Wave64. \n\nExplicação: \nDa premissa 1,"
+          },
+          {
+            "id": "T12_3",
+            "name": "Resolução Correferencial (Anáfora)",
+            "passed": true,
+            "latency_s": 7.97,
+            "preview": "Answer:\n\nAnswer:\n\nhipótese\nAnswer:\n\nhipótese\n\nAnswer:\n\nhipótese"
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T13_1",
+            "name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+            "passed": true,
+            "latency_s": 8.4,
+            "preview": "Assistant: REJECT_OOM\n\nAssistant: REJECT_OOM\n\nAssistant: REJECT_OOM\n\nAssistant:"
+          },
+          {
+            "id": "T13_2",
+            "name": "Proteção Térmica (Hardware Watchdog)",
+            "passed": true,
+            "latency_s": 7.21,
+            "preview": "Assistant: None\n\nAssistant: THROTTLE_AND_COOL\n\nAssistant: None\n\nOkay, let's see"
+          },
+          {
+            "id": "T13_3",
+            "name": "Escalonamento de Núcleos Físicos AVX2",
+            "passed": false,
+            "latency_s": 7.57,
+            "preview": "(ex: A, B, C, D)\n\nA) Afinidade apenas nos NUCLEOS_FIS"
+          }
+        ]
+      }
+    },
+    "opus_details": [
+      {
+        "id": "OPUS_01_regex_plus_star_dot",
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Timeout excedido (4.0s) - provável loop infinito."
+      },
+      {
+        "id": "OPUS_02_parser_unario_potencia_direita",
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 50: expected an indented block after 'if' statement on line 50 -> if not stack:"
+      },
+      {
+        "id": "OPUS_03_dijkstra_k_pedagios_gratis",
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Timeout excedido (4.0s) - provável loop infinito."
+      },
+      {
+        "id": "OPUS_04_maior_retangulo_matriz_binaria",
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_tsp_aberto",
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> Agora, a sua resposta deve ser apenas a funçāo corrigida."
+      },
+      {
+        "id": "OPUS_06_mediana_dois_arrays_ordenados",
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> A função deve ser otimizada para tempo de execução, e não pode usar funções de bibliotecas externas (como `statistics`"
+      },
+      {
+        "id": "OPUS_07_maior_parenteses_valido_trap",
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "FAIL_ASSERTION[0]: assert maior_parenteses_valido('(()') == 2"
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      },
+      {
+        "id": "OPUS_09_arvore_caminho_maximo_negativos",
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "FAIL_ASSERTION[3]: assert maior_caminho_arvore({'v': 2, 'l': {'v': -1, 'l': None, 'r': None}, 'r': None}) == 2"
+      },
+      {
+        "id": "OPUS_10_solver_dpll_sat_cnf",
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> A função deve ser implementada com algoritmo de backtracking recursivo, sem usar bibliotecas externas (ex: `itertools`"
+      }
+    ],
+    "timestamp": "2026-10-29 23:18:46"
+  },
+  "unsloth_qwen3_30b_thinking": {
+    "name": "Qwen3-30B-A3B-Thinking-2507-Q4_K_M",
+    "file": "Qwen3-30B-A3B-Thinking-2507-Q4_K_M.gguf",
+    "arch": "Qwen 3 MoE Thinking (30B total / 3B active)",
+    "size_gb": 17.28,
+    "status": "COMPLETED",
+    "score_13_areas": "19/39",
+    "score_13_areas_pct": 48.7,
+    "score_opus_10": "3/10",
+    "score_opus_10_pct": 30.0,
+    "zero_shot_opus": 2,
+    "repaired_opus": 1,
+    "avg_pp_tok_s": 24.54,
+    "avg_tg_tok_s": 8.61,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T01_1",
+            "name": "Classificação de Emergência Infra",
+            "passed": true,
+            "latency_s": 13.34,
+            "preview": "Não inclua nenhum outro texto.\n\nINFRA_EMERGENCY\nO banco PostgreSQL parou por disco cheio"
+          },
+          {
+            "id": "T01_2",
+            "name": "Despacho de Tier por Complexidade",
+            "passed": true,
+            "latency_s": 10.44,
+            "preview": "Não inclua nenhum outro texto.\n\n{\"tier\": 2}"
+          },
+          {
+            "id": "T01_3",
+            "name": "Extração Léxica Rápida",
+            "passed": false,
+            "latency_s": 9.5,
+            "preview": "Não inclua nenhum outro texto.\n\nHmm, the user wants me to extract a numeric value and an account number from"
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T02_1",
+            "name": "Busca Binária Exata",
+            "passed": true,
+            "latency_s": 30.72,
+            "preview": "A função deve usar busca binária.\n\n```python\ndef busca_binaria(arr, x):\n    left, right = 0, len(arr) - 1\n    while lef"
+          },
+          {
+            "id": "T02_2",
+            "name": "Patch de Palíndromo Normalizado",
+            "passed": true,
+            "latency_s": 31.74,
+            "preview": "Por exemplo, \"A man a plan a canal Panama\" é um palíndromo.\n\n```python\ndef eh_palindromo(s):\n    s = ''.join(filter(str"
+          },
+          {
+            "id": "T02_3",
+            "name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+            "passed": false,
+            "latency_s": 33.71,
+            "preview": "Exemplo: \n- Entrada: [2, 1, 1, 2] \n- Saída: 4\n\nObservação: A soma não pode incluir elementos adjacentes (ex: [2, 1, 1"
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T03_1",
+            "name": "Expansão Polinomial Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 9.57,
+            "preview": "Não inclua nenhum outro texto.\n\nOkay, let's see. I need to expand (2x - 3) squared. Hmm, I remember that squaring a bin"
+          },
+          {
+            "id": "T03_2",
+            "name": "Derivada Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 9.44,
+            "preview": "Não inclua nenhuma outra informação.\n\n```json\n{\n  \"derivada\": \"3*x**2 - 10*x + 6\"\n}\n```"
+          },
+          {
+            "id": "T03_3",
+            "name": "Sistema de Restrições Inteira (Z3 SMT)",
+            "passed": false,
+            "latency_s": 9.55,
+            "preview": "Não inclua nenhum outro texto.\n\nOkay, let's see. I need to find integers x and y such that x + y equals 30 and 2x minus"
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T04_1",
+            "name": "Seleção de Coordenada OCR Closed-Loop",
+            "passed": true,
+            "latency_s": 6.78,
+            "preview": "Não inclua nenhum texto adicional.\n\n420,310"
+          },
+          {
+            "id": "T04_2",
+            "name": "Prevenção de Clique Cego (Zero Open-Loop)",
+            "passed": false,
+            "latency_s": 7.97,
+            "preview": "Não forneça nenhuma explicação adicional.\n\nWe are in a situation where the OCR (Optical Character"
+          },
+          {
+            "id": "T04_3",
+            "name": "Cmdlet Nativo PowerShell de Processos",
+            "passed": true,
+            "latency_s": 3.98,
+            "preview": "Não inclua nenhuma explicação adicional.\n\nGet-Process\n\nOkay, the user is asking for the exact"
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T05_1",
+            "name": "Extração de Tripla para Grafo HippoRAG",
+            "passed": true,
+            "latency_s": 6.8,
+            "preview": "Não inclua nenhum outro texto.\n\n{\n  \"subject\": \"Xeon E5-2697 v3\",\n  \"predicate\": \"possui arquitetura\",\n  \"object\": \"Has"
+          },
+          {
+            "id": "T05_2",
+            "name": "Resolução de Conflito Temporal (KAIROS)",
+            "passed": false,
+            "latency_s": 3.95,
+            "preview": "Não inclua nenhum texto adicional.\n\nOkay, let's see. The user provided two memory entries. The first"
+          },
+          {
+            "id": "T05_3",
+            "name": "Deduplicação de Fatos Redundantes",
+            "passed": false,
+            "latency_s": 5.5,
+            "preview": "1\n\nOkay, let's see. The user provided three statements and wants to know how many"
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T06_1",
+            "name": "Detecção de Premissa Contraditória",
+            "passed": true,
+            "latency_s": 5.56,
+            "preview": "Não inclua nenhuma explicação.\n\nIMPOSSIVEL\n``` \n\nO problema pede para encontrar um"
+          },
+          {
+            "id": "T06_2",
+            "name": "Auto-Correção de Alucinação Numérica",
+            "passed": true,
+            "latency_s": 4.79,
+            "preview": "O valor exato de 2 elevado a 10 é 1024. 102"
+          },
+          {
+            "id": "T06_3",
+            "name": "Critério de Estabilidade LTI Discreta",
+            "passed": true,
+            "latency_s": 6.62,
+            "preview": "MENOR_QUE_1, MAIOR_QUE_1\n\nOkay, let's see. The question is about"
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T07_1",
+            "name": "Auditoria de SQL Injection",
+            "passed": true,
+            "latency_s": 5.09,
+            "preview": "Não inclua nenhuma outra informação.\n\nSQL_INJECTION\n\nA linha de código apresentada está vulnerável a SQL"
+          },
+          {
+            "id": "T07_2",
+            "name": "Detecção de RCE via eval()",
+            "passed": true,
+            "latency_s": 2.79,
+            "preview": "Não inclua nenhum outro texto.\n\njson.loads()"
+          },
+          {
+            "id": "T07_3",
+            "name": "Classificação de Path Traversal",
+            "passed": false,
+            "latency_s": 4.27,
+            "preview": "Não inclua nenhuma outra informação.\n\nOkay, let's see. The user is asking whether the attack vector \""
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T08_1",
+            "name": "Expansão Monetária para TTS",
+            "passed": false,
+            "latency_s": 6.21,
+            "preview": "Não inclua nenhum outro texto, como 'R$', 'reais', 'real', 'centavos', etc.\n\nOkay, the user wants me to convert 'R"
+          },
+          {
+            "id": "T08_2",
+            "name": "Expansão de Unidade Física para TTS",
+            "passed": false,
+            "latency_s": 4.44,
+            "preview": "Não inclua nenhuma outra informação.\n\nOkay, the user wants me to write '100 km/h' in full in Portuguese for natural spo"
+          },
+          {
+            "id": "T08_3",
+            "name": "Inserção de Tag SSML de Pausa",
+            "passed": true,
+            "latency_s": 5.2,
+            "preview": "Não inclua nenhuma outra informação.\n\nConcluído.<break time=\"500ms\"/>Iniciando\n\nOkay, the user wants me to insert the S"
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T09_1",
+            "name": "Cálculo de Área de Interseção (Bounding Boxes)",
+            "passed": false,
+            "latency_s": 8.17,
+            "preview": "Não inclua unidades.\n\nOkay, let's see. I need to find the area of the intersection between two windows."
+          },
+          {
+            "id": "T09_2",
+            "name": "Inspeção Geométrica de Código SVG",
+            "passed": false,
+            "latency_s": 5.07,
+            "preview": "Não inclua unidades ou qualquer outra informação.\n\nOkay, let's see. The user provided an SVG code with a circle"
+          },
+          {
+            "id": "T09_3",
+            "name": "Restauração de Texto OCR com Ruído Leetspeak",
+            "passed": false,
+            "latency_s": 3.58,
+            "preview": "Não inclua nenhuma outra informação.\n\nOkay, the user wants me to restore a corrupted OCR text from Portuguese. The orig"
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T10_1",
+            "name": "Ordenação Topológica de Dependências",
+            "passed": true,
+            "latency_s": 3.06,
+            "preview": "Não inclua mais nada.\n\nB->A->C"
+          },
+          {
+            "id": "T10_2",
+            "name": "Sequenciamento Causal PDDL",
+            "passed": false,
+            "latency_s": 5.79,
+            "preview": "Não inclua nenhuma outra informação.\n\nOkay, let's see. The user wants me to order the steps for"
+          },
+          {
+            "id": "T10_3",
+            "name": "Diagnóstico Formal de Deadlock",
+            "passed": true,
+            "latency_s": 6.2,
+            "preview": "Não inclua nenhum outro texto.\n\nDEADLOCK\n\nO usuário pediu para responder apenas com \"DEADLOCK"
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T11_1",
+            "name": "Física: Dissipação de Potência (P = I^2 * R)",
+            "passed": false,
+            "latency_s": 6.6,
+            "preview": "Não inclua unidades.\n\nOkay, let's see. I need to find the power dissipated by a resistor using the"
+          },
+          {
+            "id": "T11_2",
+            "name": "Química: Balanceamento Estequiométrico",
+            "passed": false,
+            "latency_s": 6.64,
+            "preview": "12\n\nOkay, let's see. I need to figure out how many moles of water are produced when"
+          },
+          {
+            "id": "T11_3",
+            "name": "Engenharia: Teto de Largura de Banda (Roofline)",
+            "passed": true,
+            "latency_s": 4.75,
+            "preview": "80 / 4 = 20\n\nOkay, let's see. The problem says that a model reads"
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T12_1",
+            "name": "Compressão Densa de Telemetria",
+            "passed": false,
+            "latency_s": 5.12,
+            "preview": "O processador Xeon atingiu 10.94 tokens por segundo. \n\n(Nota: A frase"
+          },
+          {
+            "id": "T12_2",
+            "name": "Dedução Silogística Estrita",
+            "passed": false,
+            "latency_s": 4.38,
+            "preview": "Não inclua nenhuma outra informação.\n\nOkay, let's see. The user provided two premises and a conclusion question"
+          },
+          {
+            "id": "T12_3",
+            "name": "Resolução Correferencial (Anáfora)",
+            "passed": true,
+            "latency_s": 4.61,
+            "preview": "Não inclua nenhuma explicação adicional.\n\nhipótese\n\nNa frase 'O módulo desc"
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T13_1",
+            "name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+            "passed": true,
+            "latency_s": 5.92,
+            "preview": "Não inclua nenhum texto adicional.\n\nREJECT_OOM\n\nA requisição excede a capacidade total"
+          },
+          {
+            "id": "T13_2",
+            "name": "Proteção Térmica (Hardware Watchdog)",
+            "passed": true,
+            "latency_s": 4.82,
+            "preview": "THROTTLE_AND_COOL\n\nA temperatura do silício da GPU atingiu 90°C, que"
+          },
+          {
+            "id": "T13_3",
+            "name": "Escalonamento de Núcleos Físicos AVX2",
+            "passed": false,
+            "latency_s": 4.64,
+            "preview": "Não inclua nenhum texto adicional.\n\nOkay, the user is asking about avoiding SIMD AVX2 register contention between"
+          }
+        ]
+      }
+    },
+    "opus_details": [
+      {
+        "id": "OPUS_01_regex_plus_star_dot",
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> Exemplos:"
+      },
+      {
+        "id": "OPUS_02_parser_unario_potencia_direita",
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: unterminated string literal (detected at line 1) -> \""
+      },
+      {
+        "id": "OPUS_03_dijkstra_k_pedagios_gratis",
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 4: expected an indented block after function definition on line 1 -> Vamos resolver o problema usando uma abordagem de Dijkstra modificada."
+      },
+      {
+        "id": "OPUS_04_maior_retangulo_matriz_binaria",
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_tsp_aberto",
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": true,
+        "zero_shot": false,
+        "repaired": true,
+        "error": null
+      },
+      {
+        "id": "OPUS_06_mediana_dois_arrays_ordenados",
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> Exemplo de entrada:"
+      },
+      {
+        "id": "OPUS_07_maior_parenteses_valido_trap",
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> Exemplo:"
+      },
+      {
+        "id": "OPUS_09_arvore_caminho_maximo_negativos",
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> Exemplo de árvore:"
+      },
+      {
+        "id": "OPUS_10_solver_dpll_sat_cnf",
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 22: unterminated string literal (detected at line 22) -> We'll set a maximum number of iterations to avoid infinite loops (since the proble"
+      }
+    ],
+    "timestamp": "2026-10-30 00:07:41"
+  },
+  "qwen35_4b_opus_distill": {
+    "name": "Qwen3.5-4B-Claude-Opus-Reasoning-Distill.Q4_K_M",
+    "file": "Qwen3.5-4B-Claude-Opus-Reasoning-Distill.Q4_K_M.gguf",
+    "arch": "Dense 4B Claude Opus Distill",
+    "size_gb": 2.59,
+    "status": "FAIL_BOOT",
+    "error": "print_info: FIM REP token         = 248064 '<|repo_name|>'\nprint_info: FIM SEP token         = 248065 '<|file_sep|>'\nprint_info: EOG token             = 248044 '<|endoftext|>'\nprint_info: EOG token             = 248046 '<|im_end|>'\nprint_info: EOG token             = 248063 '<|fim_pad|>'\nprint_info: EOG token             = 248064 '<|repo_name|>'\nprint_info: EOG token             = 248065 '<|file_sep|>'\nprint_info: max token length      = 256\nload_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)\nllama_model_load: error loading model: missing tensor 'blk.32.ssm_conv1d.weight'\nllama_model_load_from_file_impl: failed to load model\ncommon_init_from_params: failed to load model 'F:\\AetherMind_Contenders\\Qwen3.5-4B-Claude-Opus-Reasoning-Distill.Q4_K_M.gguf'\nsrv    load_model: failed to load model, 'F:\\AetherMind_Contenders\\Qwen3.5-4B-Claude-Opus-Reasoning-Distill.Q4_K_M.gguf'\nsrv    operator(): operator(): cleaning up before exit...\nmain: exiting due to model loading error\n",
+    "score_13_areas": "0/39",
+    "score_opus_10": "0/10",
+    "avg_pp_tok_s": 0.0,
+    "avg_tg_tok_s": 0.0
+  },
+  "karpy_0_8b": {
+    "name": "NasledieLab-Qwen3.5-0.8B-Karpy-Q4_K_M",
+    "file": "NasledieLab-Qwen3.5-0.8B-Karpy-Q4_K_M.gguf",
+    "arch": "Compact 0.8B Specialist",
+    "size_gb": 0.49,
+    "status": "COMPLETED",
+    "score_13_areas": "1/39",
+    "score_13_areas_pct": 2.6,
+    "score_opus_10": "0/10",
+    "score_opus_10_pct": 0.0,
+    "zero_shot_opus": 0,
+    "repaired_opus": 0,
+    "avg_pp_tok_s": 167.51,
+    "avg_tg_tok_s": 27.21,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T01_1",
+            "name": "Classificação de Emergência Infra",
+            "passed": false,
+            "latency_s": 1.12,
+            "preview": "- I1: weight 10, value 2- I2: weight 1, value 11"
+          },
+          {
+            "id": "T01_2",
+            "name": "Despacho de Tier por Complexidade",
+            "passed": true,
+            "latency_s": 1.21,
+            "preview": "- I2: weight 10, value 10Assistant: Expand: -1x + 13"
+          },
+          {
+            "id": "T01_3",
+            "name": "Extração Léxica Rápida",
+            "passed": false,
+            "latency_s": 1.19,
+            "preview": "Assistant: Expand: -1x + 128 = -11x + 1104."
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T02_1",
+            "name": "Busca Binária Exata",
+            "passed": false,
+            "latency_s": 6.66,
+            "preview": "Exemplo: `arr=[-31, -28, -27, -23, -22, -21, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -"
+          },
+          {
+            "id": "T02_2",
+            "name": "Patch de Palíndromo Normalizado",
+            "passed": false,
+            "latency_s": 6.23,
+            "preview": "Ex: `s='AaBbBbBbBbBbBbB'` → True. Explicue a propriedade ou indução.Assistant: Expand: -1x + 119 = 111.- I2: weight 10,"
+          },
+          {
+            "id": "T02_3",
+            "name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+            "passed": false,
+            "latency_s": 6.09,
+            "preview": "Explice o princípio ou indução.- I2: weight 10, value 24Assistant: Expand: 11x - 138 = -7x + 1032.- I2: weight 10, valu"
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T03_1",
+            "name": "Expansão Polinomial Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 2.37,
+            "preview": "- I2: weight 10, value 10- I4: weight 5, value 10Assistant: Expand: -1x + 48 = -11x + 136.User"
+          },
+          {
+            "id": "T03_2",
+            "name": "Derivada Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 2.05,
+            "preview": "- I2: weight 10, value 24Assistant: Expand: -5x + 103 = -x + 113.User: Implement `two_sum_first_end` in Python 3."
+          },
+          {
+            "id": "T03_3",
+            "name": "Sistema de Restrições Inteira (Z3 SMT)",
+            "passed": false,
+            "latency_s": 1.67,
+            "preview": "Ex: start=1, goal=3, step=0 → 1. Explain the key invariant or recurrence, correctness, and complexity.Answer: 17/1"
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T04_1",
+            "name": "Seleção de Coordenada OCR Closed-Loop",
+            "passed": false,
+            "latency_s": 1.6,
+            "preview": "- I2: weight 10, value 14Assistant: Expand: 11x - 1"
+          },
+          {
+            "id": "T04_2",
+            "name": "Prevenção de Clique Cego (Zero Open-Loop)",
+            "passed": false,
+            "latency_s": 1.38,
+            "preview": "A razão é a diferença entre as frequências pontuais (24 vs 23) e a inclusão e exclus"
+          },
+          {
+            "id": "T04_3",
+            "name": "Cmdlet Nativo PowerShell de Processos",
+            "passed": false,
+            "latency_s": 1.16,
+            "preview": "- I2: weight 1, value 10- I2: weight 10, value 2"
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T05_1",
+            "name": "Extração de Tripla para Grafo HippoRAG",
+            "passed": false,
+            "latency_s": 2.41,
+            "preview": "Assistant: Expand: 10x - 11 = -x + 131.User: Implement `topo_order` in Python 3. For vertices 0..n-1, return the lexicog"
+          },
+          {
+            "id": "T05_2",
+            "name": "Resolução de Conflito Temporal (KAIROS)",
+            "passed": false,
+            "latency_s": 1.26,
+            "preview": "- I2: weight 10, value 24- I2: weight 10, value"
+          },
+          {
+            "id": "T05_3",
+            "name": "Deduplicação de Fatos Redundantes",
+            "passed": false,
+            "latency_s": 1.32,
+            "preview": "Assistant: Expand: -1x + 113 = -10x + 1"
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T06_1",
+            "name": "Detecção de Premissa Contraditória",
+            "passed": false,
+            "latency_s": 1.26,
+            "preview": "Assistant: Expand: -1x + 118 = -10x + 1008."
+          },
+          {
+            "id": "T06_2",
+            "name": "Auto-Correção de Alucinação Numérica",
+            "passed": false,
+            "latency_s": 1.24,
+            "preview": "- I2: weight 10, value 24- I4: weight 1, value 2"
+          },
+          {
+            "id": "T06_3",
+            "name": "Critério de Estabilidade LTI Discreta",
+            "passed": false,
+            "latency_s": 1.86,
+            "preview": "Assistant: Expand: 5x + 11 = -2x + 13.- I2:"
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T07_1",
+            "name": "Auditoria de SQL Injection",
+            "passed": false,
+            "latency_s": 1.1,
+            "preview": "- I2: weight 10, value 24- I2: weight 10, value"
+          },
+          {
+            "id": "T07_2",
+            "name": "Detecção de RCE via eval()",
+            "passed": false,
+            "latency_s": 1.2,
+            "preview": "- I2: weight 10, value 24- I2: weight 10, value"
+          },
+          {
+            "id": "T07_3",
+            "name": "Classificação de Path Traversal",
+            "passed": false,
+            "latency_s": 1.21,
+            "preview": "- I2: weight 10, value 24- I4: weight 10, value"
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T08_1",
+            "name": "Expansão Monetária para TTS",
+            "passed": false,
+            "latency_s": 1.6,
+            "preview": "Assistant: Expand: 11x - 138 = -11x + 1108.User: Implement `topo_order` in Python"
+          },
+          {
+            "id": "T08_2",
+            "name": "Expansão de Unidade Física para TTS",
+            "passed": false,
+            "latency_s": 1.38,
+            "preview": "- I2: weight 8, value 10- I2: weight 10, value 16Answer: A → C → F"
+          },
+          {
+            "id": "T08_3",
+            "name": "Inserção de Tag SSML de Pausa",
+            "passed": false,
+            "latency_s": 1.65,
+            "preview": "- I2: weight 10, value 24- I2: weight 10, value 24Assistant: Expand: -1x + 1"
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T09_1",
+            "name": "Cálculo de Área de Interseção (Bounding Boxes)",
+            "passed": false,
+            "latency_s": 1.58,
+            "preview": "- I2: weight 10, value 14- I2: weight 10, value"
+          },
+          {
+            "id": "T09_2",
+            "name": "Inspeção Geométrica de Código SVG",
+            "passed": false,
+            "latency_s": 1.28,
+            "preview": "- I2: weight 10, value 20- I2: weight 10, value"
+          },
+          {
+            "id": "T09_3",
+            "name": "Restauração de Texto OCR com Ruído Leetspeak",
+            "passed": false,
+            "latency_s": 1.21,
+            "preview": "- I2: weight 10, value 14- I2: weight 10, value 14User:"
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T10_1",
+            "name": "Ordenação Topológica de Dependências",
+            "passed": false,
+            "latency_s": 1.13,
+            "preview": "- I2: weight 10, value 14- I2: weight 10, value"
+          },
+          {
+            "id": "T10_2",
+            "name": "Sequenciamento Causal PDDL",
+            "passed": false,
+            "latency_s": 1.25,
+            "preview": "Assistant: Expand: 11x + 101 = -7x + 111.User"
+          },
+          {
+            "id": "T10_3",
+            "name": "Diagnóstico Formal de Deadlock",
+            "passed": false,
+            "latency_s": 1.29,
+            "preview": "- I2: weight 5, value 10- I4: weight 9, value 14"
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T11_1",
+            "name": "Física: Dissipação de Potência (P = I^2 * R)",
+            "passed": false,
+            "latency_s": 1.26,
+            "preview": "Assistant: Expand: -1x + 118 = -10x + 102.User"
+          },
+          {
+            "id": "T11_2",
+            "name": "Química: Balanceamento Estequiométrico",
+            "passed": false,
+            "latency_s": 1.3,
+            "preview": "- I2: weight 5, value 18- I2: weight 10, value 1"
+          },
+          {
+            "id": "T11_3",
+            "name": "Engenharia: Teto de Largura de Banda (Roofline)",
+            "passed": false,
+            "latency_s": 1.15,
+            "preview": "Assistant: Expand: -1x + 138 = -11x + 1014."
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T12_1",
+            "name": "Compressão Densa de Telemetria",
+            "passed": false,
+            "latency_s": 1.13,
+            "preview": "- I2: weight 8, value 18Assistant: Expand: -1x + 118"
+          },
+          {
+            "id": "T12_2",
+            "name": "Dedução Silogística Estrita",
+            "passed": false,
+            "latency_s": 1.31,
+            "preview": "- I2: weight 1, value 24- I2: weight 1, value 12"
+          },
+          {
+            "id": "T12_3",
+            "name": "Resolução Correferencial (Anáfora)",
+            "passed": false,
+            "latency_s": 1.22,
+            "preview": "- I2: weight 8, value 10- I2: weight 10, value 1"
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T13_1",
+            "name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+            "passed": false,
+            "latency_s": 1.36,
+            "preview": "Assistant: Expand: 11x - 128 = -x + 132.- I"
+          },
+          {
+            "id": "T13_2",
+            "name": "Proteção Térmica (Hardware Watchdog)",
+            "passed": false,
+            "latency_s": 1.16,
+            "preview": "Assistant: Expand: 11x - 119 = -11x + 101."
+          },
+          {
+            "id": "T13_3",
+            "name": "Escalonamento de Núcleos Físicos AVX2",
+            "passed": false,
+            "latency_s": 1.2,
+            "preview": "Assistant: Expand: 10x - 11 = -11x + 121.-"
+          }
+        ]
+      }
+    },
+    "opus_details": [
+      {
+        "id": "OPUS_01_regex_plus_star_dot",
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> User: Implement `longest_consecutive` in Python 3. Return the length of the longest run of consecutive integer values,"
+      },
+      {
+        "id": "OPUS_02_parser_unario_potencia_direita",
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid decimal literal -> - I2: weight 10, value 14Assistant: Expand: -1x - 119 = -11x + 120.User: Implement `two_sum_first_end` in Pyt"
+      },
+      {
+        "id": "OPUS_03_dijkstra_k_pedagios_gratis",
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid character '→' (U+2192) -> User: Implement `shortest_path` in Python 3. For an undirected unweighted graph, return a shortest nod"
+      },
+      {
+        "id": "OPUS_04_maior_retangulo_matriz_binaria",
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid decimal literal -> - I2: weight 10, value 18Assistant: Expand: 11x - 138 = -x + 140.User: Implement `longest_consecutive` in Pyt"
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_tsp_aberto",
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid character '→' (U+2192) -> User: Implement `shortest_path` in Python 3. For an undirected unweighted graph, return a shortest nod"
+      },
+      {
+        "id": "OPUS_06_mediana_dois_arrays_ordenados",
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> User: Implement `longest_consecutive` in Python 3. Return the length of the longest run of consecutive integer values,"
+      },
+      {
+        "id": "OPUS_07_maior_parenteses_valido_trap",
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid character '→' (U+2192) -> User: Implement `topo_order` in Python 3. For vertices 0..n-1, return the lexicographically smallest t"
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid decimal literal -> - I2: weight 10, value 14- I2: weight 10, value 14Assistant: Expand: 11x - 119 = -x + 141.User: Implement `me"
+      },
+      {
+        "id": "OPUS_09_arvore_caminho_maximo_negativos",
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid character '→' (U+2192) -> User: Implement `topo_order` in Python 3. For vertices 0..n-1, return the lexicographically smallest t"
+      },
+      {
+        "id": "OPUS_10_solver_dpll_sat_cnf",
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid decimal literal -> - I2: weight 10, value 12- I4: weight 5, value 18Assistant: Expand: 1x - 11 = -10x + 117.- I4: weight 10, val"
+      }
+    ],
+    "timestamp": "2026-10-30 00:18:39"
+  },
+  "gemma_4_assistant": {
+    "name": "gemma-4-26B-A4B-it-assistant.Q4_K_M",
+    "file": "gemma-4-26B-A4B-it-assistant.Q4_K_M.gguf",
+    "arch": "Compact Assistant Adapter",
+    "size_gb": 0.3,
+    "status": "FAIL_BOOT",
+    "error": "llama_model_loader: - kv  44:               tokenizer.ggml.add_bos_token bool             = true\nllama_model_loader: - kv  45:               general.quantization_version u32              = 2\nllama_model_loader: - kv  46:                          general.file_type u32              = 15\nllama_model_loader: - type  f32:   26 tensors\nllama_model_loader: - type q4_K:   20 tensors\nllama_model_loader: - type q6_K:    3 tensors\nprint_info: file format = GGUF V3 (latest)\nprint_info: file type   = Q4_K - Medium\nprint_info: file size   = 295.34 MiB (5.90 BPW) \nllama_model_load: error loading model: error loading model architecture: unknown model architecture: 'gemma4-assistant'\nllama_model_load_from_file_impl: failed to load model\ncommon_init_from_params: failed to load model 'F:\\AetherMind_Contenders\\gemma-4-26B-A4B-it-assistant.Q4_K_M.gguf'\nsrv    load_model: failed to load model, 'F:\\AetherMind_Contenders\\gemma-4-26B-A4B-it-assistant.Q4_K_M.gguf'\nsrv    operator(): operator(): cleaning up before exit...\nmain: exiting due to model loading error\n",
+    "score_13_areas": "0/39",
+    "score_opus_10": "0/10",
+    "avg_pp_tok_s": 0.0,
+    "avg_tg_tok_s": 0.0
+  },
+  "jackrong_qwopus_3_6_35b_coder": {
+    "name": "Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M",
+    "file": "Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M.gguf",
+    "arch": "MoE 35B MTP Layer 41 (Experimental)",
+    "size_gb": 20.22,
+    "status": "FAIL_BOOT",
+    "error": "print_info: FIM REP token         = 248064 '<|repo_name|>'\nprint_info: FIM SEP token         = 248065 '<|file_sep|>'\nprint_info: EOG token             = 248044 '<|endoftext|>'\nprint_info: EOG token             = 248046 '<|im_end|>'\nprint_info: EOG token             = 248063 '<|fim_pad|>'\nprint_info: EOG token             = 248064 '<|repo_name|>'\nprint_info: EOG token             = 248065 '<|file_sep|>'\nprint_info: max token length      = 256\nload_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)\nllama_model_load: error loading model: missing tensor 'blk.40.ssm_conv1d.weight'\nllama_model_load_from_file_impl: failed to load model\ncommon_init_from_params: failed to load model 'F:\\AetherMind_Contenders\\Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M.gguf'\nsrv    load_model: failed to load model, 'F:\\AetherMind_Contenders\\Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M.gguf'\nsrv    operator(): operator(): cleaning up before exit...\nmain: exiting due to model loading error\n",
+    "score_13_areas": "0/39",
+    "score_opus_10": "0/10",
+    "avg_pp_tok_s": 0.0,
+    "avg_tg_tok_s": 0.0
+  },
+  "achilles_fable_coder_35b": {
+    "name": "fable-coder-35B-A3B-Q4_K_M",
+    "file": "fable-coder-35B-A3B-Q4_K_M.gguf",
+    "arch": "Fable Coder 35B MoE (Experimental)",
+    "size_gb": 20.22,
+    "status": "FAIL_BOOT",
+    "error": "print_info: FIM REP token         = 248064 '<|repo_name|>'\nprint_info: FIM SEP token         = 248065 '<|file_sep|>'\nprint_info: EOG token             = 248044 '<|endoftext|>'\nprint_info: EOG token             = 248046 '<|im_end|>'\nprint_info: EOG token             = 248063 '<|fim_pad|>'\nprint_info: EOG token             = 248064 '<|repo_name|>'\nprint_info: EOG token             = 248065 '<|file_sep|>'\nprint_info: max token length      = 256\nload_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)\nllama_model_load: error loading model: missing tensor 'blk.40.ssm_conv1d.weight'\nllama_model_load_from_file_impl: failed to load model\ncommon_init_from_params: failed to load model 'F:\\AetherMind_Contenders\\fable-coder-35B-A3B-Q4_K_M.gguf'\nsrv    load_model: failed to load model, 'F:\\AetherMind_Contenders\\fable-coder-35B-A3B-Q4_K_M.gguf'\nsrv    operator(): operator(): cleaning up before exit...\nmain: exiting due to model loading error\n",
+    "score_13_areas": "0/39",
+    "score_opus_10": "0/10",
+    "avg_pp_tok_s": 0.0,
+    "avg_tg_tok_s": 0.0
+  },
+  "teichai_qwen3_30b_sonnet": {
+    "name": "Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill-q4_k_m",
+    "file": "Qwen3-30B-A3B-Thinking-2507-Claude-4.5-Sonnet-High-Reasoning-Distill-q4_k_m.gguf",
+    "arch": "Claude 4.5 Sonnet Distill 30B (Experimental)",
+    "size_gb": 17.28,
+    "status": "COMPLETED",
+    "score_13_areas": "16/39",
+    "score_13_areas_pct": 41.0,
+    "score_opus_10": "3/10",
+    "score_opus_10_pct": 30.0,
+    "zero_shot_opus": 3,
+    "repaired_opus": 0,
+    "avg_pp_tok_s": 28.71,
+    "avg_tg_tok_s": 153853.65,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T01_1",
+            "name": "Classificação de Emergência Infra",
+            "passed": false,
+            "latency_s": 23.23,
+            "preview": "Não inclua nenhum outro texto. Se não souber, responda 'N/A'. INFRA_EMER"
+          },
+          {
+            "id": "T01_2",
+            "name": "Despacho de Tier por Complexidade",
+            "passed": true,
+            "latency_s": 16.21,
+            "preview": "Não inclua nenhum outro texto.\n\n{\"tier\": 2}"
+          },
+          {
+            "id": "T01_3",
+            "name": "Extração Léxica Rápida",
+            "passed": false,
+            "latency_s": 11.77,
+            "preview": "Não inclua nenhum outro texto ou explicação. O formato deve ser exatamente como mostrado.\n\n45"
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T02_1",
+            "name": "Busca Binária Exata",
+            "passed": false,
+            "latency_s": 36.21,
+            "preview": "O código deve ser limpo e eficiente.\n\n```python\ndef busca_binaria(arr, x):\n    esquerda, direita = 0, len(arr) - 1"
+          },
+          {
+            "id": "T02_2",
+            "name": "Patch de Palíndromo Normalizado",
+            "passed": true,
+            "latency_s": 10.92,
+            "preview": "Exemplo: `eh_palindromo(\"A man a plan a canal Panama\")` deve retornar True.\n\n```python\ndef eh_palindromo(s):\n    s_clea"
+          },
+          {
+            "id": "T02_3",
+            "name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+            "passed": false,
+            "latency_s": 29.34,
+            "preview": "Não use bibliotecas externas.\n\nExemplo de uso:\n```python\nprint(max_nao_adj([2, 1, 1, 2]))  # Saída: 4\nprint(max_nao_adj"
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T03_1",
+            "name": "Expansão Polinomial Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 8.33,
+            "preview": "{\"answer\": \"expressão\"} {\"answer\": \"4x^2 - 12x + 9\"}"
+          },
+          {
+            "id": "T03_2",
+            "name": "Derivada Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 6.61,
+            "preview": "{\"derivative\": \"expressão\"}\n\n{\"derivative\": \"3*x**2 - 10*x + 6\"}"
+          },
+          {
+            "id": "T03_3",
+            "name": "Sistema de Restrições Inteira (Z3 SMT)",
+            "passed": false,
+            "latency_s": 6.17,
+            "preview": "Não inclua nenhum outro texto ou explicação.\n\n{\"solution\":{\"x\": 15, \"y\": 15}}"
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T04_1",
+            "name": "Seleção de Coordenada OCR Closed-Loop",
+            "passed": true,
+            "latency_s": 6.06,
+            "preview": "O OCR da tela detectou: [{\"text\":\"Salvar\",\"x\":420,\"y\":310},{\""
+          },
+          {
+            "id": "T04_2",
+            "name": "Prevenção de Clique Cego (Zero Open-Loop)",
+            "passed": true,
+            "latency_s": 7.63,
+            "preview": "Qual é a melhor escolha?\n\nA. WAIT_AND_RESCAN\nB. BLIND_CLICK\n Resposta: A"
+          },
+          {
+            "id": "T04_3",
+            "name": "Cmdlet Nativo PowerShell de Processos",
+            "passed": false,
+            "latency_s": 5.56,
+            "preview": "no_think\n\nO cmdlet nativo do PowerShell para listar os processos em execução no Windows é:\n\n**"
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T05_1",
+            "name": "Extração de Tripla para Grafo HippoRAG",
+            "passed": false,
+            "latency_s": 8.59,
+            "preview": "Não inclua nenhum outro texto. Não use markdown. Não inclua aspas duplas no JSON. Não inclua quebras de linha. Não incl"
+          },
+          {
+            "id": "T05_2",
+            "name": "Resolução de Conflito Temporal (KAIROS)",
+            "passed": true,
+            "latency_s": 5.11,
+            "preview": "8083\n\nA memória t=2 é mais recente e indica que a porta ativa foi"
+          },
+          {
+            "id": "T05_3",
+            "name": "Deduplicação de Fatos Redundantes",
+            "passed": false,
+            "latency_s": 5.05,
+            "preview": "1\n\nOs três registros fornecem informações sobre a mesma característica da placa de vídeo"
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T06_1",
+            "name": "Detecção de Premissa Contraditória",
+            "passed": false,
+            "latency_s": 5.53,
+            "preview": "Caso contrário, forneça o número.\n\nO problema pede um número inteiro que seja simultaneamente"
+          },
+          {
+            "id": "T06_2",
+            "name": "Auto-Correção de Alucinação Numérica",
+            "passed": true,
+            "latency_s": 5.82,
+            "preview": "1024\n\nO rascunho anterior cometeu um erro ao afirmar que 2¹"
+          },
+          {
+            "id": "T06_3",
+            "name": "Critério de Estabilidade LTI Discreta",
+            "passed": true,
+            "latency_s": 5.07,
+            "preview": "MENOR_QUE_1 MAIOR_QUE_1\n\nMENOR_QUE_1\n\nO raio"
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T07_1",
+            "name": "Auditoria de SQL Injection",
+            "passed": true,
+            "latency_s": 2.99,
+            "preview": "SQL_INJECTION\n\nA linha de código apresenta uma vulnerabilidade de **SQL Injection**. Isso ocorre porque"
+          },
+          {
+            "id": "T07_2",
+            "name": "Detecção de RCE via eval()",
+            "passed": false,
+            "latency_s": 1.92,
+            "preview": ""
+          },
+          {
+            "id": "T07_3",
+            "name": "Classificação de Path Traversal",
+            "passed": true,
+            "latency_s": 3.45,
+            "preview": "PATH_TRAVERSAL\n\nO ataque é PATH_TRAVERSAL porque o atacante está tentando navegar fora"
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T08_1",
+            "name": "Expansão Monetária para TTS",
+            "passed": false,
+            "latency_s": 4.29,
+            "preview": "Não inclua nenhum outro texto ou informação adicional.\n\nR$ 15,50\n\nR$ 15,50\n\nR$ 15,"
+          },
+          {
+            "id": "T08_2",
+            "name": "Expansão de Unidade Física para TTS",
+            "passed": true,
+            "latency_s": 2.46,
+            "preview": "Não inclua unidades, números ou qualquer outro texto.\n\nCem quilômetros por hora."
+          },
+          {
+            "id": "T08_3",
+            "name": "Inserção de Tag SSML de Pausa",
+            "passed": false,
+            "latency_s": 2.09,
+            "preview": "Não inclua nenhum outro texto."
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T09_1",
+            "name": "Cálculo de Área de Interseção (Bounding Boxes)",
+            "passed": false,
+            "latency_s": 5.5,
+            "preview": "no_think\nA interseção é um quadrado com lado 50.\n\nÁrea = 50"
+          },
+          {
+            "id": "T09_2",
+            "name": "Inspeção Geométrica de Código SVG",
+            "passed": false,
+            "latency_s": 2.95,
+            "preview": ""
+          },
+          {
+            "id": "T09_3",
+            "name": "Restauração de Texto OCR com Ruído Leetspeak",
+            "passed": false,
+            "latency_s": 3.28,
+            "preview": ""
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T10_1",
+            "name": "Ordenação Topológica de Dependências",
+            "passed": true,
+            "latency_s": 5.12,
+            "preview": "A ordem correta é B->A->C. \n\nPasso a passo:\n1. Primeiro"
+          },
+          {
+            "id": "T10_2",
+            "name": "Sequenciamento Causal PDDL",
+            "passed": true,
+            "latency_s": 2.51,
+            "preview": "Não inclua nenhum outro texto.\n\n3->2->1"
+          },
+          {
+            "id": "T10_3",
+            "name": "Diagnóstico Formal de Deadlock",
+            "passed": true,
+            "latency_s": 4.72,
+            "preview": "O problema descrito é um **DEADLOCK**. Isso ocorre quando dois ou mais processos estão esper"
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T11_1",
+            "name": "Física: Dissipação de Potência (P = I^2 * R)",
+            "passed": false,
+            "latency_s": 1.53,
+            "preview": ""
+          },
+          {
+            "id": "T11_2",
+            "name": "Química: Balanceamento Estequiométrico",
+            "passed": false,
+            "latency_s": 4.09,
+            "preview": "3\n\nNa reação balanceada:\n\n**CH₄ + 2 O₂ → CO₂ + 2"
+          },
+          {
+            "id": "T11_3",
+            "name": "Engenharia: Teto de Largura de Banda (Roofline)",
+            "passed": false,
+            "latency_s": 1.25,
+            "preview": ""
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T12_1",
+            "name": "Compressão Densa de Telemetria",
+            "passed": false,
+            "latency_s": 3.35,
+            "preview": "no_think\n no_think\n no_think\n no_think\n no_think\n no_think"
+          },
+          {
+            "id": "T12_2",
+            "name": "Dedução Silogística Estrita",
+            "passed": false,
+            "latency_s": 2.29,
+            "preview": ""
+          },
+          {
+            "id": "T12_3",
+            "name": "Resolução Correferencial (Anáfora)",
+            "passed": true,
+            "latency_s": 4.21,
+            "preview": "hipótese\n\nNa frase 'O módulo descartou a hipótese porque ela violou"
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T13_1",
+            "name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+            "passed": true,
+            "latency_s": 3.79,
+            "preview": "REJECT_OOM\n\nA requisição excede a capacidade total de VRAM disponível (8.5 GB"
+          },
+          {
+            "id": "T13_2",
+            "name": "Proteção Térmica (Hardware Watchdog)",
+            "passed": false,
+            "latency_s": 4.34,
+            "preview": "<think>\nOkay, let me think through this. The question is about what policy the Watchdog should apply when"
+          },
+          {
+            "id": "T13_3",
+            "name": "Escalonamento de Núcleos Físicos AVX2",
+            "passed": true,
+            "latency_s": 4.26,
+            "preview": "NUCLEOS_FISICOS\n\n**Resposta:** NUCLEOS_FISICOS\n\nA afin"
+          }
+        ]
+      }
+    },
+    "opus_details": [
+      {
+        "id": "OPUS_01_regex_plus_star_dot",
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> Exemplos de uso:"
+      },
+      {
+        "id": "OPUS_02_parser_unario_potencia_direita",
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> Avalie a expressão '2 ^ 3 ^ 2' e mostre o passo a passo."
+      },
+      {
+        "id": "OPUS_03_dijkstra_k_pedagios_gratis",
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Timeout excedido (4.0s) - provável loop infinito."
+      },
+      {
+        "id": "OPUS_04_maior_retangulo_matriz_binaria",
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_tsp_aberto",
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Bloco de código Python vazio."
+      },
+      {
+        "id": "OPUS_06_mediana_dois_arrays_ordenados",
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      },
+      {
+        "id": "OPUS_07_maior_parenteses_valido_trap",
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "FAIL_ASSERTION[1]: assert maior_parenteses_valido(')()())') == 4"
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      },
+      {
+        "id": "OPUS_09_arvore_caminho_maximo_negativos",
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 15: unterminated string literal (detected at line 15) -> Para a árvore {'v': 10, 'l': {'v': 20, 'l': {'v': -10, 'l': None, 'r': None}, 'r':"
+      },
+      {
+        "id": "OPUS_10_solver_dpll_sat_cnf",
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> O algoritmo deve ser eficiente o suficiente para resolver CNF com até 20 variáveis (usando busca exaustiva com heuríst"
+      }
+    ],
+    "timestamp": "2026-10-30 02:02:17"
+  },
+  "jackrong_gemopus_4_26b_preview": {
+    "name": "Gemopus-4-26B-A4B-it-Preview-Q4_K_M",
+    "file": "Gemopus-4-26B-A4B-it-Preview-Q4_K_M.gguf",
+    "arch": "Gemma 4 Raw Weights (Experimental)",
+    "size_gb": 15.64,
+    "status": "COMPLETED",
+    "score_13_areas": "27/39",
+    "score_13_areas_pct": 69.2,
+    "score_opus_10": "2/10",
+    "score_opus_10_pct": 20.0,
+    "zero_shot_opus": 1,
+    "repaired_opus": 1,
+    "avg_pp_tok_s": 23.33,
+    "avg_tg_tok_s": 8.31,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T01_1",
+            "name": "Classificação de Emergência Infra",
+            "passed": true,
+            "latency_s": 7.63,
+            "preview": "INFRA_EMERGENCY"
+          },
+          {
+            "id": "T01_2",
+            "name": "Despacho de Tier por Complexidade",
+            "passed": true,
+            "latency_s": 8.02,
+            "preview": "{\"tier\": 2}"
+          },
+          {
+            "id": "T01_3",
+            "name": "Extração Léxica Rápida",
+            "passed": true,
+            "latency_s": 5.37,
+            "preview": "<|channel>thought | 450|9981"
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T02_1",
+            "name": "Busca Binária Exata",
+            "passed": true,
+            "latency_s": 24.5,
+            "preview": "```python\ndef busca_binaria(arr, x):\n    inicio = 0\n    fim = len(```python\n```python\ndef busca_binaria(arr, x):\n    i"
+          },
+          {
+            "id": "T02_2",
+            "name": "Patch de Palíndromo Normalizado",
+            "passed": false,
+            "latency_s": 16.07,
+            "preview": "```python\ndef eh_palindromo(s):\n    s = s.replace(\" \", \"\").lower()\n    return s == s[::-1]\n```\n\n```python\ndef eh_pal_i"
+          },
+          {
+            "id": "T02_3",
+            "name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+            "passed": false,
+            "latency_s": 27.26,
+            "preview": "1<|channel>.5.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1"
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T03_1",
+            "name": "Expansão Polinomial Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 7.25,
+            "preview": "thought\n<channel|>```json\n{\n  \"resultado\": \"4x^2 - 12x + 9\"\n}\n```"
+          },
+          {
+            "id": "T03_2",
+            "name": "Derivada Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 6.78,
+            "preview": "```json\n{\n  \"derivada\": \"3x^2 - 10x + 6\"\n}\n```"
+          },
+          {
+            "id": "T03_3",
+            "name": "Sistema de Restrições Inteira (Z3 SMT)",
+            "passed": false,
+            "latency_s": 9.57,
+            "preview": "```json\n{\"solution\":{\"x\":15,\"y\":15}}\n```\n```json\n{\"solution\":{\"x\":15,\"y\":15}}"
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T04_1",
+            "name": "Seleção de Coordenada OCR Closed-Loop",
+            "passed": true,
+            "latency_s": 5.06,
+            "preview": "420,310"
+          },
+          {
+            "id": "T04_2",
+            "name": "Prevenção de Clique Cego (Zero Open-Loop)",
+            "passed": false,
+            "latency_s": 6.38,
+            "preview": "enim_bot_bot_bot_bot_\n\nenim_bot_bot_bot_bot_"
+          },
+          {
+            "id": "T04_3",
+            "name": "Cmdlet Nativo PowerShell de Processos",
+            "passed": true,
+            "latency_s": 4.64,
+            "preview": "Get-Process\n    Get-Service\n    Get-Process\n    Get-Service\n    Get-"
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T05_1",
+            "name": "Extração de Tripla para Grafo HippoRAG",
+            "passed": false,
+            "latency_s": 8.75,
+            "preview": "Extraia a $\\alpha$ (altar-EP)-tripla-tripla-tripla-tripla-tripla-tripla-tripla-tripla-tripla-tripla-tripla-tri"
+          },
+          {
+            "id": "T05_2",
+            "name": "Resolução de Conflito Temporal (KAIROS)",
+            "passed": true,
+            "latency_s": 3.01,
+            "preview": "8083"
+          },
+          {
+            "id": "T05_3",
+            "name": "Deduplicação de Fatos Redundantes",
+            "passed": true,
+            "latency_s": 5.26,
+            "preview": "3\n2\n1\n2\n2\n2\n2\n2\n2\n2"
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T06_1",
+            "name": "Detecção de Premissa Contraditória",
+            "passed": true,
+            "latency_s": 4.22,
+            "preview": "<|channel>thoughtimpossível\n<|channel>thought\n<channel|>IMPOSSÍVEL"
+          },
+          {
+            "id": "T06_2",
+            "name": "Auto-Correção de Alucinação Numérica",
+            "passed": true,
+            "latency_s": 3.35,
+            "preview": "thought\n<channel|>1024"
+          },
+          {
+            "id": "T06_3",
+            "name": "Critério de Estabilidade LTI Discreta",
+            "passed": false,
+            "latency_s": 5.71,
+            "preview": "<|channel>thought|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|"
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T07_1",
+            "name": "Auditoria de SQL Injection",
+            "passed": true,
+            "latency_s": 2.25,
+            "preview": "SQL_INJECTION"
+          },
+          {
+            "id": "T07_2",
+            "name": "Detecção de RCE via eval()",
+            "passed": true,
+            "latency_s": 3.86,
+            "preview": "<|channel><|channel>thought\n\n**Resposta:**\n\n`json.loads`"
+          },
+          {
+            "id": "T07_3",
+            "name": "Classificação de Path Traversal",
+            "passed": true,
+            "latency_s": 4.74,
+            "preview": "<|channel>thought\nthought\n<channel|>PATH_TRAVERSAL"
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T08_1",
+            "name": "Expansão Monetária para TTS",
+            "passed": true,
+            "latency_s": 3.9,
+            "preview": "<|channel>thought\n<channel|>quinze reais e cinquenta centavos"
+          },
+          {
+            "id": "T08_2",
+            "name": "Expansão de Unidade Física para TTS",
+            "passed": false,
+            "latency_s": 6.93,
+            "preview": "thought\n<|channel>thought {\n    \"thought\": \"The user wants me to write '100 km/h' fully written out in Portuguese for"
+          },
+          {
+            "id": "T08_3",
+            "name": "Inserção de Tag SSML de Pausa",
+            "passed": true,
+            "latency_s": 4.32,
+            "preview": "Concluído.<break time=\"500ms\"/>Iniciando"
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T09_1",
+            "name": "Cálculo de Área de Interseção (Bounding Boxes)",
+            "passed": true,
+            "latency_s": 6.72,
+            "preview": "10000\n2500\n2500\n2500\n25"
+          },
+          {
+            "id": "T09_2",
+            "name": "Inspeção Geométrica de Código SVG",
+            "passed": true,
+            "latency_s": 2.51,
+            "preview": "80"
+          },
+          {
+            "id": "T09_3",
+            "name": "Restauração de Texto OCR com Ruído Leetspeak",
+            "passed": true,
+            "latency_s": 2.22,
+            "preview": "O sistema foi validado."
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T10_1",
+            "name": "Ordenação Topológica de Dependências",
+            "passed": true,
+            "latency_s": 2.74,
+            "preview": "B->A->C"
+          },
+          {
+            "id": "T10_2",
+            "name": "Sequenciamento Causal PDDL",
+            "passed": false,
+            "latency_s": 4.33,
+            "preview": "<|channel>thought1.  **Análise do problema:**\n    *   O objetivo é ler um arquivo dentro de"
+          },
+          {
+            "id": "T10_3",
+            "name": "Diagnóstico Formal de Deadlock",
+            "passed": true,
+            "latency_s": 4.6,
+            "preview": "DEADLOCK\n    \n    \n    \n    \n    \n    \n    \n    \nthought\n<channel|>"
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T11_1",
+            "name": "Física: Dissipação de Potência (P = I^2 * R)",
+            "passed": false,
+            "latency_s": 2.87,
+            "preview": "100"
+          },
+          {
+            "id": "T11_2",
+            "name": "Química: Balanceamento Estequiométrico",
+            "passed": true,
+            "latency_s": 3.01,
+            "preview": "<|channel>thought0\n<channel|>6"
+          },
+          {
+            "id": "T11_3",
+            "name": "Engenharia: Teto de Largura de Banda (Roofline)",
+            "passed": false,
+            "latency_s": 1.95,
+            "preview": "10"
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T12_1",
+            "name": "Compressão Densa de Telemetria",
+            "passed": true,
+            "latency_s": 5.0,
+            "preview": "<|channel>thought---\n<|channel>thought\nthought\n<channel|>Xeon: 10.94 tokens por segundo."
+          },
+          {
+            "id": "T12_2",
+            "name": "Dedução Silogística Estrita",
+            "passed": true,
+            "latency_s": 4.13,
+            "preview": "1thought\n<channel|>Wave64"
+          },
+          {
+            "id": "T12_3",
+            "name": "Resolução Correferencial (Anáfora)",
+            "passed": true,
+            "latency_s": 5.14,
+            "preview": "<|channel>thought\n================================================================================\nNa frase 'O módulo"
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T13_1",
+            "name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+            "passed": true,
+            "latency_s": 3.61,
+            "preview": "REJECT_OOM"
+          },
+          {
+            "id": "T13_2",
+            "name": "Proteção Térmica (Hardware Watchdog)",
+            "passed": true,
+            "latency_s": 2.92,
+            "preview": "THROTTLE_AND_COOL"
+          },
+          {
+            "id": "T13_3",
+            "name": "Escalonamento de Núcleos Físicos AVX2",
+            "passed": true,
+            "latency_s": 5.36,
+            "preview": "<|channel>thought\n<channel|>NUCLEOS_FISICOS"
+          }
+        ]
+      }
+    },
+    "opus_details": [
+      {
+        "id": "OPUS_01_regex_plus_star_dot",
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Timeout excedido (4.0s) - provável loop infinito."
+      },
+      {
+        "id": "OPUS_02_parser_unario_potencia_direita",
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 5: invalid syntax -> i = right ="
+      },
+      {
+        "id": "OPUS_03_dijkstra_k_pedagios_gratis",
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 2: invalid syntax -> adj = [[] for _ in in range(n)]"
+      },
+      {
+        "id": "OPUS_04_maior_retangulo_matriz_binaria",
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 72: invalid syntax -> <channel|>"
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_tsp_aberto",
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": true,
+        "zero_shot": false,
+        "repaired": true,
+        "error": null
+      },
+      {
+        "id": "OPUS_06_mediana_dois_arrays_ordenados",
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "RUNTIME_ERROR[0]: TypeError: float() argument must be a string or a real number, not 'NoneType'"
+      },
+      {
+        "id": "OPUS_07_maior_parenteses_valido_trap",
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 5: expected an indented block after 'for' statement on line 4 -> thought"
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 9: invalid syntax -> esquerda_max ="
+      },
+      {
+        "id": "OPUS_09_arvore_caminho_maximo_negativos",
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "Bloco de código Python vazio."
+      },
+      {
+        "id": "OPUS_10_solver_dpll_sat_cnf",
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      }
+    ],
+    "timestamp": "2026-10-30 02:48:14"
+  },
+  "glyphsoftware_gemma_4_26b_opus": {
+    "name": "gemma-4-26b-a4b-opus-4.7-distilled.Q4_K_M",
+    "file": "gemma-4-26b-a4b-opus-4.7-distilled.Q4_K_M.gguf",
+    "arch": "Gemma 4 Opus Distilled Raw (Experimental)",
+    "size_gb": 15.64,
+    "status": "COMPLETED",
+    "score_13_areas": "25/39",
+    "score_13_areas_pct": 64.1,
+    "score_opus_10": "2/10",
+    "score_opus_10_pct": 20.0,
+    "zero_shot_opus": 1,
+    "repaired_opus": 1,
+    "avg_pp_tok_s": 25.2,
+    "avg_tg_tok_s": 8.69,
+    "areas_details": {
+      "01_reflexo_triagem": {
+        "area_name": "01. Reflexo / Triagem (Intenção e despacho ágil)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T01_1",
+            "name": "Classificação de Emergência Infra",
+            "passed": false,
+            "latency_s": 9.89,
+            "preview": "<|channel>thought\n way=\"think\"\n O usuário quer que eu classifique um alerta específico ('O banco PostgreSQL par"
+          },
+          {
+            "id": "T01_2",
+            "name": "Despacho de Tier por Complexidade",
+            "passed": true,
+            "latency_s": 5.55,
+            "preview": "```json\n{\"tier\": 2}\n```"
+          },
+          {
+            "id": "T01_3",
+            "name": "Extração Léxica Rápida",
+            "passed": true,
+            "latency_s": 3.47,
+            "preview": "450|9981"
+          }
+        ]
+      },
+      "02_engenharia_codigo": {
+        "area_name": "02. Engenharia de Código (Código, Refactor, Patches)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T02_1",
+            "name": "Busca Binária Exata",
+            "passed": true,
+            "latency_s": 24.05,
+            "preview": "됩니다.\nKorean: `busca_binaria(arr, x)`가 정림된 리스트 `arr`에서 `x`를 찾아 그 인덱스를 반환하고, 없으면 -1을 반니다.\n\n```python\ndef busca_binaria(a"
+          },
+          {
+            "id": "T02_2",
+            "name": "Patch de Palíndromo Normalizado",
+            "passed": true,
+            "latency_s": 10.88,
+            "preview": "s = \"A cara rara ca\"\n  s.lower().replace(\" \", \"\") = \"acarararaca\"\nthought\n<channel|>```python\ndef eh_palindromo(s):"
+          },
+          {
+            "id": "T02_3",
+            "name": "Programação Dinâmica (Maior Soma Não-Adjacente)",
+            "passed": false,
+            "latency_s": 25.08,
+            "preview": "<think>\n\nO usuário quer uma função Python extremamente concisa que resolva o clássNTico prob"
+          }
+        ]
+      },
+      "03_matematica_provas": {
+        "area_name": "03. Matemática & Provas (Raciocínio formal e cálculo)",
+        "score": "0/3",
+        "passed": 0,
+        "tests": [
+          {
+            "id": "T03_1",
+            "name": "Expansão Polinomial Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 5.48,
+            "preview": "```json\n{\n  \"resultado\": \"4x^2 - 12x + 9\"\n}\n```"
+          },
+          {
+            "id": "T03_2",
+            "name": "Derivada Simbólica (SymPy)",
+            "passed": false,
+            "latency_s": 11.45,
+            "preview": "same_origin_s_100_100_200_300_400_500_600_700_800_900_10"
+          },
+          {
+            "id": "T03_3",
+            "name": "Sistema de Restrições Inteira (Z3 SMT)",
+            "passed": false,
+            "latency_s": 7.23,
+            "preview": "```python\n# Verificação da solução\nx, y = 17, 13\nassert x + y == 30\nassert 2*x"
+          }
+        ]
+      },
+      "04_automacao_so_rpa": {
+        "area_name": "04. Automação de SO / RPA (Desktop, telas, janelas)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T04_1",
+            "name": "Seleção de Coordenada OCR Closed-Loop",
+            "passed": true,
+            "latency_s": 4.75,
+            "preview": "{\"response\": \"420,310\"}"
+          },
+          {
+            "id": "T04_2",
+            "name": "Prevenção de Clique Cego (Zero Open-Loop)",
+            "passed": false,
+            "latency_s": 5.05,
+            "preview": "Ac(--a.confirm)\nAcAcAcAcAcAcAcAcAcAcAcAcAcAcAcAc"
+          },
+          {
+            "id": "T04_3",
+            "name": "Cmdlet Nativo PowerShell de Processos",
+            "passed": false,
+            "latency_s": 4.1,
+            "preview": "<think>\nO usuário quer o nome exato de um cmdlet nativo do PowerShell para listar processos. O"
+          }
+        ]
+      },
+      "05_memoria_perene": {
+        "area_name": "05. Memória Perene (Conhecimento contínuo e Grafo)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T05_1",
+            "name": "Extração de Tripla para Grafo HippoRAG",
+            "passed": true,
+            "latency_s": 7.53,
+            "preview": "```json\n{\"sujeito\": \"Xeon E5-2697 v3\", \"predicado\": \"possui arquitetura\", \"objeto\": \"Haswell-EP\"}\n```"
+          },
+          {
+            "id": "T05_2",
+            "name": "Resolução de Conflito Temporal (KAIROS)",
+            "passed": false,
+            "latency_s": 5.13,
+            "preview": "<think>\nO usuário quer que eu extraia o valor mais recente de uma sequência de fatos armazenados"
+          },
+          {
+            "id": "T05_3",
+            "name": "Deduplicação de Fatos Redundantes",
+            "passed": true,
+            "latency_s": 2.94,
+            "preview": "2"
+          }
+        ]
+      },
+      "06_metacognicao": {
+        "area_name": "06. Metacognição (Auto-correção e estabilidade LTI)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T06_1",
+            "name": "Detecção de Premissa Contraditória",
+            "passed": true,
+            "latency_s": 4.73,
+            "preview": "forthought\nA tarefa é IMPOSSIMVEL por contradição lógica.\n\nA prova:\n\n1. Por"
+          },
+          {
+            "id": "T06_2",
+            "name": "Auto-Correção de Alucinação Numérica",
+            "passed": true,
+            "latency_s": 2.55,
+            "preview": "1024"
+          },
+          {
+            "id": "T06_3",
+            "name": "Critério de Estabilidade LTI Discreta",
+            "passed": false,
+            "latency_s": 5.94,
+            "preview": "<think>\nA pergunta é direta e técnica: estabilidade assintótica de um sistema linear discreto."
+          }
+        ]
+      },
+      "07_cadinho_redteam": {
+        "area_name": "07. Cadinho Red-Team (Fuzzing, segurança e auditoria)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T07_1",
+            "name": "Auditoria de SQL Injection",
+            "passed": true,
+            "latency_s": 6.76,
+            "preview": "<|channel>thought\n each line of code should be explained.\n SQL_INJECTION.\n The f-string interpol"
+          },
+          {
+            "id": "T07_2",
+            "name": "Detecção de RCE via eval()",
+            "passed": true,
+            "latency_s": 2.51,
+            "preview": "json.loads"
+          },
+          {
+            "id": "T07_3",
+            "name": "Classificação de Path Traversal",
+            "passed": false,
+            "latency_s": 4.32,
+            "preview": "<think>\nO usuário quer que eu identifique o tipo de ataque em um cenário específico: um fuz"
+          }
+        ]
+      },
+      "08_sintese_vocal": {
+        "area_name": "08. Síntese Vocal (Normalização fonética e prosódia TTS)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T08_1",
+            "name": "Expansão Monetária para TTS",
+            "passed": true,
+            "latency_s": 2.8,
+            "preview": "<|channel>thought\n<channel|>quinze reais e cinquenta centavos"
+          },
+          {
+            "id": "T08_2",
+            "name": "Expansão de Unidade Física para TTS",
+            "passed": false,
+            "latency_s": 2.36,
+            "preview": "100 quilômetros por hora."
+          },
+          {
+            "id": "T08_3",
+            "name": "Inserção de Tag SSML de Pausa",
+            "passed": true,
+            "latency_s": 3.72,
+            "preview": "Concluído.<break time=\"500ms\"/>Iniciando"
+          }
+        ]
+      },
+      "09_multimodal_visao": {
+        "area_name": "09. Multimodal & Visão (Geometria de tela, SVG, OCR)",
+        "score": "2/3",
+        "passed": 2,
+        "tests": [
+          {
+            "id": "T09_1",
+            "name": "Cálculo de Área de Interseção (Bounding Boxes)",
+            "passed": true,
+            "latency_s": 4.68,
+            "preview": "2500"
+          },
+          {
+            "id": "T09_2",
+            "name": "Inspeção Geométrica de Código SVG",
+            "passed": true,
+            "latency_s": 3.33,
+            "preview": "<|channel>thought\n<channel|>80"
+          },
+          {
+            "id": "T09_3",
+            "name": "Restauração de Texto OCR com Ruído Leetspeak",
+            "passed": false,
+            "latency_s": 4.71,
+            "preview": "<think>\nO usuário quer que eu restaure um texto corromp1d0 por OCR (substituindo letras"
+          }
+        ]
+      },
+      "10_planejamento_deliberativo": {
+        "area_name": "10. Planejamento Deliberativo (Planos encadeados e PDDL)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T10_1",
+            "name": "Ordenação Topológica de Dependências",
+            "passed": true,
+            "latency_s": 4.2,
+            "preview": "/no_think\n\nA ordem correta é B->A->C, pois o código C++ (B"
+          },
+          {
+            "id": "T10_2",
+            "name": "Sequenciamento Causal PDDL",
+            "passed": true,
+            "latency_s": 2.43,
+            "preview": "3->2->1"
+          },
+          {
+            "id": "T10_3",
+            "name": "Diagnóstico Formal de Deadlock",
+            "passed": true,
+            "latency_s": 2.92,
+            "preview": "DEADLOCK"
+          }
+        ]
+      },
+      "11_raciocinio_cientifico": {
+        "area_name": "11. Raciocínio Científico (Física, Química, Engenharia)",
+        "score": "1/3",
+        "passed": 1,
+        "tests": [
+          {
+            "id": "T11_1",
+            "name": "Física: Dissipação de Potência (P = I^2 * R)",
+            "passed": false,
+            "latency_s": 6.19,
+            "preview": "100\n100\n100\n100\n100\n100"
+          },
+          {
+            "id": "T11_2",
+            "name": "Química: Balanceamento Estequiométrico",
+            "passed": false,
+            "latency_s": 6.61,
+            "preview": "3\nNa equação CH4 + 2 O2 -> CO2 + 2 H2O, a razão"
+          },
+          {
+            "id": "T11_3",
+            "name": "Engenharia: Teto de Largura de Banda (Roofline)",
+            "passed": true,
+            "latency_s": 5.01,
+            "preview": "19.999999999999996\n20.0"
+          }
+        ]
+      },
+      "12_linguagem_discurso": {
+        "area_name": "12. Linguagem & Discurso (Coerência, síntese e lógica verbal)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T12_1",
+            "name": "Compressão Densa de Telemetria",
+            "passed": true,
+            "latency_s": 4.01,
+            "preview": "copiar\n```\nXeon: benchmark 10.94 tokens/s\n```"
+          },
+          {
+            "id": "T12_2",
+            "name": "Dedução Silogística Estrita",
+            "passed": true,
+            "latency_s": 6.11,
+            "preview": "{{thought}}\nO usuário quer uma resposta curta e direta (\"apenas Wave64 ou Wave32\")"
+          },
+          {
+            "id": "T12_3",
+            "name": "Resolução Correferencial (Anáfora)",
+            "passed": true,
+            "latency_s": 4.23,
+            "preview": "|\n|\nhipótese\n|\n|\n|\n|\n|\n|\n|\n|"
+          }
+        ]
+      },
+      "13_governador_hardware": {
+        "area_name": "13. Governador de Hardware (Clocks, temperaturas e VRAM)",
+        "score": "3/3",
+        "passed": 3,
+        "tests": [
+          {
+            "id": "T13_1",
+            "name": "Prevenção de OOM em VRAM (Circuit Breaker)",
+            "passed": true,
+            "latency_s": 5.09,
+            "preview": "O Governador deve responder: REJECT_OOM\n\nExplicação: A soma (6.0 +"
+          },
+          {
+            "id": "T13_2",
+            "name": "Proteção Térmica (Hardware Watchdog)",
+            "passed": true,
+            "latency_s": 2.76,
+            "preview": "> THROTTLE_AND_COOL"
+          },
+          {
+            "id": "T13_3",
+            "name": "Escalonamento de Núcleos Físicos AVX2",
+            "passed": true,
+            "latency_s": 6.01,
+            "preview": "NUCLEOS_FISICOS | TODOS_THREADS_VIRTUAIS\n----------------------------------------------------------------|-----------"
+          }
+        ]
+      }
+    },
+    "opus_details": [
+      {
+        "id": "OPUS_01_regex_plus_star_dot",
+        "name": "01. Motor Regex Puro com '.', '*' e '+' (Sem módulo re)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 5: expected ':' -> while p_mod >  agrupar_"
+      },
+      {
+        "id": "OPUS_02_parser_unario_potencia_direita",
+        "name": "02. Parser Algébrico Sem eval() c/ Unário e '^' Associativo à Direita",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 13: invalid syntax -> if s[i].1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+      },
+      {
+        "id": "OPUS_03_dijkstra_k_pedagios_gratis",
+        "name": "03. Dijkstra 2D no Espaço de Estados (Até K Arestas Grátis)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: invalid syntax -> ```python"
+      },
+      {
+        "id": "OPUS_04_maior_retangulo_matriz_binaria",
+        "name": "04. Pilha Monotônica 2D: Maior Retângulo de 1s em Matriz",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 9: unindent does not match any outer indentation level -> max_area = max(max_area, area_atual)"
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_tsp_aberto",
+        "name": "05. Bitmask DP: Caminho Hamiltoniano Mínimo (TSP Aberto)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 16: invalid syntax -> memo[key] much_"
+      },
+      {
+        "id": "OPUS_06_mediana_dois_arrays_ordenados",
+        "name": "06. Busca Particionada: Mediana de Dois Arrays Ordenados",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 1: expected '(' -> def mediana_a_lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-lote-a-l"
+      },
+      {
+        "id": "OPUS_07_maior_parenteses_valido_trap",
+        "name": "07. DP/Pilha de Índices: Maior Substring de Parênteses Válidos",
+        "passed": true,
+        "zero_shot": true,
+        "repaired": false,
+        "error": null
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Água da Chuva Retida entre Barras",
+        "passed": true,
+        "zero_shot": false,
+        "repaired": true,
+        "error": null
+      },
+      {
+        "id": "OPUS_09_arvore_caminho_maximo_negativos",
+        "name": "09. Árvore Binária: Maior Soma de Caminho Any-to-Any (c/ Negativos)",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 3: unexpected indent -> def dfs(no):"
+      },
+      {
+        "id": "OPUS_10_solver_dpll_sat_cnf",
+        "name": "10. Solver Lógico DPLL SAT para Fórmulas CNF",
+        "passed": false,
+        "zero_shot": false,
+        "repaired": false,
+        "error": "SyntaxError na linha 2: unexpected indent -> c2 = [-1, 2]     # ~x1 v x2"
+      }
+    ],
+    "timestamp": "2026-10-30 03:34:04"
+  }
+}

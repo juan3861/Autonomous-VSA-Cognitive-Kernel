@@ -1,0 +1,562 @@
+{
+  "timestamp": "2026-10-23T16:19:41",
+  "model": "ai9stars/G9v3-3B",
+  "quant": "Q4_K_M (1.77 GB)",
+  "framework": "Lambda-RLM (Typed Functional Combinator Runtime)",
+  "hardware": "AMD Radeon RX 580 8GB Vulkan Bare-Metal (Port 8081)",
+  "part1_13_areas": {
+    "01_triage": {
+      "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_01_1",
+          "name": "Infra Emergency Classification",
+          "passed": true,
+          "tps": 0.16,
+          "latency_ms": 19254.97,
+          "output": "INFRA_EMERGENCY"
+        },
+        {
+          "id": "EN_01_2",
+          "name": "Complexity Tier Dispatch",
+          "passed": true,
+          "tps": 0.05,
+          "latency_ms": 37528.9,
+          "output": "{\"tier\": 2}"
+        },
+        {
+          "id": "EN_01_3",
+          "name": "Rapid Lexical Extraction",
+          "passed": true,
+          "tps": 0.12,
+          "latency_ms": 16515.39,
+          "output": "450|9981"
+        }
+      ]
+    },
+    "02_code_engineering": {
+      "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+      "passed": 2,
+      "total": 3,
+      "score_str": "2/3",
+      "tests": [
+        {
+          "id": "EN_02_1",
+          "name": "Exact Binary Search",
+          "passed": true,
+          "tps": 1.93,
+          "latency_ms": 38430.04,
+          "output": "def busca_binaria(arr, x):\n    left = 0\n    right = len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == x:\n            return mid\n        elif arr[mid] < x:\n"
+        },
+        {
+          "id": "EN_02_2",
+          "name": "Normalized Palindrome Function",
+          "passed": true,
+          "tps": 9.76,
+          "latency_ms": 48052.14,
+          "output": "def eh_palindromo(s):\n    s = s.replace(\" \", \"\").lower()\n    return s == s[::-1]"
+        },
+        {
+          "id": "EN_02_3",
+          "name": "1D DP Non-Adjacent Max Sum",
+          "passed": false,
+          "tps": 10.67,
+          "latency_ms": 40880.52,
+          "output": "We are to write a function `max_nao_adjacente(nums)` that computes the maximum sum of non-adjacent elements in O(n) time.\n This is essentially the \"House Robber\" problem.\n We can use dynamic programmi"
+        }
+      ]
+    },
+    "03_math_and_proofs": {
+      "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_03_1",
+          "name": "Symbolic Derivative",
+          "passed": true,
+          "tps": 0.28,
+          "latency_ms": 25312.28,
+          "output": "{\"derivative\": \"3*x^2 - 10*x\"}"
+        },
+        {
+          "id": "EN_03_2",
+          "name": "Linear System Solution",
+          "passed": true,
+          "tps": 8.36,
+          "latency_ms": 48059.03,
+          "output": "We are given two equations: x + y = 20 and 2x - y = 10. We need to solve for x and y. Then we need to output the answer in JSON format: {\"x\": 10, \"y\": 10}. But wait, let's check if that is actually th"
+        },
+        {
+          "id": "EN_03_3",
+          "name": "De Morgan Law SMT Check",
+          "passed": true,
+          "tps": 0.06,
+          "latency_ms": 17545.83,
+          "output": "VALID"
+        }
+      ]
+    },
+    "04_os_automation_rpa": {
+      "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_04_1",
+          "name": "Closed-Loop OCR Policy",
+          "passed": true,
+          "tps": 11.76,
+          "latency_ms": 47517.39,
+          "output": "We are given a text: \"According to the robust closed-loop RPA protocol, what MUST be done before clicking a button based on coordinates? Answer with OCR, GUESS, or SLEEP.\"\n\nWe need to summarize this t"
+        },
+        {
+          "id": "EN_04_2",
+          "name": "Safe Process Query Command",
+          "passed": true,
+          "tps": 0.08,
+          "latency_ms": 25829.47,
+          "output": "Get-Process"
+        },
+        {
+          "id": "EN_04_3",
+          "name": "Isolated Browser Window Policy",
+          "passed": true,
+          "tps": 11.91,
+          "latency_ms": 47959.7,
+          "output": "We are asked to summarize the text concisely and answer with either \"ISOLATED\" or \"OVERWRITE\". The text is: \"When automating browser workflows, should actions run in an isolated new window or interfer"
+        }
+      ]
+    },
+    "05_perennial_memory": {
+      "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_05_1",
+          "name": "Knowledge Graph Triples Extraction",
+          "passed": true,
+          "tps": 0.47,
+          "latency_ms": 21290.27,
+          "output": "(Xeon E5-2697 v3 | has | 14 physical cores)"
+        },
+        {
+          "id": "EN_05_2",
+          "name": "Temporal Conflict Resolution",
+          "passed": true,
+          "tps": 0.05,
+          "latency_ms": 19588.83,
+          "output": "8083"
+        },
+        {
+          "id": "EN_05_3",
+          "name": "Hardware Entity Deduplication",
+          "passed": true,
+          "tps": 11.74,
+          "latency_ms": 36876.39,
+          "output": "We are asked: \"Are 'RX580 8GB', 'Radeon RX 580' and 'AMD Polaris 20' referring to the same GPU hardware subsystem? Answer YES or NO.\"\n\nWe need to determine if these three names refer to the same GPU h"
+        }
+      ]
+    },
+    "06_metacognition": {
+      "name": "06. Metacognition (Self-Correction & LTI Stability)",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_06_1",
+          "name": "Contradiction Detection",
+          "passed": true,
+          "tps": 0.16,
+          "latency_ms": 18431.85,
+          "output": "CONTRADICTORY"
+        },
+        {
+          "id": "EN_06_2",
+          "name": "Self-Correction Reasoning",
+          "passed": true,
+          "tps": 0.05,
+          "latency_ms": 19382.66,
+          "output": "56"
+        },
+        {
+          "id": "EN_06_3",
+          "name": "LTI State Stability Criterion",
+          "passed": true,
+          "tps": 0.03,
+          "latency_ms": 34251.19,
+          "output": "LESS"
+        }
+      ]
+    },
+    "07_red_team_security": {
+      "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_07_1",
+          "name": "SQL Injection Detection",
+          "passed": true,
+          "tps": 0.06,
+          "latency_ms": 16951.76,
+          "output": "YES"
+        },
+        {
+          "id": "EN_07_2",
+          "name": "Arbitrary Code Execution Audit",
+          "passed": true,
+          "tps": 0.18,
+          "latency_ms": 16846.18,
+          "output": "json.loads()"
+        },
+        {
+          "id": "EN_07_3",
+          "name": "Path Traversal Prevention",
+          "passed": true,
+          "tps": 0.05,
+          "latency_ms": 18411.76,
+          "output": "YES"
+        }
+      ]
+    },
+    "08_speech_synthesis_vocal": {
+      "name": "08. Speech Synthesis & Vocal Formatting",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_08_1",
+          "name": "Currency Pronunciation Expansion",
+          "passed": true,
+          "tps": 0.35,
+          "latency_ms": 22613.62,
+          "output": "forty-five dollars and fifty cents"
+        },
+        {
+          "id": "EN_08_2",
+          "name": "Metric Unit Verbalization",
+          "passed": true,
+          "tps": 0.24,
+          "latency_ms": 16532.44,
+          "output": "kilometers per hour"
+        },
+        {
+          "id": "EN_08_3",
+          "name": "SSML Pause Syntax",
+          "passed": true,
+          "tps": 0.31,
+          "latency_ms": 16194.83,
+          "output": "<break time=\"500ms\"/>"
+        }
+      ]
+    },
+    "09_multimodal_vision": {
+      "name": "09. Multimodal & Visual Coordinate Space",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_09_1",
+          "name": "Bounding Box IoU Computation",
+          "passed": true,
+          "tps": 0.06,
+          "latency_ms": 18041.44,
+          "output": "1.0"
+        },
+        {
+          "id": "EN_09_2",
+          "name": "SVG Circle Diameter Calculation",
+          "passed": true,
+          "tps": 0.06,
+          "latency_ms": 16059.13,
+          "output": "50"
+        },
+        {
+          "id": "EN_09_3",
+          "name": "OCR Coordinate Normalization",
+          "passed": true,
+          "tps": 0.07,
+          "latency_ms": 30666.85,
+          "output": "0.5, 0.5"
+        }
+      ]
+    },
+    "10_deliberative_planning": {
+      "name": "10. Deliberative Planning & Dependency Graphs",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_10_1",
+          "name": "Topological Order Resolution",
+          "passed": true,
+          "tps": 0.08,
+          "latency_ms": 23655.38,
+          "output": "C -> B -> A"
+        },
+        {
+          "id": "EN_10_2",
+          "name": "Action Precondition Logic",
+          "passed": true,
+          "tps": 0.12,
+          "latency_ms": 16686.61,
+          "output": "FILE_EXISTS"
+        },
+        {
+          "id": "EN_10_3",
+          "name": "Circular Dependency Deadlock",
+          "passed": true,
+          "tps": 0.12,
+          "latency_ms": 16979.59,
+          "output": "DEADLOCK"
+        }
+      ]
+    },
+    "11_scientific_reasoning": {
+      "name": "11. Scientific & Physics Invariants",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_11_1",
+          "name": "Ohm's Law Calculation",
+          "passed": true,
+          "tps": 0.06,
+          "latency_ms": 17957.61,
+          "output": "20 V"
+        },
+        {
+          "id": "EN_11_2",
+          "name": "Chemical Stoichiometry",
+          "passed": true,
+          "tps": 0.05,
+          "latency_ms": 19193.43,
+          "output": "6"
+        },
+        {
+          "id": "EN_11_3",
+          "name": "Arithmetic Intensity in Roofline Model",
+          "passed": true,
+          "tps": 0.05,
+          "latency_ms": 22066.8,
+          "output": "5"
+        }
+      ]
+    },
+    "12_language_and_discourse": {
+      "name": "12. Language & Discourse Logic",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_12_1",
+          "name": "Information Compression",
+          "passed": true,
+          "tps": 0.22,
+          "latency_ms": 18361.87,
+          "output": "Bandwidth maxed."
+        },
+        {
+          "id": "EN_12_2",
+          "name": "Syllogistic Deduction",
+          "passed": true,
+          "tps": 0.05,
+          "latency_ms": 21001.47,
+          "output": "YES"
+        },
+        {
+          "id": "EN_12_3",
+          "name": "Coreference Resolution",
+          "passed": true,
+          "tps": 0.05,
+          "latency_ms": 18928.42,
+          "output": "GPU"
+        }
+      ]
+    },
+    "13_hardware_governor": {
+      "name": "13. Hardware Governor & Silicon Limits",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_13_1",
+          "name": "OOM Circuit Breaker",
+          "passed": true,
+          "tps": 0.11,
+          "latency_ms": 26458.31,
+          "output": "CIRCUIT_BREAKER"
+        },
+        {
+          "id": "EN_13_2",
+          "name": "Watchdog Timeout Policy",
+          "passed": true,
+          "tps": 0.17,
+          "latency_ms": 18099.23,
+          "output": "KILL_OR_RESTART"
+        },
+        {
+          "id": "EN_13_3",
+          "name": "AVX2 SIMD Lane Width",
+          "passed": true,
+          "tps": 0.07,
+          "latency_ms": 14557.63,
+          "output": "8"
+        }
+      ]
+    }
+  },
+  "part1_summary": {
+    "passed": 38,
+    "total": 39,
+    "pct": 97.44,
+    "avg_tps": 1.8,
+    "total_time_s": 969.46
+  },
+  "part2_opus_10": {
+    "zero_shot_passes": 1,
+    "final_passes": 1,
+    "repaired_passes": 0,
+    "final_pct": 10.0,
+    "avg_tps": 10.96,
+    "total_time_s": 868.51,
+    "tests": [
+      {
+        "id": "OPUS_01_regex_pure",
+        "name": "01. Pure Regex Engine with '.', '*' and '+' (No re module)",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 26: unterminated string literal (detected at line 26) -> - If text is empty, then pattern must be empty or consist of only '*' and '+'? Actually, '*' and '+' can match zero characters, so if text is empty, pattern can be empty or have only '*' and '+'? But note: '*' and '+' are only special when preceded by a character. So if pattern is just \"*\" or \"+\", then it can match zero characters. But if pattern is \"*\", it can match zero or more of preceding character? Actually, '*' is only special when preceded by a character. So if pattern starts with '*', it is invalid? We assume pattern is valid? The problem doesn't specify invalid patterns, so we assume pattern is valid and has no invalid sequences.",
+        "tps": 13.5,
+        "latency_ms": 86258.97,
+        "code": "We need to write a function match_pattern(text: str, pattern: str) -> bool that matches text against pattern. The pattern supports '.' (any single character), '*' (0 or more of preceding character), and '+' (1 or more of preceding character). We cannot use re module. We need to handle these special characters. The pattern is valid? We assume pattern is valid, but we need to handle cases where pattern starts with '*' or '+'? Actually, the problem says '*' and '+' are only special when preceded by a character. So if pattern starts with '*', it is invalid? But we assume pattern is valid, so maybe pattern cannot start with '*' or '+'? Or maybe it can? The description: \"Support '.' (matches any single character), '*' (0 or more of preceding character), and '+' (1 or more of preceding character).\" It doesn't say that '*' and '+' must be preceded by a character. But it says \"preceding character\", implying they are preceded by a character. So if pattern starts with '*', it's not preceded by a character, so it's invalid. But we assume pattern is valid, so we can assume that '*' and '+' are always preceded by a character. So pattern like \"*\" or \"+\" is invalid, but we don't need to handle invalid patterns. So we can assume pattern is valid and has no invalid sequences.\n\nWe need to implement a pattern matching algorithm. This is similar to wildcard matching but with '.' and '*' and '+'. Actually, it's like a simplified regex. We need to match text exactly? The function returns bool. So we need to check if pattern matches text exactly. Probably we need to match the entire text? The problem says \"matches text against pattern\". Usually it means the pattern matches the entire text. But we need to be careful. Let's think: pattern can have '*' and '+' which can match zero or more of preceding character. So we need to match the whole text. So we need to implement a recursive or dynamic programming solution.\n\nWe can think of it as a DP: dp[i][j] = True if pattern[0:i] matches text[0:j]. But we need to handle '.' and '*' and '+'. '.' matches any single character. '*' matches zero or more of the preceding character. '+' matches one or more of the preceding character. So we need to know the preceding character when we encounter '*' or '+'."
+      },
+      {
+        "id": "OPUS_02_parser_unary_power",
+        "name": "02. Arithmetic Parser without eval() (Unary Minus and Right-Associative '^')",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 15: unterminated string literal (detected at line 15) -> Let's break down:",
+        "tps": 14.47,
+        "latency_ms": 88608.31,
+        "code": "We are to write a function `evaluate_expression(expr: str) -> int` that evaluates arithmetic expressions without using `eval()`. The expression can include integers, binary operators +, -, *, //, right-associative exponentiation '^', unary minus '-', and parentheses '()'. We need to parse and evaluate the expression.\n\nWe cannot use `eval()`, so we must implement a parser and evaluator. Since the expression is a string, we need to handle operator precedence and associativity. The operators: +, -, *, //, ^ (right-associative exponentiation). Unary minus is also allowed. Parentheses are allowed.\n\nWe need to support integers (presumably non-negative? but unary minus can be negative numbers). The result should be an integer.\n\nWe need to handle division with floor division //, so integer division.\n\nWe need to handle exponentiation with right-associative exponentiation.\n\nWe need to handle unary minus: e.g., -5, -3^2? Actually, unary minus is a unary operator that can appear before a number or after an operator? Typically, unary minus is applied to a number or a parenthesized expression. But we need to define precedence.\n\nWe need to parse the expression and compute the result.\n\nWe can implement a recursive descent parser or use a stack-based approach (like shunting-yard). Since we cannot use eval, we can implement a simple parser.\n\nGiven the constraints, we might implement a function that tokenizes the expression and then evaluates using a stack or recursion.\n\nWe need to handle operator precedence: typically, ^ has highest precedence, then * and //, then + and -, then unary minus? Actually, unary minus is usually higher than binary operators? But we need to define.\n\nWe can define precedence levels:\n\n1. Exponentiation (^) - right-associative.\n2. Multiplication (*) and integer division (//) - left-associative.\n3. Addition (+) and subtraction (-) - left-associative.\n4. Unary minus - we can treat as a unary operator with high precedence? Actually, unary minus is often considered as having the same precedence as multiplication? But we need to decide.\n\nWe can also consider that unary minus is applied to a number or a parenthesized expression, and it is essentially a negation operator. In parsing, we can treat it as a special operator that appears before a number or after an operator.\n\nWe can implement a"
+      },
+      {
+        "id": "OPUS_03_dijkstra_2d_free_edges",
+        "name": "03. 2D State-Space Dijkstra (Up to K Free Edges)",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 1: invalid syntax -> We need to write a function that computes the minimum path cost from node 0 to node n-1 in an undirected weighted graph, where we can choose up to k edges to cross for cost 0. The graph is given as edges list of tuples (u, v, w). The graph is undirected, so edges are bidirectional. We can use up to k edges with cost 0. That means we can traverse some edges for free, but we can only do that up to k times. We want the minimum total cost from node 0 to node n-1.",
+        "tps": 10.8,
+        "latency_ms": 90878.33,
+        "code": "We need to write a function min_cost_k_free(n: int, edges: list[tuple[int, int, int]], k: int) -> int that computes the minimum path cost from node 0 to node n-1 in an undirected weighted graph, where we can choose up to k edges to cross for cost 0. Return -1 if unreachable.\n\nWe need to interpret the problem correctly. We have an undirected weighted graph with n nodes (0 to n-1). Edges are given as (u, v, w). We can traverse edges normally with cost w. But we can also choose up to k edges to cross for cost 0. That means we can traverse some edges for free, but we can only do that up to k times. We want the minimum total cost from node 0 to node n-1.\n\nWe need to compute the minimum cost path from 0 to n-1, where we can use up to k edges with cost 0. This is like we can \"skip\" paying cost on up to k edges. But we can also use edges with cost 0 normally? Actually, the edges have weights w. We can choose up to k edges to cross for cost 0. That means we can traverse some edges without paying their weight, but we can only do that up to k times. So we can effectively reduce the cost of some edges to 0, but we can only do that for up to k edges. However, we can also traverse edges with positive cost normally. So we need to find a path from 0 to n-1 that minimizes total cost, subject to the constraint that we can use at most k edges with cost 0 (i.e., we can \"free\" up to k edges). But we can also use edges with positive cost normally. So we need to find a path that minimizes total cost, and we can choose to \"free\" up to k edges along the path, but we cannot free more than k edges. However, we can also choose not to free any edges. So we need to find a path that minimizes total cost, and we can optionally reduce the cost of up to k edges to 0. But we cannot reduce the cost of more than k edges. So we need to find a path that minimizes total cost, and we can choose to \"skip\" paying cost on up to k edges. But we can also choose to pay cost on all edges. So we need to find a path"
+      },
+      {
+        "id": "OPUS_04_max_rectangle_binary_matrix",
+        "name": "04. Monotonic Stack: Maximal Rectangle of 1s in Binary Matrix",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 1: invalid decimal literal -> We need to write a function that finds the largest rectangle containing only 1s in a 2D binary matrix and returns its area in O(M*N). The function signature is given: `maximal_rectangle(matrix: list[list[int]]) -> int`. We must not include comments, no markdown, just the code.",
+        "tps": 10.98,
+        "latency_ms": 94754.82,
+        "code": "We need to write a function that finds the largest rectangle containing only 1s in a 2D binary matrix and returns its area in O(M*N). The function signature is given: `maximal_rectangle(matrix: list[list[int]]) -> int`. We must not include comments, no markdown, just the code.\n\nWe need to implement the maximal rectangle problem. Typically, we can use dynamic programming or histogram method. The O(M*N) solution is often achieved by treating each row as a histogram and computing the largest rectangle in histogram for each row, then taking max over rows. That is O(M*N) because each row we compute histogram heights (based on consecutive 1s from left) and then compute largest rectangle in histogram in O(N) per row, total O(M*N).\n\nWe need to be careful: matrix is list[list[int]] but we assume binary matrix (0s and 1s). We need to return area as int.\n\nWe'll implement:\n\ndef maximal_rectangle(matrix):\n    if not matrix or not matrix[0]:\n        return 0\n    rows = len(matrix)\n    cols = len(matrix[0])\n    # We'll maintain an array of heights for each column.\n    heights = [0] * cols\n    max_area = 0\n    for row in matrix:\n        # update heights: if cell is 1, add 1 to height, else reset to 0.\n        for j in range(cols):\n            if row[j] == 1:\n                heights[j] += 1\n            else:\n                heights[j] = 0\n        # Now compute largest rectangle in histogram heights.\n        # We can use a stack method to compute max area in O(cols).\n        # We'll implement a helper function inside or inline.\n        # Since we cannot include comments, we need to write the stack algorithm without comments.\n        # We'll write a nested function? But we can't include comments, but we can write code.\n        # We'll implement the stack algorithm for largest rectangle in histogram.\n        # We'll use a stack of indices.\n        stack = []\n        # We'll iterate over heights with index i from 0 to cols.\n        # We'll also consider a sentinel at the end.\n        # We'll compute area for each bar when popped.\n        # We'll write code without comments.\n        # We'll use a while loop.\n        # We'll"
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_open_tsp",
+        "name": "05. Bitmask DP: Minimum Hamiltonian Path (Open TSP)",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 3: unterminated string literal (detected at line 3) -> This is essentially the Traveling Salesman Problem (TSP) but without the return to start, so it's a path that visits all nodes exactly once.",
+        "tps": 11.71,
+        "latency_ms": 90040.87,
+        "code": "We need to write a function `open_tsp(dist: list[list[int]]) -> int` that computes the minimum cost to visit all nodes exactly once starting at node 0 and ending at any node (do NOT return to 0). This is essentially a Hamiltonian path problem (TSP without return). We need to use Bitmask Dynamic Programming.\n\nWe have a distance matrix `dist` of size n x n, where n is number of nodes. We start at node 0, and we need to visit all nodes exactly once, ending at any node. So we need to find the minimum cost path that starts at 0, visits all nodes, and ends somewhere else. This is like a TSP path but not closed.\n\nWe can use DP with bitmask to represent subsets of visited nodes. Since we start at node 0, we can consider state as bitmask of visited nodes (including 0). We need to compute minimum cost to reach each node with a given visited set. But we need to end at any node, so we can compute DP for all masks that include node 0, and then take min over masks that include all nodes (i.e., mask with all bits set) and any ending node.\n\nAlternatively, we can think of it as: we have n nodes, we start at 0, we need to visit all nodes exactly once, so we need to choose an ordering of nodes (excluding 0? Actually we start at 0, so we must include 0 in the path). So we need to find a permutation of nodes starting with 0, ending with any node, visiting all nodes exactly once. That's a Hamiltonian path starting at 0.\n\nWe can use DP: dp[mask][i] = minimum cost to visit all nodes in mask, ending at node i. But we need to start at 0, so we can initialize dp[mask][i] for masks that include 0 and i, with cost dist[0][i] if mask is just {0,i}. Then we can transition by adding a new node j not in mask, and update dp[mask|1<<j][j] = min(dp[mask][i] + dist[i][j]).\n\nWe need to consider all masks that include 0. We can have dp array of size (2^n) x n, but we can also use a dictionary or list of lists. Since n is not given, we need to handle arbitrary n"
+      },
+      {
+        "id": "OPUS_06_median_two_sorted_arrays",
+        "name": "06. Partition Search: Median of Two Sorted Arrays",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 23: unterminated string literal (detected at line 23) -> Let's say we want to partition at index i in array a and j in array b, such that i+j = (n+m)//2 (if we want the left part to have exactly half).",
+        "tps": 11.29,
+        "latency_ms": 95001.07,
+        "code": "We need to write a function find_median_sorted(a: list[int], b: list[int]) -> float that finds the median of two sorted arrays. The problem is classic: median of two sorted arrays. But the description mentions \"partition at index i in array a and j in array b, such that i+j = (n+m)//2\". That suggests we might be doing a binary search approach. However, the function should be concise and clean.\n\nWe need to implement median of two sorted arrays. The median is the middle value when combined array is sorted. If total length is odd, median is middle element; if even, median is average of two middle elements.\n\nWe can merge and find median, but that's O(n+m). But we can do binary search in O(log(min(n,m))) but that's more complex. The problem says \"concise clean Python code only\". So maybe we can just merge and compute median? But that might not be efficient but it's concise. However, the previous attempt failed with syntax error. So we need to write correct code.\n\nGiven the instruction: \"Write only the Python function find_median_sorted(a: list[int], b: list[int]) -> float\". So we need to output only the function definition.\n\nWe should implement a solution that works. Since it's a coding challenge, maybe they expect a binary search solution? But the description mentions partition indices. However, the function is just to find median. We can do a simple merge approach.\n\nBut the problem says \"without comments\". So we need to write code that is correct.\n\nLet's think: The function takes two sorted lists of integers and returns float median.\n\nWe can compute median by merging and then finding middle.\n\nBut merging two sorted lists is straightforward.\n\nWe can do:\n\ndef find_median_sorted(a, b):\n    merged = sorted(a + b)\n    n = len(merged)\n    if n % 2 == 1:\n        return float(merged[n//2])\n    else:\n        return (merged[n//2 - 1] + merged[n//2]) / 2.0\n\nBut that's O(n+m) and uses extra memory. But it's concise.\n\nAlternatively, we can do binary search to find median without merging. But that's more code.\n\nGiven the instruction \"concise clean Python code only\", maybe they want a simple solution.\n\nBut the previous attempt failed with"
+      },
+      {
+        "id": "OPUS_07_longest_valid_parentheses_trap",
+        "name": "07. Index Stack: Longest Valid Parentheses Substring",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 2: unterminated string literal (detected at line 2) -> We can use a stack or dynamic programming. Let's think about the problem.",
+        "tps": 9.95,
+        "latency_ms": 92506.6,
+        "code": "We need to write a function longest_valid_parentheses(s: str) -> int that returns the length of the longest valid parentheses substring.\n\nWe must avoid comments and markdown. Only the function code.\n\nWe need to think about the problem: longest valid parentheses substring. This is a classic problem. We can use stack or dynamic programming.\n\nWe need to pass all test cases. We should write concise clean Python code.\n\nWe can use stack: push indices, when we see a closing bracket, pop if stack not empty, then compute length.\n\nAlternatively, we can use DP: dp[i] = length of valid substring ending at i.\n\nBut we need to be careful with syntax.\n\nWe'll write:\n\ndef longest_valid_parentheses(s: str) -> int:\n    stack = []\n    max_len = 0\n    for i, ch in enumerate(s):\n        if ch == '(':\n            stack.append(i)\n        else:\n            if stack:\n                stack.pop()\n                max_len = max(max_len, i - stack[-1] if stack else i+1)\n            else:\n                stack.append(i)\n    return max_len\n\nBut this is not correct? Actually, the above is a common approach but not exactly correct for all cases.\n\nWe need to think: The stack stores indices of '(' characters. When we see a ')', we pop the last '(' index. Then the valid substring length is i - stack[-1] (if stack not empty) else i+1? Actually, if stack is empty, we cannot form a valid substring, so we push i? That doesn't make sense.\n\nBetter approach: Use stack to store indices of unmatched parentheses. We can initialize stack with -1. Then iterate through string. If '(' push index. If ')', pop. If stack empty, push current index (as a new base). Then compute length as i - stack[-1].\n\nLet's test: s = \"()()\". stack = [-1]. i=0 '(' push -> stack=[-1,0]. i=1 ')' pop -> stack=[-1]. i=2 '(' push -> stack=[-1,2]. i=3 ')' pop -> stack=[-1]. max_len = max(0, 1-(-1)=2, 3-(-1)=4) -> 4? Actually, at i=3, stack[-1] = -1, so length = 3"
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Trapping Rain Water",
+        "first_passed": true,
+        "final_passed": true,
+        "attempts": 1,
+        "repaired": false,
+        "counterexample": null,
+        "tps": 3.89,
+        "latency_ms": 40896.77,
+        "code": "def trap_rain_water(heights: list[int]) -> int:\n    if not heights:\n        return 0\n    left, right = 0, len(heights) - 1\n    left_max, right_max = 0, 0\n    water = 0\n    while left < right:\n        if heights[left] < heights[right]:\n            if heights[left] >= left_max:\n                left_max = heights[left]\n            else:\n                water += left_max - heights[left]\n            left += 1\n        else:\n            if heights[right] >= right_max:\n                right_max = heights[right]\n            else:\n                water += right_max - heights[right]\n            right -= 1\n    return water"
+      },
+      {
+        "id": "OPUS_09_binary_tree_max_path_sum",
+        "name": "09. Binary Tree: Maximum Path Sum Any-to-Any (with Negative Nodes)",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 3: unterminated string literal (detected at line 3) -> We need to implement a recursive solution that computes the maximum path sum. The idea: for each node, we compute the maximum gain from left and right subtrees, then the path sum through that node is node.val + left_gain + right_gain. But we also need to consider paths that go through that node but don't necessarily include both children. Actually, the standard solution is to return the maximum gain from a subtree (which could be a path starting at that node and going down to either left or right) and also compute the maximum path sum that goes through that node (which could be a path that goes from left subtree to node to right subtree). We need to keep track of the global maximum.",
+        "tps": 11.12,
+        "latency_ms": 92731.04,
+        "code": "We need to write a function `max_path_sum_tree(root: dict | None) -> int` that returns the maximum path sum of any non-empty path in a binary tree represented as dicts. The dict has keys 'v', 'l', 'r'. The path can be any non-empty path, meaning it can start and end at any nodes, but must be a contiguous path from some node to another node along the tree edges. In a binary tree, a path is a sequence of nodes where each adjacent pair is connected by an edge. The maximum path sum is the maximum sum of values along such a path.\n\nWe need to implement a recursive solution. The standard approach: for each node, compute the maximum gain from left and right subtrees (i.e., the maximum sum of a path starting at that node and going down to either left or right). Then the maximum path sum that goes through that node could be node.val + left_gain + right_gain. But we also need to consider paths that go through that node but don't necessarily include both children. Actually, the standard solution is to return the maximum gain from a subtree (which could be a path starting at that node and going down to either left or right) and also compute the maximum path sum that goes through that node (which could be a path that goes from left subtree to node to right subtree). We need to keep track of the global maximum.\n\nWe need to write a function that does this. The function should handle None root (return 0? But the problem says non-empty path, so if root is None, maybe return 0? But the function signature says root: dict | None, and returns int. If root is None, there is no non-empty path, so maybe return 0? But the problem says \"non-empty path\", so if root is None, there is no path, so maybe return 0? However, the test cases might not include None. But we should handle it gracefully. Usually, max path sum in a tree with no nodes is 0 or -inf? But the problem says \"non-empty path\", so if root is None, there is no path, so maybe return 0? But the function returns int, and we need to return the maximum path sum. If there are no nodes, maybe return 0? But the problem says \"non-empty path\", so if there are no nodes, there is no non-empty path, so maybe return 0? However, the typical"
+      },
+      {
+        "id": "OPUS_10_dpll_sat_solver_cnf",
+        "name": "10. DPLL SAT Solver for CNF Formulas",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 22: unterminated string literal (detected at line 22) -> 5. Alternatively, we can use a recursive function that tries to assign each variable, and if we can't, we return None.",
+        "tps": 11.89,
+        "latency_ms": 96814.59,
+        "code": "We need to write a function solve_sat_cnf(num_vars: int, clauses: list[list[int]]) -> dict[int, bool] | None that solves SAT in CNF. Variables are 1-indexed. Return dict mapping each variable 1..num_vars to True/False if SAT, or None if UNSAT.\n\nWe need to implement a SAT solver. Since it's a boolean satisfiability problem in CNF, we can use backtracking search. But we need to be careful about efficiency and correctness. The problem likely expects a simple backtracking solver that tries assignments for each variable and checks if the clauses are satisfied. Since it's a formal verifier, we need to ensure the code runs without syntax errors.\n\nWe can implement a recursive function that tries to assign each variable from 1 to num_vars. For each variable, we try both True and False, and check if the current partial assignment satisfies all clauses. If a clause is satisfied, we continue. If we reach a dead end, we backtrack. If we assign all variables and all clauses are satisfied, we return the assignment dict. If we exhaust all possibilities and none work, return None.\n\nWe need to be careful about the clause representation: clauses are list[list[int]] where each clause is a list of integers (variables). In CNF, a clause is a disjunction of literals. So a clause like [1, -2] means (x1 OR NOT x2). But the problem says variables are 1-indexed, and clauses are list[list[int]]. It doesn't mention negation signs. Usually in SAT, clauses are given as positive integers representing variables, and negation is indicated by negative numbers. But the problem statement says \"clauses: list[list[int]]\". It doesn't specify how negation is represented. However, typical SAT problems in CNF use integers where positive means variable, negative means negated variable. But the problem says \"variables are 1-indexed\". It doesn't mention negative numbers. But the previous attempt failed with syntax error, so we need to write correct code.\n\nWe need to assume that clauses are given as lists of integers, and we need to interpret them as literals. If a number is positive, it's a variable; if negative, it's negated. But the problem says \"variables are 1-indexed\", so maybe all numbers are positive? But then how to represent negation? Possibly the clauses are just lists of variables, and we need to"
+      }
+    ]
+  }
+}

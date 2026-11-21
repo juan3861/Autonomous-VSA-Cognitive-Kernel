@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-10-23T03:01:24",
+  "architecture": "Two-Tier Heterogeneous (RX 580 8GB Vulkan + Xeon 10C AVX2 Repacked)",
+  "titular_gpu": "rlm-qwen3-8b-v0.1-Q4_K_M",
+  "titular_cpu": "gpt-oss-20b-antidoom.i1-IQ4_XS",
+  "steps": [
+    {
+      "step": "cenario_1_gpu_fast_pass",
+      "tier": 1,
+      "model": "8b-rlm",
+      "status": "PASS",
+      "raw_tps": 13.26,
+      "effective_tps": 603.38,
+      "latency_ms": 5079.68,
+      "output": "{\"status\":\"VERIFIED\",\"final_answer\":\"7\"}"
+    },
+    {
+      "step": "cenario_2_gpu_codigo_formal",
+      "tier": 1,
+      "model": "8b-rlm",
+      "status": "PASS",
+      "raw_tps": 6.16,
+      "effective_tps": 6.55,
+      "latency_ms": 13326.38,
+      "code": "```python\ndef max_soma_nao_adjacente(nums: list[int]) -> int:\n    anterior = 0\n    atual = 0\n    for i in range(len(nums)):\n        novo_atual = max(atual, anterior + nums[i])\n        anterior, atual = atual, novo_atual\n    return atual\n```"
+    },
+    {
+      "step": "cenario_3_cpu_xeon_20b_z3",
+      "tier": 2,
+      "model": "gpt-oss-20b-antidoom",
+      "status": "PASS",
+      "raw_tps": 12.42,
+      "effective_tps": 26.9,
+      "latency_ms": 4344.71,
+      "output": "{\"solution\":{\"x\":10,\"y\":10}}"
+    }
+  ],
+  "gpu_boot": {
+    "status": "ONLINE",
+    "profile_key": "8b-rlm",
+    "model_name": "rlm-qwen3-8b-v0.1-Q4_K_M",
+    "vram_size_gb": 4.68,
+    "quant_type": "Q4_K_M",
+    "port": 8081,
+    "load_time_s": 30.32
+  },
+  "cpu_boot": {
+    "status": "ONLINE",
+    "model_name": "gpt-oss-20b-antidoom",
+    "port": 8083,
+    "load_time_s": 176.2
+  },
+  "final_status": "ALL_TIERS_OPERATIONAL_AND_VERIFIED"
+}

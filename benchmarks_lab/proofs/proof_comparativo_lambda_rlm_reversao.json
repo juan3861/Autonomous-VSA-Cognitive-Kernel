@@ -1,0 +1,65 @@
+{
+  "ibm_grok4_1b": {
+    "candidate": {
+      "id": "ibm_grok4_1b",
+      "name": "IBM-Grok4-UltraFast-Coder-1B",
+      "path": "D:\\AetherMind_Contenders\\IBM-Grok4-UltraFast-Coder-1B.Q4_K_M.gguf",
+      "size_gb": 0.95,
+      "arch": "Dense 1B Compact Coder"
+    },
+    "baseline": {
+      "score_13": 1,
+      "score_opus": 0,
+      "opus_zero_shot": 0,
+      "opus_repaired": 0
+    },
+    "lambda_rlm": {
+      "score_13": 25,
+      "score_opus": 0,
+      "opus_zero_shot": 0,
+      "opus_repaired": 0
+    }
+  },
+  "deepseek_r1_1_5b": {
+    "candidate": {
+      "id": "deepseek_r1_1_5b",
+      "name": "DeepSeek-R1-Distill-Qwen-1.5B",
+      "path": "D:\\AetherMind_Models\\DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf",
+      "size_gb": 1.04,
+      "arch": "Distill 1.5B Reasoning"
+    },
+    "baseline": {
+      "score_13": 6,
+      "score_opus": 0,
+      "opus_zero_shot": 0,
+      "opus_repaired": 0
+    },
+    "lambda_rlm": {
+      "score_13": 25,
+      "score_opus": 2,
+      "opus_zero_shot": 1,
+      "opus_repaired": 1
+    }
+  },
+  "qwen3_1_7b": {
+    "candidate": {
+      "id": "qwen3_1_7b",
+      "name": "Qwen_Qwen3-1.7B-Q6_K",
+      "path": "E:\\models\\Qwen_Qwen3-1.7B-Q6_K.gguf",
+      "size_gb": 1.56,
+      "arch": "Dense 1.7B Q6_K"
+    },
+    "baseline": {
+      "score_13": 22,
+      "score_opus": 0,
+      "opus_zero_shot": 0,
+      "opus_repaired": 0
+    },
+    "lambda_rlm": {
+      "score_13": 36,
+      "score_opus": 4,
+      "opus_zero_shot": 2,
+      "opus_repaired": 2
+    }
+  }
+}

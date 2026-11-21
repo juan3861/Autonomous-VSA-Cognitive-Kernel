@@ -1,0 +1,29 @@
+{
+  "qwen3_30b_iq3_m": {
+    "name": "Qwen3-30B-A3B-IQ3_M",
+    "size_gb": 13.11,
+    "size_bytes": 14076541600,
+    "load_time_s": 90.8,
+    "ram_working_set_gb": 29.28,
+    "pp_tok_s": 14.66,
+    "tg_tok_s": 7.05,
+    "sample_pass_rate": "3/3 (100%)",
+    "cpu_repack_needed": false,
+    "status": "OPERATIONAL_CHAMPION"
+  },
+  "qwen3_30b_q4_k_m": {
+    "name": "Qwen3-30B-A3B-Q4_K_M",
+    "size_gb": 17.35,
+    "size_bytes": 18632184480,
+    "load_time_s": null,
+    "ram_working_set_gb": null,
+    "pp_tok_s": null,
+    "tg_tok_s": null,
+    "sample_pass_rate": "FAIL_LOAD",
+    "cpu_repack_needed": true,
+    "cpu_repack_buffer_bytes": 13830193152,
+    "failure_reason": "unable to allocate CPU_REPACK buffer of size 13830193152 (13.83 GB) on 32GB RAM host without 30GB+ pagefile",
+    "status": "BLOCKED_BY_RAM_REPACK_LIMIT"
+  },
+  "conclusion": "IQ3_M e matematicamente e arquiteturalmente superior para o Xeon E5-2697 v3 com 32 GB RAM, pois executa inferencia nativa sem buffer de CPU_REPACK a 7.05 tok/s, enquanto o Q4_K_M exige 17.35 GB + 13.83 GB de buffer (31.18 GB commit total) inviavel no host fisico."
+}

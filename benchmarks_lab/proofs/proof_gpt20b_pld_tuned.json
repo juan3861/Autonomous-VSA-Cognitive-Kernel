@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-10-22 22:18:40",
+  "model": "gpt-oss-20b-antidoom.i1-IQ4_XS",
+  "pld_config": {
+    "spec_type": "ngram-simple",
+    "spec_ngram_size_n": 3,
+    "spec_ngram_size_m": 16,
+    "draft": 8,
+    "draft_p_min": 0.5
+  },
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 155,
+    "prompt_ms": 6932.526,
+    "prompt_per_token_ms": 44.72597419354839,
+    "prompt_per_second": 22.35837269128165,
+    "predicted_n": 200,
+    "predicted_ms": 22909.54,
+    "predicted_per_token_ms": 114.5477,
+    "predicted_per_second": 8.729987594687627,
+    "draft_n": 73,
+    "draft_n_accepted": 8
+  },
+  "tokens": 200,
+  "elapsed": 29.965667486190796,
+  "sample": "**Priority Queue (Min?Heap) ? implementa??o completa em?Python**  \n*(sem usar `heapq` ? apenas listas e opera??es de heap)*  \n\n```python\nfrom"
+}

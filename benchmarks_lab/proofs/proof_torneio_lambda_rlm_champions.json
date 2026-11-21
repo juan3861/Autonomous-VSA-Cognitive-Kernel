@@ -1,0 +1,1535 @@
+{
+  "timestamp": "2026-10-23T21:56:27",
+  "hardware": "Intel Xeon E5-2680 v4 (14 Cores / 28 Threads Haswell AVX2) - Anti-TDR Safe Tier",
+  "framework": "Lambda-RLM (Typed Functional Combinator Runtime)",
+  "language": "English (100% Native Evaluation)",
+  "contenders": {
+    "ai9stars_g9v3_3b_control": {
+      "name": "ai9stars/G9v3-3B (Control Baseline Lambda-RLM)",
+      "filename": "ai9stars_G9v3-3B-Q4_K_M.gguf",
+      "tier": "Sweet Spot 3B",
+      "arch": "minicpm5",
+      "size_gb": 1.77,
+      "summary": {
+        "score_13_areas": "38/39",
+        "score_13_areas_pct": 97.44,
+        "score_opus_10": "1/10",
+        "score_opus_10_pct": 10.0,
+        "avg_tps": 1.8
+      },
+      "completed": true
+    },
+    "3.0B_gpt5_distill_llama32": {
+      "name": "Jackrong-GPT-5-Distill-Llama3.2-3B",
+      "filename": "GPT-5-Distill-llama3.2-3B-Instruct-Q4_K_M.gguf",
+      "tier": "Sweet Spot 3B",
+      "arch": "llama",
+      "framework": "Lambda-RLM",
+      "size_gb": 1.88,
+      "part1_13_areas": {
+        "01_triage": {
+          "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_01_1",
+              "name": "Infra Emergency Classification",
+              "passed": true,
+              "tps": 0.24,
+              "latency_ms": 12532.63,
+              "output_preview": "INFRA_EMERGENCY"
+            },
+            {
+              "id": "EN_01_2",
+              "name": "Complexity Tier Dispatch",
+              "passed": true,
+              "tps": 0.34,
+              "latency_ms": 5808.75,
+              "output_preview": "{\"tier\": 2}"
+            },
+            {
+              "id": "EN_01_3",
+              "name": "Rapid Lexical Extraction",
+              "passed": true,
+              "tps": 0.4,
+              "latency_ms": 5030.56,
+              "output_preview": "450|9981"
+            }
+          ]
+        },
+        "02_code_engineering": {
+          "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_02_1",
+              "name": "Exact Binary Search",
+              "passed": true,
+              "tps": 6.71,
+              "latency_ms": 10887.19,
+              "output_preview": "def busca_binaria(arr, x):     left, right = 0, len(arr) - 1     while left <= right:         mid = (left + right) // 2 "
+            },
+            {
+              "id": "EN_02_2",
+              "name": "Normalized Palindrome Function",
+              "passed": true,
+              "tps": 4.05,
+              "latency_ms": 6911.39,
+              "output_preview": "def eh_palindromo(s):     s = ''.join(c for c in s if c.isalnum()).lower()     return s == s[::-1]"
+            },
+            {
+              "id": "EN_02_3",
+              "name": "1D DP Non-Adjacent Max Sum",
+              "passed": true,
+              "tps": 5.89,
+              "latency_ms": 10692.6,
+              "output_preview": "def max_nao_adjacente(nums):     if not nums:         return 0     dp = [0] * len(nums)     dp[0] = nums[0]     dp[1] = "
+            }
+          ]
+        },
+        "03_math_and_proofs": {
+          "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_03_1",
+              "name": "Symbolic Derivative",
+              "passed": true,
+              "tps": 1.26,
+              "latency_ms": 5556.43,
+              "output_preview": "{\"derivative\": \"3*x^2 - 10*x\"}"
+            },
+            {
+              "id": "EN_03_2",
+              "name": "Linear System Solution",
+              "passed": true,
+              "tps": 1.15,
+              "latency_ms": 6108.46,
+              "output_preview": "```json {\"x\": 10, \"y\": 10} ```"
+            },
+            {
+              "id": "EN_03_3",
+              "name": "De Morgan Law SMT Check",
+              "passed": false,
+              "tps": 0.22,
+              "latency_ms": 4451.54,
+              "output_preview": "INVALID"
+            }
+          ]
+        },
+        "04_os_automation_rpa": {
+          "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_04_1",
+              "name": "Closed-Loop OCR Policy",
+              "passed": false,
+              "tps": 0.21,
+              "latency_ms": 4693.64,
+              "output_preview": "SLEEP"
+            },
+            {
+              "id": "EN_04_2",
+              "name": "Safe Process Query Command",
+              "passed": true,
+              "tps": 0.64,
+              "latency_ms": 4717.32,
+              "output_preview": "`Get-Process`"
+            },
+            {
+              "id": "EN_04_3",
+              "name": "Isolated Browser Window Policy",
+              "passed": true,
+              "tps": 0.41,
+              "latency_ms": 4921.31,
+              "output_preview": "ISOLATED"
+            }
+          ]
+        },
+        "05_perennial_memory": {
+          "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_05_1",
+              "name": "Knowledge Graph Triples Extraction",
+              "passed": true,
+              "tps": 1.65,
+              "latency_ms": 6053.4,
+              "output_preview": "(Xeon E5-2697 v3 | has | 14 physical cores)"
+            },
+            {
+              "id": "EN_05_2",
+              "name": "Temporal Conflict Resolution",
+              "passed": true,
+              "tps": 0.19,
+              "latency_ms": 5138.66,
+              "output_preview": "8083"
+            },
+            {
+              "id": "EN_05_3",
+              "name": "Hardware Entity Deduplication",
+              "passed": false,
+              "tps": 0.2,
+              "latency_ms": 4889.84,
+              "output_preview": "NO"
+            }
+          ]
+        },
+        "06_metacognition": {
+          "name": "06. Metacognition (Self-Correction & LTI Stability)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_06_1",
+              "name": "Contradiction Detection",
+              "passed": false,
+              "tps": 0.36,
+              "latency_ms": 5586.62,
+              "output_preview": "CONSISTENT"
+            },
+            {
+              "id": "EN_06_2",
+              "name": "Self-Correction Reasoning",
+              "passed": true,
+              "tps": 0.42,
+              "latency_ms": 4810.48,
+              "output_preview": "7 * 8 = 56."
+            },
+            {
+              "id": "EN_06_3",
+              "name": "LTI State Stability Criterion",
+              "passed": true,
+              "tps": 0.2,
+              "latency_ms": 5084.29,
+              "output_preview": "LESS"
+            }
+          ]
+        },
+        "07_red_team_security": {
+          "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_07_1",
+              "name": "SQL Injection Detection",
+              "passed": true,
+              "tps": 0.24,
+              "latency_ms": 4089.11,
+              "output_preview": "YES"
+            },
+            {
+              "id": "EN_07_2",
+              "name": "Arbitrary Code Execution Audit",
+              "passed": true,
+              "tps": 0.61,
+              "latency_ms": 4905.3,
+              "output_preview": "`json.loads()`"
+            },
+            {
+              "id": "EN_07_3",
+              "name": "Path Traversal Prevention",
+              "passed": false,
+              "tps": 0.24,
+              "latency_ms": 4161.43,
+              "output_preview": "NO"
+            }
+          ]
+        },
+        "08_speech_synthesis_vocal": {
+          "name": "08. Speech Synthesis & Vocal Formatting",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_08_1",
+              "name": "Currency Pronunciation Expansion",
+              "passed": true,
+              "tps": 1.69,
+              "latency_ms": 4746.46,
+              "output_preview": "forty-five dollars and fifty cents"
+            },
+            {
+              "id": "EN_08_2",
+              "name": "Metric Unit Verbalization",
+              "passed": true,
+              "tps": 0.85,
+              "latency_ms": 4680.59,
+              "output_preview": "kilometers per hour"
+            },
+            {
+              "id": "EN_08_3",
+              "name": "SSML Pause Syntax",
+              "passed": true,
+              "tps": 1.02,
+              "latency_ms": 4882.17,
+              "output_preview": "<break time=\"500ms\"/>"
+            }
+          ]
+        },
+        "09_multimodal_vision": {
+          "name": "09. Multimodal & Visual Coordinate Space",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_09_1",
+              "name": "Bounding Box IoU Computation",
+              "passed": false,
+              "tps": 0.17,
+              "latency_ms": 6052.5,
+              "output_preview": "0.0"
+            },
+            {
+              "id": "EN_09_2",
+              "name": "SVG Circle Diameter Calculation",
+              "passed": true,
+              "tps": 0.18,
+              "latency_ms": 5530.68,
+              "output_preview": "50"
+            },
+            {
+              "id": "EN_09_3",
+              "name": "OCR Coordinate Normalization",
+              "passed": true,
+              "tps": 0.37,
+              "latency_ms": 5456.31,
+              "output_preview": "0.5, 0.5"
+            }
+          ]
+        },
+        "10_deliberative_planning": {
+          "name": "10. Deliberative Planning & Dependency Graphs",
+          "passed": 1,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_10_1",
+              "name": "Topological Order Resolution",
+              "passed": false,
+              "tps": 3.27,
+              "latency_ms": 5808.36,
+              "output_preview": "The order in which the tasks must execute is:   **Task C -> Task B -> Task A**"
+            },
+            {
+              "id": "EN_10_2",
+              "name": "Action Precondition Logic",
+              "passed": false,
+              "tps": 3.4,
+              "latency_ms": 5292.72,
+              "output_preview": "The mandatory precondition to delete a file is that the file must exist."
+            },
+            {
+              "id": "EN_10_3",
+              "name": "Circular Dependency Deadlock",
+              "passed": true,
+              "tps": 9.67,
+              "latency_ms": 8581.54,
+              "output_preview": "In this scenario, if Service 1 waits for Service 2 and Service 2 waits for Service 1, a deadlock occurs. This happens be"
+            }
+          ]
+        },
+        "11_scientific_reasoning": {
+          "name": "11. Scientific & Physics Invariants",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_11_1",
+              "name": "Ohm's Law Calculation",
+              "passed": true,
+              "tps": 4.6,
+              "latency_ms": 8041.62,
+              "output_preview": "Using Ohm's Law, V = R * I, we can calculate the voltage V as follows:  V = 10 Ohms * 2 Amperes   V = 20 Volts    So, th"
+            },
+            {
+              "id": "EN_11_2",
+              "name": "Chemical Stoichiometry",
+              "passed": true,
+              "tps": 0.19,
+              "latency_ms": 5382.31,
+              "output_preview": "6"
+            },
+            {
+              "id": "EN_11_3",
+              "name": "Arithmetic Intensity in Roofline Model",
+              "passed": true,
+              "tps": 7.48,
+              "latency_ms": 15498.65,
+              "output_preview": "To calculate the arithmetic intensity, we need to convert the memory transfer from GB to bytes and then divide the FLOPs"
+            }
+          ]
+        },
+        "12_language_and_discourse": {
+          "name": "12. Language & Discourse Logic",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_12_1",
+              "name": "Information Compression",
+              "passed": true,
+              "tps": 1.61,
+              "latency_ms": 4960.26,
+              "output_preview": "Memory bus bandwidth limit reached."
+            },
+            {
+              "id": "EN_12_2",
+              "name": "Syllogistic Deduction",
+              "passed": false,
+              "tps": 0.2,
+              "latency_ms": 4967.79,
+              "output_preview": "NO"
+            },
+            {
+              "id": "EN_12_3",
+              "name": "Coreference Resolution",
+              "passed": true,
+              "tps": 4.18,
+              "latency_ms": 5984.98,
+              "output_preview": "In the sentence \"The GPU completed the kernel because it had enough registers,\" \"it\" refers to the GPU."
+            }
+          ]
+        },
+        "13_hardware_governor": {
+          "name": "13. Hardware Governor & Silicon Limits",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_13_1",
+              "name": "OOM Circuit Breaker",
+              "passed": false,
+              "tps": 2.01,
+              "latency_ms": 5460.74,
+              "output_preview": "The system should trigger the circuit breaker."
+            },
+            {
+              "id": "EN_13_2",
+              "name": "Watchdog Timeout Policy",
+              "passed": true,
+              "tps": 2.63,
+              "latency_ms": 5315.98,
+              "output_preview": "The watchdog should take the action **KILL_OR_RESTART**."
+            },
+            {
+              "id": "EN_13_3",
+              "name": "AVX2 SIMD Lane Width",
+              "passed": true,
+              "tps": 6.64,
+              "latency_ms": 9936.37,
+              "output_preview": "Since each 32-bit single-precision float is 32 bits long, and an AVX2 register is 256 bits long, we can divide 256 by 32"
+            }
+          ]
+        }
+      },
+      "part2_opus_10": {
+        "OPUS_01_regex_pure": {
+          "name": "01. Pure Regex Engine with '.', '*' and '+' (No re module)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 7.67,
+          "error": "FAIL_ASSERTION[5]: assert match_pattern('a', 'a+') is True"
+        },
+        "OPUS_02_parser_unary_power": {
+          "name": "02. Arithmetic Parser without eval() (Unary Minus and Right-Associative '^')",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 13.25,
+          "error": "SyntaxError na linha 65: '(' was never closed -> def precedence_check3(op:"
+        },
+        "OPUS_03_dijkstra_2d_free_edges": {
+          "name": "03. 2D State-Space Dijkstra (Up to K Free Edges)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 8.54,
+          "error": "Timeout excedido (4.0s) - provável loop infinito."
+        },
+        "OPUS_04_max_rectangle_binary_matrix": {
+          "name": "04. Monotonic Stack: Maximal Rectangle of 1s in Binary Matrix",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 9.4,
+          "error": ""
+        },
+        "OPUS_05_bitmask_dp_open_tsp": {
+          "name": "05. Bitmask DP: Minimum Hamiltonian Path (Open TSP)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 9.13,
+          "error": "FAIL_ASSERTION[0]: assert open_tsp([[0, 20, 42, 25], [20, 0, 30, 34], [42, 30, 0, 10], [25, 34, 10, 0]]) == 60"
+        },
+        "OPUS_06_median_two_sorted_arrays": {
+          "name": "06. Partition Search: Median of Two Sorted Arrays",
+          "passed": true,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 9.66,
+          "error": ""
+        },
+        "OPUS_07_longest_valid_parentheses_trap": {
+          "name": "07. Index Stack: Longest Valid Parentheses Substring",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 7.94,
+          "error": ""
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Trapping Rain Water",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 10.21,
+          "error": ""
+        },
+        "OPUS_09_binary_tree_max_path_sum": {
+          "name": "09. Binary Tree: Maximum Path Sum Any-to-Any (with Negative Nodes)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 6.65,
+          "error": "FAIL_ASSERTION[0]: assert max_path_sum_tree({'v': 1, 'l': {'v': 2, 'l': None, 'r': None}, 'r': {'v': 3, 'l': None, 'r': "
+        },
+        "OPUS_10_dpll_sat_solver_cnf": {
+          "name": "10. DPLL SAT Solver for CNF Formulas",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 11.14,
+          "error": "RUNTIME_ERROR[0]: RecursionError: maximum recursion depth exceeded"
+        }
+      },
+      "completed": true,
+      "summary": {
+        "score_13_areas": "29/39",
+        "score_13_areas_pct": 74.36,
+        "score_opus_10": "4/10",
+        "score_opus_10_pct": 40.0,
+        "opus_first_passed": 3,
+        "avg_tps": 4.24
+      }
+    },
+    "4.0B_parable_claude_fable": {
+      "name": "Parable-Qwen3-4B-Claude-Fable-5",
+      "filename": "Parable-Qwen3-4B-Claude-Fable-5-Q4_K_M.gguf",
+      "tier": "Sweet Spot 4B",
+      "arch": "qwen",
+      "framework": "Lambda-RLM",
+      "size_gb": 2.33,
+      "part1_13_areas": {
+        "01_triage": {
+          "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_01_1",
+              "name": "Infra Emergency Classification",
+              "passed": true,
+              "tps": 0.06,
+              "latency_ms": 49542.57,
+              "output_preview": "INFRA_EMERGENCY"
+            },
+            {
+              "id": "EN_01_2",
+              "name": "Complexity Tier Dispatch",
+              "passed": true,
+              "tps": 5.98,
+              "latency_ms": 91473.3,
+              "output_preview": "Okay, the user wants me to summarize the given text concisely. Let me read the original text again.  The task is \"Prove "
+            },
+            {
+              "id": "EN_01_3",
+              "name": "Rapid Lexical Extraction",
+              "passed": true,
+              "tps": 0.29,
+              "latency_ms": 7010.22,
+              "output_preview": "450|9981"
+            }
+          ]
+        },
+        "02_code_engineering": {
+          "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_02_1",
+              "name": "Exact Binary Search",
+              "passed": true,
+              "tps": 1.97,
+              "latency_ms": 35614.07,
+              "output_preview": "def busca_binaria(arr, x):     left = 0     right = len(arr) - 1     while left <= right:         mid = (left + right) /"
+            },
+            {
+              "id": "EN_02_2",
+              "name": "Normalized Palindrome Function",
+              "passed": true,
+              "tps": 0.44,
+              "latency_ms": 52653.41,
+              "output_preview": "def eh_palindromo(s):     return s.lower().replace(\" \", \"\") == s.lower().replace(\" \", \"\")[::-1]"
+            },
+            {
+              "id": "EN_02_3",
+              "name": "1D DP Non-Adjacent Max Sum",
+              "passed": true,
+              "tps": 0.72,
+              "latency_ms": 54435.87,
+              "output_preview": "def max_nao_adjacente(nums):     prev, curr = 0, 0     for num in nums:         temp = max(curr, prev + num)         pre"
+            }
+          ]
+        },
+        "03_math_and_proofs": {
+          "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_03_1",
+              "name": "Symbolic Derivative",
+              "passed": true,
+              "tps": 0.2,
+              "latency_ms": 35326.76,
+              "output_preview": "{\"derivative\": \"3*x^2 - 10*x\"}"
+            },
+            {
+              "id": "EN_03_2",
+              "name": "Linear System Solution",
+              "passed": true,
+              "tps": 0.08,
+              "latency_ms": 52176.4,
+              "output_preview": "{\"x\": 10, \"y\": 10}"
+            },
+            {
+              "id": "EN_03_3",
+              "name": "De Morgan Law SMT Check",
+              "passed": true,
+              "tps": 0.01,
+              "latency_ms": 67845.57,
+              "output_preview": "VALID"
+            }
+          ]
+        },
+        "04_os_automation_rpa": {
+          "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_04_1",
+              "name": "Closed-Loop OCR Policy",
+              "passed": true,
+              "tps": 0.15,
+              "latency_ms": 6474.77,
+              "output_preview": "OCR"
+            },
+            {
+              "id": "EN_04_2",
+              "name": "Safe Process Query Command",
+              "passed": true,
+              "tps": 0.85,
+              "latency_ms": 25735.4,
+              "output_preview": "The exact PowerShell command to get the PID of the process 'llama-server' is `Get-Process`."
+            },
+            {
+              "id": "EN_04_3",
+              "name": "Isolated Browser Window Policy",
+              "passed": true,
+              "tps": 0.05,
+              "latency_ms": 36753.31,
+              "output_preview": "ISOLATED"
+            }
+          ]
+        },
+        "05_perennial_memory": {
+          "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_05_1",
+              "name": "Knowledge Graph Triples Extraction",
+              "passed": true,
+              "tps": 0.29,
+              "latency_ms": 34835.06,
+              "output_preview": "(Xeon E5-2697 v3 | has | 14 physical cores)"
+            },
+            {
+              "id": "EN_05_2",
+              "name": "Temporal Conflict Resolution",
+              "passed": true,
+              "tps": 0.02,
+              "latency_ms": 40345.86,
+              "output_preview": "8083"
+            },
+            {
+              "id": "EN_05_3",
+              "name": "Hardware Entity Deduplication",
+              "passed": true,
+              "tps": 0.01,
+              "latency_ms": 68077.37,
+              "output_preview": "YES"
+            }
+          ]
+        },
+        "06_metacognition": {
+          "name": "06. Metacognition (Self-Correction & LTI Stability)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_06_1",
+              "name": "Contradiction Detection",
+              "passed": true,
+              "tps": 0.04,
+              "latency_ms": 75875.15,
+              "output_preview": "CONTRADICTORY"
+            },
+            {
+              "id": "EN_06_2",
+              "name": "Self-Correction Reasoning",
+              "passed": true,
+              "tps": 0.05,
+              "latency_ms": 19299.04,
+              "output_preview": "56."
+            },
+            {
+              "id": "EN_06_3",
+              "name": "LTI State Stability Criterion",
+              "passed": true,
+              "tps": 0.03,
+              "latency_ms": 32831.4,
+              "output_preview": "LESS"
+            }
+          ]
+        },
+        "07_red_team_security": {
+          "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_07_1",
+              "name": "SQL Injection Detection",
+              "passed": true,
+              "tps": 0.02,
+              "latency_ms": 49198.39,
+              "output_preview": "YES"
+            },
+            {
+              "id": "EN_07_2",
+              "name": "Arbitrary Code Execution Audit",
+              "passed": true,
+              "tps": 0.05,
+              "latency_ms": 62780.69,
+              "output_preview": "json.loads()"
+            },
+            {
+              "id": "EN_07_3",
+              "name": "Path Traversal Prevention",
+              "passed": true,
+              "tps": 0.45,
+              "latency_ms": 82296.04,
+              "output_preview": "YES. The input contains a path traversal attempt to access the /etc/passwd file, which is a common vector for exploiting"
+            }
+          ]
+        },
+        "08_speech_synthesis_vocal": {
+          "name": "08. Speech Synthesis & Vocal Formatting",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_08_1",
+              "name": "Currency Pronunciation Expansion",
+              "passed": true,
+              "tps": 0.17,
+              "latency_ms": 46334.3,
+              "output_preview": "forty-five dollars and fifty cents"
+            },
+            {
+              "id": "EN_08_2",
+              "name": "Metric Unit Verbalization",
+              "passed": true,
+              "tps": 0.12,
+              "latency_ms": 32546.08,
+              "output_preview": "kilometers per hour"
+            },
+            {
+              "id": "EN_08_3",
+              "name": "SSML Pause Syntax",
+              "passed": true,
+              "tps": 0.14,
+              "latency_ms": 35524.32,
+              "output_preview": "<break time=\"500ms\"/>"
+            }
+          ]
+        },
+        "09_multimodal_vision": {
+          "name": "09. Multimodal & Visual Coordinate Space",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_09_1",
+              "name": "Bounding Box IoU Computation",
+              "passed": true,
+              "tps": 1.14,
+              "latency_ms": 9658.96,
+              "output_preview": "The exact Intersection over Union (IoU) is 1.0."
+            },
+            {
+              "id": "EN_09_2",
+              "name": "SVG Circle Diameter Calculation",
+              "passed": true,
+              "tps": 0.02,
+              "latency_ms": 40926.37,
+              "output_preview": "50"
+            },
+            {
+              "id": "EN_09_3",
+              "name": "OCR Coordinate Normalization",
+              "passed": true,
+              "tps": 0.04,
+              "latency_ms": 45708.65,
+              "output_preview": "0.5, 0.5"
+            }
+          ]
+        },
+        "10_deliberative_planning": {
+          "name": "10. Deliberative Planning & Dependency Graphs",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_10_1",
+              "name": "Topological Order Resolution",
+              "passed": false,
+              "tps": 0.31,
+              "latency_ms": 38756.38,
+              "output_preview": "The tasks must execute in the order C -> B -> A."
+            },
+            {
+              "id": "EN_10_2",
+              "name": "Action Precondition Logic",
+              "passed": true,
+              "tps": 1.01,
+              "latency_ms": 26674.85,
+              "output_preview": "The mandatory precondition to delete a file is that the file must exist. Therefore, the answer is FILE_EXISTS."
+            },
+            {
+              "id": "EN_10_3",
+              "name": "Circular Dependency Deadlock",
+              "passed": true,
+              "tps": 0.14,
+              "latency_ms": 28323.07,
+              "output_preview": "Answer: DEADLOCK."
+            }
+          ]
+        },
+        "11_scientific_reasoning": {
+          "name": "11. Scientific & Physics Invariants",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_11_1",
+              "name": "Ohm's Law Calculation",
+              "passed": true,
+              "tps": 2.77,
+              "latency_ms": 9379.93,
+              "output_preview": "Based on Ohm's Law (V = R * I), if resistance R = 10 Ohms and current I = 2 Amperes, the voltage V is 20 V."
+            },
+            {
+              "id": "EN_11_2",
+              "name": "Chemical Stoichiometry",
+              "passed": true,
+              "tps": 0.16,
+              "latency_ms": 6309.62,
+              "output_preview": "6"
+            },
+            {
+              "id": "EN_11_3",
+              "name": "Arithmetic Intensity in Roofline Model",
+              "passed": true,
+              "tps": 2.29,
+              "latency_ms": 55521.47,
+              "output_preview": "The Arithmetic Intensity is calculated as the ratio of the number of floating-point operations to the amount of data tra"
+            }
+          ]
+        },
+        "12_language_and_discourse": {
+          "name": "12. Language & Discourse Logic",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_12_1",
+              "name": "Information Compression",
+              "passed": true,
+              "tps": 0.12,
+              "latency_ms": 56983.6,
+              "output_preview": "Memory bus bandwidth capped."
+            },
+            {
+              "id": "EN_12_2",
+              "name": "Syllogistic Deduction",
+              "passed": true,
+              "tps": 0.03,
+              "latency_ms": 33468.27,
+              "output_preview": "YES"
+            },
+            {
+              "id": "EN_12_3",
+              "name": "Coreference Resolution",
+              "passed": true,
+              "tps": 0.95,
+              "latency_ms": 30658.61,
+              "output_preview": "In the sentence \"In 'The GPU completed the kernel because it had enough registers'\", the word \"it\" refers to the GPU."
+            }
+          ]
+        },
+        "13_hardware_governor": {
+          "name": "13. Hardware Governor & Silicon Limits",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_13_1",
+              "name": "OOM Circuit Breaker",
+              "passed": true,
+              "tps": 0.1,
+              "latency_ms": 30245.28,
+              "output_preview": "CIRCUIT_BREAKER"
+            },
+            {
+              "id": "EN_13_2",
+              "name": "Watchdog Timeout Policy",
+              "passed": true,
+              "tps": 0.98,
+              "latency_ms": 32620.47,
+              "output_preview": "If a child process heartbeat is silent for 3 times the timeout threshold, the watchdog should take the action of KILL_OR"
+            },
+            {
+              "id": "EN_13_3",
+              "name": "AVX2 SIMD Lane Width",
+              "passed": true,
+              "tps": 0.13,
+              "latency_ms": 30094.92,
+              "output_preview": "The answer is 8."
+            }
+          ]
+        }
+      },
+      "part2_opus_10": {
+        "OPUS_01_regex_pure": {
+          "name": "01. Pure Regex Engine with '.', '*' and '+' (No re module)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 3.01,
+          "error": "FAIL_ASSERTION[1]: assert match_pattern('aa', 'a*') is True"
+        },
+        "OPUS_02_parser_unary_power": {
+          "name": "02. Arithmetic Parser without eval() (Unary Minus and Right-Associative '^')",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 4.14,
+          "error": "RUNTIME_ERROR[0]: UnboundLocalError: cannot access local variable 'expr' where it is not associated with a value"
+        },
+        "OPUS_03_dijkstra_2d_free_edges": {
+          "name": "03. 2D State-Space Dijkstra (Up to K Free Edges)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 4.43,
+          "error": "Timeout excedido (4.0s) - provável loop infinito."
+        },
+        "OPUS_04_max_rectangle_binary_matrix": {
+          "name": "04. Monotonic Stack: Maximal Rectangle of 1s in Binary Matrix",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 2.8,
+          "error": ""
+        },
+        "OPUS_05_bitmask_dp_open_tsp": {
+          "name": "05. Bitmask DP: Minimum Hamiltonian Path (Open TSP)",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 2.07,
+          "error": ""
+        },
+        "OPUS_06_median_two_sorted_arrays": {
+          "name": "06. Partition Search: Median of Two Sorted Arrays",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 1.96,
+          "error": "FAIL_ASSERTION[1]: assert float(find_median_sorted([1, 2], [3, 4])) == 2.5"
+        },
+        "OPUS_07_longest_valid_parentheses_trap": {
+          "name": "07. Index Stack: Longest Valid Parentheses Substring",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 1.59,
+          "error": ""
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Trapping Rain Water",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 2.46,
+          "error": ""
+        },
+        "OPUS_09_binary_tree_max_path_sum": {
+          "name": "09. Binary Tree: Maximum Path Sum Any-to-Any (with Negative Nodes)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 2.23,
+          "error": "FAIL_ASSERTION[1]: assert max_path_sum_tree({'v': -10, 'l': {'v': 9, 'l': None, 'r': None}, 'r': {'v': 20, 'l': {'v': 15"
+        },
+        "OPUS_10_dpll_sat_solver_cnf": {
+          "name": "10. DPLL SAT Solver for CNF Formulas",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 3.62,
+          "error": "RUNTIME_ERROR[0]: KeyError: -1"
+        }
+      },
+      "completed": true,
+      "summary": {
+        "score_13_areas": "38/39",
+        "score_13_areas_pct": 97.44,
+        "score_opus_10": "4/10",
+        "score_opus_10_pct": 40.0,
+        "opus_first_passed": 4,
+        "avg_tps": 1.24
+      }
+    },
+    "3.0B_deepseek_r1_llama32": {
+      "name": "DeepSeek-R1-Distill-Llama-3B",
+      "filename": "deepseek-r1-distill-llama-3b-q4_k_m.gguf",
+      "tier": "Sweet Spot 3B",
+      "arch": "llama",
+      "framework": "Lambda-RLM",
+      "size_gb": 1.88,
+      "part1_13_areas": {
+        "01_triage": {
+          "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_01_1",
+              "name": "Infra Emergency Classification",
+              "passed": true,
+              "tps": 0.6,
+              "latency_ms": 5026.27,
+              "output_preview": "INFRA_EMERGENCY"
+            },
+            {
+              "id": "EN_01_2",
+              "name": "Complexity Tier Dispatch",
+              "passed": true,
+              "tps": 0.71,
+              "latency_ms": 5601.96,
+              "output_preview": "``` {\"tier\": 2} ```"
+            },
+            {
+              "id": "EN_01_3",
+              "name": "Rapid Lexical Extraction",
+              "passed": true,
+              "tps": 0.35,
+              "latency_ms": 5785.45,
+              "output_preview": "450|9981"
+            }
+          ]
+        },
+        "02_code_engineering": {
+          "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_02_1",
+              "name": "Exact Binary Search",
+              "passed": true,
+              "tps": 6.74,
+              "latency_ms": 10830.75,
+              "output_preview": "def busca_binaria(arr, x):     left, right = 0, len(arr) - 1     while left <= right:         mid = (left + right) // 2 "
+            },
+            {
+              "id": "EN_02_2",
+              "name": "Normalized Palindrome Function",
+              "passed": true,
+              "tps": 3.71,
+              "latency_ms": 7554.4,
+              "output_preview": "def eh_palindromo(s):     s = ''.join(c for c in s if c.isalnum()).lower()     return s == s[::-1]"
+            },
+            {
+              "id": "EN_02_3",
+              "name": "1D DP Non-Adjacent Max Sum",
+              "passed": true,
+              "tps": 6.04,
+              "latency_ms": 11101.46,
+              "output_preview": "def max_nao_adjacente(nums):     if len(nums) <= 2:         return max(nums)     dp = [0] * len(nums)     dp[0] = nums[0"
+            }
+          ]
+        },
+        "03_math_and_proofs": {
+          "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_03_1",
+              "name": "Symbolic Derivative",
+              "passed": true,
+              "tps": 8.39,
+              "latency_ms": 15736.32,
+              "output_preview": "Given the function f(x) = x^3 - 5*x^2 + 7, we need to find its derivative with respect to x.  To find the derivative, we"
+            },
+            {
+              "id": "EN_03_2",
+              "name": "Linear System Solution",
+              "passed": true,
+              "tps": 10.26,
+              "latency_ms": 28355.51,
+              "output_preview": "### Solution to the System of Equations  We are given two equations:  1. \\( x + y = 20 \\) 2. \\( 2x - y = 10 \\)  To solve"
+            },
+            {
+              "id": "EN_03_3",
+              "name": "De Morgan Law SMT Check",
+              "passed": false,
+              "tps": 0.24,
+              "latency_ms": 4202.88,
+              "output_preview": "INVALID"
+            }
+          ]
+        },
+        "04_os_automation_rpa": {
+          "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_04_1",
+              "name": "Closed-Loop OCR Policy",
+              "passed": false,
+              "tps": 0.2,
+              "latency_ms": 4921.8,
+              "output_preview": "SLEEP."
+            },
+            {
+              "id": "EN_04_2",
+              "name": "Safe Process Query Command",
+              "passed": true,
+              "tps": 6.47,
+              "latency_ms": 7882.53,
+              "output_preview": "The correct answer is:  `Get-Process`  The command to get the PID of a process in PowerShell is `Get-Process`, which ret"
+            },
+            {
+              "id": "EN_04_3",
+              "name": "Isolated Browser Window Policy",
+              "passed": true,
+              "tps": 0.38,
+              "latency_ms": 5295.63,
+              "output_preview": "ISOLATED"
+            }
+          ]
+        },
+        "05_perennial_memory": {
+          "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_05_1",
+              "name": "Knowledge Graph Triples Extraction",
+              "passed": true,
+              "tps": 1.81,
+              "latency_ms": 5523.21,
+              "output_preview": "(Xeon E5-2697 v3 | has | 14 physical cores)"
+            },
+            {
+              "id": "EN_05_2",
+              "name": "Temporal Conflict Resolution",
+              "passed": true,
+              "tps": 0.2,
+              "latency_ms": 4907.31,
+              "output_preview": "8083"
+            },
+            {
+              "id": "EN_05_3",
+              "name": "Hardware Entity Deduplication",
+              "passed": false,
+              "tps": 0.21,
+              "latency_ms": 4728.94,
+              "output_preview": "NO"
+            }
+          ]
+        },
+        "06_metacognition": {
+          "name": "06. Metacognition (Self-Correction & LTI Stability)",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_06_1",
+              "name": "Contradiction Detection",
+              "passed": false,
+              "tps": 0.41,
+              "latency_ms": 4835.62,
+              "output_preview": "CONSISTENT."
+            },
+            {
+              "id": "EN_06_2",
+              "name": "Self-Correction Reasoning",
+              "passed": true,
+              "tps": 4.39,
+              "latency_ms": 6148.88,
+              "output_preview": "To verify the statement, let's calculate 7 multiplied by 8:  7 * 8 = 56  So, the correct answer is indeed 56."
+            },
+            {
+              "id": "EN_06_3",
+              "name": "LTI State Stability Criterion",
+              "passed": true,
+              "tps": 0.21,
+              "latency_ms": 4716.68,
+              "output_preview": "LESS"
+            }
+          ]
+        },
+        "07_red_team_security": {
+          "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_07_1",
+              "name": "SQL Injection Detection",
+              "passed": true,
+              "tps": 0.0,
+              "latency_ms": 60578822.28,
+              "output_preview": "**YES**  This query is vulnerable to SQL injection because it directly concatenates the user input into the SQL query wi"
+            },
+            {
+              "id": "EN_07_2",
+              "name": "Arbitrary Code Execution Audit",
+              "passed": true,
+              "tps": 0.53,
+              "latency_ms": 7541.57,
+              "output_preview": "**json.loads()**"
+            },
+            {
+              "id": "EN_07_3",
+              "name": "Path Traversal Prevention",
+              "passed": true,
+              "tps": 0.15,
+              "latency_ms": 6470.95,
+              "output_preview": "**YES**"
+            }
+          ]
+        },
+        "08_speech_synthesis_vocal": {
+          "name": "08. Speech Synthesis & Vocal Formatting",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_08_1",
+              "name": "Currency Pronunciation Expansion",
+              "passed": true,
+              "tps": 3.44,
+              "latency_ms": 5521.16,
+              "output_preview": "The number '$45.50' should be expanded as 'forty-five dollars and fifty cents'."
+            },
+            {
+              "id": "EN_08_2",
+              "name": "Metric Unit Verbalization",
+              "passed": true,
+              "tps": 0.83,
+              "latency_ms": 4805.53,
+              "output_preview": "kilometers per hour"
+            },
+            {
+              "id": "EN_08_3",
+              "name": "SSML Pause Syntax",
+              "passed": true,
+              "tps": 1.1,
+              "latency_ms": 4561.45,
+              "output_preview": "<break time=\"500ms\"/>"
+            }
+          ]
+        },
+        "09_multimodal_vision": {
+          "name": "09. Multimodal & Visual Coordinate Space",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_09_1",
+              "name": "Bounding Box IoU Computation",
+              "passed": true,
+              "tps": 13.24,
+              "latency_ms": 23118.97,
+              "output_preview": "To find the Intersection over Union (IoU) of two identical boxes, we can follow these steps:  1. **Define the Boxes:**  "
+            },
+            {
+              "id": "EN_09_2",
+              "name": "SVG Circle Diameter Calculation",
+              "passed": true,
+              "tps": 0.24,
+              "latency_ms": 4137.4,
+              "output_preview": "50"
+            },
+            {
+              "id": "EN_09_3",
+              "name": "OCR Coordinate Normalization",
+              "passed": true,
+              "tps": 3.95,
+              "latency_ms": 18737.85,
+              "output_preview": "To find the normalized coordinates, we need to divide the element center coordinates by the screen resolution.  Given: -"
+            }
+          ]
+        },
+        "10_deliberative_planning": {
+          "name": "10. Deliberative Planning & Dependency Graphs",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_10_1",
+              "name": "Topological Order Resolution",
+              "passed": false,
+              "tps": 11.35,
+              "latency_ms": 14620.42,
+              "output_preview": "To determine the correct order of execution for the tasks, we can analyze the dependencies as follows:  1. **Task A requ"
+            },
+            {
+              "id": "EN_10_2",
+              "name": "Action Precondition Logic",
+              "passed": true,
+              "tps": 3.34,
+              "latency_ms": 5385.23,
+              "output_preview": "To delete a file, the mandatory precondition is that the file **exists**."
+            },
+            {
+              "id": "EN_10_3",
+              "name": "Circular Dependency Deadlock",
+              "passed": true,
+              "tps": 14.65,
+              "latency_ms": 23202.2,
+              "output_preview": "**Deadlock Analysis**  ### **Context:**  Two services, Service 1 and Service 2, are waiting for each other to complete t"
+            }
+          ]
+        },
+        "11_scientific_reasoning": {
+          "name": "11. Scientific & Physics Invariants",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_11_1",
+              "name": "Ohm's Law Calculation",
+              "passed": true,
+              "tps": 5.99,
+              "latency_ms": 9517.39,
+              "output_preview": "To find the voltage V, we can use Ohm's Law:  V = R * I  Given: - Resistance R = 10 Ohms - Current I = 2 Amperes  Substi"
+            },
+            {
+              "id": "EN_11_2",
+              "name": "Chemical Stoichiometry",
+              "passed": false,
+              "tps": 0.2,
+              "latency_ms": 5073.11,
+              "output_preview": "2"
+            },
+            {
+              "id": "EN_11_3",
+              "name": "Arithmetic Intensity in Roofline Model",
+              "passed": true,
+              "tps": 8.35,
+              "latency_ms": 13406.26,
+              "output_preview": "Given: - **GFLOPs (Floating-Point Operations per Second):** 100 GFLOPs - **Memory Transferred (in GB):** 20 GB  **Calcul"
+            }
+          ]
+        },
+        "12_language_and_discourse": {
+          "name": "12. Language & Discourse Logic",
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_12_1",
+              "name": "Information Compression",
+              "passed": true,
+              "tps": 1.48,
+              "latency_ms": 4718.84,
+              "output_preview": "Memory bus bandwidth exceeded."
+            },
+            {
+              "id": "EN_12_2",
+              "name": "Syllogistic Deduction",
+              "passed": true,
+              "tps": 0.2,
+              "latency_ms": 4917.05,
+              "output_preview": "YES."
+            },
+            {
+              "id": "EN_12_3",
+              "name": "Coreference Resolution",
+              "passed": true,
+              "tps": 6.42,
+              "latency_ms": 6698.86,
+              "output_preview": "In the sentence \"In 'The GPU completed the kernel because it had enough registers', what does 'it' refer to?\"  The prono"
+            }
+          ]
+        },
+        "13_hardware_governor": {
+          "name": "13. Hardware Governor & Silicon Limits",
+          "passed": 2,
+          "total": 3,
+          "tests": [
+            {
+              "id": "EN_13_1",
+              "name": "OOM Circuit Breaker",
+              "passed": false,
+              "tps": 11.21,
+              "latency_ms": 8476.17,
+              "output_preview": "I would classify this text as:  **Technical/Engineering Decision**  More specifically, it appears to be a decision-makin"
+            },
+            {
+              "id": "EN_13_2",
+              "name": "Watchdog Timeout Policy",
+              "passed": true,
+              "tps": 9.72,
+              "latency_ms": 8537.48,
+              "output_preview": "Based on the provided context, when a child process's heartbeat is silent for 3 times the timeout threshold, the watchdo"
+            },
+            {
+              "id": "EN_13_3",
+              "name": "AVX2 SIMD Lane Width",
+              "passed": true,
+              "tps": 9.8,
+              "latency_ms": 15619.2,
+              "output_preview": "To determine how many 32-bit single-precision float elements fit into one 256-bit AVX2 register, we can use the followin"
+            }
+          ]
+        }
+      },
+      "part2_opus_10": {
+        "OPUS_01_regex_pure": {
+          "name": "01. Pure Regex Engine with '.', '*' and '+' (No re module)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 2.05,
+          "error": "FAIL_ASSERTION[5]: assert match_pattern('a', 'a+') is True"
+        },
+        "OPUS_02_parser_unary_power": {
+          "name": "02. Arithmetic Parser without eval() (Unary Minus and Right-Associative '^')",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 8.95,
+          "error": "RUNTIME_ERROR[0]: IndexError: pop from empty list"
+        },
+        "OPUS_03_dijkstra_2d_free_edges": {
+          "name": "03. 2D State-Space Dijkstra (Up to K Free Edges)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 7.16,
+          "error": "FAIL_ASSERTION[0]: assert min_cost_k_free(4, [(0, 1, 10), (1, 2, 20), (2, 3, 30), (0, 3, 100)], 1) == 30"
+        },
+        "OPUS_04_max_rectangle_binary_matrix": {
+          "name": "04. Monotonic Stack: Maximal Rectangle of 1s in Binary Matrix",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 6.52,
+          "error": ""
+        },
+        "OPUS_05_bitmask_dp_open_tsp": {
+          "name": "05. Bitmask DP: Minimum Hamiltonian Path (Open TSP)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 4.76,
+          "error": "RUNTIME_ERROR[0]: TypeError: 'int' object is not iterable"
+        },
+        "OPUS_06_median_two_sorted_arrays": {
+          "name": "06. Partition Search: Median of Two Sorted Arrays",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 4.09,
+          "error": "RUNTIME_ERROR[0]: IndexError: list index out of range"
+        },
+        "OPUS_07_longest_valid_parentheses_trap": {
+          "name": "07. Index Stack: Longest Valid Parentheses Substring",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 6.04,
+          "error": ""
+        },
+        "OPUS_08_trapping_rain_water": {
+          "name": "08. Two-Pointers: Trapping Rain Water",
+          "passed": true,
+          "first_passed": true,
+          "attempts": 1,
+          "tps": 7.59,
+          "error": ""
+        },
+        "OPUS_09_binary_tree_max_path_sum": {
+          "name": "09. Binary Tree: Maximum Path Sum Any-to-Any (with Negative Nodes)",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 4.34,
+          "error": "FAIL_ASSERTION[0]: assert max_path_sum_tree({'v': 1, 'l': {'v': 2, 'l': None, 'r': None}, 'r': {'v': 3, 'l': None, 'r': "
+        },
+        "OPUS_10_dpll_sat_solver_cnf": {
+          "name": "10. DPLL SAT Solver for CNF Formulas",
+          "passed": false,
+          "first_passed": false,
+          "attempts": 2,
+          "tps": 5.57,
+          "error": "RUNTIME_ERROR[0]: KeyError: -2"
+        }
+      },
+      "completed": true,
+      "summary": {
+        "score_13_areas": "32/39",
+        "score_13_areas_pct": 82.05,
+        "score_opus_10": "3/10",
+        "score_opus_10_pct": 30.0,
+        "opus_first_passed": 3,
+        "avg_tps": 4.69
+      }
+    }
+  }
+}

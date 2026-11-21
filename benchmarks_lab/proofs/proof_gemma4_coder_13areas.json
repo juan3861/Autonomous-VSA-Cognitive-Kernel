@@ -1,0 +1,57 @@
+{
+  "model": {
+    "id": "yuxinlu1_gemma4_coder_fable5",
+    "name": "gemma-4-12B-coder-fable5-composer2.5-v1",
+    "maintainer": "yuxinlu1",
+    "repo": "yuxinlu1/gemma-4-12B-coder-fable5-composer2.5-v1-GGUF",
+    "filename": "gemma4-coding-Q4_K_M.gguf",
+    "size_gb": 6.87,
+    "teacher": "Fable 5 Coder + Composer 2.5",
+    "arch": "Gemma 4 12B Dense",
+    "quant": "Q4_K_M"
+  },
+  "speeds": {
+    "prompt_per_second": 9.49,
+    "predicted_per_second": 4.46,
+    "boot_seconds": 59
+  },
+  "areas_13": {
+    "passed": 33,
+    "total": 39,
+    "pct": 84.62,
+    "perfect_areas_count": 8,
+    "details": {
+      "01_reflexo_triagem": {"name": "Reflexo / Triagem Rápida", "passed": 3, "total": 3},
+      "02_engenharia_codigo": {"name": "Engenharia de Código & Algoritmos", "passed": 3, "total": 3},
+      "03_matematica_provas": {"name": "Matemática & Provas", "passed": 2, "total": 3},
+      "04_automacao_so_rpa": {"name": "Automação de SO / RPA", "passed": 3, "total": 3},
+      "05_memoria_perene": {"name": "Memória Perene (Conhecimento)", "passed": 2, "total": 3},
+      "06_metacognicao": {"name": "Metacognição (Auto-correção)", "passed": 1, "total": 3},
+      "07_cadinho_redteam": {"name": "Cadinho Red-Team (Fuzzing/Segurança)", "passed": 3, "total": 3},
+      "08_sintese_vocal": {"name": "Síntese Vocal (Normalização)", "passed": 2, "total": 3},
+      "09_multimodal_visao": {"name": "Multimodal & Visão (OCR/Layout)", "passed": 3, "total": 3},
+      "10_planejamento_deliberativo": {"name": "Planejamento Deliberativo", "passed": 3, "total": 3},
+      "11_raciocinio_cientifico": {"name": "Raciocínio Científico", "passed": 3, "total": 3},
+      "12_linguagem_discurso": {"name": "Linguagem & Discurso", "passed": 2, "total": 3},
+      "13_governador_hardware": {"name": "Governador de Hardware & Recursos", "passed": 3, "total": 3}
+    }
+  },
+  "opus_10": {
+    "passed": 4,
+    "total": 10,
+    "pct": 40.0,
+    "details": {
+      "OPUS_01_regex_plus_star_dot": "FAIL",
+      "OPUS_02_parser_unario_potencia_direita": "FAIL",
+      "OPUS_03_dijkstra_k_pedagios_gratis": "FAIL",
+      "OPUS_04_maior_retangulo_matriz_binaria": "PASS (AST & pytest)",
+      "OPUS_05_bitmask_dp_tsp_aberto": "PASS (AST & pytest)",
+      "OPUS_06_mediana_dois_arrays_ordenados": "FAIL",
+      "OPUS_07_maior_parenteses_valido_trap": "PASS (AST & pytest)",
+      "OPUS_08_trapping_rain_water": "PASS (AST & pytest)",
+      "OPUS_09_arvore_caminho_maximo_negativos": "FAIL",
+      "OPUS_10_solver_dpll_sat_cnf": "FAIL"
+    }
+  },
+  "timestamp": "2026-11-04 22:57:00"
+}

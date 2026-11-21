@@ -1,0 +1,562 @@
+{
+  "timestamp": "2026-10-23T14:42:45",
+  "model": "ai9stars/G9v3-3B",
+  "quant": "Q4_K_M (1.77 GB)",
+  "language": "English (100% Native Evaluation)",
+  "hardware": "AMD Radeon RX 580 8GB Vulkan Bare-Metal",
+  "part1_13_areas": {
+    "01_triage": {
+      "name": "01. Reflex / Triage (Intent & Rapid Dispatch)",
+      "passed": 2,
+      "total": 3,
+      "score_str": "2/3",
+      "tests": [
+        {
+          "id": "EN_01_1",
+          "name": "Infra Emergency Classification",
+          "passed": false,
+          "tps": 14.4,
+          "latency_ms": 1388.75,
+          "output": "ALERT: PostgreSQL stopped because disk is full."
+        },
+        {
+          "id": "EN_01_2",
+          "name": "Complexity Tier Dispatch",
+          "passed": true,
+          "tps": 22.26,
+          "latency_ms": 5749.89,
+          "output": "Gödel's Incompleteness Theorem states that in any consistent formal system capable of expressing arithmetic, there are statements that cannot be proven within t"
+        },
+        {
+          "id": "EN_01_3",
+          "name": "Rapid Lexical Extraction",
+          "passed": true,
+          "tps": 12.76,
+          "latency_ms": 861.99,
+          "output": "450|9981"
+        }
+      ]
+    },
+    "02_code_engineering": {
+      "name": "02. Code Engineering (Refactor, Syntax, Algorithms)",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_02_1",
+          "name": "Exact Binary Search",
+          "passed": true,
+          "tps": 21.7,
+          "latency_ms": 4243.27,
+          "output": "```python\ndef  busca_binaria(arr, x):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == x:\n         "
+        },
+        {
+          "id": "EN_02_2",
+          "name": "Normalized Palindrome Function",
+          "passed": true,
+          "tps": 17.18,
+          "latency_ms": 2111.12,
+          "output": "```python\ndef  eh_palindromo(s):\n    s = s.replace(\" \", \"\").lower()\n    return s == s[::-1]\n\n```"
+        },
+        {
+          "id": "EN_02_3",
+          "name": "1D DP Non-Adjacent Max Sum",
+          "passed": true,
+          "tps": 21.52,
+          "latency_ms": 4541.98,
+          "output": "```python\ndef  max_nao_adjacente(nums):\n    if not nums:\n        return 0\n    if len(nums) == 1:\n        return nums[0]\n    prev2 = 0\n    prev1 = 0\n    for num "
+        }
+      ]
+    },
+    "03_math_and_proofs": {
+      "name": "03. Mathematics & Formal Proofs (SymPy / Z3)",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_03_1",
+          "name": "Symbolic Derivative",
+          "passed": true,
+          "tps": 19.37,
+          "latency_ms": 2684.82,
+          "output": "What is the derivative of f(x) = x^3 - 5*x^2 + 7 with respect to x? Answer in JSON format: {\"derivative\": \"3*x^2 - 10*x\"}."
+        },
+        {
+          "id": "EN_03_2",
+          "name": "Linear System Solution",
+          "passed": true,
+          "tps": 20.07,
+          "latency_ms": 2242.34,
+          "output": "Solve for x and y: x + y = 20 and 2*x - y = 10. Answer in JSON: {\"x\": 10, \"y\": 10}."
+        },
+        {
+          "id": "EN_03_3",
+          "name": "De Morgan Law SMT Check",
+          "passed": true,
+          "tps": 21.81,
+          "latency_ms": 3577.63,
+          "output": "We need to determine if the formula ¬(A ∧ B) is equivalent to (¬A ∨ ¬B). This is a logical equivalence question. In classical logic, De Morgan's laws state that"
+        }
+      ]
+    },
+    "04_os_automation_rpa": {
+      "name": "04. OS Automation & RPA (Closed-Loop Vision / Desktop)",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_04_1",
+          "name": "Closed-Loop OCR Policy",
+          "passed": true,
+          "tps": 22.54,
+          "latency_ms": 5677.79,
+          "output": "The robust closed-loop RPA protocol requires that the agent must first verify the button's existence and accessibility before interacting with it. This is a fun"
+        },
+        {
+          "id": "EN_04_2",
+          "name": "Safe Process Query Command",
+          "passed": true,
+          "tps": 22.66,
+          "latency_ms": 5648.02,
+          "output": "I need to find the exact PowerShell command to get the PID of a process named 'llama-server'. Let me think about this...\n\nThe command to get the process ID of a"
+        },
+        {
+          "id": "EN_04_3",
+          "name": "Isolated Browser Window Policy",
+          "passed": true,
+          "tps": 19.5,
+          "latency_ms": 1948.67,
+          "output": "When automating browser workflows, should actions run in an isolated new window or interfere with the user's active session? Answer with ISOLATED or OVERWRITE."
+        }
+      ]
+    },
+    "05_perennial_memory": {
+      "name": "05. Perennial Memory (Knowledge Graph & GraphRAG)",
+      "passed": 1,
+      "total": 3,
+      "score_str": "1/3",
+      "tests": [
+        {
+          "id": "EN_05_1",
+          "name": "Knowledge Graph Triples Extraction",
+          "passed": true,
+          "tps": 19.95,
+          "latency_ms": 2255.72,
+          "output": "TASK: Extract the subject-predicate-object triple from 'Xeon E5-2697 v3 has 14 physical cores'. Answer in format: (Subject | Predicate | Object)."
+        },
+        {
+          "id": "EN_05_2",
+          "name": "Temporal Conflict Resolution",
+          "passed": false,
+          "tps": 22.41,
+          "latency_ms": 5711.56,
+          "output": "The user is asking for the current port based on the provided memory entries. Let me check the memory:\n\n- Memory A: 'Current port is 8081' (timestamp 10:00)\n- M"
+        },
+        {
+          "id": "EN_05_3",
+          "name": "Hardware Entity Deduplication",
+          "passed": false,
+          "tps": 22.62,
+          "latency_ms": 5658.37,
+          "output": "The user is asking whether \"RX580 8GB\", \"Radeon RX 580\", and \"AMD Polaris 20\" refer to the same GPU hardware subsystem.\n\nI need to analyze these three terms:\n1."
+        }
+      ]
+    },
+    "06_metacognition": {
+      "name": "06. Metacognition (Self-Correction & LTI Stability)",
+      "passed": 2,
+      "total": 3,
+      "score_str": "2/3",
+      "tests": [
+        {
+          "id": "EN_06_1",
+          "name": "Contradiction Detection",
+          "passed": true,
+          "tps": 22.28,
+          "latency_ms": 5746.26,
+          "output": "We need to check if the statement is consistent or contradictory.\n\nThe statement: \"The system has 0 active models in VRAM, and currently uses 4.68 GB of VRAM fo"
+        },
+        {
+          "id": "EN_06_2",
+          "name": "Self-Correction Reasoning",
+          "passed": true,
+          "tps": 21.6,
+          "latency_ms": 3379.24,
+          "output": "The user is asking me to verify the calculation 7 * 8 = 54. I know that 7 * 8 = 56, not 54. So I should correct this and state that the correct answer is 56.\n</"
+        },
+        {
+          "id": "EN_06_3",
+          "name": "LTI State Stability Criterion",
+          "passed": false,
+          "tps": 22.25,
+          "latency_ms": 5751.77,
+          "output": "We are asked: \"In a discrete-time Linear Time-Invariant system h_{t+1} = A*h_t + B*e, for bounded-input bounded-output stability, must the spectral radius rho(A"
+        }
+      ]
+    },
+    "07_red_team_security": {
+      "name": "07. Red-Team & Security Audit (Fuzzing & Vulnerabilities)",
+      "passed": 2,
+      "total": 3,
+      "score_str": "2/3",
+      "tests": [
+        {
+          "id": "EN_07_1",
+          "name": "SQL Injection Detection",
+          "passed": true,
+          "tps": 22.07,
+          "latency_ms": 4213.01,
+          "output": "We need to determine if the query is vulnerable to SQL injection. The query is: SELECT * FROM users WHERE user = '\" + input + \"'\". The input is concatenated dir"
+        },
+        {
+          "id": "EN_07_2",
+          "name": "Arbitrary Code Execution Audit",
+          "passed": true,
+          "tps": 19.37,
+          "latency_ms": 1858.96,
+          "output": "eval() is unsafe because it can execute arbitrary code. json.loads() is safe for JSON deserialization. Answer with only the safe function."
+        },
+        {
+          "id": "EN_07_3",
+          "name": "Path Traversal Prevention",
+          "passed": false,
+          "tps": 22.77,
+          "latency_ms": 5622.13,
+          "output": "The user is asking whether input containing '../../etc/passwd' represents a path traversal attack vector. I need to analyze this carefully.\n\nPath traversal atta"
+        }
+      ]
+    },
+    "08_speech_synthesis_vocal": {
+      "name": "08. Speech Synthesis & Vocal Formatting",
+      "passed": 1,
+      "total": 3,
+      "score_str": "1/3",
+      "tests": [
+        {
+          "id": "EN_08_1",
+          "name": "Currency Pronunciation Expansion",
+          "passed": false,
+          "tps": 22.7,
+          "latency_ms": 5637.94,
+          "output": "<|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant. Respond in a natural and concise manner.\n\n<|start_header_id|>user<|end_header_id|>\n\n<|s"
+        },
+        {
+          "id": "EN_08_2",
+          "name": "Metric Unit Verbalization",
+          "passed": false,
+          "tps": 22.18,
+          "latency_ms": 4103.63,
+          "output": "<|start_header_id|>system<|end_header_id|>\n\nYou are a language model that specializes in expanding technical terms into natural language. Your task is to take a"
+        },
+        {
+          "id": "EN_08_3",
+          "name": "SSML Pause Syntax",
+          "passed": true,
+          "tps": 18.8,
+          "latency_ms": 1702.06,
+          "output": "In standard SSML, what tag represents a 500 millisecond pause? Answer with <break time=\"500ms\"/>."
+        }
+      ]
+    },
+    "09_multimodal_vision": {
+      "name": "09. Multimodal & Visual Coordinate Space",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_09_1",
+          "name": "Bounding Box IoU Computation",
+          "passed": true,
+          "tps": 21.15,
+          "latency_ms": 3593.86,
+          "output": "The user is asking for the IoU between two identical boxes A and B, both defined as [0, 0, 10, 10]. Since they are identical, the intersection is the entire are"
+        },
+        {
+          "id": "EN_09_2",
+          "name": "SVG Circle Diameter Calculation",
+          "passed": true,
+          "tps": 18.97,
+          "latency_ms": 1949.95,
+          "output": "The circle has a radius of 25 pixels. The diameter is twice the radius, so 25 * 2 = 50 pixels.\n\n50"
+        },
+        {
+          "id": "EN_09_3",
+          "name": "OCR Coordinate Normalization",
+          "passed": true,
+          "tps": 22.29,
+          "latency_ms": 5293.29,
+          "output": "Wait, the user is asking for normalized coordinates. The screen resolution is 1920x1080, and the element center is at X=960, Y=540. Normalized coordinates are c"
+        }
+      ]
+    },
+    "10_deliberative_planning": {
+      "name": "10. Deliberative Planning & Dependency Graphs",
+      "passed": 2,
+      "total": 3,
+      "score_str": "2/3",
+      "tests": [
+        {
+          "id": "EN_10_1",
+          "name": "Topological Order Resolution",
+          "passed": false,
+          "tps": 19.0,
+          "latency_ms": 1737.28,
+          "output": "Task A requires Task B. Task B requires Task C. In what order must they execute? Answer: C -> B -> A."
+        },
+        {
+          "id": "EN_10_2",
+          "name": "Action Precondition Logic",
+          "passed": true,
+          "tps": 18.66,
+          "latency_ms": 1554.44,
+          "output": "To delete a file, which precondition is mandatory: file exists or file is compiled? Answer: FILE_EXISTS."
+        },
+        {
+          "id": "EN_10_3",
+          "name": "Circular Dependency Deadlock",
+          "passed": true,
+          "tps": 20.32,
+          "latency_ms": 2263.53,
+          "output": "If Service 1 waits for Service 2, and Service 2 waits for Service 3, and Service 3 waits for Service 1, what failure state occurs? Answer: DEADLOCK."
+        }
+      ]
+    },
+    "11_scientific_reasoning": {
+      "name": "11. Scientific & Physics Invariants",
+      "passed": 1,
+      "total": 3,
+      "score_str": "1/3",
+      "tests": [
+        {
+          "id": "EN_11_1",
+          "name": "Ohm's Law Calculation",
+          "passed": true,
+          "tps": 20.5,
+          "latency_ms": 2634.12,
+          "output": "Ohm's Law states V = R * I. With R = 10 Ohms and I = 2 Amperes, V = 10 * 2 = 20 V. So the answer is 20 V."
+        },
+        {
+          "id": "EN_11_2",
+          "name": "Chemical Stoichiometry",
+          "passed": false,
+          "tps": 9.3,
+          "latency_ms": 752.71,
+          "output": ""
+        },
+        {
+          "id": "EN_11_3",
+          "name": "Arithmetic Intensity in Roofline Model",
+          "passed": false,
+          "tps": 22.48,
+          "latency_ms": 5693.33,
+          "output": "We need to compute Arithmetic Intensity = (FLOPs per byte) * (Bytes transferred per FLOP?) Actually Arithmetic Intensity is defined as FLOPs / (Bytes transferre"
+        }
+      ]
+    },
+    "12_language_and_discourse": {
+      "name": "12. Language & Discourse Logic",
+      "passed": 1,
+      "total": 3,
+      "score_str": "1/3",
+      "tests": [
+        {
+          "id": "EN_12_1",
+          "name": "Information Compression",
+          "passed": false,
+          "tps": 17.09,
+          "latency_ms": 1287.12,
+          "output": "SUMMARY: Memory bus bandwidth reached physical ceiling, unable to transfer more bytes. (5 words)"
+        },
+        {
+          "id": "EN_12_2",
+          "name": "Syllogistic Deduction",
+          "passed": false,
+          "tps": 22.64,
+          "latency_ms": 5653.81,
+          "output": "The user is asking about the support for 256-bit SIMD registers in Intel Xeon E5-2697 v3 processors, specifically in the context of AVX2 support.\n\nAVX2 (Advance"
+        },
+        {
+          "id": "EN_12_3",
+          "name": "Coreference Resolution",
+          "passed": true,
+          "tps": 18.7,
+          "latency_ms": 1657.71,
+          "output": "In 'The GPU completed the kernel because it had enough registers', what does 'it' refer to? Answer: CPU."
+        }
+      ]
+    },
+    "13_hardware_governor": {
+      "name": "13. Hardware Governor & Silicon Limits",
+      "passed": 3,
+      "total": 3,
+      "score_str": "3/3",
+      "tests": [
+        {
+          "id": "EN_13_1",
+          "name": "OOM Circuit Breaker",
+          "passed": true,
+          "tps": 18.38,
+          "latency_ms": 1904.44,
+          "output": "Given the constraints, the system should trigger a circuit breaker to prevent VRAM overflow. The answer is CIRCUIT_BREAKER."
+        },
+        {
+          "id": "EN_13_2",
+          "name": "Watchdog Timeout Policy",
+          "passed": true,
+          "tps": 19.18,
+          "latency_ms": 2033.4,
+          "output": "If a child process heartbeat is silent for 3 times the timeout threshold, what action should the watchdog take? Answer: KILL_OR_RESTART."
+        },
+        {
+          "id": "EN_13_3",
+          "name": "AVX2 SIMD Lane Width",
+          "passed": true,
+          "tps": 18.72,
+          "latency_ms": 1656.08,
+          "output": "How many 32-bit single-precision float elements fit into one 256-bit AVX2 register? Answer: 8."
+        }
+      ]
+    }
+  },
+  "part2_opus_10": {
+    "zero_shot_passes": 1,
+    "final_passes": 1,
+    "repaired_passes": 0,
+    "final_pct": 10.0,
+    "avg_tps": 21.74,
+    "total_time_s": 191.96,
+    "tests": [
+      {
+        "id": "OPUS_01_regex_pure",
+        "name": "01. Pure Regex Engine with '.', '*' and '+' (No re module)",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "FAIL_ASSERTION[1]: assert match_pattern('aa', 'a*') is True",
+        "tps": 22.23,
+        "latency_ms": 15524.34,
+        "code": "```python\ndef  match_pattern(text: str, pattern: str) -> bool:\n    if not pattern:\n        return not text\n    if pattern[0] == '*':\n        return match_pattern(text, pattern[1:]) or match_pattern(text[1:], pattern[1:])\n    if pattern[0] == '.':\n        return len(text) == 1 and match_pattern(text[1:], pattern[1:])\n    if pattern[0] == '+':\n        return len(text) >= 1 and match_pattern(text[1:], pattern[1:])\n    return len(text) >= 1 and text[0] == pattern[0] and match_pattern(text[1:], pattern[1:])\n\n```"
+      },
+      {
+        "id": "OPUS_02_parser_unary_power",
+        "name": "02. Arithmetic Parser without eval() (Unary Minus and Right-Associative '^')",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 54: expected ':' -> if numbers",
+        "tps": 23.57,
+        "latency_ms": 32844.78,
+        "code": "```python\ndef  evaluate_expression(expr: str) -> int:\n    def  parse_expression(s: str, i: int) -> tuple:\n        if  i >=  len(s):\n            return 0, i\n        if  s[i] == '(':\n            val, i =  parse_expression(s, i+1)\n            if  i >=  len(s) or s[i] != ')':\n                raise  ValueError(\"Mismatched parentheses\")\n            return  val, i+1\n        if  s[i] == '-':\n            val, i =  parse_expression(s, i+1)\n            return  -val, i\n        if  s[i] == '^':\n            val, i =  parse_expression(s, i+1)\n            if  i >=  len(s) or s[i] != ')':\n                raise  ValueError(\"Mismatched parentheses\")\n            return  val, i+1\n        if  s[i] == '//':\n            val, i =  parse_expression(s, i+2)\n            return  val // 0 if  val == 0 else  val // 0\n        if  s[i] == '*':\n            val, i =  parse_expression(s, i+1)\n            return  val * 0 if  val == 0 else  val * 0\n        if  s[i] == '/':\n            val, i =  parse_expression(s, i+1)\n            return  val // 0 if  val == 0 else  val // 0\n        if  s[i] == '+':\n            val, i =  parse_expression(s, i+1)\n            return  val + 0\n        if  s[i] == '-':\n\n```"
+      },
+      {
+        "id": "OPUS_03_dijkstra_2d_free_edges",
+        "name": "03. 2D State-Space Dijkstra (Up to K Free Edges)",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "FAIL_ASSERTION[0]: assert min_cost_k_free(4, [(0, 1, 10), (1, 2, 20), (2, 3, 30), (0, 3, 100)], 1) == 30",
+        "tps": 23.08,
+        "latency_ms": 33747.63,
+        "code": "```python\ndef  min_cost_k_free(n: int, edges: list[tuple[int, int, int]], k: int) -> int:\n    from collections import defaultdict\n    adj = defaultdict(list)\n    for u, v, w in edges:\n        adj[u].append((v, w))\n        adj[v].append((u, w))\n    # BFS with priority queue (Dijkstra-like) but we can't use heapq? Wait, we can use heapq.\n    # Actually we can use heapq.\n    import heapq\n    INF = 10**18\n    dist = [INF] * n\n    dist[0] = 0\n    heap = [(0, 0)]\n    # We need to allow up to k zero-cost edges. We can't just use standard Dijkstra.\n    # We can use a modified Dijkstra where we can take up to k zero-cost edges.\n    # But we can't use a simple heap because we need to track how many zero-cost edges used.\n    # We can use a priority queue of (cost, node, used_zero_edges).\n    # But we need to allow up to k zero-cost edges.\n    # We can use a DP approach? Or we can use a priority queue with state (cost, node, used_zero_edges).\n    # But we need to allow up to k zero-cost edges. We can use a priority queue of\n```"
+      },
+      {
+        "id": "OPUS_04_max_rectangle_binary_matrix",
+        "name": "04. Monotonic Stack: Maximal Rectangle of 1s in Binary Matrix",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "FAIL_ASSERTION[0]: assert maximal_rectangle([[1,0,1,0,0],[1,0,1,1,1],[1,1,1,1,1],[1,0,0,1,0]]) == 6",
+        "tps": 22.58,
+        "latency_ms": 17000.61,
+        "code": "```python\ndef  maximal_rectangle(matrix: list[list[int]]) -> int:\n    if not matrix or not matrix[0]:\n        return 0\n    rows, cols = len(matrix), len(matrix[0])\n    dp = [[0] * cols for _ in range(rows)]\n    max_area = 0\n    for i in range(rows):\n        for j in range(cols):\n            if matrix[i][j] == 1:\n                if i == 0 or j == 0:\n                    dp[i][j] = 1\n                else:\n                    dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1\n                max_area = max(max_area, dp[i][j] * (i + j + 1))\n            else:\n                dp[i][j] = 0\n    return max_area\n\n```"
+      },
+      {
+        "id": "OPUS_05_bitmask_dp_open_tsp",
+        "name": "05. Bitmask DP: Minimum Hamiltonian Path (Open TSP)",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "FAIL_ASSERTION[0]: assert open_tsp([[0, 20, 42, 25], [20, 0, 30, 34], [42, 30, 0, 10], [25, 34, 10, 0]]) == 60",
+        "tps": 22.72,
+        "latency_ms": 19021.63,
+        "code": "```python\ndef  open_tsp(dist: list[list[int]]) -> int:\n    n = len(dist)\n    # dp[mask][i] = min cost to visit nodes in mask ending at i\n    dp = [[float('inf')] * n for _ in range(1 << n)]\n    dp[0][0] = 0\n    for mask in range(1 << n):\n        for i in range(n):\n            if not (mask & (1 << i)):\n                continue\n            if dp[mask][i] == float('inf'):\n                continue\n            for j in range(n):\n                if mask & (1 << j):\n                    continue\n                dp[mask | (1 << j)][j] = min(dp[mask | (1 << j)][j], dp[mask][i] + dist[i][j])\n    ans = min(dp[(1 << n) - 1][i] for i in range(n))\n    return ans\n\n```"
+      },
+      {
+        "id": "OPUS_06_median_two_sorted_arrays",
+        "name": "06. Partition Search: Median of Two Sorted Arrays",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "SyntaxError na linha 32: '(' was never closed -> if len(a) == 2 and len(b",
+        "tps": 23.51,
+        "latency_ms": 33868.45,
+        "code": "```python\ndef  find_median_sorted(a: list[int], b: list[int]) -> float:\n    m = len(a)\n    n = len(b)\n    if m == 0 and n == 0:\n        return 0.0\n    if m == 0:\n        return float(b[n//2])\n    if n == 0:\n        return float(a[m//2])\n    if m == 1 and n == 1:\n        return (a[0] + b[0]) / 2.0\n    if m == 1:\n        return (a[0] + b[n//2]) / 2.0\n    if n == 1:\n        return (a[m//2] + b[1]) / 2.0\n    if m == 2 and n == 2:\n        return (a[0] + a[1] + b[0] + b[1]) / 4.0\n    if m == 2:\n        return (a[0] + a[1] + b[n//2]) / 3.0\n    if n == 2:\n        return (a[m//2] + b[0] + b[1]) / 3.0\n    if m == 2 and n == 3:\n        return (a[0] + a[1] + b[0] + b[1] + b[2]) / 5.0\n    if m == 3 and n == 2:\n        return (a[0] + a[1] + b[0] + b[1] + b[2]) / 5.0\n    if m == 2 and n == 4:\n        return (a[0] + a[\n```"
+      },
+      {
+        "id": "OPUS_07_longest_valid_parentheses_trap",
+        "name": "07. Index Stack: Longest Valid Parentheses Substring",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "FAIL_ASSERTION[1]: assert longest_valid_parentheses(')()())') == 4",
+        "tps": 20.86,
+        "latency_ms": 8379.74,
+        "code": "```python\ndef  longest_valid_parentheses(s: str) -> int:\n    stack = []\n    max_len = 0\n    for i, char in enumerate(s):\n        if char == '(':\n            stack.append(i)\n        elif char == ')':\n            if stack:\n                stack.pop()\n                max_len = max(max_len, i - stack[-1] if stack else i)\n    return max_len\n\n```"
+      },
+      {
+        "id": "OPUS_08_trapping_rain_water",
+        "name": "08. Two-Pointers: Trapping Rain Water",
+        "first_passed": true,
+        "final_passed": true,
+        "attempts": 1,
+        "repaired": false,
+        "counterexample": null,
+        "tps": 22.29,
+        "latency_ms": 6641.64,
+        "code": "```python\ndef  trap_rain_water(heights: list[int]) -> int:\n    if not heights:\n        return 0\n    left, right = 0, len(heights) - 1\n    left_max, right_max = heights[left], heights[right]\n    ans = 0\n    while left < right:\n        if left_max < right_max:\n            left += 1\n            left_max = max(left_max, heights[left])\n            ans += left_max - heights[left]\n        else:\n            right -= 1\n            right_max = max(right_max, heights[right])\n            ans += right_max - heights[right]\n    return ans\n\n```"
+      },
+      {
+        "id": "OPUS_09_binary_tree_max_path_sum",
+        "name": "09. Binary Tree: Maximum Path Sum Any-to-Any (with Negative Nodes)",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "FAIL_ASSERTION[0]: assert max_path_sum_tree({'v': 1, 'l': {'v': 2, 'l': None, 'r': None}, 'r': {'v': 3, 'l': None, 'r': None}}) == 6",
+        "tps": 19.53,
+        "latency_ms": 6353.09,
+        "code": "```python\ndef  max_path_sum_tree(root: dict | None) -> int:\n    if root is None:\n        return 0\n    left = max_path_sum_tree(root['l'])\n    right = max_path_sum_tree(root['r'])\n    return max(left, right) + root['v']\n\n```"
+      },
+      {
+        "id": "OPUS_10_dpll_sat_solver_cnf",
+        "name": "10. DPLL SAT Solver for CNF Formulas",
+        "first_passed": false,
+        "final_passed": false,
+        "attempts": 2,
+        "repaired": false,
+        "counterexample": "FAIL_ASSERTION[0]: r1 = solve_sat_cnf(2, [[1, 2], [1, -2], [-1, 2]]); assert isinstance(r1, dict) and r1[1] is True and r1[2] is True",
+        "tps": 17.07,
+        "latency_ms": 18577.45,
+        "code": "```python\ndef  solve_sat_cnf(num_vars: int, clauses: list[list[int]]) -> dict[int, bool] | None:\n    # Implementation goes here\n\n```"
+      }
+    ]
+  },
+  "part1_summary": {
+    "passed": 27,
+    "total": 39,
+    "pct": 69.23,
+    "avg_tps": 20.06,
+    "total_time_s": 131.99
+  }
+}
