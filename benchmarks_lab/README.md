@@ -201,7 +201,11 @@ Evaluated across a full 15-configuration Pareto grid (`Q4_K_M` to `F16`, Section
    * **`Mellum2-12B-A2.5B-Claude-Opus [Q4_K_M]`** ([`yuxinlu1/Mellum2-12B-A2.5B-Claude-4.6-4.8-Opus-Thinking-GGUF`](https://huggingface.co/yuxinlu1/Mellum2-12B-A2.5B-Claude-4.6-4.8-Opus-Thinking-GGUF), `7.52 GB`, MoE 12B / `2.5B` active): **`13.54 tok/s` Xeon CPU TG** (`4s` boot — fastest 12B in Xeon CPU!) + `1/10` Opus (`OPUS_04`).
    * **`Qwen3-14B-GPT-5.2-High-Reasoning-Distill [Q4_K_M]`** ([`TeichAI/Qwen3-14B-GPT-5.2-High-Reasoning-Distill-GGUF`](https://huggingface.co/TeichAI/Qwen3-14B-GPT-5.2-High-Reasoning-Distill-GGUF), `8.38 GB`): **`33/39 (84.62%)`** (`9/13` Perfect) + `1/10` Opus (`OPUS_08`) at `4.78 tok/s` TG Xeon.
    * **`unsloth-Phi-4-reasoning-14B [Q4_K_M]`** ([`unsloth/Phi-4-reasoning-GGUF`](https://huggingface.co/unsloth/Phi-4-reasoning-GGUF/resolve/main/phi-4-reasoning-Q4_K_M.gguf), `8.43 GB`): `3/39` Base ➔ **`31/39 (79.49%)`** (**+28 RLM rescue jump!**) + `1/10` Opus at `6.90 tok/s` TG Xeon.
-   * **`IFM/K2-Horizon-7B [Q4_K_M]`** ([`K2-Horizon-7B-Q4_K_M.gguf`](https://huggingface.co/IFM/K2-Horizon-7B-GGUF/resolve/main/K2-Horizon-7B-Q4_K_M.gguf), `5333.1 MB`): **`37/39 (94.87%)`** (`36/39` Base + `+1` RLM) + `1/10` Opus (`OPUS_08`) at `6.89 tok/s` GPU (`8.06 tok/s` CPU) — outclassed in speed/latency by `K2-Horizon-3.7B`.
+   * **`IFM/K2-Horizon-7B [Q6_K]`** ([`K2-Horizon-7B-Q6_K.gguf`](https://huggingface.co/IFM/K2-Horizon-7B-GGUF/resolve/main/K2-Horizon-7B-Q6_K.gguf), `7052.0 MB`): **`37/39 (94.87%)`** (`36/39` Base + `+1` RLM) + `2/10` Opus (`OPUS_08`, `OPUS_09`) at `5.88 tok/s` GPU (`6.28 tok/s` CPU) — 11/13 gabaritos perfeitos.
+   * **`IFM/K2-Horizon-7B [Q5_K_M]`** ([`K2-Horizon-7B-Q5_K_M.gguf`](https://huggingface.co/IFM/K2-Horizon-7B-GGUF/resolve/main/K2-Horizon-7B-Q5_K_M.gguf), `6166.5 MB`): **`36/39 (92.31%)`** + **`3/10` Opus** (`OPUS_07`, `OPUS_08`, `OPUS_09`) at `6.65 tok/s` GPU (`6.66 tok/s` CPU) — melhor desempenho algorítmico do 7B.
+| **4** | **7.0B** | **`K2-Horizon-7B`** ⚠️ | `Q6_K` | `512K / T:S / FA:on / NGL:20` | 7052.0 | 5.59s | 16.86 | **5.88** | 34.52 | 6.28 | **`36/39`** ➔ **`37/39` (94.87%)** | **`+1`** | 11/13 | `2/10` ➔ **`2/10` (20%)** | `+0` | `OPUS_08`(Base), `OPUS_09`(Base) *(7 timeouts @ 5.88 t/s)* |
+| **5** | **7.0B** | **`K2-Horizon-7B`** ⚠️ | `Q5_K_M` | `512K / T:S / FA:on / NGL:24` | 6166.5 | 4.88s | 19.78 | **6.65** | 32.86 | 6.66 | **`36/39`** ➔ **`36/39` (92.31%)** | **`+0`** | 10/13 | `3/10` ➔ **`3/10` (30%)** | `+0` | `OPUS_07`(Base), `OPUS_08`(Base), `OPUS_09`(Base) *(5 timeouts @ 6.65 t/s)* |
+   * **`IFM/K2-Horizon-7B [Q4_K_M]`** ([`K2-Horizon-7B-Q4_K_M.gguf`](https://huggingface.co/IFM/K2-Horizon-7B-GGUF/resolve/main/K2-Horizon-7B-Q4_K_M.gguf), `5333.1 MB`): **`37/39 (94.87%)`** (`36/39` Base + `+1` RLM) + `1/10` Opus (`OPUS_08`) at `6.89 tok/s` GPU (`8.06 tok/s` CPU).
 
 ---
 
@@ -318,6 +322,8 @@ Each cell reports `Baseline_Passed ➔ Final_Lambda_RLM_Passed` out of `3` forma
 | **1** | **`K2-Horizon-3.7B`** `Q8_0` | `3➔3` | `3➔3` | `2➔2` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | **`0➔3`** | `2➔2` | `3➔3` | `3➔3` | **`2➔3`** | **`2➔3`** | **`32➔37` (+5)** |
 | **2** | **`K2-Horizon-3.7B`** `Q6_K` | `3➔3` | `3➔3` | `2➔2` | `3➔3` | **`2➔3`** | `3➔3` | `3➔3` | **`0➔3`** | `2➔2` | `3➔3` | `3➔3` | **`2➔3`** | **`2➔3`** | **`31➔37` (+6)** |
 | **3** | **`K2-Horizon-3.7B`** `Q5_K_M` | `3➔3` | `3➔3` | `2➔2` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | **`2➔3`** | `2➔2` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | **`36➔37` (+1)** |
+| **4** | **`K2-Horizon-7B`** `Q6_K` | `3➔3` | `3➔3` | `2➔2` | `3➔3` | `3➔3` | **`2➔3`** | `3➔3` | `3➔3` | `2➔2` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | **`36➔37` (+1)** |
+| **5** | **`K2-Horizon-7B`** `Q5_K_M` | `3➔3` | `3➔3` | `1➔1` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | `2➔2` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | **`36➔36` (+0)** |
 | **4** | **`K2-Horizon-7B`** `Q4_K_M` | `3➔3` | `3➔3` | `2➔2` | `3➔3` | `3➔3` | **`2➔3`** | `3➔3` | `3➔3` | `2➔2` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | **`36➔37` (+1)** |
 | **5** | **`Qwen3-1.7B`** `Q8_0` | `3➔3` | **`2➔3`** | `1➔1` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | `2➔2` | **`2➔3`** | `3➔3` | `3➔3` | `3➔3` | `3➔3` | **`34➔36` (+2)** |
 | **6** | **`Qwen3-1.7B`** `Q5_K_M` | `3➔3` | **`2➔3`** | `1➔1` | `3➔3` | `3➔3` | `3➔3` | `3➔3` | **`1➔2`** | `3➔3` | **`2➔3`** | `3➔3` | **`2➔3`** | `3➔3` | **`32➔36` (+4)** |
@@ -369,6 +375,8 @@ Every challenge in the **10 Opus Hard Suite** requires synthesizing a pure Pytho
 | **`K2-Horizon-0.9B`** `Q8_0` 👑 | **900M** | ❌ Fail | ❌ Fail | ❌ Fail | ❌ Fail | ✅ **RLM** 🎯 | ✅ **Base** | ❌ Fail | ✅ **Base** | ❌ Fail | ❌ Fail | **`2 ➔ 3/10` (30%)** |
 | **`K2-Horizon-3.7B`** `Q5_K_M` | **3.7B** | ⏱️ Timeout | ⏱️ Timeout | ❌ Fail | ✅ **Base** | ⏱️ Timeout | ⏱️ Timeout | ✅ **Base** | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | **`2 ➔ 2/10` (20%)** |
 | **`Qwen3-1.7B`** `Q8_0` 👑 | **1.7B** | ❌ Fail | ❌ Fail | ❌ Fail | ❌ Fail | ❌ Fail | ✅ **Base** | ✅ **Base** | ❌ Fail | ❌ Fail | ❌ Fail | **`2 ➔ 2/10` (20%)** |
+| **`K2-Horizon-7B`** `Q6_K` | **7.0B** | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ❌ Fail | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ✅ **Base** | ✅ **Base** | ⏱️ Timeout | **`2 ➔ 2/10` (20%)** |
+| **`K2-Horizon-7B`** `Q5_K_M` | **7.0B** | ❌ Fail | ⏱️ Timeout | ⏱️ Timeout | ❌ Fail | ⏱️ Timeout | ⏱️ Timeout | ✅ **Base** | ✅ **Base** | ✅ **Base** | ⏱️ Timeout | **`3 ➔ 3/10` (30%)** |
 | **`K2-Horizon-7B`** `Q4_K_M` | **7.0B** | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ✅ **Base** | ⏱️ Timeout | ⏱️ Timeout | **`1 ➔ 1/10` (10%)** |
 | **`Qwen3-1.7B`** `Q5_K_M` | **1.7B** | ❌ Fail | ❌ Fail | ❌ Fail | ❌ Fail | ❌ Fail | ✅ **Base** | ❌ Fail | ❌ Fail | ❌ Fail | ❌ Fail | **`1 ➔ 1/10` (10%)** |
 | **`K2-Horizon-3.7B`** `Q4_K_M` | **3.7B** | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ✅ **Base** | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | ⏱️ Timeout | **`1 ➔ 1/10` (10%)** |
