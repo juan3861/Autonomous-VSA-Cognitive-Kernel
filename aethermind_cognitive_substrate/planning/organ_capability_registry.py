@@ -491,6 +491,18 @@ class OrganCapabilityRegistry:
                 class_name="ClosedLoopVisionEye",
                 runtime_attr="vision_eye",
             ),
+            OrganCapability(
+                organ_id="grid_arc_reasoner",
+                category="perception",
+                description="ARC abstract spatial grid transformation program synthesizer verified via VSA and Z3.",
+                inputs=["arc_train_pairs", "arc_test_input"],
+                outputs=["synthesized_program", "predicted_grid", "arc_solved"],
+                formal_guarantee="Zero-pixel demo mismatch plus Z3 shape and conservation invariants.",
+                is_certifier=True,
+                module_path=".logic_symbolic.symbolic_grid_arc_reasoner",
+                class_name="SymbolicGridARCReasoner",
+                runtime_attr="grid_arc_reasoner",
+            ),
         ]
         for cap in core_catalog:
             self.register_capability(cap, overwrite=True)
@@ -718,15 +730,39 @@ class OrganCapabilityRegistry:
             from ..logic_symbolic.cegis_code_synthesizer import CEGISCodeSynthesizer
             synth = CEGISCodeSynthesizer()
             spec_mode = context.get("cegis_mode", "bitwise_parity")
-            if spec_mode == "power_of_two":
+            cegis_src = context.get("cegis_source")
+            if spec_mode == "python_ast" or (cegis_src is not None):
+                proof = synth.synthesize_python_ast_cegis(
+                    str(cegis_src or context.get("source_code", "")),
+                    assume_non_negative=bool(context.get("assume_non_negative", False)),
+                )
+            elif spec_mode == "power_of_two":
                 proof = synth.synthesize_fast_power_of_two()
             else:
                 proof = synth.synthesize_fast_bitwise_parity()
             return {
                 "is_equivalent": bool(proof.get("is_equivalent", False)),
                 "candidate_code": proof.get("candidate_code"),
+                "synthesized_source": proof.get("synthesized_source"),
                 "sat_status": "sat" if proof.get("is_equivalent") else "unsat",
                 "cegis_telemetry": proof,
+            }
+
+        if oid == "grid_arc_reasoner":
+            from ..logic_symbolic.symbolic_grid_arc_reasoner import SymbolicGridARCReasoner
+            reasoner = SymbolicGridARCReasoner(bus=self.bus)
+            train_pairs = context.get("arc_train_pairs") or [
+                ([[1, 0], [0, 0]], [[0, 1], [0, 0]]),
+                ([[2, 3], [0, 0]], [[3, 2], [0, 0]]),
+            ]
+            test_inp = context.get("arc_test_input") or [[4, 0], [5, 0]]
+            res = reasoner.solve_arc_task(train_pairs, test_inp)
+            return {
+                "arc_solved": bool(res.get("solved", False)),
+                "synthesized_program": res.get("synthesized_program"),
+                "predicted_grid": res.get("predicted_grid"),
+                "sat_status": "sat" if res.get("solved") else "unsat",
+                "arc_telemetry": res,
             }
 
         if oid == "ast_analyzer":

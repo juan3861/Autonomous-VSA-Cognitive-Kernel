@@ -1,17 +1,16 @@
 {
-  "timestamp": "2026-11-23T18:25:22.128617",
-  "version": "7.4.0-APEX-MODULAR-AGI-SOVEREIGN",
+  "timestamp": "2026-11-23T20:36:09.144136",
+  "version": "7.5.0-APEX-MODULAR-AGI-COMPILED-SOVEREIGN",
   "track_a_plug_and_play": {
-    "catalog_organs_indexed": 100,
+    "catalog_organs_indexed": 101,
     "plugin_selected": true,
     "synthesized_pipeline": [
       "quantum_anomaly_observer",
-      "cegis_synthesizer",
       "z3_formal_solver"
     ],
     "overall_success": true,
     "certified_safe": true,
-    "elapsed_ms": 317.888
+    "elapsed_ms": 292.001
   },
   "track_b_pddl_planning": {
     "overall_success": true,
@@ -24,7 +23,7 @@
       "return_to_dock"
     ],
     "plan_cost": 7.0,
-    "elapsed_ms": 207.791
+    "elapsed_ms": 222.918
   },
   "track_c_ast_cegis": {
     "ast_security_clean": true,
@@ -35,7 +34,7 @@
     "cegis_equivalent": true,
     "candidate_code": "((x & 1) == 0)",
     "vsa_bus_events": 7,
-    "elapsed_ms": 261.786
+    "elapsed_ms": 259.573
   },
   "track_d_cross_session": {
     "session1_rejected_unsafe": true,
@@ -47,6 +46,22 @@
       "cbf_control_barrier_shield"
     ],
     "priors_recorded_organs": 3,
-    "elapsed_ms": 1225.739
+    "elapsed_ms": 957.521
+  },
+  "track_e_python_ast_cegis": {
+    "scale_proven": true,
+    "scale_candidate": "x << 3",
+    "scale_speedup": 3.33,
+    "mod4_proven": true,
+    "mod4_candidate": "x & 3 == 0",
+    "elapsed_ms": 104.436
+  },
+  "track_f_hierarchical_arc": {
+    "overall_success": true,
+    "certified_safe": true,
+    "subgoals_executed": 2,
+    "avx2_wx_jit_mode": 1,
+    "arc_stage_executed": true,
+    "elapsed_ms": 329.567
   }
 }

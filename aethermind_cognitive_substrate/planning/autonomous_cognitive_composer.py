@@ -81,9 +81,17 @@ class AutonomousCognitiveComposer:
         self.paged_memory = paged_memory
         self.rem_engine = rem_engine
         self._hydrated_from_persistence: bool = False
+        self._dag_compiler: Optional[Any] = None
 
         if self.persistence is not None and self.hipporag is not None:
             self.hydrate_episodic_memory()
+
+    @property
+    def dag_compiler(self):
+        if self._dag_compiler is None:
+            from ..memory_vault.vsa_dag_compiler import VSADAGBytecodeCompiler
+            self._dag_compiler = VSADAGBytecodeCompiler()
+        return self._dag_compiler
 
     def register_plugin(
         self,
@@ -429,6 +437,22 @@ class AutonomousCognitiveComposer:
 
         z3_preflight = self.verify_dag_contracts(pipeline_organs, spec)
 
+        avx2_trace = None
+        if z3_preflight["verified"]:
+            try:
+                route = self.dag_compiler.compile_route(pipeline_organs, objective=objective)
+                exec_res = self.dag_compiler.execute_route(route)
+                avx2_trace = {
+                    "backend": exec_res["backend"],
+                    "op_count": exec_res["op_count"],
+                    "compile_time_us": exec_res["compile_time_us"],
+                    "exec_time_us": exec_res["exec_time_us"],
+                    "tail_inversion_hamming": exec_res["tail_inversion_hamming"],
+                    "bijection_verified": exec_res["bijection_verified"],
+                }
+            except Exception:
+                avx2_trace = None
+
         current_context = dict(spec)
         overall_success = bool(z3_preflight["verified"])
         certified_safe = bool(z3_preflight["verified"])
@@ -436,6 +460,7 @@ class AutonomousCognitiveComposer:
             "objective": objective,
             "pipeline_organs": pipeline_organs,
             "z3_preflight_proof": z3_preflight,
+            "avx2_route_trace": avx2_trace,
             "guarantees": [],
         }
 

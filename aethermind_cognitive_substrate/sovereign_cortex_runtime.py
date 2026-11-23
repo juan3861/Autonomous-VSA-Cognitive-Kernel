@@ -129,8 +129,8 @@ class SovereignCortexRuntime:
     def __init__(self):
         self._last_stream_vec: Optional[List[float]] = None
         # Registro canônico de metadados (boot instantâneo < 50 ms via Lazy Organ Registry)
-        self.version = "7.4.0-APEX-MODULAR-AGI-82-ORGANS-SOVEREIGN"
-        self.name = "AETHER-KAIROS (AetherCOS v7.4.0-APEX-MODULAR-AGI-SOVEREIGN)"
+        self.version = "7.5.0-APEX-MODULAR-AGI-COMPILED-SOVEREIGN"
+        self.name = "AETHER-KAIROS (AetherCOS v7.5.0-APEX-MODULAR-AGI-COMPILED-SOVEREIGN)"
 
     def __getattr__(self, name: str) -> Any:
         # Órgãos com injeção explícita de dependência entre pares
@@ -156,6 +156,21 @@ class SovereignCortexRuntime:
         if name == "perception_bridge":
             mod = importlib.import_module(".physical_bridge.perception_vsa_bridge", package="aethermind_cognitive_substrate")
             inst = mod.PerceptionVSABridge(bus=self.vsa_semantic_bus)
+            object.__setattr__(self, name, inst)
+            return inst
+        if name == "vsa_dag_compiler":
+            mod = importlib.import_module(".memory_vault.vsa_dag_compiler", package="aethermind_cognitive_substrate")
+            inst = mod.VSADAGBytecodeCompiler(compiler=self.vsa_expression_compiler)
+            object.__setattr__(self, name, inst)
+            return inst
+        if name == "grid_arc_reasoner":
+            mod = importlib.import_module(".logic_symbolic.symbolic_grid_arc_reasoner", package="aethermind_cognitive_substrate")
+            inst = mod.SymbolicGridARCReasoner(bus=self.vsa_semantic_bus)
+            object.__setattr__(self, name, inst)
+            return inst
+        if name == "hierarchical_planner":
+            mod = importlib.import_module(".planning.hierarchical_cognitive_planner", package="aethermind_cognitive_substrate")
+            inst = mod.HierarchicalCognitivePlanner(composer=self.autonomous_composer)
             object.__setattr__(self, name, inst)
             return inst
         if name == "autonomous_composer":
@@ -1145,10 +1160,35 @@ class SovereignCortexRuntime:
                 "overall_success": receipt.overall_success,
                 "certified_safe": receipt.certified_safe,
                 "z3_preflight_proof": receipt.formal_certificate.get("z3_preflight_proof"),
+                "avx2_route_trace": receipt.formal_certificate.get("avx2_route_trace"),
                 "total_time_ms": receipt.total_time_ms,
                 "stages_count": len(receipt.stages),
                 "guarantees": receipt.formal_certificate.get("guarantees", [])
             }
+        elif mission in ["hierarchical_compose_mission", "hierarchical_compose", "hierarchical_plan"]:
+            from .planning.hierarchical_cognitive_planner import SubGoalSpec
+            raw_subgoals = payload.get("subgoals", [])
+            subgoals = [
+                SubGoalSpec(
+                    subgoal_id=str(sg["subgoal_id"]),
+                    objective=str(sg["objective"]),
+                    spec=dict(sg.get("spec", {})),
+                    dependencies=list(sg.get("dependencies", [])),
+                    estimated_ms=float(sg.get("estimated_ms", 10.0)),
+                )
+                for sg in raw_subgoals
+            ]
+            res = self.hierarchical_planner.execute_hierarchical_mission(
+                mission_name=str(payload.get("mission_name", "hierarchical_mission")),
+                subgoals=subgoals,
+                initial_context=payload.get("initial_context"),
+            )
+        elif mission in ["arc_grid_synthesis", "arc_grid_reasoner", "symbolic_arc"]:
+            res = self.grid_arc_reasoner.solve_arc_task(
+                train_pairs=payload.get("train_pairs", []),
+                test_input=payload.get("test_input", [[0]]),
+                max_program_depth=int(payload.get("max_program_depth", 2)),
+            )
         elif mission in ["vsa_fused_graph_eval", "vsa_jit_eval"]:
             from .memory_vault.vsa_expression_compiler import VSASeed
             s1 = VSASeed(int(payload.get("seed_a", 101)))

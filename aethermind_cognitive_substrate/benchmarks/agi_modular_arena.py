@@ -180,14 +180,78 @@ def bench_track_d_cross_session_learning() -> Dict[str, Any]:
     }
 
 
+def bench_track_e_python_ast_cegis() -> Dict[str, Any]:
+    from aethermind_cognitive_substrate.logic_symbolic.cegis_code_synthesizer import CEGISCodeSynthesizer
+
+    t0 = time.perf_counter()
+    synth = CEGISCodeSynthesizer()
+    res_mul = synth.synthesize_python_ast_cegis("def fast_scale(x, y): return (x * 8) + (y ^ y)")
+    res_mod = synth.synthesize_python_ast_cegis("def is_div4(x): return (x % 4) == 0")
+    elapsed_ms = (time.perf_counter() - t0) * 1000.0
+    return {
+        "scale_proven": bool(res_mul["is_equivalent"]),
+        "scale_candidate": res_mul["candidate_code"],
+        "scale_speedup": res_mul["cycle_speedup_ratio"],
+        "mod4_proven": bool(res_mod["is_equivalent"]),
+        "mod4_candidate": res_mod["candidate_code"],
+        "elapsed_ms": round(elapsed_ms, 3),
+    }
+
+
+def bench_track_f_hierarchical_arc_avx2() -> Dict[str, Any]:
+    from aethermind_cognitive_substrate.planning.hierarchical_cognitive_planner import (
+        HierarchicalCognitivePlanner,
+        SubGoalSpec,
+    )
+
+    t0 = time.perf_counter()
+    planner = HierarchicalCognitivePlanner()
+    train_pairs = [
+        ([[1, 2, 0], [0, 0, 0]], [[0, 0, 0], [0, 2, 1]]),
+        ([[3, 0, 0], [4, 5, 0]], [[0, 5, 4], [0, 0, 3]]),
+    ]
+    test_inp = [[7, 8, 0], [0, 9, 0]]
+    res = planner.execute_hierarchical_mission(
+        mission_name="hierarchical_arc_and_cegis",
+        subgoals=[
+            SubGoalSpec(
+                subgoal_id="stage_arc_grid",
+                objective="arc abstract spatial grid transformation reasoner",
+                spec={"arc_train_pairs": train_pairs, "arc_test_input": test_inp, "require_formal_safety": True},
+            ),
+            SubGoalSpec(
+                subgoal_id="stage_cegis_opt",
+                objective="cegis inductive python code optimization synthesis verification",
+                spec={"cegis_mode": "python_ast", "cegis_source": "def f(x): return x * 4", "require_formal_safety": True},
+                dependencies=["stage_arc_grid"],
+            ),
+        ],
+    )
+    elapsed_ms = (time.perf_counter() - t0) * 1000.0
+    arc_prog = None
+    for _, sg_info in res.get("subgoal_receipts", {}).items():
+        if "grid_arc_reasoner" in sg_info.get("stages", []):
+            arc_prog = True
+    return {
+        "overall_success": bool(res["overall_success"]),
+        "certified_safe": bool(res["certified_safe"]),
+        "subgoals_executed": int(res["subgoals_executed"]),
+        "avx2_wx_jit_mode": int(res["avx2_wx_jit_mode"]),
+        "arc_stage_executed": bool(arc_prog),
+        "elapsed_ms": round(elapsed_ms, 3),
+    }
+
+
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.4.0-APEX-MODULAR-AGI-SOVEREIGN",
+        "version": "7.5.0-APEX-MODULAR-AGI-COMPILED-SOVEREIGN",
         "track_a_plug_and_play": bench_track_a_plug_and_play_discovery(),
         "track_b_pddl_planning": bench_track_b_pddl_planning(),
         "track_c_ast_cegis": bench_track_c_ast_cegis_synthesis(),
         "track_d_cross_session": bench_track_d_cross_session_learning(),
+        "track_e_python_ast_cegis": bench_track_e_python_ast_cegis(),
+        "track_f_hierarchical_arc": bench_track_f_hierarchical_arc_avx2(),
     }
 
     out_dir = Path(__file__).resolve().parent
@@ -199,8 +263,10 @@ def main():
     b = results["track_b_pddl_planning"]
     c = results["track_c_ast_cegis"]
     d = results["track_d_cross_session"]
+    e = results["track_e_python_ast_cegis"]
+    f_res = results["track_f_hierarchical_arc"]
 
-    md = f"""# AGI-Modular Multi-Domain Arena Results (`v7.4.0`)
+    md = f"""# AGI-Modular Multi-Domain Arena Results (`v7.5.0`)
 
 **Generated:** `{results['timestamp']}`  
 **Kernel Version:** `{results['version']}`
@@ -211,6 +277,8 @@ def main():
 | **Track B** | Deliberative STRIPS/PDDL State-Space Planning | **{'PASS' if b['overall_success'] and b['certified_safe'] else 'FAIL'}** | `{len(b['plan_steps'])}` optimal steps (cost `{b['plan_cost']}`) | `{b['elapsed_ms']} ms` |
 | **Track C** | AST/CFG Perception-to-VSA + CEGIS Bit-Exact Synthesis | **{'PASS' if c['overall_success'] and c['cegis_equivalent'] else 'FAIL'}** | `UNSAT(spec != {c['candidate_code']})` (`{c['vsa_bus_events']}` bus events) | `{c['elapsed_ms']} ms` |
 | **Track D** | Cross-Session Closed-Loop Learning (`SQLite + HippoRAG + PagedOS + REM`) | **{'PASS' if d['session1_rejected_unsafe'] and d['session2_adapted_success'] else 'FAIL'}** | Hydrated `{d['session2_hydrated_hipporag_nodes']}` graph nodes -> `{len(d['session2_pipeline'])}` certified stages | `{d['elapsed_ms']} ms` |
+| **Track E** | Arbitrary Python AST CEGIS + E-Graph Optimization | **{'PASS' if e['scale_proven'] and e['mod4_proven'] else 'FAIL'}** | `(x*8)+(y^y) -> {e['scale_candidate']}` ({e['scale_speedup']}x cycles); `(x%4)==0 -> {e['mod4_candidate']}` | `{e['elapsed_ms']} ms` |
+| **Track F** | Hierarchical Macro->Meso->Micro Planning + ARC Grid + AVX2 W^X JIT | **{'PASS' if f_res['overall_success'] and f_res['certified_safe'] else 'FAIL'}** | `{f_res['subgoals_executed']}` hierarchical subgoals; JIT mode `{f_res['avx2_wx_jit_mode']}` | `{f_res['elapsed_ms']} ms` |
 """
     md_path = out_dir / "AGI_ARENA_RESULTS.md"
     with open(md_path, "w", encoding="utf-8") as f:

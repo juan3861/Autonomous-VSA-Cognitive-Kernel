@@ -57,7 +57,7 @@ class TestV74ModularAGICeiling(unittest.TestCase):
             "r = SovereignCortexRuntime(); "
             "ms = (time.perf_counter() - t0) * 1000.0; "
             "print(f'{ms:.2f}'); "
-            "assert '7.4.0' in r.version and 'MODULAR-AGI' in r.version"
+            "assert 'MODULAR-AGI' in r.version and 'SOVEREIGN' in r.version"
         )
         proc = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=15)
         self.assertEqual(proc.returncode, 0, msg=proc.stderr)
