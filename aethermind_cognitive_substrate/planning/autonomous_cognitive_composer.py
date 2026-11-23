@@ -1,50 +1,33 @@
-"""Autonomous Cognitive Composer: Dynamic Multi-Organ DAG Task Orchestration.
+"""Autonomous Cognitive Composer: Dynamic Multi-Organ DAG Task Orchestration (v7.4.0).
 
-Orchestrates the 82 mathematical organs of the Autonomous VSA Cognitive Kernel
-into provably safe, closed-loop execution pipelines based on high-level objectives.
+Orchestrates the 82+ mathematical organs (and hot-pluggable external organ modules) of the
+Autonomous VSA Cognitive Kernel into provably safe, closed-loop execution pipelines:
 
-Mathematical & Architectural Principles:
-1. Goal Categorization:
-   Embeds high-level objectives into VSA semantic space $\mathcal{H} = \{-1, +1\}^D$ and
-   matches them against organ capability profiles via holographic cosine similarity.
-2. Dynamic DAG Synthesis:
-   Constructs a Directed Acyclic Graph $G = (V, E)$ where vertices $v_i \in V$ are organs
-   and directed edges $e_{ij} \in E$ represent typed dataflows verified by pre/post-conditions.
+1. Holographic VSA Organ Auto-Discovery:
+   Embeds objectives and spec IO keys into 10,240-bit VSA space $\mathcal{H} = \{-1, +1\}^D$
+   and retrieves ranked organs from `OrganCapabilityRegistry` via cosine resonance.
+2. Typed Dataflow DAG Chaining & Inter-Session Policy Adaptation:
+   Chains precondition producers -> primary organs -> formal certifiers while consulting
+   persisted SQLite priors (`VSA10240PersistenceBridge`), `HippoRAGKnowledgeGraph` causal
+   triples, and `HierarchicalPagedMemoryOS` high-surprise episodes across sessions.
 3. Closed-Loop Formal Shielding:
-   Every synthesized execution pipeline ends with a formal certifier:
-   - Control Barrier Functions (CBF-QP) ensuring forward invariance $\dot{h}(x) \ge -\gamma h(x)$.
-   - Signal Temporal Logic (STL) robustness monitoring $\rho(\varphi, s) \ge 0$.
-   - Z3 SMT Formal verification of algebraic contracts.
-4. Backtracking & Compensatory Adaptation:
-   If a certification stage fails ($\rho < 0$), the composer activates compensatory
-   fallback policies, adjusting regularization or activating safe fallback governors.
+   Every synthesized execution pipeline undergoes Z3 SMT edge interval & stability verification
+   (`verify_dag_contracts`) and executes with CBF-QP, STL, or Z3/CEGIS verification.
 """
 from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
 import numpy as np
 
 from ..memory_vault.vsa_semantic_bus import VSAHyperdimensionalBus, VSAEvent
-
-
-@dataclass
-class OrganCapability:
-    """Metadata specification of a cognitive organ's operational capabilities."""
-    organ_id: str
-    category: str
-    description: str
-    inputs: List[str]
-    outputs: List[str]
-    formal_guarantee: str
-    latency_class: str = "microsecond"
-    in_min: float = -100.0
-    in_max: float = 100.0
-    out_min: float = -100.0
-    out_max: float = 100.0
-    state_dim: int = 4
+from .organ_capability_registry import (
+    OrganCapability,
+    OrganCapabilityRegistry,
+    _tokenize_semantic_text,
+)
 
 
 @dataclass
@@ -72,146 +55,214 @@ class CompositionReceipt:
     bus_event_ids: List[str]
 
 
+def _objective_signature(objective: str) -> str:
+    toks = _tokenize_semantic_text(objective.replace("_", " "))[:6]
+    return "_".join(toks) if toks else "generic_objective"
+
+
 class AutonomousCognitiveComposer:
-    """Autonomous Composer that synthesizes and executes dynamic multi-organ pipelines."""
+    """Autonomous Composer that discovers, proves, executes, and learns over 82+ modular organs."""
 
-    def __init__(self, bus: Optional[VSAHyperdimensionalBus] = None):
+    def __init__(
+        self,
+        bus: Optional[VSAHyperdimensionalBus] = None,
+        registry: Optional[OrganCapabilityRegistry] = None,
+        persistence: Optional[Any] = None,
+        hipporag: Optional[Any] = None,
+        paged_memory: Optional[Any] = None,
+        rem_engine: Optional[Any] = None,
+    ):
         self.bus = bus or VSAHyperdimensionalBus(dimension=10240, seed=1337)
-        self.capabilities: Dict[str, OrganCapability] = {}
-        self._register_default_capabilities()
+        self.registry = registry or OrganCapabilityRegistry(bus=self.bus, load_runtime_catalog=True)
+        # Keep `.capabilities` exposed directly for backwards compatibility
+        self.capabilities: Dict[str, OrganCapability] = self.registry.capabilities
+        self.persistence = persistence
+        self.hipporag = hipporag
+        self.paged_memory = paged_memory
+        self.rem_engine = rem_engine
+        self._hydrated_from_persistence: bool = False
 
-    def _register_default_capabilities(self) -> None:
-        """Register capability profiles of the substrate's mathematical organs."""
-        catalog = [
-            OrganCapability(
-                organ_id="ukf_state_estimator",
-                category="estimation",
-                description="Unscented Kalman Filter for non-linear noisy state estimation.",
-                inputs=["observations", "initial_state", "covariance"],
-                outputs=["filtered_state", "filtered_covariance"],
-                formal_guarantee="Unbiased minimum-variance state estimate under UT Gaussian approx."
-            ),
-            OrganCapability(
-                organ_id="rts_smoother",
-                category="estimation",
-                description="Rauch-Tung-Striebel fixed-interval backward Bayesian smoother.",
-                inputs=["forward_states", "forward_covariances"],
-                outputs=["smoothed_states", "smoothed_covariances"],
-                formal_guarantee="Monotonic trace covariance reduction over forward filter."
-            ),
-            OrganCapability(
-                organ_id="notears_causal",
-                category="causality",
-                description="Continuous optimization for structure learning of Causal DAGs.",
-                inputs=["timeseries_data"],
-                outputs=["adjacency_matrix", "is_dag"],
-                formal_guarantee="Exact matrix exponential acyclicity trace(exp(W*W)) - d = 0."
-            ),
-            OrganCapability(
-                organ_id="ilqr_trajectory_optimizer",
-                category="planning",
-                description="Iterative Linear Quadratic Regulator nonlinear trajectory planner.",
-                inputs=["initial_state", "goal_state", "cost_matrices", "horizon"],
-                outputs=["optimal_trajectory", "optimal_controls", "final_cost"],
-                formal_guarantee="Pontryagin first-order stationarity and quadratic convergence."
-            ),
-            OrganCapability(
-                organ_id="cbf_control_barrier_shield",
-                category="safety",
-                description="Control Barrier Function Quadratic Program online safety shield.",
-                inputs=["nominal_control", "current_state", "barrier_params"],
-                outputs=["safe_control", "safety_margin", "slack"],
-                formal_guarantee="Provable forward invariance of safe set C via Nagumo condition.",
-                in_min=-10.0,
-                in_max=10.0,
-                out_min=-5.0,
-                out_max=5.0,
-                state_dim=4,
-            ),
-            OrganCapability(
-                organ_id="stl_temporal_logic_monitor",
-                category="verification",
-                description="Signal Temporal Logic space-robustness quantitative monitor.",
-                inputs=["trajectory", "stl_specification"],
-                outputs=["robustness_degree", "is_satisfied"],
-                formal_guarantee="Sound quantitative semantics: rho >= 0 implies trajectory |= phi.",
-                in_min=-10.0,
-                in_max=10.0,
-                out_min=0.0,
-                out_max=10.0,
-                state_dim=4,
-            ),
-            OrganCapability(
-                organ_id="z3_formal_solver",
-                category="verification",
-                description="Z3 SMT Solver for first-order logic and algebraic constraints.",
-                inputs=["formula_ast"],
-                outputs=["sat_status", "model_or_core"],
-                formal_guarantee="Decidability and soundness over QF-LRA / QF-NRA."
-            ),
-            OrganCapability(
-                organ_id="simplex_lp_solver",
-                category="optimization",
-                description="Two-Phase Revised Simplex Linear Programming exact solver.",
-                inputs=["cost_c", "matrix_A", "vector_b"],
-                outputs=["optimal_x", "optimal_cost", "dual_y"],
-                formal_guarantee="Strong duality theorem: primal cost equals dual cost."
-            ),
-            OrganCapability(
-                organ_id="rrt_star_planner",
-                category="planning",
-                description="Rapidly-exploring Random Tree Star asymptotically optimal motion planner.",
-                inputs=["start_pos", "goal_pos", "obstacles", "bounds"],
-                outputs=["path_points", "path_length", "success"],
-                formal_guarantee="Asymptotically optimal path cost almost surely as N -> inf."
-            )
-        ]
+        if self.persistence is not None and self.hipporag is not None:
+            self.hydrate_episodic_memory()
 
-        for cap in catalog:
-            self.capabilities[cap.organ_id] = cap
-            # Register in VSA item memory for semantic lookup
-            self.bus.vsa.register_symbol(f"organ_{cap.organ_id}")
-            self.bus.vsa.register_symbol(f"category_{cap.category}")
-            for inp in cap.inputs:
-                self.bus.vsa.register_symbol(f"input_{inp}")
-            for out in cap.outputs:
-                self.bus.vsa.register_symbol(f"output_{out}")
+    def register_plugin(
+        self,
+        capability: OrganCapability,
+        executor: Callable[[Dict[str, Any]], Dict[str, Any]],
+    ) -> None:
+        """Hot-plug a new modular organ capability and executor at runtime."""
+        self.registry.register_plugin(capability, executor)
+
+    def unregister_plugin(self, organ_id: str) -> bool:
+        """Detach a dynamically registered plugin organ."""
+        return self.registry.unregister_plugin(organ_id)
+
+    def hydrate_episodic_memory(self) -> int:
+        """Restore persisted SQLite composition episodes into HippoRAG & PagedMemoryOS on cold start."""
+        if self.persistence is None or self.hipporag is None:
+            return 0
+        if self._hydrated_from_persistence:
+            return 0
+        try:
+            episodes = self.persistence.load_recent_episodes(limit=40)
+        except Exception:
+            return 0
+
+        loaded = 0
+        for ep in episodes:
+            obj_node = f"obj:{ep['objective_sig']}"
+            for oid in ep.get("pipeline", []):
+                if ep["overall_success"] and ep["certified_safe"]:
+                    self.hipporag.add_relation(obj_node, "succeeded_with", f"organ:{oid}", weight=1.2)
+                else:
+                    self.hipporag.add_relation(obj_node, "failed_with", f"organ:{oid}", weight=0.25)
+                    self.hipporag.add_relation(obj_node, "needs_shield", "organ:cbf_control_barrier_shield", weight=1.4)
+                    self.hipporag.add_relation(obj_node, "needs_proof", "organ:z3_formal_solver", weight=1.4)
+            if (not ep["overall_success"] or not ep["certified_safe"]) and self.paged_memory is not None:
+                self.paged_memory.allocate_page(
+                    page_id=ep["episode_id"],
+                    content={"objective": ep["objective"], "pipeline": ep["pipeline"], "z3": ep["z3_sat_status"]},
+                    importance=max(1.5, ep.get("free_energy_f", 0.9) * 2.0),
+                    pin=True,
+                )
+            loaded += 1
+
+        self._hydrated_from_persistence = True
+        return loaded
+
+    def _compute_prior_adjustments(self, objective: str) -> Dict[str, float]:
+        """Combine persisted SQLite policy priors and HippoRAG graph diffusion scores."""
+        adj: Dict[str, float] = {}
+        obj_sig = _objective_signature(objective)
+
+        if self.persistence is not None:
+            try:
+                priors = self.persistence.query_organ_priors(obj_sig)
+                for oid, stats in priors.items():
+                    adj[oid] = adj.get(oid, 0.0) + float(stats.get("score_delta", 0.0))
+            except Exception:
+                pass
+
+        if self.hipporag is not None and self.hipporag.graph.number_of_nodes() > 0:
+            try:
+                if self.persistence is not None and not self._hydrated_from_persistence:
+                    self.hydrate_episodic_memory()
+                diff = self.hipporag.associate_query([f"obj:{obj_sig}"], top_k=10)
+                for item in diff.get("results", []):
+                    ent = str(item.get("entity", ""))
+                    if ent.startswith("organ:"):
+                        oid = ent.split(":", 1)[1]
+                        rel_score = float(item.get("relevance_score", 0.0))
+                        conns = " ".join(item.get("connections", []))
+                        if "failed_with" in conns and "succeeded_with" not in conns:
+                            adj[oid] = adj.get(oid, 0.0) - (0.35 + rel_score)
+                        else:
+                            adj[oid] = adj.get(oid, 0.0) + min(0.25, rel_score * 0.5)
+            except Exception:
+                pass
+
+        return adj
 
     def synthesize_pipeline(self, objective: str, spec: Dict[str, Any]) -> List[str]:
-        """Synthesize an ordered list of organ IDs tailored to the given objective and spec."""
-        clean_obj = objective.strip().lower()
+        """Synthesize an ordered DAG of organ IDs via 10,240-bit VSA resonance + priors + IO chaining."""
+        ignored = {
+            "custom_pipeline", "require_formal_safety", "lyapunov_rho",
+            "prefer_gpu", "use_vsa_gpu", "top_k",
+        }
+        spec_keys = [k for k in spec.keys() if k not in ignored]
+        prefer_gpu = bool(spec.get("prefer_gpu", spec.get("use_vsa_gpu", False)))
 
-        if "safe" in clean_obj or "stabiliz" in clean_obj or "control" in clean_obj:
-            # Full closed-loop cybernetic chain: Filter -> Plan -> Shield -> Certify
-            stages = [
-                "ukf_state_estimator",
-                "ilqr_trajectory_optimizer",
-                "cbf_control_barrier_shield",
-                "stl_temporal_logic_monitor"
-            ]
-        elif "causal" in clean_obj or "discover" in clean_obj or "inference" in clean_obj:
-            stages = [
-                "notears_causal",
-                "z3_formal_solver"
-            ]
-        elif "motion" in clean_obj or "navigat" in clean_obj or "path" in clean_obj:
-            stages = [
-                "rrt_star_planner",
-                "cbf_control_barrier_shield",
-                "stl_temporal_logic_monitor"
-            ]
-        elif "resource" in clean_obj or "allocat" in clean_obj or "linear" in clean_obj or "simplex" in clean_obj:
-            stages = [
-                "simplex_lp_solver",
-                "z3_formal_solver"
-            ]
-        else:
-            # Default robust generic chain
-            stages = [
-                "ukf_state_estimator",
-                "ilqr_trajectory_optimizer",
-                "stl_temporal_logic_monitor"
-            ]
+        candidates = self.registry.semantic_search(
+            objective=objective,
+            required_inputs=spec_keys,
+            top_k=18,
+            prefer_gpu=prefer_gpu,
+        )
+        priors = self._compute_prior_adjustments(objective)
+
+        rescored: List[Tuple[OrganCapability, float]] = []
+        for cap, base_score in candidates:
+            bonus = priors.get(cap.organ_id, 0.0)
+            # Small tie-breaker favoring hot-plugged plugins when they strongly match the objective
+            if cap.is_external_plugin and base_score > 0.15:
+                bonus += 0.05
+            rescored.append((cap, base_score + bonus))
+        rescored.sort(key=lambda item: item[1], reverse=True)
+
+        non_certifiers = [(c, s) for c, s in rescored if not c.is_certifier]
+        certifiers = [(c, s) for c, s in rescored if c.is_certifier]
+
+        stages: List[str] = []
+        produced_vars: Set[str] = set(spec_keys)
+
+        if non_certifiers:
+            primary_cap, primary_score = non_certifiers[0]
+
+            # Dataflow precondition supplier chaining (e.g., observations -> ukf_state_estimator -> filtered_state -> ilqr)
+            if "filtered_state" in primary_cap.inputs and "filtered_state" not in produced_vars:
+                for sup_cap, _ in non_certifiers[1:]:
+                    if "filtered_state" in sup_cap.outputs:
+                        stages.append(sup_cap.organ_id)
+                        produced_vars.update(sup_cap.outputs)
+                        break
+
+            # Pre-inspection chain if AST perception feeds synthesis
+            if "source_code" in spec_keys and primary_cap.organ_id != "ast_analyzer":
+                for sup_cap, _ in non_certifiers:
+                    if sup_cap.organ_id == "ast_analyzer":
+                        stages.append(sup_cap.organ_id)
+                        produced_vars.update(sup_cap.outputs)
+                        break
+
+            if primary_cap.organ_id not in stages:
+                stages.append(primary_cap.organ_id)
+                produced_vars.update(primary_cap.outputs)
+
+            # Downstream consumer chaining (e.g., if primary is an estimator producing filtered_state, connect trajectory optimizer)
+            if "filtered_state" in primary_cap.outputs and "optimal_trajectory" not in produced_vars:
+                for cons_cap, cons_score in non_certifiers[1:]:
+                    if "filtered_state" in cons_cap.inputs and cons_cap.organ_id not in stages:
+                        if cons_score >= primary_score * 0.40:
+                            stages.append(cons_cap.organ_id)
+                            produced_vars.update(cons_cap.outputs)
+                            break
+
+        # Append formal verification / safety certifier sink(s)
+        require_safety = bool(spec.get("require_formal_safety", True))
+        dynamical_tokens = {"filtered_state", "optimal_trajectory", "path_points", "safe_control"}
+        is_dynamical = bool(produced_vars & dynamical_tokens)
+
+        if require_safety or certifiers:
+            if is_dynamical:
+                # Prefer dynamical forward-invariance shield + temporal robustness monitor chain
+                for target_cert in ("cbf_control_barrier_shield", "stl_temporal_logic_monitor"):
+                    cert_cap = self.registry.get(target_cert)
+                    if cert_cap and cert_cap.organ_id not in stages:
+                        if priors.get(cert_cap.organ_id, 0.0) > -0.35:
+                            stages.append(cert_cap.organ_id)
+                            produced_vars.update(cert_cap.outputs)
+            else:
+                # Symbolic / Planning / Synthesis / Plugin verification sink ranked by VSA + IO dataflow overlap
+                if certifiers:
+                    ranked_certs = sorted(
+                        certifiers,
+                        key=lambda item: item[1] + 0.15 * len(set(item[0].inputs) & produced_vars),
+                        reverse=True,
+                    )
+                    best_cert = ranked_certs[0][0]
+                    if best_cert.organ_id not in stages:
+                        stages.append(best_cert.organ_id)
+                        produced_vars.update(best_cert.outputs)
+                z3_cap = self.registry.get("z3_formal_solver")
+                if z3_cap and z3_cap.organ_id not in stages and (
+                    not stages or not self.registry.get(stages[-1]).is_certifier
+                    or stages[-1] == "cegis_synthesizer"
+                ):
+                    stages.append(z3_cap.organ_id)
+
+        if not any((self.registry.get(oid) and self.registry.get(oid).is_certifier) for oid in stages):
+            if require_safety and self.registry.get("z3_formal_solver") is not None:
+                stages.append("z3_formal_solver")
 
         return stages
 
@@ -233,7 +284,6 @@ class AutonomousCognitiveComposer:
 
         ready_vars = []
         edge_bounds_verified = 0
-        # Propagate numeric domain bounds along each directed edge u -> v in Z3 Reals
         obs_vals = spec.get("observations")
         cur_lo = float(min(obs_vals)) if isinstance(obs_vals, (list, tuple)) and len(obs_vals) > 0 else float(spec.get("state_min", -2.0))
         cur_hi = float(max(obs_vals)) if isinstance(obs_vals, (list, tuple)) and len(obs_vals) > 0 else float(spec.get("state_max", 2.0))
@@ -244,25 +294,27 @@ class AutonomousCognitiveComposer:
         solver.add(prev_out_hi == z3.RealVal(str(cur_hi)))
         solver.add(prev_out_lo <= prev_out_hi)
 
-        for idx, org in enumerate(pipeline_organs):
+        has_certifier = False
+        for idx, raw_org in enumerate(pipeline_organs):
+            org = self.registry.resolve_organ_id(raw_org)
             v = z3.Bool(f"stage_{idx}_{org}_ready")
-            is_known = org in self.capabilities
+            cap = self.capabilities.get(org)
+            is_known = cap is not None
             solver.add(v == z3.BoolVal(is_known))
             solver.add(v == True)
             ready_vars.append(v)
 
-            if is_known:
-                cap = self.capabilities[org]
+            if cap is not None:
+                if cap.is_certifier or org in {"cbf_control_barrier_shield", "stl_temporal_logic_monitor", "z3_formal_solver"}:
+                    has_certifier = True
                 s_in_lo = z3.Real(f"stage_{idx}_in_lo")
                 s_in_hi = z3.Real(f"stage_{idx}_in_hi")
                 s_out_lo = z3.Real(f"stage_{idx}_out_lo")
                 s_out_hi = z3.Real(f"stage_{idx}_out_hi")
-                # Directed edge contract: upstream output interval must lie inside stage input domain
                 solver.add(s_in_lo == z3.RealVal(str(cap.in_min)))
                 solver.add(s_in_hi == z3.RealVal(str(cap.in_max)))
                 solver.add(prev_out_lo >= s_in_lo)
                 solver.add(prev_out_hi <= s_in_hi)
-                # Stage produces certified output envelope bounded by capability invariants
                 out_min_val = z3.RealVal(str(cap.out_min))
                 out_max_val = z3.RealVal(str(cap.out_max))
                 solver.add(s_out_lo == z3.If(prev_out_lo > out_min_val, prev_out_lo, out_min_val))
@@ -272,9 +324,6 @@ class AutonomousCognitiveComposer:
                 prev_out_hi = s_out_hi
                 edge_bounds_verified += 1
 
-        # Formal safety guarantee: require at least one certifier organ in pipeline
-        certifier_set = {"cbf_control_barrier_shield", "stl_temporal_logic_monitor", "z3_formal_solver"}
-        has_certifier = any(org in certifier_set for org in pipeline_organs)
         safety_sink = z3.Bool("has_formal_safety_certifier")
         solver.add(safety_sink == z3.BoolVal(has_certifier))
         if require_safety:
@@ -294,19 +343,90 @@ class AutonomousCognitiveComposer:
             "elapsed_ms": round(elapsed_ms, 3),
         }
 
+    def _record_learning_feedback(
+        self,
+        receipt: CompositionReceipt,
+        z3_preflight: Dict[str, Any],
+        pipeline_organs: List[str],
+        min_margin: float,
+        barrier_intervened: bool,
+    ) -> None:
+        """Persist execution outcomes & safety telemetry into SQLite, HippoRAG, PagedOS & REM."""
+        obj_sig = _objective_signature(receipt.objective)
+        free_energy_f = 0.95 if (not receipt.overall_success or not receipt.certified_safe) else (0.72 if barrier_intervened else 0.12)
+
+        if self.persistence is not None:
+            try:
+                self.persistence.record_composition_outcome(
+                    episode_id=receipt.receipt_id,
+                    objective=receipt.objective,
+                    objective_sig=obj_sig,
+                    organ_ids=pipeline_organs,
+                    overall_success=receipt.overall_success,
+                    certified_safe=receipt.certified_safe,
+                    z3_sat_status=str(z3_preflight.get("sat_status", "unknown")),
+                    min_safety_margin=min_margin,
+                    barrier_intervened=barrier_intervened,
+                    latency_ms=receipt.total_time_ms,
+                    free_energy_f=free_energy_f,
+                )
+            except Exception:
+                pass
+
+        if self.hipporag is not None:
+            try:
+                obj_node = f"obj:{obj_sig}"
+                if receipt.overall_success and receipt.certified_safe:
+                    for oid in pipeline_organs:
+                        self.hipporag.add_relation(obj_node, "succeeded_with", f"organ:{oid}", weight=1.2)
+                else:
+                    for oid in pipeline_organs:
+                        self.hipporag.add_relation(obj_node, "failed_with", f"organ:{oid}", weight=0.25)
+                    self.hipporag.add_relation(obj_node, "needs_shield", "organ:cbf_control_barrier_shield", weight=1.4)
+                    self.hipporag.add_relation(obj_node, "needs_proof", "organ:z3_formal_solver", weight=1.4)
+                if barrier_intervened:
+                    self.hipporag.add_relation(obj_node, "shielded_by", "organ:cbf_control_barrier_shield", weight=1.3)
+            except Exception:
+                pass
+
+        if self.paged_memory is not None and (not receipt.overall_success or not receipt.certified_safe or barrier_intervened):
+            try:
+                self.paged_memory.allocate_page(
+                    page_id=receipt.receipt_id,
+                    content={
+                        "objective": receipt.objective,
+                        "pipeline": pipeline_organs,
+                        "z3_sat": z3_preflight.get("sat_status"),
+                        "margin": min_margin,
+                    },
+                    importance=1.0 + free_energy_f,
+                    pin=(not receipt.certified_safe),
+                )
+            except Exception:
+                pass
+
+        if self.rem_engine is not None and hasattr(self.rem_engine, "dream_episodes_log"):
+            self.rem_engine.dream_episodes_log.append({
+                "episode_id": receipt.receipt_id,
+                "objective_sig": obj_sig,
+                "pipeline": list(pipeline_organs),
+                "free_energy_f": free_energy_f,
+                "certified_safe": receipt.certified_safe,
+            })
+
     def execute_pipeline(
         self,
         objective: str,
         spec: Dict[str, Any],
-        organ_executor_map: Optional[Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]]] = None
+        organ_executor_map: Optional[Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]]] = None,
     ) -> CompositionReceipt:
         """Execute a synthesized pipeline, verifying Z3 contracts first and routing via VSA bus."""
         t_start = time.perf_counter()
-        pipeline_organs = list(spec.get("custom_pipeline") or self.synthesize_pipeline(objective, spec))
+        raw_pipeline = list(spec.get("custom_pipeline") or self.synthesize_pipeline(objective, spec))
+        pipeline_organs = [self.registry.resolve_organ_id(o) for o in raw_pipeline]
         stage_results: List[PipelineStageResult] = []
         bus_events: List[str] = []
 
-        # Pre-flight Z3 formal DAG contract proof
         z3_preflight = self.verify_dag_contracts(pipeline_organs, spec)
 
         current_context = dict(spec)
@@ -314,6 +434,7 @@ class AutonomousCognitiveComposer:
         certified_safe = bool(z3_preflight["verified"])
         formal_cert: Dict[str, Any] = {
             "objective": objective,
+            "pipeline_organs": pipeline_organs,
             "z3_preflight_proof": z3_preflight,
             "guarantees": [],
         }
@@ -327,7 +448,7 @@ class AutonomousCognitiveComposer:
                 confidence=0.0,
             )
             bus_events.append(fail_evt.event_id)
-            return CompositionReceipt(
+            rejected_receipt = CompositionReceipt(
                 receipt_id=f"receipt_rejected_{int(time.time()*1000)}",
                 objective=objective,
                 stages=[],
@@ -337,14 +458,24 @@ class AutonomousCognitiveComposer:
                 formal_certificate=formal_cert,
                 bus_event_ids=bus_events,
             )
+            self._record_learning_feedback(
+                rejected_receipt,
+                z3_preflight=z3_preflight,
+                pipeline_organs=pipeline_organs,
+                min_margin=-1.0,
+                barrier_intervened=False,
+            )
+            return rejected_receipt
 
-        # Initial event published to VSA bus
         init_evt = self.bus.publish(
             topic="composer.pipeline.start",
             payload={"objective": objective, "pipeline": pipeline_organs},
-            organ_id="autonomous_composer"
+            organ_id="autonomous_composer",
         )
         bus_events.append(init_evt.event_id)
+
+        min_margin = 1.0
+        barrier_intervened = False
 
         for idx, organ_id in enumerate(pipeline_organs):
             t_stage_0 = time.perf_counter()
@@ -359,25 +490,28 @@ class AutonomousCognitiveComposer:
                 if organ_executor_map and organ_id in organ_executor_map:
                     out_data = organ_executor_map[organ_id](current_context)
                 else:
-                    # Built-in deterministic simulated execution for standard pipeline verification
-                    out_data = self._execute_builtin_stage(organ_id, current_context)
+                    out_data = self.registry.invoke(organ_id, current_context)
 
-                # Formal validation of stage outputs
                 if organ_id == "cbf_control_barrier_shield":
-                    margin = out_data.get("safety_margin", 0.0)
+                    margin = float(out_data.get("safety_margin", 0.0))
+                    min_margin = min(min_margin, margin)
+                    if out_data.get("cbf_intervened"):
+                        barrier_intervened = True
                     if not out_data.get("is_formally_safe", margin >= 0.0) or margin < 0.0:
                         formal_passed = False
                         certified_safe = False
                 elif organ_id == "stl_temporal_logic_monitor":
-                    robustness = out_data.get("robustness_degree", out_data.get("overall_stl_robustness", 0.0))
+                    robustness = float(out_data.get("robustness_degree", out_data.get("overall_stl_robustness", 0.0)))
+                    min_margin = min(min_margin, robustness)
                     if not out_data.get("is_satisfied", out_data.get("satisfied", robustness >= 0.0)) or robustness < 0.0:
                         formal_passed = False
                         certified_safe = False
-                elif organ_id == "z3_formal_solver":
+                elif organ_id in ("z3_formal_solver", "cegis_synthesizer", "lyapunov_certifier"):
                     sat_status = str(out_data.get("sat_status", out_data.get("status", "sat"))).lower()
                     if sat_status not in ("sat", "verified"):
                         formal_passed = False
                         certified_safe = False
+                        min_margin = min(min_margin, -1.0)
 
                 current_context.update(out_data)
 
@@ -388,10 +522,8 @@ class AutonomousCognitiveComposer:
                 certified_safe = False
                 error_msg = str(exc)
 
-            t_stage_1 = time.perf_counter()
-            exec_ms = (t_stage_1 - t_stage_0) * 1000.0
+            exec_ms = (time.perf_counter() - t_stage_0) * 1000.0
 
-            # Publish stage result to VSA bus
             pub_evt = self.bus.publish(
                 topic=f"composer.stage.{organ_id}",
                 payload={
@@ -401,7 +533,7 @@ class AutonomousCognitiveComposer:
                     "execution_ms": exec_ms,
                 },
                 organ_id=organ_id,
-                confidence=1.0 if formal_passed else 0.0
+                confidence=1.0 if formal_passed else 0.0,
             )
             bus_events.append(pub_evt.event_id)
 
@@ -412,7 +544,7 @@ class AutonomousCognitiveComposer:
                 data=out_data,
                 formal_passed=formal_passed,
                 execution_time_ms=exec_ms,
-                error_message=error_msg
+                error_message=error_msg,
             )
             stage_results.append(stage_res)
 
@@ -420,15 +552,14 @@ class AutonomousCognitiveComposer:
                 formal_cert["guarantees"].append({
                     "organ_id": organ_id,
                     "guarantee": cap.formal_guarantee,
-                    "verified": formal_passed
+                    "verified": formal_passed,
                 })
 
             if not stage_success:
                 overall_success = False
                 break
 
-        t_end = time.perf_counter()
-        total_ms = (t_end - t_start) * 1000.0
+        total_ms = (time.perf_counter() - t_start) * 1000.0
 
         receipt = CompositionReceipt(
             receipt_id=f"receipt_{int(time.time()*1000)}",
@@ -438,10 +569,9 @@ class AutonomousCognitiveComposer:
             total_time_ms=total_ms,
             certified_safe=certified_safe,
             formal_certificate=formal_cert,
-            bus_event_ids=bus_events
+            bus_event_ids=bus_events,
         )
 
-        # Final certification event
         self.bus.publish(
             topic="composer.pipeline.complete",
             payload={
@@ -449,144 +579,21 @@ class AutonomousCognitiveComposer:
                 "overall_success": overall_success,
                 "certified_safe": certified_safe,
                 "stages_count": len(stage_results),
-                "total_time_ms": total_ms
+                "total_time_ms": total_ms,
             },
-            organ_id="autonomous_composer"
+            organ_id="autonomous_composer",
+        )
+
+        self._record_learning_feedback(
+            receipt,
+            z3_preflight=z3_preflight,
+            pipeline_organs=pipeline_organs,
+            min_margin=min_margin,
+            barrier_intervened=barrier_intervened,
         )
 
         return receipt
 
     def _execute_builtin_stage(self, organ_id: str, context: Dict[str, Any]) -> Dict[str, Any]:
-        """Live execution dispatching directly into the 82 mathematical substrate organs."""
-        if organ_id == "ukf_state_estimator":
-            from .unscented_kalman_estimator import UnscentedKalmanStateEstimator
-
-            raw_obs = list(context.get("observations", [0.1, -0.05, 0.02, 0.0]))
-            obs = (raw_obs + [0.0] * 4)[:4]
-            est = UnscentedKalmanStateEstimator(state_dim=4, obs_dim=4)
-            out = est.step(measurement=obs, dt=float(context.get("dt", 0.1)))
-            return {
-                "filtered_state": out["estimated_state"],
-                "filtered_covariance": out["covariance_trace"],
-                "ukf_telemetry": out,
-            }
-
-        elif organ_id == "ilqr_trajectory_optimizer":
-            from .pontryagin_ilqr_trajectory_optimizer import PontryaginILQROptimizer
-
-            filtered = list(context.get("filtered_state", [0.25, 0.0]))
-            x0 = [float(filtered[0]), float(filtered[1]) if len(filtered) > 1 else 0.0]
-            x_goal = list(context.get("goal_state", [0.0, 0.0]))
-            horizon = int(context.get("horizon", 15))
-            opt = PontryaginILQROptimizer(dt=0.05, max_iters=15)
-            res = opt.optimize_trajectory(x0=x0, x_goal=x_goal, horizon=horizon)
-            return {
-                "optimal_trajectory": [x0, res["final_state"]],
-                "final_cost": res["final_cost"],
-                "ilqr_telemetry": res,
-            }
-
-        elif organ_id == "cbf_control_barrier_shield":
-            from ..metacognition.cbf_control_barrier_shield import CBFControlBarrierShield
-
-            raw_x = list(context.get("filtered_state", [0.2, 0.1, 0.1, 0.5]))
-            x_state = (raw_x + [0.0] * 4)[:4]
-            raw_u = list(context.get("nominal_control", [0.0, 0.0, 0.0, 0.0]))
-            u_nom = (raw_u + [0.0] * 4)[:4]
-            shield = CBFControlBarrierShield(state_dim=4, control_dim=4, gamma=2.0)
-            res = shield.filter_control_action(x_state=x_state, u_nominal=u_nom)
-            lie_margin = float(min(res.get("cbf_lie_conditions", [0.0])))
-            return {
-                "safe_control": res["u_safe_certified"],
-                "safety_margin": lie_margin,
-                "is_formally_safe": bool(res["is_formally_safe"]),
-                "cbf_telemetry": res,
-            }
-
-        elif organ_id == "stl_temporal_logic_monitor":
-            from ..metacognition.ltl_temporal_logic_monitor import STLTemporalLogicMonitor
-
-            trace = context.get("trace")
-            if trace is None:
-                u_safe = context.get("safe_control", [0.2, 0.1])
-                norm_val = min(0.60, float(np.linalg.norm(np.asarray(u_safe, dtype=np.float64))) * 0.25)
-                trace = [0.40, 0.45 + 0.2 * norm_val, 0.50, 0.40]
-            monitor = STLTemporalLogicMonitor()
-            res = monitor.verify_response_guarantee(
-                trace=trace,
-                safety_ceiling=float(context.get("safety_ceiling", 0.95)),
-                trigger_threshold=float(context.get("trigger_threshold", 0.80)),
-                recovery_target=float(context.get("recovery_target", 0.65)),
-                response_deadline_steps=int(context.get("response_deadline_steps", 4)),
-            )
-            return {
-                "robustness_degree": res["overall_stl_robustness"],
-                "is_satisfied": bool(res["satisfied"]),
-                "stl_telemetry": res,
-            }
-
-        elif organ_id == "notears_causal":
-            from .notears_continuous_causal import ContinuousNOTEARSEngine
-
-            data = context.get("timeseries_data")
-            if data is None:
-                rng = np.random.default_rng(42)
-                x = rng.normal(0, 1, size=(60, 1))
-                y = 0.8 * x + rng.normal(0, 0.1, size=(60, 1))
-                data = np.hstack([x, y])
-            eng = ContinuousNOTEARSEngine(lambda1=0.01, w_threshold=0.25)
-            res = eng.fit(np.asarray(data, dtype=np.float64), var_names=context.get("var_names"))
-            return {
-                "adjacency_matrix": res.get("adjacency_matrix", res.get("W_est", [])),
-                "is_dag": bool(res.get("is_dag", True)),
-                "notears_telemetry": res,
-            }
-
-        elif organ_id == "z3_formal_solver":
-            from ..logic_symbolic.z3_formal_solver import Z3FormalSolver
-
-            solver = Z3FormalSolver(timeout_ms=3000)
-            decls = context.get("declarations", {"rho": "real", "margin": "real"})
-            constraints = context.get("constraints", ["rho >= 0", "rho <= 0.95", "margin >= 0"])
-            res = solver.solve_constraints(decls, constraints)
-            return {
-                "sat_status": str(res["status"]).lower(),
-                "z3_solution": res.get("solution"),
-                "z3_telemetry": res,
-            }
-
-        elif organ_id == "simplex_lp_solver":
-            from ..logic_symbolic.simplex_linear_programming import RevisedSimplexLPSolver
-
-            lp = RevisedSimplexLPSolver(max_pivots=500, tol=1e-10)
-            res = lp.solve_lp(
-                c=context.get("cost_c"),
-                A=context.get("matrix_A"),
-                b=context.get("vector_b"),
-            )
-            return {
-                "optimal_x": res.get("primal_x"),
-                "optimal_cost": res.get("primal_objective"),
-                "primal_dual_gap": res.get("strong_duality_gap", 0.0),
-                "simplex_telemetry": res,
-            }
-
-        elif organ_id == "rrt_star_planner":
-            from .voronoi_rrt_star_motion_planner import RRTStarOptimalMotionPlanner
-
-            planner = RRTStarOptimalMotionPlanner(step_size=0.8, neighbor_radius=1.8)
-            res = planner.plan_motion(
-                start=tuple(context.get("start_pos", (0.5, 0.5))),
-                goal=tuple(context.get("goal_pos", (9.5, 9.5))),
-                bounds=tuple(context.get("bounds", (0.0, 10.0))),
-                obstacles=context.get("obstacles"),
-                max_iters=int(context.get("max_iters", 350)),
-            )
-            return {
-                "path_points": res.get("path", []),
-                "path_length": res.get("final_cost", 0.0),
-                "success": bool(res.get("goal_reached", True)),
-                "rrt_telemetry": res,
-            }
-
-        return {"status": "ok"}
+        """Backwards-compatible stage delegate into `OrganCapabilityRegistry.invoke`."""
+        return self.registry.invoke(organ_id, context)

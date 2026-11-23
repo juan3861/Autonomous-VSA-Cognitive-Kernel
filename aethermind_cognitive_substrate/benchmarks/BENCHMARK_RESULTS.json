@@ -1,52 +1,56 @@
 {
-  "timestamp": "2026-11-21T16:27:19.956087",
-  "version": "7.3.0-APEX-QUAD-FRONT-SOVEREIGN",
+  "timestamp": "2026-11-23T18:22:23.112315",
+  "version": "7.4.0-APEX-MODULAR-AGI-SOVEREIGN",
   "vsa_10240": {
     "n_iters": 2000,
-    "numpy_10240_ms": 183.897,
-    "pytorch_10240_ms": 265.063,
-    "torchhd_10240_ms": 984.511,
-    "ctypes_rust_ms": 90.366,
-    "cython_zero_copy_ms": 16.356,
+    "numpy_10240_ms": 113.839,
+    "pytorch_10240_ms": 200.725,
+    "torchhd_10240_ms": 606.601,
+    "ctypes_rust_ms": 64.631,
+    "cython_zero_copy_ms": 7.687,
     "cython_backend": "CYTHON_ZERO_COPY",
-    "fused_avx2_vm_ms": 15.021,
-    "native_x64_jit_5way_ms": 3.639,
-    "speedup_cython_vs_torchhd": 60.19,
-    "speedup_fused_vs_torchhd": 65.54,
-    "speedup_fused_vs_numpy": 12.24,
-    "speedup_fused_vs_pytorch": 17.65,
-    "speedup_cython_vs_ctypes": 5.52,
-    "us_per_fused_graph": 7.511
+    "fused_avx2_vm_ms": 10.097,
+    "native_x64_jit_5way_ms": 2.016,
+    "speedup_cython_vs_torchhd": 78.91,
+    "speedup_fused_vs_torchhd": 60.08,
+    "speedup_fused_vs_numpy": 11.27,
+    "speedup_fused_vs_pytorch": 19.88,
+    "speedup_cython_vs_ctypes": 8.41,
+    "us_per_fused_graph": 5.049
   },
   "lyapunov_16x16": {
     "n_iters": 200,
-    "scipy_lyapunov_ms": 76.965,
-    "rust_cython_fast_ms": 18.686,
-    "speedup_fast_vs_scipy": 4.12,
+    "scipy_lyapunov_ms": 63.447,
+    "rust_cython_fast_ms": 14.926,
+    "speedup_fast_vs_scipy": 4.25,
     "max_parity_error": 3.553e-15,
     "stein_residual_fro": 7.764e-16,
     "smith_doubling_iters": 6
   },
   "simplex_lp": {
     "n_iters": 100,
-    "scipy_highs_ms": 376.265,
-    "revised_simplex_ms": 16.808,
-    "speedup_vs_highs": 22.39,
+    "scipy_highs_ms": 225.355,
+    "revised_simplex_ms": 12.541,
+    "speedup_vs_highs": 17.97,
     "objective_parity_error": 2.857e-07,
     "strong_duality_gap": 3.553e-15
   },
   "cbf_qp_safety": {
     "n_iters": 100,
-    "cvxpy_clarabel_ms": 1222.965,
-    "cbf_kkt_shield_ms": 21.016,
-    "speedup_cbf_vs_cvxpy": 58.19,
-    "us_per_safety_filter": 210.16
+    "cvxpy_clarabel_ms": 1084.947,
+    "cbf_kkt_shield_ms": 8.407,
+    "speedup_cbf_vs_cvxpy": 129.05,
+    "us_per_safety_filter": 84.07
   },
   "batch_vsa_4096": {
     "n_candidates": 4096,
-    "backend": "CPU_NUMPY_FALLBACK",
-    "gpu_executed": false,
-    "gpu_queue_ms": 0.0,
-    "elapsed_ms": 144.614
+    "backend": "VULKAN_WAVE64 (Radeon RX 580 Series)",
+    "gpu_executed": true,
+    "gpu_queue_ms": 7.891,
+    "elapsed_ms": 1920.635,
+    "cosine_backend": "VULKAN_WAVE64 (Radeon RX 580 Series)",
+    "cosine_gpu_executed": true,
+    "cosine_gpu_queue_ms": 2.566,
+    "cosine_elapsed_ms": 316.287
   }
 }

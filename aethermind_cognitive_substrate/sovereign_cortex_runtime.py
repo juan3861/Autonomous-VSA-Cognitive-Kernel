@@ -129,8 +129,8 @@ class SovereignCortexRuntime:
     def __init__(self):
         self._last_stream_vec: Optional[List[float]] = None
         # Registro canônico de metadados (boot instantâneo < 50 ms via Lazy Organ Registry)
-        self.version = "7.2.0-APEX-V72-82-ORGANS-FUSED-SOVEREIGN"
-        self.name = "AETHER-KAIROS (AetherCOS v7.2.0-APEX-V72-82-Organs-Fused-SOVEREIGN)"
+        self.version = "7.4.0-APEX-MODULAR-AGI-82-ORGANS-SOVEREIGN"
+        self.name = "AETHER-KAIROS (AetherCOS v7.4.0-APEX-MODULAR-AGI-SOVEREIGN)"
 
     def __getattr__(self, name: str) -> Any:
         # Órgãos com injeção explícita de dependência entre pares
@@ -148,9 +148,25 @@ class SovereignCortexRuntime:
             inst = mod.REMAutonomousDreamEngine(ffi=self.native_vsa_ffi)
             object.__setattr__(self, name, inst)
             return inst
+        if name == "organ_registry":
+            mod = importlib.import_module(".planning.organ_capability_registry", package="aethermind_cognitive_substrate")
+            inst = mod.OrganCapabilityRegistry(bus=self.vsa_semantic_bus, load_runtime_catalog=True)
+            object.__setattr__(self, name, inst)
+            return inst
+        if name == "perception_bridge":
+            mod = importlib.import_module(".physical_bridge.perception_vsa_bridge", package="aethermind_cognitive_substrate")
+            inst = mod.PerceptionVSABridge(bus=self.vsa_semantic_bus)
+            object.__setattr__(self, name, inst)
+            return inst
         if name == "autonomous_composer":
             mod = importlib.import_module(".planning.autonomous_cognitive_composer", package="aethermind_cognitive_substrate")
-            inst = mod.AutonomousCognitiveComposer(bus=self.vsa_semantic_bus)
+            inst = mod.AutonomousCognitiveComposer(
+                bus=self.vsa_semantic_bus,
+                registry=self.organ_registry,
+                persistence=self.vsa_persistence,
+                hipporag=self.hipporag,
+                paged_memory=self.paged_memory,
+            )
             object.__setattr__(self, name, inst)
             return inst
 

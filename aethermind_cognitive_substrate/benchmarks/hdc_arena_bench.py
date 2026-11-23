@@ -274,28 +274,44 @@ def bench_cbf_qp_vs_cvxpy(n_iters: int = 100) -> Dict[str, Any]:
 
 
 def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
-    """Benchmark 4,096 x 10,240-bit batch Hamming search across VulkanBatchVSAEngine."""
+    """Benchmark 4,096 x 10,240-bit Hamming & dense float32 cosine search on VulkanBatchVSAEngine."""
     rng = np.random.default_rng(99)
     q = rng.integers(0, np.iinfo(np.uint64).max, size=160, dtype=np.uint64)
     cands = rng.integers(0, np.iinfo(np.uint64).max, size=(n_candidates, 160), dtype=np.uint64)
     cands[777] = q.copy()
 
     eng = VulkanBatchVSAEngine()
-    res = eng.batch_hamming_distances(q, cands, prefer_gpu=True)
-    assert int(res["distances"][777]) == 0
+    res_h = eng.batch_hamming_distances(q, cands, prefer_gpu=True)
+    assert int(res_h["distances"][777]) == 0
+
+    # Also measure dense float32 cosine similarity shader (batch_cosine_sim.spv)
+    dim_f32 = 256
+    q_f32 = rng.normal(0.0, 1.0, size=dim_f32).astype(np.float32)
+    q_f32 /= np.linalg.norm(q_f32)
+    cands_f32 = rng.normal(0.0, 1.0, size=(n_candidates, dim_f32)).astype(np.float32)
+    cands_f32 /= np.linalg.norm(cands_f32, axis=1, keepdims=True)
+    cands_f32[777] = q_f32.copy()
+
+    res_c = eng.batch_cosine_distances(q_f32, cands_f32, prefer_gpu=True)
+    assert abs(float(res_c["distances"][777])) < 1e-4
+
     return {
         "n_candidates": n_candidates,
-        "backend": res["backend"],
-        "gpu_executed": bool(res["gpu_executed"]),
-        "gpu_queue_ms": res["gpu_queue_ms"],
-        "elapsed_ms": res["elapsed_ms"],
+        "backend": res_h["backend"],
+        "gpu_executed": bool(res_h["gpu_executed"]),
+        "gpu_queue_ms": res_h["gpu_queue_ms"],
+        "elapsed_ms": res_h["elapsed_ms"],
+        "cosine_backend": res_c["backend"],
+        "cosine_gpu_executed": bool(res_c["gpu_executed"]),
+        "cosine_gpu_queue_ms": res_c["gpu_queue_ms"],
+        "cosine_elapsed_ms": res_c["elapsed_ms"],
     }
 
 
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.3.0-APEX-QUAD-FRONT-SOVEREIGN",
+        "version": "7.4.0-APEX-MODULAR-AGI-SOVEREIGN",
         "vsa_10240": bench_vsa_10240(2000),
         "lyapunov_16x16": bench_lyapunov_16x16(200),
         "simplex_lp": bench_simplex_vs_highs(100),
@@ -322,7 +338,7 @@ def main():
     sp_thd_cy = f"{v['speedup_cython_vs_torchhd']}x" if v.get("speedup_cython_vs_torchhd") else "—"
     sp_thd_vm = f"{v['speedup_fused_vs_torchhd']}x" if v.get("speedup_fused_vs_torchhd") else "—"
 
-    md = f"""# HDC-Arena / VSA-Bench Reproducible Results (`v7.3.0`)
+    md = f"""# HDC-Arena / VSA-Bench Reproducible Results (`v7.4.0`)
 
 **Generated:** `{results['timestamp']}`  
 **Kernel Version:** `{results['version']}`  
@@ -349,9 +365,9 @@ def main():
 | **Simplex LP** (`scipy.linprog` HiGHS vs `RevisedSimplex`) | {s['scipy_highs_ms']} ms | **{s['revised_simplex_ms']} ms** | **{s['speedup_vs_highs']}x** | `{s['objective_parity_error']}` |
 | **CBF-QP Safety Filter** (`cvxpy` CLARABEL vs `CBFControlBarrierShield`) | {c['cvxpy_clarabel_ms']} ms | **{c['cbf_kkt_shield_ms']} ms** | **{c['speedup_cbf_vs_cvxpy']}x** | Exact KKT (`{c['us_per_safety_filter']} µs/step`) |
 
-## 3. Massive Batch VSA Search ({b['n_candidates']} × 10,240-bit vectors)
-- **Backend Executed:** `{b['backend']}` (`gpu_executed={b['gpu_executed']}`)
-- **Elapsed Time:** `{b['elapsed_ms']} ms` (`gpu_queue_ms={b['gpu_queue_ms']} ms`)
+## 3. Massive Batch VSA & Cosine Search ({b['n_candidates']} candidates)
+- **Hamming 10,240-bit Shader (`vsa_batch_hamming.spv`):** `{b['backend']}` (`gpu_executed={b['gpu_executed']}`) — `{b['elapsed_ms']} ms` (`gpu_queue_ms={b['gpu_queue_ms']} ms`)
+- **Dense Cosine Shader (`batch_cosine_sim.spv`):** `{b['cosine_backend']}` (`gpu_executed={b['cosine_gpu_executed']}`) — `{b['cosine_elapsed_ms']} ms` (`gpu_queue_ms={b['cosine_gpu_queue_ms']} ms`)
 """
 
     md_path = out_dir / "BENCHMARK_RESULTS.md"

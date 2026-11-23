@@ -1,31 +1,31 @@
-# HDC-Arena / VSA-Bench Reproducible Results (`v7.3.0`)
+# HDC-Arena / VSA-Bench Reproducible Results (`v7.4.0`)
 
-**Generated:** `2026-11-21T16:27:19.956087`  
-**Kernel Version:** `7.3.0-APEX-QUAD-FRONT-SOVEREIGN`  
+**Generated:** `2026-11-23T18:22:23.112315`  
+**Kernel Version:** `7.4.0-APEX-MODULAR-AGI-SOVEREIGN`  
 **Environment:** Single-thread BLAS (`OMP/OPENBLAS/MKL=1`)
 
 ## 1. 10,240-bit Chained VSA Workload (`permute -> bind -> bind -> unpermute -> hamming`, 2000 iters)
 
 | Backend | Wall Time (ms) | Speedup vs NumPy | Speedup vs TorchHD |
 |---|---:|---:|---:|
-| **Pure NumPy (`int8` bipolar)** | 183.897 ms | 1.0x | — |
-| **PyTorch CPU (`torch 2.11`, `int8`)** | 265.063 ms | 0.69x | — |
-| **TorchHD (`torch_hd 5.8.4`, BSC)** | 984.511 ms | — | 1.0x |
-| **Rust C-ABI via Python `ctypes`** | 90.366 ms | 2.04x | — |
-| **Cython Zero-Copy (`CYTHON_ZERO_COPY`)** | **16.356 ms** | **11.24x** | **60.19x** |
-| **Fused AVX2 Graph VM (`vsa_eval_graph_bytecode`)** | **15.021 ms** | **12.24x** | **65.54x** |
+| **Pure NumPy (`int8` bipolar)** | 113.839 ms | 1.0x | — |
+| **PyTorch CPU (`torch 2.11`, `int8`)** | 200.725 ms | 0.57x | — |
+| **TorchHD (`torch_hd 5.8.4`, BSC)** | 606.601 ms | — | 1.0x |
+| **Rust C-ABI via Python `ctypes`** | 64.631 ms | 1.76x | — |
+| **Cython Zero-Copy (`CYTHON_ZERO_COPY`)** | **7.687 ms** | **14.81x** | **78.91x** |
+| **Fused AVX2 Graph VM (`vsa_eval_graph_bytecode`)** | **10.097 ms** | **11.27x** | **60.08x** |
 
-- *Native x86_64 AVX2 W^X JIT (5-way XOR chain, 2000 iters):* **`3.639 ms`**
-- *Cython vs `ctypes` speedup:* **`5.52x`** | *Fused Graph latency:* **`7.511 µs/graph`**
+- *Native x86_64 AVX2 W^X JIT (5-way XOR chain, 2000 iters):* **`2.016 ms`**
+- *Cython vs `ctypes` speedup:* **`8.41x`** | *Fused Graph latency:* **`5.049 µs/graph`**
 
 ## 2. Mathematical & Control Solver Benchmarks vs Scientific Python Baselines
 
 | Benchmark Workload | Baseline Time (ms) | Autonomous Kernel Time (ms) | Speedup | Numerical Parity Error |
 |---|---:|---:|---:|---:|
-| **Discrete Lyapunov 16×16** (`scipy.linalg` vs Cython+Rust Fast-Path) | 76.965 ms | **18.686 ms** | **4.12x** | `3.553e-15` |
-| **Simplex LP** (`scipy.linprog` HiGHS vs `RevisedSimplex`) | 376.265 ms | **16.808 ms** | **22.39x** | `2.857e-07` |
-| **CBF-QP Safety Filter** (`cvxpy` CLARABEL vs `CBFControlBarrierShield`) | 1222.965 ms | **21.016 ms** | **58.19x** | Exact KKT (`210.16 µs/step`) |
+| **Discrete Lyapunov 16×16** (`scipy.linalg` vs Cython+Rust Fast-Path) | 63.447 ms | **14.926 ms** | **4.25x** | `3.553e-15` |
+| **Simplex LP** (`scipy.linprog` HiGHS vs `RevisedSimplex`) | 225.355 ms | **12.541 ms** | **17.97x** | `2.857e-07` |
+| **CBF-QP Safety Filter** (`cvxpy` CLARABEL vs `CBFControlBarrierShield`) | 1084.947 ms | **8.407 ms** | **129.05x** | Exact KKT (`84.07 µs/step`) |
 
-## 3. Massive Batch VSA Search (4096 × 10,240-bit vectors)
-- **Backend Executed:** `CPU_NUMPY_FALLBACK` (`gpu_executed=False`)
-- **Elapsed Time:** `144.614 ms` (`gpu_queue_ms=0.0 ms`)
+## 3. Massive Batch VSA & Cosine Search (4096 candidates)
+- **Hamming 10,240-bit Shader (`vsa_batch_hamming.spv`):** `VULKAN_WAVE64 (Radeon RX 580 Series)` (`gpu_executed=True`) — `1920.635 ms` (`gpu_queue_ms=7.891 ms`)
+- **Dense Cosine Shader (`batch_cosine_sim.spv`):** `VULKAN_WAVE64 (Radeon RX 580 Series)` (`gpu_executed=True`) — `316.287 ms` (`gpu_queue_ms=2.566 ms`)
