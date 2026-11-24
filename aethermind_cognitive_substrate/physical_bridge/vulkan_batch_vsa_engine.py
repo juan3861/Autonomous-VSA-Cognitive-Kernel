@@ -59,6 +59,7 @@ class VulkanBatchVSAEngine:
         self.vsa_spv_path = self.shaders_dir / "vsa_batch_hamming.spv"
         self.cosine_spv_path = self.shaders_dir / "batch_cosine_sim.spv"
         self.permuted_xor_spv_path = self.shaders_dir / "vsa_batch_permuted_xor.spv"
+        self.dag_vm_spv_path = self.shaders_dir / "vsa_batch_dag_vm.spv"
         self.vk_dll: Optional[ctypes.CDLL] = None
         self.is_available: bool = False
         self._probe_vulkan()
@@ -116,6 +117,7 @@ class VulkanBatchVSAEngine:
         out_byte_size: int,
         num_candidates: int,
         stride_words: int,
+        groups_x: Optional[int] = None,
     ) -> Dict[str, Any]:
         """Execute a generic 3-storage-buffer Wave64 SPIR-V compute shader on RX 580."""
         t0 = time.perf_counter()
@@ -239,8 +241,8 @@ class VulkanBatchVSAEngine:
 
                     pc = BatchPushConstants(num_candidates, stride_words)
                     vk.vkCmdPushConstants(cmd_buf, pipeline_layout, 0x20, 0, 8, ctypes.byref(pc))
-                    groups_x = (num_candidates + 63) // 64
-                    vk.vkCmdDispatch(cmd_buf, groups_x, 1, 1)
+                    dispatch_groups = int(groups_x) if groups_x is not None else (num_candidates + 63) // 64
+                    vk.vkCmdDispatch(cmd_buf, dispatch_groups, 1, 1)
                     vk.vkEndCommandBuffer(cmd_buf)
 
                     queue = ctypes.c_void_p()
@@ -419,6 +421,142 @@ class VulkanBatchVSAEngine:
         return {
             "backend": "CPU_NUMPY_FALLBACK",
             "gpu_executed": False,
+            "distances": dists,
+            "gpu_queue_ms": 0.0,
+            "elapsed_ms": round((time.perf_counter() - t0) * 1000.0, 3),
+        }
+
+    def batch_execute_dag_program(
+        self,
+        query_u64: np.ndarray,
+        a_candidates_u64: np.ndarray,
+        b_candidates_u64: np.ndarray,
+        program_ops: List[Tuple[Any, ...]],
+        compare_regs: Tuple[int, int] = (0, 3),
+        prefer_gpu: bool = True,
+    ) -> Dict[str, Any]:
+        """Execute an arbitrary multi-op VSA DAG bytecode program in RX 580 Wave64 on-chip LDS."""
+        t0 = time.perf_counter()
+        op_codes = {
+            "LOAD_Q": 1,
+            "LOAD_A": 2,
+            "LOAD_B": 3,
+            "XOR": 4,
+            "AND": 5,
+            "OR": 6,
+            "NOT": 7,
+            "PERMUTE": 8,
+            "UNPERMUTE": 9,
+        }
+        if not (1 <= len(program_ops) <= 64):
+            raise ValueError("GPU DAG VM expects 1..64 bytecode instructions.")
+
+        q_u64 = np.ascontiguousarray(query_u64, dtype=np.uint64)
+        a_u64 = np.ascontiguousarray(a_candidates_u64, dtype=np.uint64)
+        b_u64 = np.ascontiguousarray(b_candidates_u64, dtype=np.uint64)
+        n = int(a_u64.shape[0])
+        if b_u64.shape[0] != n:
+            raise ValueError("a_candidates_u64 and b_candidates_u64 must have equal batch size.")
+
+        cmp_a = int(compare_regs[0]) & 0x3
+        cmp_b = int(compare_regs[1]) & 0x3
+
+        # Serialize [query(320), num_ops, (instr, imm) * num_ops] cleanly into uint32 buffer 0
+        prog_header = [len(program_ops)]
+        for step in program_ops:
+            mnemonic = str(step[0]).upper()
+            if mnemonic not in op_codes:
+                raise ValueError(f"Unsupported GPU DAG opcode: {mnemonic}")
+            op_id = op_codes[mnemonic]
+            dst = int(step[1]) & 0x3
+            s1 = 0
+            s2 = 0
+            imm = 0
+            if mnemonic in ("XOR", "AND", "OR"):
+                s1 = int(step[2]) & 0x3
+                s2 = int(step[3]) & 0x3
+            elif mnemonic == "NOT":
+                s1 = int(step[2]) & 0x3
+            elif mnemonic in ("PERMUTE", "UNPERMUTE"):
+                s1 = int(step[2]) & 0x3
+                imm = int(step[3]) % 10240
+            instr_u32 = op_id | (dst << 8) | (s1 << 16) | (s2 << 24)
+            prog_header.extend((instr_u32, imm))
+
+        q_prog_u32 = np.concatenate([
+            q_u64.view(np.uint32),
+            np.asarray(prog_header, dtype=np.uint32),
+        ])
+        pairs_u32 = np.empty((n, 640), dtype=np.uint32)
+        pairs_u32[:, :320] = a_u64.view(np.uint32)
+        pairs_u32[:, 320:] = b_u64.view(np.uint32)
+
+        compare_packed = cmp_a | (cmp_b << 8)
+        if prefer_gpu and self.is_available and self.dag_vm_spv_path.exists():
+            res = self._dispatch_3buffer_shader(
+                self.dag_vm_spv_path,
+                q_prog_u32.tobytes(),
+                pairs_u32.tobytes(),
+                n * 4,
+                n,
+                compare_packed,
+                groups_x=n,
+            )
+            if res.get("gpu_executed"):
+                dists = np.frombuffer(res["raw_out"], dtype=np.uint32).copy()
+                return {
+                    "backend": f"VULKAN_WAVE64_LDS_VM ({res['gpu_name']})",
+                    "gpu_executed": True,
+                    "op_count": len(program_ops),
+                    "distances": dists,
+                    "gpu_queue_ms": res["gpu_queue_ms"],
+                    "elapsed_ms": res["total_ms"],
+                }
+
+        # Exact CPU bit-parity VM interpreter fallback
+        regs = [np.zeros((n, 160), dtype=np.uint64) for _ in range(4)]
+
+        def _perm_batch(arr: np.ndarray, s_val: int, inv: bool = False) -> np.ndarray:
+            raw_s = int(s_val) % 10240
+            eff_s = (10240 - raw_s) if (inv and raw_s > 0) else raw_s
+            if eff_s == 0:
+                return arr.copy()
+            w_sh = eff_s // 64
+            b_sh = eff_s % 64
+            rolled = np.roll(arr, shift=w_sh, axis=1)
+            if b_sh == 0:
+                return rolled
+            prev = np.roll(rolled, shift=1, axis=1)
+            return (rolled << np.uint64(b_sh)) | (prev >> np.uint64(64 - b_sh))
+
+        for step in program_ops:
+            mnemonic = str(step[0]).upper()
+            dst = int(step[1]) & 0x3
+            if mnemonic == "LOAD_Q":
+                regs[dst][:] = q_u64[None, :]
+            elif mnemonic == "LOAD_A":
+                regs[dst][:] = a_u64
+            elif mnemonic == "LOAD_B":
+                regs[dst][:] = b_u64
+            elif mnemonic == "XOR":
+                regs[dst] = np.bitwise_xor(regs[int(step[2]) & 0x3], regs[int(step[3]) & 0x3])
+            elif mnemonic == "AND":
+                regs[dst] = np.bitwise_and(regs[int(step[2]) & 0x3], regs[int(step[3]) & 0x3])
+            elif mnemonic == "OR":
+                regs[dst] = np.bitwise_or(regs[int(step[2]) & 0x3], regs[int(step[3]) & 0x3])
+            elif mnemonic == "NOT":
+                regs[dst] = np.bitwise_not(regs[int(step[2]) & 0x3])
+            elif mnemonic == "PERMUTE":
+                regs[dst] = _perm_batch(regs[int(step[2]) & 0x3], int(step[3]), inv=False)
+            elif mnemonic == "UNPERMUTE":
+                regs[dst] = _perm_batch(regs[int(step[2]) & 0x3], int(step[3]), inv=True)
+
+        xored = np.bitwise_xor(regs[cmp_a], regs[cmp_b]).view(np.uint8)
+        dists = np.unpackbits(xored, axis=1).sum(axis=1, dtype=np.uint32)
+        return {
+            "backend": "CPU_NUMPY_VM_FALLBACK",
+            "gpu_executed": False,
+            "op_count": len(program_ops),
             "distances": dists,
             "gpu_queue_ms": 0.0,
             "elapsed_ms": round((time.perf_counter() - t0) * 1000.0, 3),

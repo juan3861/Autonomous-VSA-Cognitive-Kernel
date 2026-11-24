@@ -340,6 +340,19 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
     res_p = eng.batch_permuted_xor_distances(q, a_cands, b_cands, shift_steps=199, prefer_gpu=True)
     assert len(res_p["distances"]) == n_candidates
 
+    # Also measure programmable Wave64 LDS VSA DAG VM (vsa_batch_dag_vm.spv)
+    dag_ops = [
+        ("LOAD_Q", 3),
+        ("LOAD_A", 0),
+        ("LOAD_B", 1),
+        ("PERMUTE", 2, 0, 199),
+        ("XOR", 2, 2, 1),
+        ("PERMUTE", 2, 2, 64),
+        ("XOR", 2, 2, 0),
+    ]
+    res_dag = eng.batch_execute_dag_program(q, a_cands, b_cands, dag_ops, compare_regs=(2, 3), prefer_gpu=True)
+    assert len(res_dag["distances"]) == n_candidates
+
     return {
         "n_candidates": n_candidates,
         "backend": res_h["backend"],
@@ -354,13 +367,18 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
         "fused_permuted_xor_gpu_executed": bool(res_p["gpu_executed"]),
         "fused_permuted_xor_gpu_queue_ms": res_p["gpu_queue_ms"],
         "fused_permuted_xor_elapsed_ms": res_p["elapsed_ms"],
+        "dag_vm_backend": res_dag["backend"],
+        "dag_vm_gpu_executed": bool(res_dag["gpu_executed"]),
+        "dag_vm_op_count": res_dag["op_count"],
+        "dag_vm_gpu_queue_ms": res_dag["gpu_queue_ms"],
+        "dag_vm_elapsed_ms": res_dag["elapsed_ms"],
     }
 
 
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.9.0-APEX-MODULAR-AGI-JIT-GPU-NESTED-SOVEREIGN",
+        "version": "8.0.0-APEX-MODULAR-AGI-GPU-DAG-CEGIS-SOVEREIGN",
         "vsa_10240": bench_vsa_10240(2000),
         "lyapunov_16x16": bench_lyapunov_16x16(200),
         "simplex_lp": bench_simplex_vs_highs(100),
@@ -420,6 +438,7 @@ def main():
 - **Hamming 10,240-bit Shader (`vsa_batch_hamming.spv`):** `{b['backend']}` (`gpu_executed={b['gpu_executed']}`) — `{b['elapsed_ms']} ms` (`gpu_queue_ms={b['gpu_queue_ms']} ms`)
 - **Dense Cosine Shader (`batch_cosine_sim.spv`):** `{b['cosine_backend']}` (`gpu_executed={b['cosine_gpu_executed']}`) — `{b['cosine_elapsed_ms']} ms` (`gpu_queue_ms={b['cosine_gpu_queue_ms']} ms`)
 - **Fused Permute+XOR Shader (`vsa_batch_permuted_xor.spv`):** `{b['fused_permuted_xor_backend']}` (`gpu_executed={b['fused_permuted_xor_gpu_executed']}`) — `{b['fused_permuted_xor_elapsed_ms']} ms` (`gpu_queue_ms={b['fused_permuted_xor_gpu_queue_ms']} ms`)
+- **Programmable LDS VSA DAG VM (`vsa_batch_dag_vm.spv`, {b['dag_vm_op_count']} ops):** `{b['dag_vm_backend']}` (`gpu_executed={b['dag_vm_gpu_executed']}`) — `{b['dag_vm_elapsed_ms']} ms` (`gpu_queue_ms={b['dag_vm_gpu_queue_ms']} ms`)
 """
 
     md_path = out_dir / "BENCHMARK_RESULTS.md"

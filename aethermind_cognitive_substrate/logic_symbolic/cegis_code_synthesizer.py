@@ -601,11 +601,15 @@ class CEGISCodeSynthesizer:
             f"({bound_var} * ({bound_var} + 1)) >> 1",
             f"{bound_var} * ({bound_var} - 1)",
             f"{bound_var} * ({bound_var} + 1)",
+            f"({bound_var} * ({bound_var} - 1) * (2 * {bound_var} - 1)) // 6",
+            f"({bound_var} * ({bound_var} + 1) * (2 * {bound_var} + 1)) // 6",
         ]
         pow2_shifts = {1: 0, 2: 1, 4: 2, 8: 3, 16: 4}
         for pv in param_vars:
             cand_strs.extend([
                 f"{pv} * {bound_var}",
+                f"{pv} * (({bound_var} * ({bound_var} - 1)) >> 1)",
+                f"{pv} * (({bound_var} * ({bound_var} + 1)) >> 1)",
                 f"{pv} if ({bound_var} & 1) != 0 else 0",
                 f"{pv} + {bound_var}",
                 f"{pv} - {bound_var}",
@@ -683,10 +687,15 @@ class CEGISCodeSynthesizer:
             rhs_next = _ast_to_z3_bv64(cand, env_k1, [])
 
             solver_step.add(lhs_next != rhs_next)
-            if solver_step.check() == z3.unsat:
+            solver_step.set("timeout", 800)
+            res_step = solver_step.check()
+            if res_step == z3.unsat:
                 proven_ast = cand
                 break
-            else:
+            if self._prove_single_loop_step_qfnra(step_expr, cand, acc_var, idx_var, bound_var, param_vars):
+                proven_ast = cand
+                break
+            if res_step == z3.sat:
                 m = solver_step.model()
                 counterexamples.append({str(d): str(m[d]) for d in m.decls()})
 
@@ -718,6 +727,181 @@ class CEGISCodeSynthesizer:
         self.verified_optimizations.append(res)
         return res
 
+    def _ast_to_real_with_div_proofs(
+        self,
+        node: ast.AST,
+        env_r: Dict[str, Any],
+        env_bv: Dict[str, Any],
+        env_int: Dict[str, Any],
+        bv_w: int,
+    ) -> Optional[Any]:
+        """Convert algebraic/shift/divisible-denominator AST into Z3 Real after formal mod proofs."""
+        def _to_bv_ring(nd: ast.AST) -> Optional[Any]:
+            if isinstance(nd, ast.Constant) and isinstance(nd.value, int):
+                return z3.BitVecVal(int(nd.value), bv_w)
+            if isinstance(nd, ast.Name) and nd.id in env_bv:
+                return env_bv[nd.id]
+            if isinstance(nd, ast.UnaryOp) and isinstance(nd.op, ast.USub):
+                v = _to_bv_ring(nd.operand)
+                return -v if v is not None else None
+            if isinstance(nd, ast.BinOp):
+                l = _to_bv_ring(nd.left)
+                if l is None:
+                    return None
+                if isinstance(nd.op, ast.LShift) and isinstance(nd.right, ast.Constant) and isinstance(nd.right.value, int):
+                    sh = int(nd.right.value)
+                    return (l << z3.BitVecVal(sh, bv_w)) if 0 <= sh < bv_w else None
+                r = _to_bv_ring(nd.right)
+                if r is None:
+                    return None
+                if isinstance(nd.op, ast.Add):
+                    return l + r
+                if isinstance(nd.op, ast.Sub):
+                    return l - r
+                if isinstance(nd.op, ast.Mult):
+                    return l * r
+            return None
+
+        def _to_int_ring(nd: ast.AST) -> Optional[Any]:
+            if isinstance(nd, ast.Constant) and isinstance(nd.value, int):
+                return z3.IntVal(int(nd.value))
+            if isinstance(nd, ast.Name) and nd.id in env_int:
+                return env_int[nd.id]
+            if isinstance(nd, ast.UnaryOp) and isinstance(nd.op, ast.USub):
+                v = _to_int_ring(nd.operand)
+                return -v if v is not None else None
+            if isinstance(nd, ast.BinOp):
+                l = _to_int_ring(nd.left)
+                if l is None:
+                    return None
+                if isinstance(nd.op, ast.LShift) and isinstance(nd.right, ast.Constant) and isinstance(nd.right.value, int):
+                    sh = int(nd.right.value)
+                    return (l * (1 << sh)) if 0 <= sh <= 12 else None
+                r = _to_int_ring(nd.right)
+                if r is None:
+                    return None
+                if isinstance(nd.op, ast.Add):
+                    return l + r
+                if isinstance(nd.op, ast.Sub):
+                    return l - r
+                if isinstance(nd.op, ast.Mult):
+                    return l * r
+            return None
+
+        if isinstance(node, ast.Constant) and isinstance(node.value, int):
+            return z3.IntVal(int(node.value))
+        if isinstance(node, ast.Name) and node.id in env_r:
+            return env_r[node.id]
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            v = self._ast_to_real_with_div_proofs(node.operand, env_r, env_bv, env_int, bv_w)
+            return -v if v is not None else None
+        if isinstance(node, ast.BinOp):
+            if isinstance(node.op, ast.LShift) and isinstance(node.right, ast.Constant) and isinstance(node.right.value, int):
+                l = self._ast_to_real_with_div_proofs(node.left, env_r, env_bv, env_int, bv_w)
+                sh = int(node.right.value)
+                return (l * (1 << sh)) if (l is not None and 0 <= sh <= 20) else None
+            if isinstance(node.op, ast.RShift) and isinstance(node.right, ast.Constant) and isinstance(node.right.value, int):
+                sh = int(node.right.value)
+                if not (0 <= sh <= 12):
+                    return None
+                bv_num = _to_bv_ring(node.left)
+                if bv_num is None:
+                    return None
+                s_div = z3.Solver()
+                s_div.set("timeout", 400)
+                s_div.add((bv_num & z3.BitVecVal((1 << sh) - 1, bv_w)) != z3.BitVecVal(0, bv_w))
+                if s_div.check() != z3.unsat:
+                    return None
+                l = self._ast_to_real_with_div_proofs(node.left, env_r, env_bv, env_int, bv_w)
+                return (l / z3.RealVal(1 << sh)) if l is not None else None
+            if isinstance(node.op, ast.FloorDiv) and isinstance(node.right, ast.Constant) and isinstance(node.right.value, int):
+                denom = int(node.right.value)
+                if not (1 <= denom <= 24):
+                    return None
+                int_num = _to_int_ring(node.left)
+                if int_num is None:
+                    return None
+                s_mod = z3.Solver()
+                s_mod.set("timeout", 400)
+                for iv in env_int.values():
+                    if isinstance(iv, z3.ArithRef):
+                        s_mod.add(iv >= 0, iv < denom)
+                s_mod.add((int_num % denom) != 0)
+                if s_mod.check() != z3.unsat:
+                    return None
+                l = self._ast_to_real_with_div_proofs(node.left, env_r, env_bv, env_int, bv_w)
+                return (l / z3.RealVal(denom)) if l is not None else None
+            l = self._ast_to_real_with_div_proofs(node.left, env_r, env_bv, env_int, bv_w)
+            r = self._ast_to_real_with_div_proofs(node.right, env_r, env_bv, env_int, bv_w)
+            if l is None or r is None:
+                return None
+            if isinstance(node.op, ast.Add):
+                return l + r
+            if isinstance(node.op, ast.Sub):
+                return l - r
+            if isinstance(node.op, ast.Mult):
+                return l * r
+        return None
+
+    def _prove_single_loop_step_qfnra(
+        self,
+        step_expr: ast.expr,
+        cand_ast: ast.expr,
+        acc_var: str,
+        idx_var: str,
+        bound_var: str,
+        param_vars: List[str],
+    ) -> bool:
+        """Prove single-loop inductive step (cand(k) + step -> cand(k+1)) via mod lemmas + QF_NRA."""
+        bv_w = 16
+        k_r = z3.Real(f"_s_alg_{idx_var}")
+        k_bv = z3.BitVec(f"_s_alg_{idx_var}", bv_w)
+        k_int = z3.Int(f"_s_alg_{idx_var}")
+        r_p = {pv: z3.Real(f"_s_alg_{pv}") for pv in param_vars}
+        bv_p = {pv: z3.BitVec(f"_s_alg_{pv}", bv_w) for pv in param_vars}
+        int_p = {pv: z3.Int(f"_s_alg_{pv}") for pv in param_vars}
+
+        cand_k_r = self._ast_to_real_with_div_proofs(
+            cand_ast, {**r_p, bound_var: k_r}, {**bv_p, bound_var: k_bv}, {**int_p, bound_var: k_int}, bv_w
+        )
+        if cand_k_r is None:
+            return False
+
+        # Compute step_expr(acc=cand(k), idx=k) by substituting acc_var directly when additive `acc + term`
+        if (
+            isinstance(step_expr, ast.BinOp)
+            and isinstance(step_expr.op, ast.Add)
+            and isinstance(step_expr.left, ast.Name)
+            and step_expr.left.id == acc_var
+        ):
+            term_r = self._ast_to_real_with_div_proofs(
+                step_expr.right,
+                {**r_p, idx_var: k_r, bound_var: k_r},
+                {**bv_p, idx_var: k_bv, bound_var: k_bv},
+                {**int_p, idx_var: k_int, bound_var: k_int},
+                bv_w,
+            )
+            if term_r is None:
+                return False
+            lhs_r = cand_k_r + term_r
+        else:
+            return False
+
+        rhs_r = self._ast_to_real_with_div_proofs(
+            cand_ast,
+            {**r_p, bound_var: k_r + z3.RealVal(1)},
+            {**bv_p, bound_var: k_bv + z3.BitVecVal(1, bv_w)},
+            {**int_p, bound_var: k_int + z3.IntVal(1)},
+            bv_w,
+        )
+        if rhs_r is None:
+            return False
+
+        s_alg = z3.SolverFor("QF_NRA")
+        s_alg.set("timeout", 1500)
+        s_alg.add(k_r >= 0, lhs_r != rhs_r)
+        return s_alg.check() == z3.unsat
+
     def _prove_step_algebraic_qfnra(
         self,
         row_ast: ast.expr,
@@ -726,84 +910,26 @@ class CEGISCodeSynthesizer:
         i_var: str,
         param_vars: List[str],
     ) -> bool:
-        """Prove inductive step via BitVec modular divisibility lemmas + QF_NRA algebra."""
-        def _to_bv_ring(node: ast.AST, env_bv: Dict[str, Any], w: int) -> Optional[Any]:
-            if isinstance(node, ast.Constant) and isinstance(node.value, int):
-                return z3.BitVecVal(int(node.value), w)
-            if isinstance(node, ast.Name) and node.id in env_bv:
-                return env_bv[node.id]
-            if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
-                v = _to_bv_ring(node.operand, env_bv, w)
-                return -v if v is not None else None
-            if isinstance(node, ast.BinOp):
-                l = _to_bv_ring(node.left, env_bv, w)
-                if l is None:
-                    return None
-                if isinstance(node.op, ast.LShift) and isinstance(node.right, ast.Constant) and isinstance(node.right.value, int):
-                    sh = int(node.right.value)
-                    return (l << z3.BitVecVal(sh, w)) if 0 <= sh < w else None
-                r = _to_bv_ring(node.right, env_bv, w)
-                if r is None:
-                    return None
-                if isinstance(node.op, ast.Add):
-                    return l + r
-                if isinstance(node.op, ast.Sub):
-                    return l - r
-                if isinstance(node.op, ast.Mult):
-                    return l * r
-            return None
-
-        def _to_real_exact(node: ast.AST, env_r: Dict[str, Any], env_bv: Dict[str, Any], bv_w: int) -> Optional[Any]:
-            if isinstance(node, ast.Constant) and isinstance(node.value, int):
-                return z3.IntVal(int(node.value))
-            if isinstance(node, ast.Name) and node.id in env_r:
-                return env_r[node.id]
-            if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
-                v = _to_real_exact(node.operand, env_r, env_bv, bv_w)
-                return -v if v is not None else None
-            if isinstance(node, ast.BinOp):
-                if isinstance(node.op, ast.LShift) and isinstance(node.right, ast.Constant) and isinstance(node.right.value, int):
-                    l = _to_real_exact(node.left, env_r, env_bv, bv_w)
-                    sh = int(node.right.value)
-                    return (l * (1 << sh)) if (l is not None and 0 <= sh <= 20) else None
-                if isinstance(node.op, ast.RShift) and isinstance(node.right, ast.Constant) and isinstance(node.right.value, int):
-                    sh = int(node.right.value)
-                    if not (0 <= sh <= 12):
-                        return None
-                    bv_num = _to_bv_ring(node.left, env_bv, bv_w)
-                    if bv_num is None:
-                        return None
-                    s_div = z3.Solver()
-                    s_div.set("timeout", 400)
-                    s_div.add((bv_num & z3.BitVecVal((1 << sh) - 1, bv_w)) != z3.BitVecVal(0, bv_w))
-                    if s_div.check() != z3.unsat:
-                        return None
-                    l = _to_real_exact(node.left, env_r, env_bv, bv_w)
-                    return (l / z3.RealVal(1 << sh)) if l is not None else None
-                l = _to_real_exact(node.left, env_r, env_bv, bv_w)
-                r = _to_real_exact(node.right, env_r, env_bv, bv_w)
-                if l is None or r is None:
-                    return None
-                if isinstance(node.op, ast.Add):
-                    return l + r
-                if isinstance(node.op, ast.Sub):
-                    return l - r
-                if isinstance(node.op, ast.Mult):
-                    return l * r
-            return None
-
+        """Prove inductive step via modular divisibility lemmas + QF_NRA algebra."""
         bv_w = 16
         k_r = z3.Real(f"_alg_{i_var}")
         k_bv = z3.BitVec(f"_alg_{i_var}", bv_w)
+        k_int = z3.Int(f"_alg_{i_var}")
         r_params = {pv: z3.Real(f"_alg_{pv}") for pv in param_vars}
         bv_params = {pv: z3.BitVec(f"_alg_{pv}", bv_w) for pv in param_vars}
+        int_params = {pv: z3.Int(f"_alg_{pv}") for pv in param_vars}
 
-        row_r = _to_real_exact(row_ast, {**r_params, i_var: k_r}, {**bv_params, i_var: k_bv}, bv_w)
-        gk_r = _to_real_exact(global_ast, {**r_params, outer_bound: k_r}, {**bv_params, outer_bound: k_bv}, bv_w)
-        gk1_r = _to_real_exact(
+        row_r = self._ast_to_real_with_div_proofs(
+            row_ast, {**r_params, i_var: k_r}, {**bv_params, i_var: k_bv}, {**int_params, i_var: k_int}, bv_w
+        )
+        gk_r = self._ast_to_real_with_div_proofs(
+            global_ast, {**r_params, outer_bound: k_r}, {**bv_params, outer_bound: k_bv}, {**int_params, outer_bound: k_int}, bv_w
+        )
+        gk1_r = self._ast_to_real_with_div_proofs(
             global_ast,
             {**r_params, outer_bound: k_r + z3.RealVal(1)},
             {**bv_params, outer_bound: k_bv + z3.BitVecVal(1, bv_w)},
+            {**int_params, outer_bound: k_int + z3.IntVal(1)},
             bv_w,
         )
         if row_r is None or gk_r is None or gk1_r is None:

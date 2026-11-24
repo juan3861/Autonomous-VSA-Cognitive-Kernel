@@ -1,0 +1,149 @@
+#version 450
+layout(local_size_x = 64, local_size_y = 1, local_size_z = 1) in; // 1 Wave64 workgroup per candidate
+
+// Binding 0: [0..319] = query vector (320 x uint32), [320] = num_ops, [321 + 2*ip] = packed_op, [322 + 2*ip] = imm_u32
+layout(std430, binding = 0) readonly buffer QueryAndProgBuffer {
+    uint q_prog[];
+};
+
+// Binding 1: Packed candidate pairs: [idx * 640 .. +319] = A_idx, [+320 .. +639] = B_idx
+layout(std430, binding = 1) readonly buffer CandidatePairsBuffer {
+    uint pair_words[];
+};
+
+// Binding 2: Output Hamming distances (uint32[num_candidates])
+layout(std430, binding = 2) writeonly buffer OutputDistances {
+    uint distances[];
+};
+
+layout(push_constant) uniform PushConstants {
+    uint num_candidates;
+    uint compare_regs_packed; // bits [0..1] = reg_a, bits [8..9] = reg_b
+} pc;
+
+// Opcodes
+const uint OP_LOAD_Q    = 1u;
+const uint OP_LOAD_A    = 2u;
+const uint OP_LOAD_B    = 3u;
+const uint OP_XOR       = 4u;
+const uint OP_AND       = 5u;
+const uint OP_OR        = 6u;
+const uint OP_NOT       = 7u;
+const uint OP_PERMUTE   = 8u;
+const uint OP_UNPERMUTE = 9u;
+
+// 4 x 10,240-bit registers + 64-lane reduction buffer in RX 580 on-chip LDS (~5.38 KB)
+shared uint regs[4][320];
+shared uint lds_pop[64];
+
+void main() {
+    uint cand_idx = gl_WorkGroupID.x;
+    if (cand_idx >= pc.num_candidates) return;
+
+    uint lid = gl_LocalInvocationID.x;
+    uint base_a = cand_idx * 640u;
+    uint base_b = base_a + 320u;
+    uint num_ops = min(q_prog[320u], 64u);
+
+    uint tmp[5];
+
+    for (uint ip = 0u; ip < num_ops; ++ip) {
+        uint instr = q_prog[321u + ip * 2u];
+        uint imm = q_prog[322u + ip * 2u];
+
+        uint opcode = instr & 0xFFu;
+        uint dst = (instr >> 8u) & 0x3u;
+        uint s1 = (instr >> 16u) & 0x3u;
+        uint s2 = (instr >> 24u) & 0x3u;
+
+        // Ensure previous writes to regs[] are visible across the Wave64 workgroup before reading
+        barrier();
+
+        if (opcode == OP_LOAD_Q) {
+            for (uint k = 0u; k < 5u; ++k) {
+                tmp[k] = q_prog[lid + k * 64u];
+            }
+        } else if (opcode == OP_LOAD_A) {
+            for (uint k = 0u; k < 5u; ++k) {
+                tmp[k] = pair_words[base_a + lid + k * 64u];
+            }
+        } else if (opcode == OP_LOAD_B) {
+            for (uint k = 0u; k < 5u; ++k) {
+                tmp[k] = pair_words[base_b + lid + k * 64u];
+            }
+        } else if (opcode == OP_XOR) {
+            for (uint k = 0u; k < 5u; ++k) {
+                uint w = lid + k * 64u;
+                tmp[k] = regs[s1][w] ^ regs[s2][w];
+            }
+        } else if (opcode == OP_AND) {
+            for (uint k = 0u; k < 5u; ++k) {
+                uint w = lid + k * 64u;
+                tmp[k] = regs[s1][w] & regs[s2][w];
+            }
+        } else if (opcode == OP_OR) {
+            for (uint k = 0u; k < 5u; ++k) {
+                uint w = lid + k * 64u;
+                tmp[k] = regs[s1][w] | regs[s2][w];
+            }
+        } else if (opcode == OP_NOT) {
+            for (uint k = 0u; k < 5u; ++k) {
+                uint w = lid + k * 64u;
+                tmp[k] = ~regs[s1][w];
+            }
+        } else if (opcode == OP_PERMUTE || opcode == OP_UNPERMUTE) {
+            uint raw_s = imm % 10240u;
+            uint s = (opcode == OP_UNPERMUTE && raw_s > 0u) ? (10240u - raw_s) : raw_s;
+            uint w_shift = s >> 5u;
+            uint b_shift = s & 31u;
+            if (b_shift == 0u) {
+                for (uint k = 0u; k < 5u; ++k) {
+                    uint w = lid + k * 64u;
+                    uint src_idx = (w + 320u - w_shift) % 320u;
+                    tmp[k] = regs[s1][src_idx];
+                }
+            } else {
+                uint inv_shift = 32u - b_shift;
+                for (uint k = 0u; k < 5u; ++k) {
+                    uint w = lid + k * 64u;
+                    uint src_hi = (w + 320u - w_shift) % 320u;
+                    uint src_lo = (src_hi + 319u) % 320u;
+                    tmp[k] = (regs[s1][src_hi] << b_shift) | (regs[s1][src_lo] >> inv_shift);
+                }
+            }
+        } else {
+            for (uint k = 0u; k < 5u; ++k) {
+                tmp[k] = regs[s1][lid + k * 64u];
+            }
+        }
+
+        // Wait until all lanes finish reading regs[] before writing dst (in-place safe!)
+        barrier();
+        for (uint k = 0u; k < 5u; ++k) {
+            regs[dst][lid + k * 64u] = tmp[k];
+        }
+    }
+
+    barrier();
+
+    uint reg_a = pc.compare_regs_packed & 0x3u;
+    uint reg_b = (pc.compare_regs_packed >> 8u) & 0x3u;
+    uint local_pop = 0u;
+    for (uint k = 0u; k < 5u; ++k) {
+        uint w = lid + k * 64u;
+        local_pop += bitCount(regs[reg_a][w] ^ regs[reg_b][w]);
+    }
+    lds_pop[lid] = local_pop;
+    barrier();
+
+    for (uint stride = 32u; stride > 0u; stride >>= 1u) {
+        if (lid < stride) {
+            lds_pop[lid] += lds_pop[lid + stride];
+        }
+        barrier();
+    }
+
+    if (lid == 0u) {
+        distances[cand_idx] = lds_pop[0];
+    }
+}

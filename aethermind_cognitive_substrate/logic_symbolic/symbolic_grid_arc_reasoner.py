@@ -7,6 +7,7 @@ and non-zero occupancy invariants.
 """
 from __future__ import annotations
 
+import json
 import time
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
@@ -189,11 +190,38 @@ class SymbolicGridARCReasoner:
     def apply_program(self, program: List[str], grid: GridLike) -> np.ndarray:
         cur = np.asarray(grid, dtype=np.int32).copy()
         for op_name in program:
+            if op_name.startswith("color_remap:"):
+                raw_map = json.loads(op_name[len("color_remap:"):])
+                cmap = {int(k): int(v) for k, v in raw_map.items()}
+                nxt = cur.copy()
+                for src_c, dst_c in cmap.items():
+                    nxt[cur == src_c] = dst_c
+                cur = nxt
+                continue
             fn = _GRID_PRIMITIVES.get(op_name)
             if fn is None:
                 raise KeyError(f"Unknown ARC grid primitive: {op_name}")
             cur = fn(cur)
         return np.ascontiguousarray(cur, dtype=np.int32)
+
+    @staticmethod
+    def _infer_consistent_color_map(pairs: List[Tuple[np.ndarray, np.ndarray]]) -> Optional[Dict[int, int]]:
+        """Learn an exact per-color substitution map when all demo shapes already match."""
+        cmap: Dict[int, int] = {}
+        for m, out in pairs:
+            if m.shape != out.shape:
+                return None
+            # Fast unique pair scan
+            stacked = np.stack([m.ravel(), out.ravel()], axis=1)
+            uniq_pairs = np.unique(stacked, axis=0)
+            for s_val, d_val in uniq_pairs:
+                si, di = int(s_val), int(d_val)
+                if si in cmap and cmap[si] != di:
+                    return None
+                cmap[si] = di
+        if not cmap or all(k == v for k, v in cmap.items()):
+            return None
+        return cmap
 
     def verify_program_z3(
         self,
@@ -229,6 +257,7 @@ class SymbolicGridARCReasoner:
         train_pairs: Sequence[Tuple[GridLike, GridLike]],
         test_input: GridLike,
         max_program_depth: int = 2,
+        allow_color_remap: bool = True,
     ) -> Dict[str, Any]:
         """Induce minimal spatial transform program from demonstrations and predict test grid."""
         t0 = time.perf_counter()
@@ -295,6 +324,7 @@ class SymbolicGridARCReasoner:
                     break
 
         # Depth 3 shape-pruned compositional search
+        depth3_states: List[Tuple[str, str, str, List[Tuple[np.ndarray, np.ndarray]]]] = []
         if chosen_prog is None and max_program_depth >= 3:
             def _shape_compatible(op_name: str, in_sh: Tuple[int, int], out_sh: Tuple[int, int]) -> bool:
                 if op_name == "crop_nonzero":
@@ -314,17 +344,84 @@ class SymbolicGridARCReasoner:
                 for p3 in prim_names:
                     if p2 == p3 and p2 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero"):
                         continue
-                    if not _shape_compatible(p3, m2_0.shape, out_0.shape):
+                    if max_program_depth == 3 and not _shape_compatible(p3, m2_0.shape, out_0.shape):
                         continue
                     programs_evaluated += 1
                     fn3 = _GRID_PRIMITIVES[p3]
-                    if not np.array_equal(fn3(m2_0), out_0):
+                    m3_0 = fn3(m2_0)
+                    if m3_0.size == 0:
                         continue
-                    if all(np.array_equal(fn3(m2), out) for m2, out in m2_pairs[1:]):
-                        chosen_prog = [p1, p2, p3]
+                    if _shape_compatible("identity_chk", m3_0.shape, out_0.shape) and np.array_equal(m3_0, out_0):
+                        if all(np.array_equal(fn3(m2), out) for m2, out in m2_pairs[1:]):
+                            chosen_prog = [p1, p2, p3]
+                            break
+                    if max_program_depth >= 4:
+                        m3_pairs = [(m3_0, out_0)]
+                        ok_m3 = True
+                        for m2, out in m2_pairs[1:]:
+                            mv = fn3(m2)
+                            if mv.size == 0:
+                                ok_m3 = False
+                                break
+                            m3_pairs.append((mv, out))
+                        if ok_m3:
+                            depth3_states.append((p1, p2, p3, m3_pairs))
+                if chosen_prog is not None:
+                    break
+
+        # Depth 4 spatial composition &/or learned color-remap synthesis
+        if chosen_prog is None and max_program_depth >= 4:
+            # 1) Pure shape-compatible 4-op spatial pipeline
+            for p1, p2, p3, m3_pairs in depth3_states:
+                m3_0, out_0 = m3_pairs[0]
+                for p4 in prim_names:
+                    if p3 == p4 and p3 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero"):
+                        continue
+                    if p4 == "crop_nonzero" and not (m3_0.shape[0] >= out_0.shape[0] and m3_0.shape[1] >= out_0.shape[1]):
+                        continue
+                    elif p4 in ("rot90", "rot270", "transpose") and (m3_0.shape[1], m3_0.shape[0]) != out_0.shape:
+                        continue
+                    elif p4 == "mirror_concat_h" and (m3_0.shape[0], m3_0.shape[1] * 2) != out_0.shape:
+                        continue
+                    elif p4 == "mirror_concat_v" and (m3_0.shape[0] * 2, m3_0.shape[1]) != out_0.shape:
+                        continue
+                    elif p4 in ("scale_2x", "tile_2x2") and (m3_0.shape[0] * 2, m3_0.shape[1] * 2) != out_0.shape:
+                        continue
+                    elif p4 not in ("crop_nonzero", "rot90", "rot270", "transpose", "mirror_concat_h", "mirror_concat_v", "scale_2x", "tile_2x2") and m3_0.shape != out_0.shape:
+                        continue
+                    programs_evaluated += 1
+                    fn4 = _GRID_PRIMITIVES[p4]
+                    if not np.array_equal(fn4(m3_0), out_0):
+                        continue
+                    if all(np.array_equal(fn4(m3), out) for m3, out in m3_pairs[1:]):
+                        chosen_prog = [p1, p2, p3, p4]
                         break
                 if chosen_prog is not None:
                     break
+
+            # 2) Depth <=3 spatial transform + learned bijective/consistent palette remap
+            if chosen_prog is None and allow_color_remap:
+                candidates_for_remap: List[Tuple[List[str], List[Tuple[np.ndarray, np.ndarray]]]] = [
+                    ([], pairs),
+                ]
+                for p1 in prim_names:
+                    candidates_for_remap.append(([p1], [(self.apply_program([p1], i), o) for i, o in pairs]))
+                for p1, p2, m2_pairs in depth2_states:
+                    candidates_for_remap.append(([p1, p2], m2_pairs))
+                for p1, p2, p3, m3_pairs in depth3_states:
+                    candidates_for_remap.append(([p1, p2, p3], m3_pairs))
+
+                for base_prog, cur_pairs in candidates_for_remap:
+                    if not all(m.shape == o.shape for m, o in cur_pairs):
+                        continue
+                    programs_evaluated += 1
+                    cmap = self._infer_consistent_color_map(cur_pairs)
+                    if cmap is not None:
+                        remap_op = f"color_remap:{json.dumps({str(k): v for k, v in sorted(cmap.items())}, separators=(',', ':'))}"
+                        cand = [*base_prog, remap_op]
+                        if all(np.array_equal(self.apply_program([remap_op], m), o) for m, o in cur_pairs):
+                            chosen_prog = cand
+                            break
 
         if chosen_prog is None:
             return {

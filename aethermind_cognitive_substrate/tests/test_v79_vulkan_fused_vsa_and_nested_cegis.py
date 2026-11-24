@@ -86,7 +86,8 @@ class TestV79VulkanFusedVSAAndNestedCEGIS(unittest.TestCase):
         self.assertTrue(tj["rect_proven"] and tj["tri_proven"])
 
         rt = SovereignCortexRuntime()
-        self.assertIn("7.9.0", rt.version)
+        self.assertIn("MODULAR-AGI", rt.version)
+        self.assertIn("SOVEREIGN", rt.version)
 
 
 if __name__ == "__main__":

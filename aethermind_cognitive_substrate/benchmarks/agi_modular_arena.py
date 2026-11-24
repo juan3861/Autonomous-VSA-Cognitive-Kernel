@@ -425,10 +425,81 @@ def bench_track_j_vulkan_fused_vsa_and_nested_cegis() -> Dict[str, Any]:
     }
 
 
+def bench_track_k_gpu_dag_vm_arc4_and_cubic_cegis() -> Dict[str, Any]:
+    from aethermind_cognitive_substrate.logic_symbolic.cegis_code_synthesizer import CEGISCodeSynthesizer
+    from aethermind_cognitive_substrate.logic_symbolic.symbolic_grid_arc_reasoner import SymbolicGridARCReasoner
+    from aethermind_cognitive_substrate.physical_bridge.vulkan_batch_vsa_engine import VulkanBatchVSAEngine
+    import numpy as np
+
+    t0 = time.perf_counter()
+    eng = VulkanBatchVSAEngine()
+    rng = np.random.default_rng(8000)
+    n_cands = 512
+    a_cands = rng.integers(0, np.iinfo(np.uint64).max, size=(n_cands, 160), dtype=np.uint64)
+    b_cands = rng.integers(0, np.iinfo(np.uint64).max, size=(n_cands, 160), dtype=np.uint64)
+
+    ops = [
+        ("LOAD_Q", 3),
+        ("LOAD_A", 0),
+        ("LOAD_B", 1),
+        ("PERMUTE", 2, 0, 199),
+        ("XOR", 2, 2, 1),
+        ("PERMUTE", 2, 2, 64),
+        ("XOR", 2, 2, 0),
+    ]
+    # Construct exact target matching cand #313 output of ops
+    cpu_ref = eng.batch_execute_dag_program(
+        np.zeros(160, dtype=np.uint64), a_cands[313:314], b_cands[313:314], ops[:-1] + [("XOR", 2, 2, 0)], (2, 3), prefer_gpu=False
+    )
+    # Build target query by executing forward on row 313 directly
+    def _rot(v, s):
+        s %= 10240
+        r = np.roll(v, s // 64)
+        b = s % 64
+        return r if b == 0 else ((r << np.uint64(b)) | (np.roll(r, 1) >> np.uint64(64 - b)))
+
+    q_exact = _rot(_rot(a_cands[313], 199) ^ b_cands[313], 64) ^ a_cands[313]
+    vm_gpu = eng.batch_execute_dag_program(q_exact, a_cands, b_cands, ops, compare_regs=(2, 3), prefer_gpu=True)
+    exact_vm_hit = (int(vm_gpu["distances"][313]) == 0)
+
+    # Depth-4 ARC task: rot90 -> crop_nonzero -> scale_2x -> color_remap({0:0, 1:7, 2:8, 3:9})
+    arc = SymbolicGridARCReasoner()
+    inp1 = [[0, 0, 0], [0, 1, 2], [0, 0, 3]]
+    inp2 = [[0, 0, 0, 0], [0, 2, 1, 0], [0, 3, 0, 0]]
+    test_in = [[0, 1, 3], [0, 2, 0], [0, 0, 0]]
+    m1 = arc.apply_program(["rot90", "crop_nonzero", "scale_2x"], inp1)
+    m2 = arc.apply_program(["rot90", "crop_nonzero", "scale_2x"], inp2)
+    mt = arc.apply_program(["rot90", "crop_nonzero", "scale_2x"], test_in)
+    cmap_op = 'color_remap:{"0":0,"1":7,"2":8,"3":9}'
+    out1 = arc.apply_program([cmap_op], m1)
+    out2 = arc.apply_program([cmap_op], m2)
+    outt = arc.apply_program([cmap_op], mt)
+    arc_res = arc.solve_arc_task([(inp1, out1), (inp2, out2)], test_in, max_program_depth=4)
+    arc4_exact = bool(arc_res["solved"]) and np.array_equal(np.asarray(arc_res["predicted_grid"], dtype=np.int32), outt)
+
+    # Faulhaber cubic Z3 mathematical induction sum_{i=0..n-1} i^2
+    synth = CEGISCodeSynthesizer()
+    r_cubic = synth.synthesize_loop_closed_form_cegis(
+        "def sum_squares(n):\n    acc = 0\n    for i in range(n):\n        acc = acc + i * i\n    return acc\n"
+    )
+    elapsed_ms = (time.perf_counter() - t0) * 1000.0
+    return {
+        "gpu_executed": bool(vm_gpu["gpu_executed"]),
+        "gpu_backend": vm_gpu["backend"],
+        "vm_op_count": len(ops),
+        "exact_dag_vm_hit_hamming_0": exact_vm_hit,
+        "arc4_exact_match": arc4_exact,
+        "arc4_program": arc_res.get("synthesized_program"),
+        "cubic_cegis_proven": bool(r_cubic["is_equivalent"]),
+        "cubic_closed_form": r_cubic.get("candidate_code"),
+        "elapsed_ms": round(elapsed_ms, 3),
+    }
+
+
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.9.0-APEX-MODULAR-AGI-JIT-GPU-NESTED-SOVEREIGN",
+        "version": "8.0.0-APEX-MODULAR-AGI-GPU-DAG-CEGIS-SOVEREIGN",
         "track_a_plug_and_play": bench_track_a_plug_and_play_discovery(),
         "track_b_pddl_planning": bench_track_b_pddl_planning(),
         "track_c_ast_cegis": bench_track_c_ast_cegis_synthesis(),
@@ -439,6 +510,7 @@ def main():
         "track_h_fused_jit_3step_arc": bench_track_h_fused_jit_3step_arc_conditional_cegis(),
         "track_i_cython_jit_loop_induction": bench_track_i_cython_jit_and_loop_induction(),
         "track_j_vulkan_fused_nested_cegis": bench_track_j_vulkan_fused_vsa_and_nested_cegis(),
+        "track_k_gpu_dag_arc4_cubic_cegis": bench_track_k_gpu_dag_vm_arc4_and_cubic_cegis(),
     }
 
     out_dir = Path(__file__).resolve().parent
@@ -456,8 +528,9 @@ def main():
     h_res = results["track_h_fused_jit_3step_arc"]
     i_res = results["track_i_cython_jit_loop_induction"]
     j_res = results["track_j_vulkan_fused_nested_cegis"]
+    k_res = results["track_k_gpu_dag_arc4_cubic_cegis"]
 
-    md = f"""# AGI-Modular Multi-Domain Arena Results (`v7.9.0`)
+    md = f"""# AGI-Modular Multi-Domain Arena Results (`v8.0.0`)
 
 **Generated:** `{results['timestamp']}`  
 **Kernel Version:** `{results['version']}`
@@ -474,6 +547,7 @@ def main():
 | **Track H** | Fused AVX2 PERMUTE+XOR JIT + 3-Step ARC + Conditional CEGIS | **{'PASS' if h_res['fused_jit_mode'] == 1 and h_res['conditional_cegis_proven'] and h_res['arc_3step_solved'] else 'FAIL'}** | JIT mode `{h_res['fused_jit_mode']}`; 3-step `{h_res['arc_3step_program']}`; `{h_res['conditional_candidate']}` | `{h_res['elapsed_ms']} ms` |
 | **Track I** | Cython Zero-Copy Fused JIT + Z3 Loop Mathematical Induction | **{'PASS' if i_res['cython_zero_copy_jit_executed'] and i_res['odds_proven'] and i_res['scale_proven'] and i_res['xor_proven'] else 'FAIL'}** | `O(n)->O(1)`: `sum_odds->{i_res['odds_closed_form']}`, `scale->{i_res['scale_closed_form']}`, `xor->{i_res['xor_closed_form']}` | `{i_res['elapsed_ms']} ms` |
 | **Track J** | Vulkan Wave64 Fused PERMUTE+XOR + Z3 Nested Loop Double Induction | **{'PASS' if j_res['exact_pair_hit_hamming_0'] and j_res['rect_proven'] and j_res['tri_proven'] else 'FAIL'}** | GPU=`{j_res['gpu_executed']}`; `rect->{j_res['rect_closed_form']}`, `tri->{j_res['tri_closed_form']}` | `{j_res['elapsed_ms']} ms` |
+| **Track K** | Vulkan LDS VSA DAG VM + Depth-4 ARC + Faulhaber Cubic Z3 CEGIS | **{'PASS' if k_res['exact_dag_vm_hit_hamming_0'] and k_res['arc4_exact_match'] and k_res['cubic_cegis_proven'] else 'FAIL'}** | GPU=`{k_res['gpu_executed']}` (`{k_res['vm_op_count']}` ops); `ARC4`; `sum_sq->{k_res['cubic_closed_form']}` | `{k_res['elapsed_ms']} ms` |
 """
     md_path = out_dir / "AGI_ARENA_RESULTS.md"
     with open(md_path, "w", encoding="utf-8") as f:
