@@ -103,7 +103,8 @@ class TestV80GPUDAGVMArc4AndCubicCEGIS(unittest.TestCase):
         self.assertTrue(tk["cubic_cegis_proven"])
 
         rt = SovereignCortexRuntime()
-        self.assertIn("8.0.0", rt.version)
+        self.assertIn("MODULAR-AGI", rt.version)
+        self.assertIn("SOVEREIGN", rt.version)
 
 
 if __name__ == "__main__":

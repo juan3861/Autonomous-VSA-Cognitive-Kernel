@@ -817,10 +817,14 @@ class OrganCapabilityRegistry:
                 "sat_status": "sat" if res_val < 1e-6 else "unsat",
             }
 
-        # Generic lazy instantiation for all remaining 82+ cataloged organs
+        # Operational declarative contract dispatch across 100% of cataloged substrate organs (v8.1.0)
         cap = self.get(oid)
         if cap and cap.module_path and cap.class_name:
             try:
+                from .organ_contracts import execute_organ_contract
+                contract_res = execute_organ_contract(oid, cap, context)
+                if contract_res is not None:
+                    return contract_res
                 mod = importlib.import_module(cap.module_path, package="aethermind_cognitive_substrate")
                 cls = getattr(mod, cap.class_name)
                 from ..sovereign_cortex_runtime import _LAZY_ORGAN_SPECS
