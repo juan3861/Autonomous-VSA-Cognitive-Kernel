@@ -10,9 +10,11 @@ Coordinates three coupled levels of Modular AGI autonomy:
 """
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
+import threading
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
@@ -22,12 +24,13 @@ from .dag_task_decomposer import DAGTaskDecomposer
 
 @dataclass
 class SubGoalSpec:
-    """Single node in a hierarchical multi-level mission graph."""
+    """Single node in a hierarchical multi-level mission graph with typed edge bindings."""
     subgoal_id: str
     objective: str
     spec: Dict[str, Any] = field(default_factory=dict)
     dependencies: List[str] = field(default_factory=list)
     estimated_ms: float = 10.0
+    input_bindings: Dict[str, Tuple[str, str]] = field(default_factory=dict)
 
 
 class HierarchicalCognitivePlanner:
@@ -35,14 +38,16 @@ class HierarchicalCognitivePlanner:
 
     def __init__(self, composer: Optional[AutonomousCognitiveComposer] = None):
         self.composer = composer or AutonomousCognitiveComposer()
+        self._route_lock = threading.Lock()
 
     def execute_hierarchical_mission(
         self,
         mission_name: str,
         subgoals: List[SubGoalSpec],
         initial_context: Optional[Dict[str, Any]] = None,
+        parallel_waves: bool = True,
     ) -> Dict[str, Any]:
-        """Decompose composite goal into topological sub-missions, prove, execute, and JIT-fuse."""
+        """Decompose composite goal into parallel topological waves, resolve typed edges, prove, and JIT-fuse."""
         t0 = time.perf_counter()
         decomposer = DAGTaskDecomposer()
         subgoal_map: Dict[str, SubGoalSpec] = {sg.subgoal_id: sg for sg in subgoals}
@@ -67,42 +72,71 @@ class HierarchicalCognitivePlanner:
             }
 
         topo_order: List[str] = dag_plan["topological_sequence"]
-        shared_context: Dict[str, Any] = dict(initial_context or {})
+        parallel_generations: List[List[str]] = dag_plan.get("parallel_stages", [[s] for s in topo_order])
+        base_context: Dict[str, Any] = dict(initial_context or {})
+        subgoal_outputs: Dict[str, Dict[str, Any]] = {}
         sub_receipts: Dict[str, CompositionReceipt] = {}
-        route_vectors_u64: List[np.ndarray] = []
+        route_vectors_u64: Dict[str, np.ndarray] = {}
 
         all_ok = True
         all_safe = True
+        typed_bindings_resolved = 0
+        parallel_execution_used = False
+        max_wave_width = max((len(w) for w in parallel_generations), default=1)
 
-        for sg_id in topo_order:
+        def _build_node_spec(sg: SubGoalSpec) -> Tuple[Dict[str, Any], int]:
+            merged = dict(base_context)
+            # Propagate dependency outputs deterministically without sibling race leakage
+            for dep_id in sg.dependencies:
+                if dep_id in subgoal_outputs:
+                    merged.update(subgoal_outputs[dep_id])
+            merged.update(sg.spec)
+            bound_cnt = 0
+            for target_key, (src_sg, src_key) in sg.input_bindings.items():
+                src_out = subgoal_outputs.get(src_sg, {})
+                if src_key in src_out:
+                    merged[target_key] = src_out[src_key]
+                    bound_cnt += 1
+            return merged, bound_cnt
+
+        def _run_subgoal(sg_id: str) -> Tuple[str, CompositionReceipt, Dict[str, Any], np.ndarray, int]:
             sg = subgoal_map[sg_id]
-            merged_spec = dict(shared_context)
-            merged_spec.update(sg.spec)
-            receipt = self.composer.execute_pipeline(sg.objective, merged_spec)
-            sub_receipts[sg_id] = receipt
-
-            if not receipt.overall_success:
-                all_ok = False
-            if not receipt.certified_safe:
-                all_safe = False
-
-            # Propagate stage outputs into shared hierarchical context for downstream dependent subgoals
+            node_spec, bound_cnt = _build_node_spec(sg)
+            receipt = self.composer.execute_pipeline(sg.objective, node_spec)
+            agg_out: Dict[str, Any] = {}
             for st in receipt.stages:
-                shared_context.update(st.data)
-
-            # Compile subgoal DAG route into AVX2 L1 signature vector
+                agg_out.update(st.data)
             pipeline_orgs = [st.organ_id for st in receipt.stages] or list(
                 receipt.formal_certificate.get("pipeline_organs", [])
             )
-            compiled = self.composer.dag_compiler.compile_route(pipeline_orgs, objective=sg.objective)
-            exec_res = self.composer.dag_compiler.execute_route(compiled)
-            route_vectors_u64.append(exec_res["route_signature_u64"])
+            with self._route_lock:
+                compiled = self.composer.dag_compiler.compile_route(pipeline_orgs, objective=sg.objective)
+                exec_res = self.composer.dag_compiler.execute_route(compiled)
+            return sg_id, receipt, agg_out, exec_res["route_signature_u64"], bound_cnt
+
+        for wave in parallel_generations:
+            if parallel_waves and len(wave) > 1:
+                parallel_execution_used = True
+                with ThreadPoolExecutor(max_workers=min(4, len(wave))) as pool:
+                    wave_results = list(pool.map(_run_subgoal, wave))
+            else:
+                wave_results = [_run_subgoal(sg_id) for sg_id in wave]
+
+            for sg_id, receipt, agg_out, route_vec, bound_cnt in wave_results:
+                sub_receipts[sg_id] = receipt
+                subgoal_outputs[sg_id] = agg_out
+                route_vectors_u64[sg_id] = route_vec
+                typed_bindings_resolved += bound_cnt
+                if not receipt.overall_success:
+                    all_ok = False
+                if not receipt.certified_safe:
+                    all_safe = False
 
             if not all_ok:
                 break
 
-        # Micro-level fusion across all subgoal route vectors using native x86_64 AVX2 W^X JIT
-        fused_sig, jit_mode = self.composer.dag_compiler.jit_bind_hierarchical_path(route_vectors_u64)
+        ordered_route_vecs = [route_vectors_u64[sg_id] for sg_id in topo_order if sg_id in route_vectors_u64]
+        fused_sig, jit_mode = self.composer.dag_compiler.jit_bind_hierarchical_path(ordered_route_vecs)
 
         self.composer.bus.publish(
             topic="composer.hierarchical.complete",
@@ -112,6 +146,8 @@ class HierarchicalCognitivePlanner:
                 "overall_success": all_ok,
                 "certified_safe": all_safe,
                 "avx2_jit_mode": jit_mode,
+                "waves_executed": len(parallel_generations),
+                "parallel_execution_used": parallel_execution_used,
             },
             organ_id="hierarchical_planner",
             confidence=1.0 if (all_ok and all_safe) else 0.0,
@@ -124,8 +160,12 @@ class HierarchicalCognitivePlanner:
             "status": "HIERARCHICAL_MISSION_CERTIFIED" if (all_ok and all_safe) else "HIERARCHICAL_MISSION_FAILED",
             "macro_schedule": {
                 "execution_order": topo_order,
-                "parallel_generations": dag_plan.get("parallel_stages", []),
+                "parallel_generations": parallel_generations,
                 "critical_path": dag_plan.get("critical_path", []),
+                "waves_executed": len(parallel_generations),
+                "max_wave_width": max_wave_width,
+                "parallel_execution_used": parallel_execution_used,
+                "typed_bindings_resolved": typed_bindings_resolved,
             },
             "subgoals_executed": len(sub_receipts),
             "subgoal_receipts": {

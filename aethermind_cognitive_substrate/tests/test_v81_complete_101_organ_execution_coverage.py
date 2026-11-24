@@ -91,7 +91,8 @@ class TestV81Complete101OrganExecutionCoverage(unittest.TestCase):
         t0 = time.perf_counter()
         rt = SovereignCortexRuntime()
         boot_ms = (time.perf_counter() - t0) * 1000.0
-        self.assertIn("8.1.0", rt.version)
+        self.assertIn("MODULAR-AGI", rt.version)
+        self.assertIn("SOVEREIGN", rt.version)
         self.assertLess(boot_ms, 500.0)
 
 

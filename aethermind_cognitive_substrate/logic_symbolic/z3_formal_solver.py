@@ -6,9 +6,13 @@ resolução exata de restrições e otimização por Programação Inteira/Real.
 """
 from __future__ import annotations
 
+import threading
 import time
 from typing import Dict, Any, List, Optional, Tuple, Union
 import z3
+
+# Global re-entrant lock protecting Z3's non-thread-safe default global Context across parallel DAG waves.
+Z3_GLOBAL_LOCK = threading.RLock()
 
 
 class Z3FormalSolver:
@@ -25,56 +29,57 @@ class Z3FormalSolver:
             constraints: Lista de expressões Python avaliáveis com as variáveis Z3.
         """
         start = time.perf_counter()
-        solver = z3.Solver()
-        solver.set("timeout", self.timeout_ms)
+        with Z3_GLOBAL_LOCK:
+            solver = z3.Solver()
+            solver.set("timeout", self.timeout_ms)
 
-        env: Dict[str, Any] = {}
-        for var_name, var_type in declarations.items():
-            if var_type.lower() == "int":
-                env[var_name] = z3.Int(var_name)
-            elif var_type.lower() == "real":
-                env[var_name] = z3.Real(var_name)
-            elif var_type.lower() == "bool":
-                env[var_name] = z3.Bool(var_name)
+            env: Dict[str, Any] = {}
+            for var_name, var_type in declarations.items():
+                if var_type.lower() == "int":
+                    env[var_name] = z3.Int(var_name)
+                elif var_type.lower() == "real":
+                    env[var_name] = z3.Real(var_name)
+                elif var_type.lower() == "bool":
+                    env[var_name] = z3.Bool(var_name)
+                else:
+                    raise ValueError(f"Tipo não suportado: {var_type}")
+
+            for c_str in constraints:
+                expr = eval(c_str, {"__builtins__": None, "z3": z3}, env)
+                solver.add(expr)
+
+            check_res = solver.check()
+            elapsed_ms = (time.perf_counter() - start) * 1000.0
+
+            if check_res == z3.sat:
+                model = solver.model()
+                solution = {}
+                for k, v in env.items():
+                    val = model.eval(v, model_completion=True)
+                    solution[k] = str(val)
+                return {
+                    "status": "SAT",
+                    "is_satisfiable": True,
+                    "solution": solution,
+                    "elapsed_ms": round(elapsed_ms, 3),
+                    "model_raw": str(model)
+                }
+            elif check_res == z3.unsat:
+                return {
+                    "status": "UNSAT",
+                    "is_satisfiable": False,
+                    "solution": None,
+                    "elapsed_ms": round(elapsed_ms, 3),
+                    "reason": "Contradição estrita detectada nas restrições fornecidas"
+                }
             else:
-                raise ValueError(f"Tipo não suportado: {var_type}")
-
-        for c_str in constraints:
-            expr = eval(c_str, {"__builtins__": None, "z3": z3}, env)
-            solver.add(expr)
-
-        check_res = solver.check()
-        elapsed_ms = (time.perf_counter() - start) * 1000.0
-
-        if check_res == z3.sat:
-            model = solver.model()
-            solution = {}
-            for k, v in env.items():
-                val = model.eval(v, model_completion=True)
-                solution[k] = str(val)
-            return {
-                "status": "SAT",
-                "is_satisfiable": True,
-                "solution": solution,
-                "elapsed_ms": round(elapsed_ms, 3),
-                "model_raw": str(model)
-            }
-        elif check_res == z3.unsat:
-            return {
-                "status": "UNSAT",
-                "is_satisfiable": False,
-                "solution": None,
-                "elapsed_ms": round(elapsed_ms, 3),
-                "reason": "Contradição estrita detectada nas restrições fornecidas"
-            }
-        else:
-            return {
-                "status": "UNKNOWN",
-                "is_satisfiable": None,
-                "solution": None,
-                "elapsed_ms": round(elapsed_ms, 3),
-                "reason": solver.reason_unknown()
-            }
+                return {
+                    "status": "UNKNOWN",
+                    "is_satisfiable": None,
+                    "solution": None,
+                    "elapsed_ms": round(elapsed_ms, 3),
+                    "reason": solver.reason_unknown()
+                }
 
     def verify_invariant(self, declarations: Dict[str, str], precondition: str, postcondition: str) -> Dict[str, Any]:
         """Verifica formalmente se Precondition -> Postcondition é um Teorema Válido.

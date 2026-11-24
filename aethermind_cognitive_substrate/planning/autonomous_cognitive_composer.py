@@ -274,72 +274,215 @@ class AutonomousCognitiveComposer:
 
         return stages
 
+    def synthesize_and_register_missing_organ(
+        self,
+        objective: str,
+        spec: Dict[str, Any],
+        organ_id: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Synthesize, AST-audit, Z3/Hoare-verify, and hot-plug a missing organ on capability miss."""
+        import ast
+        from ..code_inspector.ast_code_analyzer import ASTCodeAnalyzer
+        from ..logic_symbolic.cegis_code_synthesizer import CEGISCodeSynthesizer, _eval_ast_i64
+        from ..metacognition.hoare_contract_verifier import HoareContractVerifier
+
+        t0 = time.perf_counter()
+        synth = CEGISCodeSynthesizer()
+        analyzer = ASTCodeAnalyzer()
+
+        src_spec = spec.get("missing_organ_source") or spec.get("cegis_source")
+        io_examples = spec.get("io_examples") or []
+        proof: Dict[str, Any] = {"is_equivalent": False}
+        arg_names: List[str] = []
+
+        if isinstance(src_spec, str) and src_spec.strip():
+            src_str = src_spec.strip()
+            tree = ast.parse(src_str)
+            fn_def = next((n for n in tree.body if isinstance(n, ast.FunctionDef)), None)
+            if fn_def is None:
+                raise ValueError("missing_organ_source must define a Python function.")
+            arg_names = [a.arg for a in fn_def.args.args]
+            for_count = sum(1 for n in ast.walk(fn_def) if isinstance(n, ast.For))
+            while_count = sum(1 for n in ast.walk(fn_def) if isinstance(n, ast.While))
+            if for_count >= 2:
+                proof = synth.synthesize_nested_loop_closed_form_cegis(src_str)
+            elif for_count == 1 or while_count >= 1:
+                proof = synth.synthesize_loop_closed_form_cegis(src_str)
+            else:
+                proof = synth.synthesize_python_ast_cegis(
+                    src_str, assume_non_negative=bool(spec.get("assume_non_negative", False))
+                )
+        elif io_examples:
+            first_in = dict(io_examples[0]["inputs"] if isinstance(io_examples[0], dict) else io_examples[0][0])
+            arg_names = list(first_in.keys())
+            if not arg_names:
+                raise ValueError("io_examples must include at least one named input variable.")
+            v0 = arg_names[0]
+            cands = [f"{v0}", "0", f"{v0} + 1", f"{v0} - 1", f"{v0} * {v0}", f"({v0} * ({v0} - 1)) >> 1"]
+            for sh in (1, 2, 3, 4):
+                cands.extend([f"{v0} << {sh}", f"({v0} << {sh}) + 1", f"{v0} & 1"])
+            if len(arg_names) >= 2:
+                v1 = arg_names[1]
+                cands.extend([f"{v0} + {v1}", f"{v0} * {v1}", f"({v0} << 2) * {v1}", f"({v0} << 3) + {v1}"])
+            matched = None
+            for cs in cands:
+                nd = ast.parse(cs, mode="eval").body
+                if all(
+                    _eval_ast_i64(nd, dict(ex["inputs"] if isinstance(ex, dict) else ex[0]))
+                    == int(ex["output"] if isinstance(ex, dict) else ex[1])
+                    for ex in io_examples
+                ):
+                    matched = ast.unparse(nd)
+                    break
+            if matched is not None:
+                syn_src = f"def auto_{_objective_signature(objective)}({', '.join(arg_names)}):\n    return {matched}\n"
+                proof = synth.synthesize_python_ast_cegis(
+                    syn_src, assume_non_negative=bool(spec.get("assume_non_negative", False))
+                )
+        else:
+            return {"registered": False, "status": "NO_SYNTHESIS_SPEC"}
+
+        if not proof.get("is_equivalent") or not proof.get("candidate_code"):
+            return {"registered": False, "status": "SYNTHESIS_FAILED", "proof": proof}
+
+        cand_code = str(proof["candidate_code"])
+        syn_src = str(proof.get("synthesized_source") or f"def synth_fn({', '.join(arg_names)}):\n    return {cand_code}\n")
+        ast_sec = analyzer.analyze_source(syn_src)
+        if not ast_sec.get("is_valid_syntax") or not ast_sec.get("security_clean"):
+            return {"registered": False, "status": "AST_SECURITY_REJECTED", "ast_security": ast_sec}
+
+        hoare_spec = spec.get("hoare_contract")
+        if isinstance(hoare_spec, dict):
+            hc = HoareContractVerifier().verify_hoare_triple_assignment(
+                declarations=dict(hoare_spec.get("declarations", {a: "int" for a in arg_names})),
+                precondition=str(hoare_spec.get("precondition", "True")),
+                assignment_var=str(hoare_spec.get("assignment_var", arg_names[0])),
+                assigned_expr=str(hoare_spec.get("assigned_expr", cand_code)),
+                postcondition=str(hoare_spec.get("postcondition", "True")),
+            )
+            if not hc.get("is_contract_valid"):
+                return {"registered": False, "status": "HOARE_CONTRACT_REJECTED", "hoare": hc}
+
+        cand_ast = ast.parse(cand_code, mode="eval").body
+        new_oid = organ_id or spec.get("synthesize_organ_id") or f"auto_synth_{_objective_signature(objective)}"
+
+        def _safe_ast_organ_exec(ctx: Dict[str, Any]) -> Dict[str, Any]:
+            raw_inputs = ctx.get("inputs", ctx)
+            env = {a: int(raw_inputs.get(a, ctx.get(a, 0))) for a in arg_names}
+            val = _eval_ast_i64(cand_ast, env)
+            return {
+                "synthesized_output": val,
+                "candidate_code": cand_code,
+                "sat_status": "sat",
+                "executed": True,
+                "status": "AUTO_SYNTH_EXECUTED",
+            }
+
+        cap = OrganCapability(
+            organ_id=new_oid,
+            category="synthesized_plugin",
+            description=f"{objective} auto synthesized organ ({cand_code})",
+            inputs=list(arg_names),
+            outputs=["synthesized_output", "candidate_code", "sat_status"],
+            formal_guarantee=f"CEGIS+Z3 verified O(1) organ: {cand_code}",
+            latency_class="submicrosecond",
+            is_certifier=False,
+            is_external_plugin=True,
+        )
+        self.registry.register_plugin(cap, executor=_safe_ast_organ_exec)
+
+        if self.hipporag is not None:
+            try:
+                self.hipporag.add_relation(
+                    f"obj:{_objective_signature(objective)}", "resolved_by_synthesized", f"organ:{new_oid}", weight=1.0
+                )
+            except Exception:
+                pass
+
+        self.bus.publish(
+            topic="composer.organ.synthesized",
+            payload={"organ_id": new_oid, "candidate_code": cand_code, "objective": objective},
+            organ_id="autonomous_composer",
+            confidence=1.0,
+        )
+
+        return {
+            "registered": True,
+            "status": "ORGAN_SYNTHESIZED_AND_PLUGGED",
+            "organ_id": new_oid,
+            "candidate_code": cand_code,
+            "synthesized_source": syn_src,
+            "elapsed_ms": round((time.perf_counter() - t0) * 1000.0, 3),
+        }
+
     def verify_dag_contracts(self, pipeline_organs: List[str], spec: Dict[str, Any]) -> Dict[str, Any]:
         """Formally verify DAG topological contracts, Lyapunov stability & safety sinks via Z3 SMT."""
         import z3
+        from ..logic_symbolic.z3_formal_solver import Z3_GLOBAL_LOCK
 
         t0 = time.perf_counter()
-        solver = z3.Solver()
-        solver.set("timeout", 2000)
+        with Z3_GLOBAL_LOCK:
+            solver = z3.Solver()
+            solver.set("timeout", 2000)
 
-        rho_val = float(spec.get("lyapunov_rho", 0.85))
-        require_safety = bool(spec.get("require_formal_safety", True))
+            rho_val = float(spec.get("lyapunov_rho", 0.85))
+            require_safety = bool(spec.get("require_formal_safety", True))
 
-        rho = z3.Real("lyapunov_rho")
-        solver.add(rho == z3.RealVal(str(rho_val)))
-        solver.add(rho <= z3.RealVal("0.95"))
-        solver.add(rho >= z3.RealVal("0.0"))
+            rho = z3.Real("lyapunov_rho")
+            solver.add(rho == z3.RealVal(str(rho_val)))
+            solver.add(rho <= z3.RealVal("0.95"))
+            solver.add(rho >= z3.RealVal("0.0"))
 
-        ready_vars = []
-        edge_bounds_verified = 0
-        obs_vals = spec.get("observations")
-        cur_lo = float(min(obs_vals)) if isinstance(obs_vals, (list, tuple)) and len(obs_vals) > 0 else float(spec.get("state_min", -2.0))
-        cur_hi = float(max(obs_vals)) if isinstance(obs_vals, (list, tuple)) and len(obs_vals) > 0 else float(spec.get("state_max", 2.0))
+            ready_vars = []
+            edge_bounds_verified = 0
+            obs_vals = spec.get("observations")
+            cur_lo = float(min(obs_vals)) if isinstance(obs_vals, (list, tuple)) and len(obs_vals) > 0 else float(spec.get("state_min", -2.0))
+            cur_hi = float(max(obs_vals)) if isinstance(obs_vals, (list, tuple)) and len(obs_vals) > 0 else float(spec.get("state_max", 2.0))
 
-        prev_out_lo = z3.Real("edge_0_in_lo")
-        prev_out_hi = z3.Real("edge_0_in_hi")
-        solver.add(prev_out_lo == z3.RealVal(str(cur_lo)))
-        solver.add(prev_out_hi == z3.RealVal(str(cur_hi)))
-        solver.add(prev_out_lo <= prev_out_hi)
+            prev_out_lo = z3.Real("edge_0_in_lo")
+            prev_out_hi = z3.Real("edge_0_in_hi")
+            solver.add(prev_out_lo == z3.RealVal(str(cur_lo)))
+            solver.add(prev_out_hi == z3.RealVal(str(cur_hi)))
+            solver.add(prev_out_lo <= prev_out_hi)
 
-        has_certifier = False
-        for idx, raw_org in enumerate(pipeline_organs):
-            org = self.registry.resolve_organ_id(raw_org)
-            v = z3.Bool(f"stage_{idx}_{org}_ready")
-            cap = self.capabilities.get(org)
-            is_known = cap is not None
-            solver.add(v == z3.BoolVal(is_known))
-            solver.add(v == True)
-            ready_vars.append(v)
+            has_certifier = False
+            for idx, raw_org in enumerate(pipeline_organs):
+                org = self.registry.resolve_organ_id(raw_org)
+                v = z3.Bool(f"stage_{idx}_{org}_ready")
+                cap = self.capabilities.get(org)
+                is_known = cap is not None
+                solver.add(v == z3.BoolVal(is_known))
+                solver.add(v == True)
+                ready_vars.append(v)
 
-            if cap is not None:
-                if cap.is_certifier or org in {"cbf_control_barrier_shield", "stl_temporal_logic_monitor", "z3_formal_solver"}:
-                    has_certifier = True
-                s_in_lo = z3.Real(f"stage_{idx}_in_lo")
-                s_in_hi = z3.Real(f"stage_{idx}_in_hi")
-                s_out_lo = z3.Real(f"stage_{idx}_out_lo")
-                s_out_hi = z3.Real(f"stage_{idx}_out_hi")
-                solver.add(s_in_lo == z3.RealVal(str(cap.in_min)))
-                solver.add(s_in_hi == z3.RealVal(str(cap.in_max)))
-                solver.add(prev_out_lo >= s_in_lo)
-                solver.add(prev_out_hi <= s_in_hi)
-                out_min_val = z3.RealVal(str(cap.out_min))
-                out_max_val = z3.RealVal(str(cap.out_max))
-                solver.add(s_out_lo == z3.If(prev_out_lo > out_min_val, prev_out_lo, out_min_val))
-                solver.add(s_out_hi == z3.If(prev_out_hi < out_max_val, prev_out_hi, out_max_val))
-                solver.add(s_out_lo <= s_out_hi)
-                prev_out_lo = s_out_lo
-                prev_out_hi = s_out_hi
-                edge_bounds_verified += 1
+                if cap is not None:
+                    if cap.is_certifier or org in {"cbf_control_barrier_shield", "stl_temporal_logic_monitor", "z3_formal_solver"}:
+                        has_certifier = True
+                    s_in_lo = z3.Real(f"stage_{idx}_in_lo")
+                    s_in_hi = z3.Real(f"stage_{idx}_in_hi")
+                    s_out_lo = z3.Real(f"stage_{idx}_out_lo")
+                    s_out_hi = z3.Real(f"stage_{idx}_out_hi")
+                    solver.add(s_in_lo == z3.RealVal(str(cap.in_min)))
+                    solver.add(s_in_hi == z3.RealVal(str(cap.in_max)))
+                    solver.add(prev_out_lo >= s_in_lo)
+                    solver.add(prev_out_hi <= s_in_hi)
+                    out_min_val = z3.RealVal(str(cap.out_min))
+                    out_max_val = z3.RealVal(str(cap.out_max))
+                    solver.add(s_out_lo == z3.If(prev_out_lo > out_min_val, prev_out_lo, out_min_val))
+                    solver.add(s_out_hi == z3.If(prev_out_hi < out_max_val, prev_out_hi, out_max_val))
+                    solver.add(s_out_lo <= s_out_hi)
+                    prev_out_lo = s_out_lo
+                    prev_out_hi = s_out_hi
+                    edge_bounds_verified += 1
 
-        safety_sink = z3.Bool("has_formal_safety_certifier")
-        solver.add(safety_sink == z3.BoolVal(has_certifier))
-        if require_safety:
-            solver.add(safety_sink == True)
+            safety_sink = z3.Bool("has_formal_safety_certifier")
+            solver.add(safety_sink == z3.BoolVal(has_certifier))
+            if require_safety:
+                solver.add(safety_sink == True)
 
-        check_res = solver.check()
-        elapsed_ms = (time.perf_counter() - t0) * 1000.0
-        verified = (check_res == z3.sat)
+            check_res = solver.check()
+            elapsed_ms = (time.perf_counter() - t0) * 1000.0
+            verified = (check_res == z3.sat)
 
         return {
             "verified": verified,
@@ -430,6 +573,14 @@ class AutonomousCognitiveComposer:
     ) -> CompositionReceipt:
         """Execute a synthesized pipeline, verifying Z3 contracts first and routing via VSA bus."""
         t_start = time.perf_counter()
+        synth_receipt: Optional[Dict[str, Any]] = None
+        if not spec.get("custom_pipeline") and (
+            spec.get("synthesize_on_miss") or spec.get("missing_organ_source") or spec.get("io_examples")
+        ):
+            target_oid = spec.get("synthesize_organ_id") or f"auto_synth_{_objective_signature(objective)}"
+            if self.registry.get(target_oid) is None:
+                synth_receipt = self.synthesize_and_register_missing_organ(objective, spec, organ_id=target_oid)
+
         raw_pipeline = list(spec.get("custom_pipeline") or self.synthesize_pipeline(objective, spec))
         pipeline_organs = [self.registry.resolve_organ_id(o) for o in raw_pipeline]
         stage_results: List[PipelineStageResult] = []
@@ -461,6 +612,7 @@ class AutonomousCognitiveComposer:
             "pipeline_organs": pipeline_organs,
             "z3_preflight_proof": z3_preflight,
             "avx2_route_trace": avx2_trace,
+            "synthesized_organ_receipt": synth_receipt,
             "guarantees": [],
         }
 
