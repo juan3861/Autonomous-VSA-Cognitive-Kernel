@@ -413,6 +413,7 @@ def build_organ_contracts() -> Dict[str, OrganExecutionContract]:
         "moe_router": OrganExecutionContract("moe_router", _exec_moe),
         "nca_automata": OrganExecutionContract("nca_automata", _exec_nca),
         "neural_ode_rk45": OrganExecutionContract("neural_ode_rk45", _exec_neural_ode),
+        "neuro_symbolic_bridge": _exec_simple_call("neuro_symbolic_bridge", lambda inst, ctx: inst.propose_verify_and_refine(str(ctx.get("task_prompt", "verify safe shift")), ctx)),
         "rwkv_channel": OrganExecutionContract("rwkv_channel", _exec_mamba_rwkv("rwkv_channel")),
         "sinkhorn_ot": OrganExecutionContract("sinkhorn_ot", _exec_sinkhorn),
         "tensor_mps": OrganExecutionContract("tensor_mps", _exec_tensor_mps),

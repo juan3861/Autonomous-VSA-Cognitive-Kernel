@@ -120,6 +120,7 @@ _LAZY_ORGAN_SPECS: Dict[str, Tuple[str, str, Dict[str, Any]]] = {
     "vsa_semantic_bus": (".memory_vault.vsa_semantic_bus", "VSAHyperdimensionalBus", {"dimension": 10240}),
     "vsa_expression_compiler": (".memory_vault.vsa_expression_compiler", "VSAExpressionCompiler", {}),
     "fast_vsa_bridge": (".physical_bridge.fast_vsa_bridge", "FastVSABridge", {}),
+    "neuro_symbolic_bridge": (".planning.neuro_symbolic_bridge", "VerifiedNeuroSymbolicBridge", {}),
 }
 
 
@@ -129,8 +130,8 @@ class SovereignCortexRuntime:
     def __init__(self):
         self._last_stream_vec: Optional[List[float]] = None
         # Registro canônico de metadados (boot instantâneo < 50 ms via Lazy Organ Registry)
-        self.version = "8.3.0-APEX-MODULAR-AGI-OBJECT-ARC-EXTERNAL-SOVEREIGN"
-        self.name = "AETHER-KAIROS (AetherCOS v8.3.0-APEX-MODULAR-AGI-OBJECT-ARC-EXTERNAL-SOVEREIGN)"
+        self.version = "8.4.0-APEX-MODULAR-AGI-NEUROSYMBOLIC-GATE-SOVEREIGN"
+        self.name = "AETHER-KAIROS (AetherCOS v8.4.0-APEX-MODULAR-AGI-NEUROSYMBOLIC-GATE-SOVEREIGN)"
 
     def __getattr__(self, name: str) -> Any:
         # Órgãos com injeção explícita de dependência entre pares
