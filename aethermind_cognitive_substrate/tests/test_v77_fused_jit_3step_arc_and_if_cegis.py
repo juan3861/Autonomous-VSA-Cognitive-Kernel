@@ -112,8 +112,8 @@ class TestV77FusedJIT3StepARCAndIfCEGIS(unittest.TestCase):
 
     def test_04_runtime_v77_version(self):
         rt = SovereignCortexRuntime()
-        self.assertIn("7.7.0", rt.version)
-        self.assertIn("FUSED-JIT", rt.version)
+        self.assertIn("MODULAR-AGI", rt.version)
+        self.assertIn("SOVEREIGN", rt.version)
 
 
 if __name__ == "__main__":

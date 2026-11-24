@@ -492,3 +492,228 @@ class CEGISCodeSynthesizer:
         proof["candidate_code"] = "(x > 0) and ((x & (x - 1)) == 0)"
         proof["proof_type"] = "SELF_STABILITY_AND_OVERFLOW_IMMUNITY"
         return proof
+
+    def _extract_loop_recurrence(
+        self, source_code: str
+    ) -> Tuple[Optional[str], List[str], str, str, str, ast.expr, ast.expr]:
+        """Extract (fn_name, arg_names, acc_var, idx_var, bound_var, init_expr, step_expr) from a for/while loop."""
+        sec = self._ast_analyzer.analyze_source(source_code)
+        if not sec.get("is_valid_syntax") or not sec.get("security_clean"):
+            raise ValueError(f"Unsafe or invalid Python loop rejected by AST guard: {sec}")
+
+        tree = ast.parse(source_code)
+        if len(tree.body) != 1 or not isinstance(tree.body[0], ast.FunctionDef):
+            raise ValueError("Expected a single function definition containing a for/while accumulator loop.")
+
+        fn = tree.body[0]
+        fn_name = fn.name
+        arg_names = [a.arg for a in fn.args.args]
+        assigns: Dict[str, ast.expr] = {}
+        loop_node: Optional[ast.AST] = None
+
+        for stmt in fn.body:
+            if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1 and isinstance(stmt.targets[0], ast.Name):
+                assigns[stmt.targets[0].id] = stmt.value
+            elif isinstance(stmt, (ast.For, ast.While)):
+                loop_node = stmt
+                break
+
+        if loop_node is None:
+            raise ValueError("No for or while loop found in function body.")
+
+        idx_var = ""
+        bound_var = ""
+        body_stmts: List[ast.stmt] = []
+
+        if isinstance(loop_node, ast.For):
+            if not isinstance(loop_node.target, ast.Name):
+                raise ValueError("For loop target must be a simple variable name.")
+            idx_var = loop_node.target.id
+            if (
+                isinstance(loop_node.iter, ast.Call)
+                and isinstance(loop_node.iter.func, ast.Name)
+                and loop_node.iter.func.id == "range"
+                and len(loop_node.iter.args) == 1
+                and isinstance(loop_node.iter.args[0], ast.Name)
+            ):
+                bound_var = loop_node.iter.args[0].id
+            else:
+                raise ValueError("For loop must iterate over range(bound_var).")
+            body_stmts = list(loop_node.body)
+        elif isinstance(loop_node, ast.While):
+            if (
+                isinstance(loop_node.test, ast.Compare)
+                and len(loop_node.test.ops) == 1
+                and isinstance(loop_node.test.ops[0], ast.Lt)
+                and isinstance(loop_node.test.left, ast.Name)
+                and isinstance(loop_node.test.comparators[0], ast.Name)
+            ):
+                idx_var = loop_node.test.left.id
+                bound_var = loop_node.test.comparators[0].id
+            else:
+                raise ValueError("While loop condition must have form `idx_var < bound_var`.")
+            body_stmts = list(loop_node.body)
+
+        acc_var = ""
+        step_expr: Optional[ast.expr] = None
+        for st in body_stmts:
+            if isinstance(st, ast.Assign) and len(st.targets) == 1 and isinstance(st.targets[0], ast.Name):
+                tname = st.targets[0].id
+                if tname != idx_var and tname in assigns:
+                    acc_var = tname
+                    step_expr = st.value
+                    break
+            elif isinstance(st, ast.AugAssign) and isinstance(st.target, ast.Name):
+                tname = st.target.id
+                if tname != idx_var and tname in assigns:
+                    acc_var = tname
+                    step_expr = ast.BinOp(left=ast.Name(id=acc_var, ctx=ast.Load()), op=st.op, right=st.value)
+                    break
+
+        if not acc_var or step_expr is None:
+            raise ValueError("Could not extract accumulator variable and update expression from loop.")
+
+        return fn_name, arg_names, acc_var, idx_var, bound_var, assigns[acc_var], step_expr
+
+    def synthesize_loop_closed_form_cegis(self, source_code: str) -> Dict[str, Any]:
+        """Synthesize an O(1) closed-form Python expression for an O(n) loop and prove it by Z3 Mathematical Induction."""
+        t0 = time.perf_counter()
+        fn_name, arg_names, acc_var, idx_var, bound_var, init_expr, step_expr = self._extract_loop_recurrence(source_code)
+        param_vars = [v for v in arg_names if v != bound_var]
+
+        # Build concrete trace oracle by executing the recurrence on small bounds n = 0..5
+        def _run_loop_concrete(env_params: Dict[str, int], n_val: int) -> int:
+            acc = _eval_ast_i64(init_expr, env_params)
+            for i_val in range(max(0, n_val)):
+                step_env = dict(env_params)
+                step_env[acc_var] = acc
+                step_env[idx_var] = i_val
+                step_env[bound_var] = n_val
+                acc = _eval_ast_i64(step_expr, step_env)
+            return acc
+
+        # Construct candidate O(1) closed-form expressions over (bound_var, *param_vars)
+        cand_strs: List[str] = [
+            "0",
+            f"{bound_var}",
+            f"{bound_var} * {bound_var}",
+            f"({bound_var} * ({bound_var} - 1)) >> 1",
+            f"({bound_var} * ({bound_var} + 1)) >> 1",
+            f"{bound_var} * ({bound_var} - 1)",
+            f"{bound_var} * ({bound_var} + 1)",
+        ]
+        pow2_shifts = {1: 0, 2: 1, 4: 2, 8: 3, 16: 4}
+        for pv in param_vars:
+            cand_strs.extend([
+                f"{pv} * {bound_var}",
+                f"{pv} if ({bound_var} & 1) != 0 else 0",
+                f"{pv} + {bound_var}",
+                f"{pv} - {bound_var}",
+            ])
+            for k, sh in pow2_shifts.items():
+                if sh > 0:
+                    cand_strs.append(f"({pv} << {sh}) * {bound_var}")
+                    cand_strs.append(f"(({pv} << {sh}) if ({bound_var} & 1) != 0 else 0)")
+
+        parsed_cands: List[ast.expr] = []
+        seen_c: set[str] = set()
+        for cs in cand_strs:
+            try:
+                node = ast.parse(cs, mode="eval").body
+                unp = ast.unparse(node)
+                if unp not in seen_c:
+                    seen_c.add(unp)
+                    parsed_cands.append(node)
+            except Exception:
+                pass
+        parsed_cands.sort(key=lambda n: (_ast_cycle_cost(n), len(ast.unparse(n))))
+
+        sample_envs = [
+            ({pv: 3 for pv in param_vars}, 0),
+            ({pv: 3 for pv in param_vars}, 1),
+            ({pv: 3 for pv in param_vars}, 2),
+            ({pv: 5 for pv in param_vars}, 3),
+            ({pv: 7 for pv in param_vars}, 4),
+        ]
+
+        # Z3 Mathematical Induction setup over 64-bit BitVecs
+        z3_k = z3.BitVec(idx_var, 64)
+        z3_params = {pv: z3.BitVec(pv, 64) for pv in param_vars}
+
+        proven_ast: Optional[ast.expr] = None
+        counterexamples: List[Dict[str, int]] = []
+        iterations = 0
+
+        for cand in parsed_cands:
+            # 1. Fast concrete filter on sample trace points
+            matches_samples = True
+            for p_env, n_val in sample_envs:
+                c_env = dict(p_env)
+                c_env[bound_var] = n_val
+                if _eval_ast_i64(cand, c_env) != _run_loop_concrete(p_env, n_val):
+                    matches_samples = False
+                    break
+            if not matches_samples:
+                continue
+
+            iterations += 1
+            # 2. Z3 Inductive Proof: Base Case (n == 0) AND Inductive Step (k -> k + 1)
+            solver_base = z3.Solver()
+            env_base = dict(z3_params)
+            env_base[bound_var] = z3.BitVecVal(0, 64)
+            cand_0 = _ast_to_z3_bv64(cand, env_base, [])
+            init_bv = _ast_to_z3_bv64(init_expr, dict(z3_params), [])
+            solver_base.add(cand_0 != init_bv)
+            if solver_base.check() != z3.unsat:
+                continue
+
+            solver_step = z3.Solver()
+            env_k = dict(z3_params)
+            env_k[bound_var] = z3_k
+            cand_k = _ast_to_z3_bv64(cand, env_k, [])
+
+            env_step = dict(z3_params)
+            env_step[acc_var] = cand_k
+            env_step[idx_var] = z3_k
+            env_step[bound_var] = z3_k
+            lhs_next = _ast_to_z3_bv64(step_expr, env_step, [])
+
+            env_k1 = dict(z3_params)
+            env_k1[bound_var] = z3_k + z3.BitVecVal(1, 64)
+            rhs_next = _ast_to_z3_bv64(cand, env_k1, [])
+
+            solver_step.add(lhs_next != rhs_next)
+            if solver_step.check() == z3.unsat:
+                proven_ast = cand
+                break
+            else:
+                m = solver_step.model()
+                counterexamples.append({str(d): str(m[d]) for d in m.decls()})
+
+        elapsed_ms = (time.perf_counter() - t0) * 1000.0
+        if proven_ast is None:
+            return {
+                "is_equivalent": False,
+                "status": "INDUCTIVE_SYNTHESIS_FAILED",
+                "z3_base_case": "unknown",
+                "z3_inductive_step": "sat",
+                "counterexamples": counterexamples,
+                "elapsed_ms": round(elapsed_ms, 3),
+            }
+
+        cand_str = ast.unparse(proven_ast)
+        synthesized_fn = f"def {fn_name}({', '.join(arg_names)}):\n    return {cand_str}"
+        res = {
+            "is_equivalent": True,
+            "status": "PROVEN_BY_Z3_MATHEMATICAL_INDUCTION",
+            "z3_base_case": "unsat",
+            "z3_inductive_step": "unsat",
+            "complexity_reduction": "O(n) -> O(1)",
+            "candidate_code": cand_str,
+            "synthesized_source": synthesized_fn,
+            "cegis_candidates_tested": iterations,
+            "counterexamples_refuted": len(counterexamples),
+            "elapsed_ms": round(elapsed_ms, 3),
+        }
+        self.verified_optimizations.append(res)
+        return res

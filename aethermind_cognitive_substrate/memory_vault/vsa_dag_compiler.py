@@ -203,6 +203,18 @@ class VSADAGBytecodeCompiler:
         out = np.zeros(WORDS, dtype=np.uint64)
         n = len(vecs)
 
+        cy = self.compiler._cy
+        if cy is not None and hasattr(cy, "cy_jit_compile_permuted_xor_chain") and n <= 32:
+            steps_u64 = np.asarray(steps_list, dtype=np.uint64)
+            in_mat = np.vstack(vecs)
+            h_u64 = int(cy.cy_jit_compile_permuted_xor_chain(steps_u64))
+            if h_u64:
+                try:
+                    mode = int(cy.cy_jit_exec_permuted_xor_chain(h_u64, in_mat, out))
+                    return out, mode
+                finally:
+                    cy.cy_jit_free_permuted_xor_chain(h_u64)
+
         if self._lib is not None and hasattr(self._lib, "vsa_jit_compile_permuted_xor_chain"):
             steps_arr = (ctypes.c_size_t * n)(*[int(s) for s in steps_list])
             handle = self._lib.vsa_jit_compile_permuted_xor_chain(steps_arr, n)
@@ -231,6 +243,16 @@ class VSADAGBytecodeCompiler:
         """Execute circular 10,240-bit permutation via native x86_64 AVX2 W^X machine code."""
         src = np.ascontiguousarray(vec_u64, dtype=np.uint64)
         out = np.zeros(WORDS, dtype=np.uint64)
+        cy = self.compiler._cy
+        if cy is not None and hasattr(cy, "cy_jit_compile_permute"):
+            h_u64 = int(cy.cy_jit_compile_permute(int(steps)))
+            if h_u64:
+                try:
+                    mode = int(cy.cy_jit_exec_permute(h_u64, src, out))
+                    return out, mode
+                finally:
+                    cy.cy_jit_free_permute(h_u64)
+
         if self._lib is not None and hasattr(self._lib, "vsa_jit_compile_permute"):
             handle = self._lib.vsa_jit_compile_permute(int(steps))
             if handle:

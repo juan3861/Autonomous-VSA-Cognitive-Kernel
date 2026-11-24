@@ -341,10 +341,53 @@ def bench_track_h_fused_jit_3step_arc_conditional_cegis() -> Dict[str, Any]:
     }
 
 
+def bench_track_i_cython_jit_and_loop_induction() -> Dict[str, Any]:
+    from aethermind_cognitive_substrate.logic_symbolic.cegis_code_synthesizer import CEGISCodeSynthesizer
+    from aethermind_cognitive_substrate.physical_bridge.fast_vsa_bridge import _load_cython_ext
+    import numpy as np
+
+    t0 = time.perf_counter()
+    cy = _load_cython_ext()
+    cy_jit_ok = False
+    if cy is not None and hasattr(cy, "cy_jit_compile_permuted_xor_chain"):
+        rng = np.random.default_rng(7800)
+        mat = rng.integers(0, np.iinfo(np.uint64).max, size=(4, 160), dtype=np.uint64)
+        sh = np.array([0, 7, 64, 199], dtype=np.uint64)
+        out = np.zeros(160, dtype=np.uint64)
+        h = int(cy.cy_jit_compile_permuted_xor_chain(sh))
+        try:
+            mode = int(cy.cy_jit_exec_permuted_xor_chain(h, mat, out))
+            cy_jit_ok = (mode == 1)
+        finally:
+            cy.cy_jit_free_permuted_xor_chain(h)
+
+    synth = CEGISCodeSynthesizer()
+    r_odds = synth.synthesize_loop_closed_form_cegis(
+        "def sum_odds(n):\n    acc = 0\n    for i in range(n):\n        acc = acc + (2 * i + 1)\n    return acc\n"
+    )
+    r_scale = synth.synthesize_loop_closed_form_cegis(
+        "def loop_scale(x, n):\n    acc = 0\n    for i in range(n):\n        acc = acc + (x * 4)\n    return acc\n"
+    )
+    r_xor = synth.synthesize_loop_closed_form_cegis(
+        "def xor_loop(x, n):\n    acc = 0\n    i = 0\n    while i < n:\n        acc = acc ^ x\n        i = i + 1\n    return acc\n"
+    )
+    elapsed_ms = (time.perf_counter() - t0) * 1000.0
+    return {
+        "cython_zero_copy_jit_executed": cy_jit_ok,
+        "odds_proven": bool(r_odds["is_equivalent"]),
+        "odds_closed_form": r_odds.get("candidate_code"),
+        "scale_proven": bool(r_scale["is_equivalent"]),
+        "scale_closed_form": r_scale.get("candidate_code"),
+        "xor_proven": bool(r_xor["is_equivalent"]),
+        "xor_closed_form": r_xor.get("candidate_code"),
+        "elapsed_ms": round(elapsed_ms, 3),
+    }
+
+
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.7.0-APEX-MODULAR-AGI-FUSED-JIT-SOVEREIGN",
+        "version": "7.8.0-APEX-MODULAR-AGI-INDUCTIVE-SOVEREIGN",
         "track_a_plug_and_play": bench_track_a_plug_and_play_discovery(),
         "track_b_pddl_planning": bench_track_b_pddl_planning(),
         "track_c_ast_cegis": bench_track_c_ast_cegis_synthesis(),
@@ -353,6 +396,7 @@ def main():
         "track_f_hierarchical_arc": bench_track_f_hierarchical_arc_avx2(),
         "track_g_arc_batch_8": bench_track_g_arc_compositional_batch(),
         "track_h_fused_jit_3step_arc": bench_track_h_fused_jit_3step_arc_conditional_cegis(),
+        "track_i_cython_jit_loop_induction": bench_track_i_cython_jit_and_loop_induction(),
     }
 
     out_dir = Path(__file__).resolve().parent
@@ -368,8 +412,9 @@ def main():
     f_res = results["track_f_hierarchical_arc"]
     g_res = results["track_g_arc_batch_8"]
     h_res = results["track_h_fused_jit_3step_arc"]
+    i_res = results["track_i_cython_jit_loop_induction"]
 
-    md = f"""# AGI-Modular Multi-Domain Arena Results (`v7.7.0`)
+    md = f"""# AGI-Modular Multi-Domain Arena Results (`v7.8.0`)
 
 **Generated:** `{results['timestamp']}`  
 **Kernel Version:** `{results['version']}`
@@ -384,6 +429,7 @@ def main():
 | **Track F** | Hierarchical Macro->Meso->Micro Planning + ARC Grid + AVX2 W^X JIT | **{'PASS' if f_res['overall_success'] and f_res['certified_safe'] else 'FAIL'}** | `{f_res['subgoals_executed']}` hierarchical subgoals; JIT mode `{f_res['avx2_wx_jit_mode']}` | `{f_res['elapsed_ms']} ms` |
 | **Track G** | 8-Task Compositional ARC Grid Induction Batch | **{'PASS' if g_res['exact_test_matches'] == g_res['total_tasks'] else 'FAIL'}** | `{g_res['exact_test_matches']}/{g_res['total_tasks']}` exact pixel accuracy (`{g_res['accuracy']*100:.1f}%`) | `{g_res['total_elapsed_ms']} ms` |
 | **Track H** | Fused AVX2 PERMUTE+XOR JIT + 3-Step ARC + Conditional CEGIS | **{'PASS' if h_res['fused_jit_mode'] == 1 and h_res['conditional_cegis_proven'] and h_res['arc_3step_solved'] else 'FAIL'}** | JIT mode `{h_res['fused_jit_mode']}`; 3-step `{h_res['arc_3step_program']}`; `{h_res['conditional_candidate']}` | `{h_res['elapsed_ms']} ms` |
+| **Track I** | Cython Zero-Copy Fused JIT + Z3 Loop Mathematical Induction | **{'PASS' if i_res['cython_zero_copy_jit_executed'] and i_res['odds_proven'] and i_res['scale_proven'] and i_res['xor_proven'] else 'FAIL'}** | `O(n)->O(1)`: `sum_odds->{i_res['odds_closed_form']}`, `scale->{i_res['scale_closed_form']}`, `xor->{i_res['xor_closed_form']}` | `{i_res['elapsed_ms']} ms` |
 """
     md_path = out_dir / "AGI_ARENA_RESULTS.md"
     with open(md_path, "w", encoding="utf-8") as f:

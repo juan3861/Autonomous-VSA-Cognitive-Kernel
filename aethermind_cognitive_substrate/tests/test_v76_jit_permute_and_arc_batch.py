@@ -92,7 +92,7 @@ class TestV76JITPermuteAndARCBatch(unittest.TestCase):
     def test_04_runtime_v76_version_and_health(self):
         rt = SovereignCortexRuntime()
         self.assertIn("MODULAR-AGI", rt.version)
-        self.assertIn("JIT", rt.version)
+        self.assertIn("SOVEREIGN", rt.version)
 
 
 if __name__ == "__main__":

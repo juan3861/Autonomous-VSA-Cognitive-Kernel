@@ -172,9 +172,19 @@ def bench_vsa_10240(n_iters: int = 2000) -> Dict[str, Any]:
         perm_jit_ms = (time.perf_counter() - t0) * 1000.0
         bridge_dll.vsa_jit_free_permute(p_handle)
 
-    # 9. Native x86_64 AVX2 W^X Fused Permute+XOR Chain (4-way fused route)
+    # 9. Native x86_64 AVX2 W^X Fused Permute+XOR Chain (4-way fused route via Cython Zero-Copy when present)
     fused_perm_xor_ms = None
-    if hasattr(bridge_dll, "vsa_jit_compile_permuted_xor_chain"):
+    if comp._cy is not None and hasattr(comp._cy, "cy_jit_compile_permuted_xor_chain"):
+        sh_u64 = np.array([0, 7, 64, 199], dtype=np.uint64)
+        fx_mat = np.vstack(vecs[:4])
+        fx_out = np.zeros(160, dtype=np.uint64)
+        fx_h = int(comp._cy.cy_jit_compile_permuted_xor_chain(sh_u64))
+        t0 = time.perf_counter()
+        for _ in range(n_iters):
+            comp._cy.cy_jit_exec_permuted_xor_chain(fx_h, fx_mat, fx_out)
+        fused_perm_xor_ms = (time.perf_counter() - t0) * 1000.0
+        comp._cy.cy_jit_free_permuted_xor_chain(fx_h)
+    elif hasattr(bridge_dll, "vsa_jit_compile_permuted_xor_chain"):
         sh_arr = (ctypes.c_size_t * 4)(0, 7, 64, 199)
         fx_handle = bridge_dll.vsa_jit_compile_permuted_xor_chain(sh_arr, 4)
         fx_ptrs = (ctypes.POINTER(ctypes.c_uint64) * 4)(*[v.ctypes.data_as(ctypes.POINTER(ctypes.c_uint64)) for v in vecs[:4]])
@@ -340,7 +350,7 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.7.0-APEX-MODULAR-AGI-FUSED-JIT-SOVEREIGN",
+        "version": "7.8.0-APEX-MODULAR-AGI-INDUCTIVE-SOVEREIGN",
         "vsa_10240": bench_vsa_10240(2000),
         "lyapunov_16x16": bench_lyapunov_16x16(200),
         "simplex_lp": bench_simplex_vs_highs(100),

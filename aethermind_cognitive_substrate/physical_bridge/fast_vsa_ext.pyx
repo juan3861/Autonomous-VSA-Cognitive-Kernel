@@ -40,6 +40,18 @@ cdef extern from "autonomous_vsa.h":
         size_t*       iters_out_ptr
     ) nogil
 
+    ctypedef struct JitPermuteHandle:
+        pass
+    JitPermuteHandle* vsa_jit_compile_permute(size_t steps) nogil
+    int32_t           vsa_jit_exec_permute(const JitPermuteHandle* handle, const uint64_t* in_buf, uint64_t* out_buf) nogil
+    void              vsa_jit_free_permute(JitPermuteHandle* handle) nogil
+
+    ctypedef struct JitPermutedXorHandle:
+        pass
+    JitPermutedXorHandle* vsa_jit_compile_permuted_xor_chain(const size_t* steps_ptr, size_t n_inputs) nogil
+    int32_t               vsa_jit_exec_permuted_xor_chain(const JitPermutedXorHandle* handle, const uint64_t* const* in_ptrs, uint64_t* out_buf) nogil
+    void                  vsa_jit_free_permuted_xor_chain(JitPermutedXorHandle* handle) nogil
+
 
 DEF VSA_WORDS = 160
 
@@ -144,3 +156,71 @@ def cy_lyapunov_smith_doubling(
     with nogil:
         res = lyapunov_smith_doubling_f64(&a[0, 0], &q[0, 0], n, max_iters, tol, &p_out[0, 0], &iters_used)
     return (res, int(iters_used))
+
+
+def cy_jit_compile_permute(size_t steps) -> uint64_t:
+    """Compile native x86_64 AVX2 W^X JIT circular permutation kernel and return opaque handle."""
+    cdef JitPermuteHandle* h
+    with nogil:
+        h = vsa_jit_compile_permute(steps)
+    return <uint64_t><size_t>h
+
+
+def cy_jit_exec_permute(uint64_t handle, const uint64_t[::1] in_vec, uint64_t[::1] out_vec) -> int:
+    """Zero-copy Cython dispatch into native AVX2 W^X JIT circular permutation kernel."""
+    if in_vec.shape[0] != VSA_WORDS or out_vec.shape[0] != VSA_WORDS:
+        raise ValueError("Hypervector buffers must have length 160 (uint64).")
+    cdef const JitPermuteHandle* h = <const JitPermuteHandle*><size_t>handle
+    cdef int32_t mode
+    with nogil:
+        mode = vsa_jit_exec_permute(h, &in_vec[0], &out_vec[0])
+    return int(mode)
+
+
+def cy_jit_free_permute(uint64_t handle) -> None:
+    cdef JitPermuteHandle* h = <JitPermuteHandle*><size_t>handle
+    if h != NULL:
+        with nogil:
+            vsa_jit_free_permute(h)
+
+
+def cy_jit_compile_permuted_xor_chain(const uint64_t[::1] steps) -> uint64_t:
+    """Compile fused native x86_64 AVX2 W^X JIT PERMUTE+XOR chain kernel."""
+    cdef size_t n = steps.shape[0]
+    if n == 0 or n > 32:
+        raise ValueError("steps length must be in 1..32.")
+    cdef size_t c_steps[32]
+    cdef size_t i
+    cdef JitPermutedXorHandle* h
+    with nogil:
+        for i in range(n):
+            c_steps[i] = <size_t>steps[i]
+        h = vsa_jit_compile_permuted_xor_chain(c_steps, n)
+    return <uint64_t><size_t>h
+
+
+def cy_jit_exec_permuted_xor_chain(
+    uint64_t handle,
+    const uint64_t[:, ::1] in_mat,
+    uint64_t[::1] out_vec,
+) -> int:
+    """Zero-copy Cython dispatch into fused AVX2 W^X JIT PERMUTE+XOR kernel with stack pointer table."""
+    cdef size_t n = in_mat.shape[0]
+    if n == 0 or n > 32 or in_mat.shape[1] != VSA_WORDS or out_vec.shape[0] != VSA_WORDS:
+        raise ValueError("Expected in_mat of shape (1..32, 160) and out_vec of shape (160,).")
+    cdef const uint64_t* ptrs[32]
+    cdef size_t i
+    cdef int32_t mode
+    cdef const JitPermutedXorHandle* h = <const JitPermutedXorHandle*><size_t>handle
+    with nogil:
+        for i in range(n):
+            ptrs[i] = &in_mat[i, 0]
+        mode = vsa_jit_exec_permuted_xor_chain(h, ptrs, &out_vec[0])
+    return int(mode)
+
+
+def cy_jit_free_permuted_xor_chain(uint64_t handle) -> None:
+    cdef JitPermutedXorHandle* h = <JitPermutedXorHandle*><size_t>handle
+    if h != NULL:
+        with nogil:
+            vsa_jit_free_permuted_xor_chain(h)
