@@ -1,0 +1,265 @@
+{
+  "generated_at": "2026-11-24T20:27:43.952710",
+  "version": "8.3.0-APEX-MODULAR-AGI-OBJECT-ARC-EXTERNAL-SOVEREIGN",
+  "arc_agi_public": {
+    "dataset": "fchollet/ARC-AGI public evaluation subset",
+    "total_tasks": 25,
+    "solved_exact": 2,
+    "accuracy_pct": 8.0,
+    "solved_task_ids": [
+      "070dd51e",
+      "0c786b71"
+    ],
+    "total_elapsed_ms": 22167.34,
+    "tasks": [
+      {
+        "task_id": "00576224",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 145.5
+      },
+      {
+        "task_id": "009d5c81",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1010.84
+      },
+      {
+        "task_id": "00dbd492",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1009.21
+      },
+      {
+        "task_id": "03560426",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1005.67
+      },
+      {
+        "task_id": "05a7bcf2",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1012.01
+      },
+      {
+        "task_id": "0607ce86",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1013.7
+      },
+      {
+        "task_id": "0692e18c",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 213.87
+      },
+      {
+        "task_id": "070dd51e",
+        "train_exact_found": true,
+        "test_exact_match": true,
+        "program": [
+          "rot90",
+          "bridge_same_color_aligned",
+          "rot270"
+        ],
+        "elapsed_ms": 317.6
+      },
+      {
+        "task_id": "08573cc6",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1005.11
+      },
+      {
+        "task_id": "0934a4d8",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1023.79
+      },
+      {
+        "task_id": "09c534e7",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1016.89
+      },
+      {
+        "task_id": "0a1d4ef5",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1092.93
+      },
+      {
+        "task_id": "0a2355a6",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1011.54
+      },
+      {
+        "task_id": "0b17323b",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1003.38
+      },
+      {
+        "task_id": "0bb8deee",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1008.25
+      },
+      {
+        "task_id": "0becf7df",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1008.37
+      },
+      {
+        "task_id": "0c786b71",
+        "train_exact_found": true,
+        "test_exact_match": true,
+        "program": [
+          "rot180",
+          "mirror_concat_h",
+          "mirror_concat_v"
+        ],
+        "elapsed_ms": 178.87
+      },
+      {
+        "task_id": "0c9aba6e",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1006.04
+      },
+      {
+        "task_id": "0d87d2a6",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1009.0
+      },
+      {
+        "task_id": "0e671a1a",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1010.13
+      },
+      {
+        "task_id": "0f63c0b9",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1010.21
+      },
+      {
+        "task_id": "103eff5b",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1018.91
+      },
+      {
+        "task_id": "11e1fe23",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1003.79
+      },
+      {
+        "task_id": "12422b43",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1007.13
+      },
+      {
+        "task_id": "12997ef3",
+        "train_exact_found": false,
+        "test_exact_match": false,
+        "program": null,
+        "elapsed_ms": 1006.94
+      }
+    ]
+  },
+  "sygus_formal_suite": {
+    "suite": "Held-Out SyGuS-Style Formal Z3 CEGIS Suite",
+    "total_problems": 8,
+    "z3_proven_count": 8,
+    "solve_rate_pct": 100.0,
+    "total_elapsed_ms": 2356.71,
+    "problems": [
+      {
+        "problem": "bv_even_parity",
+        "track": "ast",
+        "z3_proven": true,
+        "candidate_code": "x & 1 == 0",
+        "elapsed_ms": 32.825
+      },
+      {
+        "problem": "bv_mod8_mask",
+        "track": "ast",
+        "z3_proven": true,
+        "candidate_code": "x & 7 == 0",
+        "elapsed_ms": 120.982
+      },
+      {
+        "problem": "bv_mul16_shift",
+        "track": "ast",
+        "z3_proven": true,
+        "candidate_code": "x << 4",
+        "elapsed_ms": 27.297
+      },
+      {
+        "problem": "lia_if_branch_shift",
+        "track": "ast",
+        "z3_proven": true,
+        "candidate_code": "x << 3 if x > 0 else x << 2",
+        "elapsed_ms": 66.648
+      },
+      {
+        "problem": "loop_sum_odds",
+        "track": "loop",
+        "z3_proven": true,
+        "candidate_code": "n * n",
+        "elapsed_ms": 45.769
+      },
+      {
+        "problem": "loop_sum_squares_cubic",
+        "track": "loop",
+        "z3_proven": true,
+        "candidate_code": "n * (n - 1) * (2 * n - 1) // 6",
+        "elapsed_ms": 988.068
+      },
+      {
+        "problem": "nested_rect_scale",
+        "track": "nested",
+        "z3_proven": true,
+        "candidate_code": "(x << 2) * n * m",
+        "elapsed_ms": 81.735
+      },
+      {
+        "problem": "nested_triangular_pairs",
+        "track": "nested",
+        "z3_proven": true,
+        "candidate_code": "n * (n - 1) >> 1",
+        "elapsed_ms": 968.52
+      }
+    ]
+  }
+}

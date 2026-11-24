@@ -129,8 +129,8 @@ class SovereignCortexRuntime:
     def __init__(self):
         self._last_stream_vec: Optional[List[float]] = None
         # Registro canônico de metadados (boot instantâneo < 50 ms via Lazy Organ Registry)
-        self.version = "8.2.0-APEX-MODULAR-AGI-PARALLEL-AUTOSYNTH-SOVEREIGN"
-        self.name = "AETHER-KAIROS (AetherCOS v8.2.0-APEX-MODULAR-AGI-PARALLEL-AUTOSYNTH-SOVEREIGN)"
+        self.version = "8.3.0-APEX-MODULAR-AGI-OBJECT-ARC-EXTERNAL-SOVEREIGN"
+        self.name = "AETHER-KAIROS (AetherCOS v8.3.0-APEX-MODULAR-AGI-OBJECT-ARC-EXTERNAL-SOVEREIGN)"
 
     def __getattr__(self, name: str) -> Any:
         # Órgãos com injeção explícita de dependência entre pares

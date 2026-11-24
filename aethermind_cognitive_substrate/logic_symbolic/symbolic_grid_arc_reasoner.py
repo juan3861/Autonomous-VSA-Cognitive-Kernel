@@ -15,6 +15,7 @@ import numpy as np
 import z3
 
 from ..memory_vault.vsa_semantic_bus import VSAHyperdimensionalBus
+from .z3_formal_solver import Z3_GLOBAL_LOCK
 
 
 GridLike = Sequence[Sequence[int]]
@@ -147,6 +148,128 @@ def _op_outline_nonzero(g: np.ndarray) -> np.ndarray:
     return out
 
 
+def extract_connected_objects(g: np.ndarray, connectivity: int = 4) -> List[Dict[str, Any]]:
+    """Segment non-zero connected components into structured object descriptors."""
+    arr = np.asarray(g, dtype=np.int32)
+    h, w = arr.shape
+    visited = np.zeros((h, w), dtype=bool)
+    nbrs = ((-1, 0), (1, 0), (0, -1), (0, 1)) if connectivity == 4 else (
+        (-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)
+    )
+    objects: List[Dict[str, Any]] = []
+    for r in range(h):
+        for c in range(w):
+            color = int(arr[r, c])
+            if color == 0 or visited[r, c]:
+                continue
+            q = [(r, c)]
+            visited[r, c] = True
+            cells: List[Tuple[int, int]] = []
+            head = 0
+            while head < len(q):
+                cr, cc = q[head]
+                head += 1
+                cells.append((cr, cc))
+                for dr, dc in nbrs:
+                    nr, nc = cr + dr, cc + dc
+                    if 0 <= nr < h and 0 <= nc < w and not visited[nr, nc] and int(arr[nr, nc]) == color:
+                        visited[nr, nc] = True
+                        q.append((nr, nc))
+            rs = [p[0] for p in cells]
+            cs = [p[1] for p in cells]
+            r0, r1, c0, c1 = min(rs), max(rs), min(cs), max(cs)
+            sub = np.zeros((r1 - r0 + 1, c1 - c0 + 1), dtype=arr.dtype)
+            for cr, cc in cells:
+                sub[cr - r0, cc - c0] = color
+            objects.append({
+                "color": color,
+                "area": len(cells),
+                "bbox": (r0, c0, r1, c1),
+                "cells": cells,
+                "subgrid": sub,
+            })
+    return objects
+
+
+def _op_extract_largest_object(g: np.ndarray) -> np.ndarray:
+    objs = extract_connected_objects(g, connectivity=4)
+    if not objs:
+        return g.copy()
+    best = max(objs, key=lambda o: (o["area"], -o["bbox"][0], -o["bbox"][1]))
+    return best["subgrid"]
+
+
+def _op_extract_smallest_object(g: np.ndarray) -> np.ndarray:
+    objs = extract_connected_objects(g, connectivity=4)
+    if not objs:
+        return g.copy()
+    best = min(objs, key=lambda o: (o["area"], o["bbox"][0], o["bbox"][1]))
+    return best["subgrid"]
+
+
+def _op_keep_largest_object(g: np.ndarray) -> np.ndarray:
+    objs = extract_connected_objects(g, connectivity=4)
+    if not objs:
+        return g.copy()
+    best = max(objs, key=lambda o: (o["area"], -o["bbox"][0], -o["bbox"][1]))
+    out = np.zeros_like(g)
+    for r, c in best["cells"]:
+        out[r, c] = best["color"]
+    return out
+
+
+def _op_filter_dominant_color(g: np.ndarray) -> np.ndarray:
+    nz = g[g != 0]
+    if nz.size == 0:
+        return g.copy()
+    vals, cnts = np.unique(nz, return_counts=True)
+    dom = int(vals[int(np.argmax(cnts))])
+    return np.where(g == dom, g, 0).astype(g.dtype)
+
+
+def _op_complete_4way_symmetry(g: np.ndarray) -> np.ndarray:
+    out = g.copy()
+    fh = np.fliplr(g)
+    fv = np.flipud(g)
+    fhv = np.flipud(fh)
+    for layer in (fh, fv, fhv):
+        mask = (out == 0) & (layer != 0)
+        out[mask] = layer[mask]
+    return out
+
+
+def _op_bridge_same_color_aligned(g: np.ndarray) -> np.ndarray:
+    h, w = g.shape
+    out = g.copy()
+    for r in range(h):
+        cols_by_color: Dict[int, List[int]] = {}
+        for c in range(w):
+            v = int(g[r, c])
+            if v != 0:
+                cols_by_color.setdefault(v, []).append(c)
+        for v, cs in cols_by_color.items():
+            if len(cs) >= 2:
+                for c in range(cs[0], cs[-1] + 1):
+                    if out[r, c] == 0:
+                        out[r, c] = v
+    for c in range(w):
+        rows_by_color: Dict[int, List[int]] = {}
+        for r in range(h):
+            v = int(g[r, c])
+            if v != 0:
+                rows_by_color.setdefault(v, []).append(r)
+        for v, rs in rows_by_color.items():
+            if len(rs) >= 2:
+                for r in range(rs[0], rs[-1] + 1):
+                    if out[r, c] == 0:
+                        out[r, c] = v
+    return out
+
+
+def _op_hollow_interior(g: np.ndarray) -> np.ndarray:
+    return _op_outline_nonzero(g)
+
+
 _GRID_PRIMITIVES: Dict[str, Callable[[np.ndarray], np.ndarray]] = {
     "rot90": _op_rot90,
     "rot180": _op_rot180,
@@ -164,6 +287,13 @@ _GRID_PRIMITIVES: Dict[str, Callable[[np.ndarray], np.ndarray]] = {
     "invert_nonzero_color": _op_invert_nonzero_color,
     "outline_nonzero": _op_outline_nonzero,
     "fill_enclosed_zeros": _op_fill_enclosed_zeros,
+    "extract_largest_object": _op_extract_largest_object,
+    "extract_smallest_object": _op_extract_smallest_object,
+    "keep_largest_object": _op_keep_largest_object,
+    "filter_dominant_color": _op_filter_dominant_color,
+    "complete_4way_symmetry": _op_complete_4way_symmetry,
+    "bridge_same_color_aligned": _op_bridge_same_color_aligned,
+    "hollow_interior": _op_hollow_interior,
 }
 
 
@@ -229,28 +359,43 @@ class SymbolicGridARCReasoner:
         train_pairs: List[Tuple[np.ndarray, np.ndarray]],
     ) -> Dict[str, Any]:
         """Prove dimensional consistency and non-zero pixel invariants across all training demos in Z3."""
-        solver = z3.Solver()
-        all_exact = True
-        for idx, (inp, exp_out) in enumerate(train_pairs):
-            pred = self.apply_program(program, inp)
-            if pred.shape != exp_out.shape or not np.array_equal(pred, exp_out):
-                all_exact = False
-                break
-            h_p = z3.Int(f"demo_{idx}_pred_h")
-            h_e = z3.Int(f"demo_{idx}_exp_h")
-            w_p = z3.Int(f"demo_{idx}_pred_w")
-            w_e = z3.Int(f"demo_{idx}_exp_w")
-            nz_p = z3.Int(f"demo_{idx}_pred_nz")
-            nz_e = z3.Int(f"demo_{idx}_exp_nz")
-            solver.add(h_p == pred.shape[0], h_e == exp_out.shape[0], h_p == h_e)
-            solver.add(w_p == pred.shape[1], w_e == exp_out.shape[1], w_p == w_e)
-            solver.add(nz_p == int(np.count_nonzero(pred)), nz_e == int(np.count_nonzero(exp_out)), nz_p == nz_e)
+        with Z3_GLOBAL_LOCK:
+            solver = z3.Solver()
+            all_exact = True
+            for idx, (inp, exp_out) in enumerate(train_pairs):
+                pred = self.apply_program(program, inp)
+                if pred.shape != exp_out.shape or not np.array_equal(pred, exp_out):
+                    all_exact = False
+                    break
+                h_p = z3.Int(f"demo_{idx}_pred_h")
+                h_e = z3.Int(f"demo_{idx}_exp_h")
+                w_p = z3.Int(f"demo_{idx}_pred_w")
+                w_e = z3.Int(f"demo_{idx}_exp_w")
+                nz_p = z3.Int(f"demo_{idx}_pred_nz")
+                nz_e = z3.Int(f"demo_{idx}_exp_nz")
+                solver.add(h_p == pred.shape[0], h_e == exp_out.shape[0], h_p == h_e)
+                solver.add(w_p == pred.shape[1], w_e == exp_out.shape[1], w_p == w_e)
+                solver.add(nz_p == int(np.count_nonzero(pred)), nz_e == int(np.count_nonzero(exp_out)), nz_p == nz_e)
 
-        exact_bool = z3.Bool("all_train_pixels_exact")
-        solver.add(exact_bool == z3.BoolVal(all_exact))
-        solver.add(exact_bool == True)
-        sat_ok = (solver.check() == z3.sat)
-        return {"z3_verified": sat_ok, "sat_status": "sat" if sat_ok else "unsat", "program": program}
+            exact_bool = z3.Bool("all_train_pixels_exact")
+            solver.add(exact_bool == z3.BoolVal(all_exact))
+            solver.add(exact_bool == True)
+            sat_ok = (solver.check() == z3.sat)
+            return {"z3_verified": sat_ok, "sat_status": "sat" if sat_ok else "unsat", "program": program}
+
+    @staticmethod
+    def _shape_compatible(op_name: str, in_sh: Tuple[int, int], out_sh: Tuple[int, int]) -> bool:
+        if op_name in ("crop_nonzero", "extract_largest_object", "extract_smallest_object"):
+            return in_sh[0] >= out_sh[0] and in_sh[1] >= out_sh[1]
+        if op_name in ("rot90", "rot270", "transpose"):
+            return (in_sh[1], in_sh[0]) == out_sh
+        if op_name == "mirror_concat_h":
+            return (in_sh[0], in_sh[1] * 2) == out_sh
+        if op_name == "mirror_concat_v":
+            return (in_sh[0] * 2, in_sh[1]) == out_sh
+        if op_name in ("scale_2x", "tile_2x2"):
+            return (in_sh[0] * 2, in_sh[1] * 2) == out_sh
+        return in_sh == out_sh
 
     def solve_arc_task(
         self,
@@ -258,104 +403,119 @@ class SymbolicGridARCReasoner:
         test_input: GridLike,
         max_program_depth: int = 2,
         allow_color_remap: bool = True,
+        beam_width: int = 24,
+        time_budget_ms: Optional[float] = None,
     ) -> Dict[str, Any]:
         """Induce minimal spatial transform program from demonstrations and predict test grid."""
         t0 = time.perf_counter()
+        deadline = (t0 + time_budget_ms / 1000.0) if time_budget_ms is not None else None
         pairs = [(np.asarray(i, dtype=np.int32), np.asarray(o, dtype=np.int32)) for i, o in train_pairs]
         test_arr = np.asarray(test_input, dtype=np.int32)
+
+        def _timed_out() -> bool:
+            return deadline is not None and time.perf_counter() > deadline
+
+        def _grid_sig(st_pairs: List[Tuple[np.ndarray, np.ndarray]]) -> bytes:
+            return b"|".join(f"{m.shape}:".encode() + m.tobytes() for m, _ in st_pairs)
 
         # Prioritization heuristic using shape & pixel count cues (remains exact via CEGIS test)
         same_shape_all = all(inp.shape == out.shape for inp, out in pairs)
         prim_names = list(_GRID_PRIMITIVES.keys())
         if not same_shape_all:
             # Prefer resizing operators first when shapes differ
-            prim_names.sort(key=lambda n: 0 if n in ("crop_nonzero", "mirror_concat_h", "scale_2x", "rot90", "rot270", "transpose") else 1)
+            prim_names.sort(key=lambda n: 0 if n in ("crop_nonzero", "extract_largest_object", "extract_smallest_object", "mirror_concat_h", "scale_2x", "rot90", "rot270", "transpose") else 1)
 
         chosen_prog: Optional[List[str]] = None
         programs_evaluated = 0
 
-        # Depth 1 search
+        # Depth 1 search (with unique-state deduplication)
+        depth1_states: List[Tuple[str, List[Tuple[np.ndarray, np.ndarray]]]] = []
+        seen_d1: set[bytes] = set()
         for p1 in prim_names:
             programs_evaluated += 1
-            if all(
-                np.array_equal(self.apply_program([p1], inp), out)
-                for inp, out in pairs
-            ):
+            m1_pairs: List[Tuple[np.ndarray, np.ndarray]] = []
+            valid_1 = True
+            exact_1 = True
+            for inp, out in pairs:
+                m = self.apply_program([p1], inp)
+                if m.size == 0:
+                    valid_1 = False
+                    exact_1 = False
+                    break
+                if not np.array_equal(m, out):
+                    exact_1 = False
+                m1_pairs.append((m, out))
+            if exact_1:
                 chosen_prog = [p1]
                 break
+            if valid_1 and max_program_depth >= 2:
+                sig1 = _grid_sig(m1_pairs)
+                if sig1 not in seen_d1:
+                    seen_d1.add(sig1)
+                    depth1_states.append((p1, m1_pairs))
 
-        # Depth 2 compositional search
+        # Depth 2 compositional search (deduplicated)
         depth2_states: List[Tuple[str, str, List[Tuple[np.ndarray, np.ndarray]]]] = []
+        seen_d2: set[bytes] = set(seen_d1)
         if chosen_prog is None and max_program_depth >= 2:
-            for p1 in prim_names:
-                mid_pairs = []
-                valid_mid = True
-                for inp, out in pairs:
-                    m = self.apply_program([p1], inp)
-                    if m.size == 0:
-                        valid_mid = False
-                        break
-                    mid_pairs.append((m, out))
-                if not valid_mid:
-                    continue
+            for p1, mid_pairs in depth1_states:
+                if _timed_out():
+                    break
+                m1_0, out_0 = mid_pairs[0]
                 for p2 in prim_names:
-                    if p1 == p2 and p1 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero"):
+                    if p1 == p2 and p1 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero", "extract_largest_object", "extract_smallest_object", "keep_largest_object"):
                         continue
                     programs_evaluated += 1
-                    mid2_pairs = []
-                    all_match_d2 = True
-                    valid_m2 = True
-                    for mid, out in mid_pairs:
-                        m2 = _GRID_PRIMITIVES[p2](mid)
-                        if m2.size == 0:
-                            valid_m2 = False
-                            all_match_d2 = False
+                    fn2 = _GRID_PRIMITIVES[p2]
+                    m2_0 = fn2(m1_0)
+                    if m2_0.size == 0:
+                        continue
+                    if m2_0.shape == out_0.shape and np.array_equal(m2_0, out_0):
+                        if all(np.array_equal(fn2(m), o) for m, o in mid_pairs[1:]):
+                            chosen_prog = [p1, p2]
                             break
-                        if not np.array_equal(m2, out):
-                            all_match_d2 = False
-                        if max_program_depth >= 3:
-                            mid2_pairs.append((m2, out))
-                    if all_match_d2:
-                        chosen_prog = [p1, p2]
-                        break
-                    if valid_m2 and max_program_depth >= 3:
-                        depth2_states.append((p1, p2, mid2_pairs))
+                    if max_program_depth >= 3:
+                        mid2_pairs = [(m2_0, out_0)]
+                        valid_m2 = True
+                        for m, o in mid_pairs[1:]:
+                            mv = fn2(m)
+                            if mv.size == 0:
+                                valid_m2 = False
+                                break
+                            mid2_pairs.append((mv, o))
+                        if valid_m2:
+                            sig2 = _grid_sig(mid2_pairs)
+                            if sig2 not in seen_d2:
+                                seen_d2.add(sig2)
+                                depth2_states.append((p1, p2, mid2_pairs))
                 if chosen_prog is not None:
                     break
 
-        # Depth 3 shape-pruned compositional search
+        # Depth 3 shape-pruned & deduplicated compositional search
         depth3_states: List[Tuple[str, str, str, List[Tuple[np.ndarray, np.ndarray]]]] = []
-        if chosen_prog is None and max_program_depth >= 3:
-            def _shape_compatible(op_name: str, in_sh: Tuple[int, int], out_sh: Tuple[int, int]) -> bool:
-                if op_name == "crop_nonzero":
-                    return in_sh[0] >= out_sh[0] and in_sh[1] >= out_sh[1]
-                if op_name in ("rot90", "rot270", "transpose"):
-                    return (in_sh[1], in_sh[0]) == out_sh
-                if op_name == "mirror_concat_h":
-                    return (in_sh[0], in_sh[1] * 2) == out_sh
-                if op_name == "mirror_concat_v":
-                    return (in_sh[0] * 2, in_sh[1]) == out_sh
-                if op_name in ("scale_2x", "tile_2x2"):
-                    return (in_sh[0] * 2, in_sh[1] * 2) == out_sh
-                return in_sh == out_sh
-
+        seen_d3: set[bytes] = set(seen_d2)
+        if chosen_prog is None and max_program_depth >= 3 and not _timed_out():
             for p1, p2, m2_pairs in depth2_states:
+                if _timed_out():
+                    break
                 m2_0, out_0 = m2_pairs[0]
                 for p3 in prim_names:
-                    if p2 == p3 and p2 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero"):
+                    if p2 == p3 and p2 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero", "extract_largest_object", "extract_smallest_object", "keep_largest_object"):
                         continue
-                    if max_program_depth == 3 and not _shape_compatible(p3, m2_0.shape, out_0.shape):
+                    if max_program_depth == 3 and not self._shape_compatible(p3, m2_0.shape, out_0.shape):
                         continue
                     programs_evaluated += 1
                     fn3 = _GRID_PRIMITIVES[p3]
                     m3_0 = fn3(m2_0)
                     if m3_0.size == 0:
                         continue
-                    if _shape_compatible("identity_chk", m3_0.shape, out_0.shape) and np.array_equal(m3_0, out_0):
+                    if m3_0.shape == out_0.shape and np.array_equal(m3_0, out_0):
                         if all(np.array_equal(fn3(m2), out) for m2, out in m2_pairs[1:]):
                             chosen_prog = [p1, p2, p3]
                             break
                     if max_program_depth >= 4:
+                        if max_program_depth == 4 and not any(self._shape_compatible(p4, m3_0.shape, out_0.shape) for p4 in prim_names):
+                            continue
                         m3_pairs = [(m3_0, out_0)]
                         ok_m3 = True
                         for m2, out in m2_pairs[1:]:
@@ -365,29 +525,24 @@ class SymbolicGridARCReasoner:
                                 break
                             m3_pairs.append((mv, out))
                         if ok_m3:
-                            depth3_states.append((p1, p2, p3, m3_pairs))
+                            sig3 = _grid_sig(m3_pairs)
+                            if sig3 not in seen_d3:
+                                seen_d3.add(sig3)
+                                depth3_states.append((p1, p2, p3, m3_pairs))
                 if chosen_prog is not None:
                     break
 
         # Depth 4 spatial composition &/or learned color-remap synthesis
-        if chosen_prog is None and max_program_depth >= 4:
+        if chosen_prog is None and max_program_depth >= 4 and not _timed_out():
             # 1) Pure shape-compatible 4-op spatial pipeline
             for p1, p2, p3, m3_pairs in depth3_states:
+                if _timed_out():
+                    break
                 m3_0, out_0 = m3_pairs[0]
                 for p4 in prim_names:
-                    if p3 == p4 and p3 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero"):
+                    if p3 == p4 and p3 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero", "extract_largest_object", "extract_smallest_object", "keep_largest_object"):
                         continue
-                    if p4 == "crop_nonzero" and not (m3_0.shape[0] >= out_0.shape[0] and m3_0.shape[1] >= out_0.shape[1]):
-                        continue
-                    elif p4 in ("rot90", "rot270", "transpose") and (m3_0.shape[1], m3_0.shape[0]) != out_0.shape:
-                        continue
-                    elif p4 == "mirror_concat_h" and (m3_0.shape[0], m3_0.shape[1] * 2) != out_0.shape:
-                        continue
-                    elif p4 == "mirror_concat_v" and (m3_0.shape[0] * 2, m3_0.shape[1]) != out_0.shape:
-                        continue
-                    elif p4 in ("scale_2x", "tile_2x2") and (m3_0.shape[0] * 2, m3_0.shape[1] * 2) != out_0.shape:
-                        continue
-                    elif p4 not in ("crop_nonzero", "rot90", "rot270", "transpose", "mirror_concat_h", "mirror_concat_v", "scale_2x", "tile_2x2") and m3_0.shape != out_0.shape:
+                    if not self._shape_compatible(p4, m3_0.shape, out_0.shape):
                         continue
                     programs_evaluated += 1
                     fn4 = _GRID_PRIMITIVES[p4]
@@ -400,12 +555,12 @@ class SymbolicGridARCReasoner:
                     break
 
             # 2) Depth <=3 spatial transform + learned bijective/consistent palette remap
-            if chosen_prog is None and allow_color_remap:
+            if chosen_prog is None and allow_color_remap and not _timed_out():
                 candidates_for_remap: List[Tuple[List[str], List[Tuple[np.ndarray, np.ndarray]]]] = [
                     ([], pairs),
                 ]
-                for p1 in prim_names:
-                    candidates_for_remap.append(([p1], [(self.apply_program([p1], i), o) for i, o in pairs]))
+                for p1, m1_pairs in depth1_states:
+                    candidates_for_remap.append(([p1], m1_pairs))
                 for p1, p2, m2_pairs in depth2_states:
                     candidates_for_remap.append(([p1, p2], m2_pairs))
                 for p1, p2, p3, m3_pairs in depth3_states:
@@ -422,6 +577,77 @@ class SymbolicGridARCReasoner:
                         if all(np.array_equal(self.apply_program([remap_op], m), o) for m, o in cur_pairs):
                             chosen_prog = cand
                             break
+
+        # Depth 5..6 VSA/Structural Beam Search (v8.3.0)
+        if chosen_prog is None and max_program_depth >= 5 and depth3_states:
+            target_hvs = [self.encode_grid_vsa(out) for _inp, out in pairs]
+
+            def _beam_score(st_pairs: List[Tuple[np.ndarray, np.ndarray]]) -> float:
+                score = 0.0
+                for idx_p, (m, out) in enumerate(st_pairs):
+                    if m.shape == out.shape:
+                        score += 1.0 + float(np.mean(m == out))
+                    elif abs(m.shape[0] - out.shape[0]) <= 2 and abs(m.shape[1] - out.shape[1]) <= 2:
+                        score += 0.35
+                    m_hv = self.encode_grid_vsa(m)
+                    score += 0.25 * float(self.bus.vsa.cosine_similarity(m_hv, target_hvs[idx_p]))
+                return score / max(1, len(st_pairs))
+
+            # Seed beam with unique depth-3 states expanded by 1 shape-compatible or top-beam op
+            scored_d3 = sorted(
+                ((_beam_score(m3p), [p1, p2, p3], m3p) for p1, p2, p3, m3p in depth3_states),
+                key=lambda x: x[0],
+                reverse=True,
+            )[:max(8, beam_width)]
+
+            frontier: List[Tuple[List[str], List[Tuple[np.ndarray, np.ndarray]]]] = [
+                (prog, m3p) for _sc, prog, m3p in scored_d3
+            ]
+            for depth in range(4, min(max_program_depth, 6) + 1):
+                next_beam: List[Tuple[float, List[str], List[Tuple[np.ndarray, np.ndarray]]]] = []
+                seen_sigs: set[bytes] = set()
+                for prog, cur_pairs in frontier:
+                    last_op = prog[-1]
+                    for nxt_op in prim_names:
+                        if nxt_op == last_op and nxt_op in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero", "extract_largest_object", "keep_largest_object"):
+                            continue
+                        if depth == max_program_depth and not self._shape_compatible(nxt_op, cur_pairs[0][0].shape, cur_pairs[0][1].shape):
+                            continue
+                        programs_evaluated += 1
+                        fn_n = _GRID_PRIMITIVES[nxt_op]
+                        nxt_pairs = []
+                        exact_all = True
+                        valid_n = True
+                        for m, out in cur_pairs:
+                            nm = fn_n(m)
+                            if nm.size == 0:
+                                valid_n = False
+                                break
+                            if not np.array_equal(nm, out):
+                                exact_all = False
+                            nxt_pairs.append((nm, out))
+                        if not valid_n:
+                            continue
+                        if exact_all:
+                            chosen_prog = [*prog, nxt_op]
+                            break
+                        if allow_color_remap and all(nm.shape == out.shape for nm, out in nxt_pairs):
+                            cmap = self._infer_consistent_color_map(nxt_pairs)
+                            if cmap is not None:
+                                remap_op = f"color_remap:{json.dumps({str(k): v for k, v in sorted(cmap.items())}, separators=(',', ':'))}"
+                                if all(np.array_equal(self.apply_program([remap_op], nm), out) for nm, out in nxt_pairs):
+                                    chosen_prog = [*prog, nxt_op, remap_op]
+                                    break
+                        sig = nxt_pairs[0][0].tobytes() + str(nxt_pairs[0][0].shape).encode()
+                        if sig not in seen_sigs:
+                            seen_sigs.add(sig)
+                            next_beam.append((_beam_score(nxt_pairs), [*prog, nxt_op], nxt_pairs))
+                    if chosen_prog is not None:
+                        break
+                if chosen_prog is not None or not next_beam:
+                    break
+                next_beam.sort(key=lambda x: x[0], reverse=True)
+                frontier = [(p, pr) for _sc, p, pr in next_beam[:beam_width]]
 
         if chosen_prog is None:
             return {

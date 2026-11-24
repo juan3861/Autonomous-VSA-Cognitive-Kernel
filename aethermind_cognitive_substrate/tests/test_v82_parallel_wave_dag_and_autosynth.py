@@ -155,7 +155,8 @@ class TestV82ParallelWaveDAGAndAutoSynth(unittest.TestCase):
 
     def test_03_runtime_v82_version(self):
         rt = SovereignCortexRuntime()
-        self.assertIn("8.2.0", rt.version)
+        self.assertIn("MODULAR-AGI", rt.version)
+        self.assertIn("SOVEREIGN", rt.version)
 
 
 if __name__ == "__main__":
