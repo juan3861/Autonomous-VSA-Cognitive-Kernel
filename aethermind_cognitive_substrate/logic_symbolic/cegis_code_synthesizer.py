@@ -49,6 +49,8 @@ def _ast_cycle_cost(node: ast.AST) -> int:
         return _OP_CYCLE_COSTS.get(type(node.op), 2) + _ast_cycle_cost(node.left) + _ast_cycle_cost(node.right)
     if isinstance(node, ast.Compare):
         return 1 + _ast_cycle_cost(node.left) + sum(_ast_cycle_cost(c) for c in node.comparators)
+    if isinstance(node, ast.IfExp):
+        return 2 + _ast_cycle_cost(node.test) + _ast_cycle_cost(node.body) + _ast_cycle_cost(node.orelse)
     return 10
 
 
@@ -112,6 +114,9 @@ def _eval_ast_i64(node: ast.AST, env: Dict[str, int]) -> int:
             return 1 if l > r else 0
         if isinstance(cmp_op, ast.GtE):
             return 1 if l >= r else 0
+    if isinstance(node, ast.IfExp):
+        cond_val = _eval_ast_i64(node.test, env)
+        return _eval_ast_i64(node.body, env) if cond_val != 0 else _eval_ast_i64(node.orelse, env)
     raise ValueError(f"Unsupported AST node: {ast.dump(node)}")
 
 
@@ -173,6 +178,11 @@ def _ast_to_z3_bv64(node: ast.AST, env: Dict[str, Any], non_zero_guards: List[An
         else:
             raise ValueError(f"Unsupported comparison: {type(cmp_op)}")
         return z3.If(cond, z3.BitVecVal(1, 64), z3.BitVecVal(0, 64))
+    if isinstance(node, ast.IfExp):
+        t_bv = _ast_to_z3_bv64(node.test, env, non_zero_guards)
+        b_bv = _ast_to_z3_bv64(node.body, env, non_zero_guards)
+        o_bv = _ast_to_z3_bv64(node.orelse, env, non_zero_guards)
+        return z3.If(t_bv != z3.BitVecVal(0, 64), b_bv, o_bv)
     raise ValueError(f"Unsupported AST node: {ast.dump(node)}")
 
 
@@ -239,10 +249,27 @@ class CEGISCodeSynthesizer:
             fn = tree.body[0]
             fn_name = fn.name
             var_names = [arg.arg for arg in fn.args.args]
-            for stmt in fn.body:
-                if isinstance(stmt, ast.Return) and stmt.value is not None:
-                    expr_node = stmt.value
-                    break
+            # Support `if cond: return a [else: return b]` by lowering to ast.IfExp
+            if (
+                len(fn.body) >= 1
+                and isinstance(fn.body[0], ast.If)
+                and len(fn.body[0].body) == 1
+                and isinstance(fn.body[0].body[0], ast.Return)
+            ):
+                if_stmt = fn.body[0]
+                then_val = if_stmt.body[0].value
+                else_val = None
+                if len(if_stmt.orelse) == 1 and isinstance(if_stmt.orelse[0], ast.Return):
+                    else_val = if_stmt.orelse[0].value
+                elif len(fn.body) >= 2 and isinstance(fn.body[1], ast.Return):
+                    else_val = fn.body[1].value
+                if then_val is not None and else_val is not None:
+                    expr_node = ast.IfExp(test=if_stmt.test, body=then_val, orelse=else_val)
+            if expr_node is None:
+                for stmt in fn.body:
+                    if isinstance(stmt, ast.Return) and stmt.value is not None:
+                        expr_node = stmt.value
+                        break
         elif len(tree.body) == 1 and isinstance(tree.body[0], ast.Expr):
             expr_node = tree.body[0].value
             seen_names = sorted({n.id for n in ast.walk(expr_node) if isinstance(n, ast.Name)})
@@ -285,6 +312,17 @@ class CEGISCodeSynthesizer:
             for vn in var_names:
                 _add_cand_str(f"({vn} << {sh})")
                 _add_cand_str(f"(({vn} & {k - 1}) == 0)")
+
+        # If spec is a conditional IfExp, also seed branch-reduced IfExp candidates
+        if isinstance(spec_expr, ast.IfExp):
+            test_s = ast.unparse(spec_expr.test)
+            body_s = ast.unparse(spec_expr.body)
+            else_s = ast.unparse(spec_expr.orelse)
+            for k, sh in pow2_shifts.items():
+                for vn in var_names:
+                    body_s = body_s.replace(f"{vn} * {k}", f"({vn} << {sh})")
+                    else_s = else_s.replace(f"{vn} * {k}", f"({vn} << {sh})")
+            _add_cand_str(f"({body_s}) if ({test_s}) else ({else_s})")
 
         # 2. Inductive bottom-up enumerative pool of low-cost 1-cycle ALU primitives
         atoms: List[ast.expr] = [ast.Name(id=v, ctx=ast.Load()) for v in var_names]

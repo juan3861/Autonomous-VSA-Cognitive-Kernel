@@ -188,6 +188,45 @@ class VSADAGBytecodeCompiler:
         out = np.bitwise_xor.reduce(vecs)
         return out, 0
 
+    def jit_permuted_xor_chain(
+        self,
+        vectors_u64: List[np.ndarray],
+        steps_list: List[int],
+    ) -> Tuple[np.ndarray, int]:
+        """Execute fused XOR_{k=0..N-1} Permute(vec[k], steps[k]) in a single AVX2 W^X JIT function."""
+        if not vectors_u64:
+            return np.zeros(WORDS, dtype=np.uint64), 0
+        if len(vectors_u64) != len(steps_list):
+            raise ValueError("vectors_u64 and steps_list must have equal length.")
+
+        vecs = [np.ascontiguousarray(v, dtype=np.uint64) for v in vectors_u64]
+        out = np.zeros(WORDS, dtype=np.uint64)
+        n = len(vecs)
+
+        if self._lib is not None and hasattr(self._lib, "vsa_jit_compile_permuted_xor_chain"):
+            steps_arr = (ctypes.c_size_t * n)(*[int(s) for s in steps_list])
+            handle = self._lib.vsa_jit_compile_permuted_xor_chain(steps_arr, n)
+            if handle:
+                try:
+                    ptrs = (ctypes.POINTER(ctypes.c_uint64) * n)(
+                        *[v.ctypes.data_as(ctypes.POINTER(ctypes.c_uint64)) for v in vecs]
+                    )
+                    mode = int(
+                        self._lib.vsa_jit_exec_permuted_xor_chain(
+                            handle,
+                            ptrs,
+                            out.ctypes.data_as(ctypes.POINTER(ctypes.c_uint64)),
+                        )
+                    )
+                    return out, mode
+                finally:
+                    self._lib.vsa_jit_free_permuted_xor_chain(handle)
+
+        for v, s in zip(vecs, steps_list):
+            p_vec, _ = self.jit_permute_vector(v, s)
+            out ^= p_vec
+        return out, 0
+
     def jit_permute_vector(self, vec_u64: np.ndarray, steps: int) -> Tuple[np.ndarray, int]:
         """Execute circular 10,240-bit permutation via native x86_64 AVX2 W^X machine code."""
         src = np.ascontiguousarray(vec_u64, dtype=np.uint64)

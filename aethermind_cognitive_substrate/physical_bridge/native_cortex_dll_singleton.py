@@ -163,6 +163,19 @@ def get_native_cortex_dll() -> Optional[ctypes.CDLL]:
         if hasattr(lib, "vsa_jit_free_permute"):
             lib.vsa_jit_free_permute.argtypes = [ctypes.c_void_p]
             lib.vsa_jit_free_permute.restype = None
+        if hasattr(lib, "vsa_jit_compile_permuted_xor_chain"):
+            lib.vsa_jit_compile_permuted_xor_chain.argtypes = [ctypes.POINTER(ctypes.c_size_t), ctypes.c_size_t]
+            lib.vsa_jit_compile_permuted_xor_chain.restype = ctypes.c_void_p
+        if hasattr(lib, "vsa_jit_exec_permuted_xor_chain"):
+            lib.vsa_jit_exec_permuted_xor_chain.argtypes = [
+                ctypes.c_void_p,
+                ctypes.POINTER(ctypes.POINTER(ctypes.c_uint64)),
+                ctypes.POINTER(ctypes.c_uint64),
+            ]
+            lib.vsa_jit_exec_permuted_xor_chain.restype = ctypes.c_int32
+        if hasattr(lib, "vsa_jit_free_permuted_xor_chain"):
+            lib.vsa_jit_free_permuted_xor_chain.argtypes = [ctypes.c_void_p]
+            lib.vsa_jit_free_permuted_xor_chain.restype = None
 
         _CACHED_LIB = lib
         return _CACHED_LIB

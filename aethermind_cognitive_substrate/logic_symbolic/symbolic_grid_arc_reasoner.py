@@ -256,6 +256,7 @@ class SymbolicGridARCReasoner:
                 break
 
         # Depth 2 compositional search
+        depth2_states: List[Tuple[str, str, List[Tuple[np.ndarray, np.ndarray]]]] = []
         if chosen_prog is None and max_program_depth >= 2:
             for p1 in prim_names:
                 mid_pairs = []
@@ -269,14 +270,58 @@ class SymbolicGridARCReasoner:
                 if not valid_mid:
                     continue
                 for p2 in prim_names:
-                    if p1 == p2 and p1 in ("flip_h", "flip_v", "transpose", "rot180"):
+                    if p1 == p2 and p1 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero"):
                         continue
                     programs_evaluated += 1
-                    if all(
-                        np.array_equal(_GRID_PRIMITIVES[p2](mid), out)
-                        for mid, out in mid_pairs
-                    ):
+                    mid2_pairs = []
+                    all_match_d2 = True
+                    valid_m2 = True
+                    for mid, out in mid_pairs:
+                        m2 = _GRID_PRIMITIVES[p2](mid)
+                        if m2.size == 0:
+                            valid_m2 = False
+                            all_match_d2 = False
+                            break
+                        if not np.array_equal(m2, out):
+                            all_match_d2 = False
+                        if max_program_depth >= 3:
+                            mid2_pairs.append((m2, out))
+                    if all_match_d2:
                         chosen_prog = [p1, p2]
+                        break
+                    if valid_m2 and max_program_depth >= 3:
+                        depth2_states.append((p1, p2, mid2_pairs))
+                if chosen_prog is not None:
+                    break
+
+        # Depth 3 shape-pruned compositional search
+        if chosen_prog is None and max_program_depth >= 3:
+            def _shape_compatible(op_name: str, in_sh: Tuple[int, int], out_sh: Tuple[int, int]) -> bool:
+                if op_name == "crop_nonzero":
+                    return in_sh[0] >= out_sh[0] and in_sh[1] >= out_sh[1]
+                if op_name in ("rot90", "rot270", "transpose"):
+                    return (in_sh[1], in_sh[0]) == out_sh
+                if op_name == "mirror_concat_h":
+                    return (in_sh[0], in_sh[1] * 2) == out_sh
+                if op_name == "mirror_concat_v":
+                    return (in_sh[0] * 2, in_sh[1]) == out_sh
+                if op_name in ("scale_2x", "tile_2x2"):
+                    return (in_sh[0] * 2, in_sh[1] * 2) == out_sh
+                return in_sh == out_sh
+
+            for p1, p2, m2_pairs in depth2_states:
+                m2_0, out_0 = m2_pairs[0]
+                for p3 in prim_names:
+                    if p2 == p3 and p2 in ("flip_h", "flip_v", "transpose", "rot180", "crop_nonzero"):
+                        continue
+                    if not _shape_compatible(p3, m2_0.shape, out_0.shape):
+                        continue
+                    programs_evaluated += 1
+                    fn3 = _GRID_PRIMITIVES[p3]
+                    if not np.array_equal(fn3(m2_0), out_0):
+                        continue
+                    if all(np.array_equal(fn3(m2), out) for m2, out in m2_pairs[1:]):
+                        chosen_prog = [p1, p2, p3]
                         break
                 if chosen_prog is not None:
                     break

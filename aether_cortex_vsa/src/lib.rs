@@ -3,12 +3,16 @@ pub use vsa_graph_vm::{VsaOp, vsa_eval_graph_bytecode};
 pub mod vsa_jit_x64;
 pub use vsa_jit_x64::{
     JitPermuteHandle,
+    JitPermutedXorHandle,
     JitXorHandle,
     vsa_jit_compile_permute,
+    vsa_jit_compile_permuted_xor_chain,
     vsa_jit_compile_xor_chain,
     vsa_jit_exec_permute,
+    vsa_jit_exec_permuted_xor_chain,
     vsa_jit_exec_xor_chain,
     vsa_jit_free_permute,
+    vsa_jit_free_permuted_xor_chain,
     vsa_jit_free_xor_chain,
 };
 

@@ -303,10 +303,48 @@ def bench_track_g_arc_compositional_batch() -> Dict[str, Any]:
     return reasoner.evaluate_benchmark_batch(tasks, max_program_depth=2)
 
 
+def bench_track_h_fused_jit_3step_arc_conditional_cegis() -> Dict[str, Any]:
+    from aethermind_cognitive_substrate.logic_symbolic.cegis_code_synthesizer import CEGISCodeSynthesizer
+    from aethermind_cognitive_substrate.logic_symbolic.symbolic_grid_arc_reasoner import SymbolicGridARCReasoner
+    from aethermind_cognitive_substrate.memory_vault.vsa_dag_compiler import VSADAGBytecodeCompiler
+    import numpy as np
+
+    t0 = time.perf_counter()
+    dag_comp = VSADAGBytecodeCompiler()
+    rng = np.random.default_rng(7700)
+    vecs = [rng.integers(0, np.iinfo(np.uint64).max, size=160, dtype=np.uint64) for _ in range(4)]
+    shifts = [0, 7, 64, 199]
+    _, jit_mode = dag_comp.jit_permuted_xor_chain(vecs, shifts)
+
+    synth = CEGISCodeSynthesizer()
+    if_res = synth.synthesize_python_ast_cegis("def cond_scale(x): return (x * 8) if x > 0 else (x * 4)")
+
+    reasoner = SymbolicGridARCReasoner()
+    gt_prog = ["crop_nonzero", "flip_h", "scale_2x"]
+    grids = [
+        [[0, 0, 0, 0], [0, 1, 2, 0], [0, 3, 0, 0], [0, 0, 0, 0]],
+        [[0, 4, 5, 0], [0, 0, 6, 0], [0, 0, 0, 0]],
+        [[0, 0, 0], [0, 7, 8], [0, 9, 1]],
+    ]
+    demos = [(g, reasoner.apply_program(gt_prog, g)) for g in grids[:2]]
+    arc3 = reasoner.solve_arc_task(demos, grids[2], max_program_depth=3)
+    exp_out = reasoner.apply_program(gt_prog, grids[2]).tolist()
+
+    elapsed_ms = (time.perf_counter() - t0) * 1000.0
+    return {
+        "fused_jit_mode": int(jit_mode),
+        "conditional_cegis_proven": bool(if_res["is_equivalent"]),
+        "conditional_candidate": if_res["candidate_code"],
+        "arc_3step_solved": bool(arc3["solved"]) and arc3["predicted_grid"] == exp_out,
+        "arc_3step_program": arc3.get("synthesized_program"),
+        "elapsed_ms": round(elapsed_ms, 3),
+    }
+
+
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.6.0-APEX-MODULAR-AGI-JIT-ARC-SOVEREIGN",
+        "version": "7.7.0-APEX-MODULAR-AGI-FUSED-JIT-SOVEREIGN",
         "track_a_plug_and_play": bench_track_a_plug_and_play_discovery(),
         "track_b_pddl_planning": bench_track_b_pddl_planning(),
         "track_c_ast_cegis": bench_track_c_ast_cegis_synthesis(),
@@ -314,6 +352,7 @@ def main():
         "track_e_python_ast_cegis": bench_track_e_python_ast_cegis(),
         "track_f_hierarchical_arc": bench_track_f_hierarchical_arc_avx2(),
         "track_g_arc_batch_8": bench_track_g_arc_compositional_batch(),
+        "track_h_fused_jit_3step_arc": bench_track_h_fused_jit_3step_arc_conditional_cegis(),
     }
 
     out_dir = Path(__file__).resolve().parent
@@ -328,8 +367,9 @@ def main():
     e = results["track_e_python_ast_cegis"]
     f_res = results["track_f_hierarchical_arc"]
     g_res = results["track_g_arc_batch_8"]
+    h_res = results["track_h_fused_jit_3step_arc"]
 
-    md = f"""# AGI-Modular Multi-Domain Arena Results (`v7.6.0`)
+    md = f"""# AGI-Modular Multi-Domain Arena Results (`v7.7.0`)
 
 **Generated:** `{results['timestamp']}`  
 **Kernel Version:** `{results['version']}`
@@ -343,6 +383,7 @@ def main():
 | **Track E** | Arbitrary Python AST CEGIS + E-Graph Optimization | **{'PASS' if e['scale_proven'] and e['mod4_proven'] else 'FAIL'}** | `(x*8)+(y^y) -> {e['scale_candidate']}` ({e['scale_speedup']}x cycles); `(x%4)==0 -> {e['mod4_candidate']}` | `{e['elapsed_ms']} ms` |
 | **Track F** | Hierarchical Macro->Meso->Micro Planning + ARC Grid + AVX2 W^X JIT | **{'PASS' if f_res['overall_success'] and f_res['certified_safe'] else 'FAIL'}** | `{f_res['subgoals_executed']}` hierarchical subgoals; JIT mode `{f_res['avx2_wx_jit_mode']}` | `{f_res['elapsed_ms']} ms` |
 | **Track G** | 8-Task Compositional ARC Grid Induction Batch | **{'PASS' if g_res['exact_test_matches'] == g_res['total_tasks'] else 'FAIL'}** | `{g_res['exact_test_matches']}/{g_res['total_tasks']}` exact pixel accuracy (`{g_res['accuracy']*100:.1f}%`) | `{g_res['total_elapsed_ms']} ms` |
+| **Track H** | Fused AVX2 PERMUTE+XOR JIT + 3-Step ARC + Conditional CEGIS | **{'PASS' if h_res['fused_jit_mode'] == 1 and h_res['conditional_cegis_proven'] and h_res['arc_3step_solved'] else 'FAIL'}** | JIT mode `{h_res['fused_jit_mode']}`; 3-step `{h_res['arc_3step_program']}`; `{h_res['conditional_candidate']}` | `{h_res['elapsed_ms']} ms` |
 """
     md_path = out_dir / "AGI_ARENA_RESULTS.md"
     with open(md_path, "w", encoding="utf-8") as f:
