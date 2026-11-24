@@ -50,6 +50,12 @@ class VSADAGBytecodeCompiler:
         self.compiler = compiler or VSAExpressionCompiler()
         self._lib = get_native_cortex_dll()
         self._route_cache: Dict[str, CompiledVSADAGRoute] = {}
+        self._vulkan_engine: Optional[Any] = None
+
+    def close(self) -> None:
+        if self._vulkan_engine is not None:
+            self._vulkan_engine.close()
+            self._vulkan_engine = None
 
     @property
     def is_native_ready(self) -> bool:
@@ -285,3 +291,35 @@ class VSADAGBytecodeCompiler:
                     ((int(src[i]) << b_sh) & mask64) | (int(src[(i - 1) % WORDS]) >> inv_sh)
                 )
         return out, 0
+
+    def compile_and_execute_batch(
+        self,
+        query_u64: np.ndarray,
+        a_candidates_u64: np.ndarray,
+        b_candidates_u64: np.ndarray,
+        program_ops: List[Tuple[Any, ...]],
+        compare_regs: Tuple[int, int] = (0, 3),
+        gpu_threshold: int = 64,
+        vulkan_engine: Optional[Any] = None,
+    ) -> Dict[str, Any]:
+        """Hybrid cost-model router: CPU/AVX2 for small batches, Resident RX 580 LDS VM for N >= threshold."""
+        n = int(np.asarray(a_candidates_u64).shape[0])
+        if vulkan_engine is not None:
+            eng = vulkan_engine
+        else:
+            if self._vulkan_engine is None:
+                from ..physical_bridge.vulkan_batch_vsa_engine import VulkanBatchVSAEngine
+                self._vulkan_engine = VulkanBatchVSAEngine()
+            eng = self._vulkan_engine
+
+        prefer_gpu = (n >= int(gpu_threshold)) and bool(eng.is_available)
+        res = eng.batch_execute_dag_program(
+            query_u64=query_u64,
+            a_candidates_u64=a_candidates_u64,
+            b_candidates_u64=b_candidates_u64,
+            program_ops=program_ops,
+            compare_regs=compare_regs,
+            prefer_gpu=prefer_gpu,
+        )
+        res["cost_model_route"] = "GPU_RESIDENT_WAVE64_LDS_VM" if (prefer_gpu and res.get("gpu_executed")) else "CPU_ZERO_COPY_FALLBACK"
+        return res

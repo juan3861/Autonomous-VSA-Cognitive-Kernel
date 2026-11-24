@@ -89,7 +89,8 @@ class TestV84NeuroSymbolicGate(unittest.TestCase):
         self.assertTrue(res.get("approved"))
 
         rt = SovereignCortexRuntime()
-        self.assertIn("8.4.0", rt.version)
+        self.assertIn("MODULAR-AGI", rt.version)
+        self.assertIn("SOVEREIGN", rt.version)
 
 
 if __name__ == "__main__":

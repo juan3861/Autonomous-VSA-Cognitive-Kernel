@@ -319,11 +319,6 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
     cands = rng.integers(0, np.iinfo(np.uint64).max, size=(n_candidates, 160), dtype=np.uint64)
     cands[777] = q.copy()
 
-    eng = VulkanBatchVSAEngine()
-    res_h = eng.batch_hamming_distances(q, cands, prefer_gpu=True)
-    assert int(res_h["distances"][777]) == 0
-
-    # Also measure dense float32 cosine similarity shader (batch_cosine_sim.spv)
     dim_f32 = 256
     q_f32 = rng.normal(0.0, 1.0, size=dim_f32).astype(np.float32)
     q_f32 /= np.linalg.norm(q_f32)
@@ -331,27 +326,44 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
     cands_f32 /= np.linalg.norm(cands_f32, axis=1, keepdims=True)
     cands_f32[777] = q_f32.copy()
 
-    res_c = eng.batch_cosine_distances(q_f32, cands_f32, prefer_gpu=True)
-    assert abs(float(res_c["distances"][777])) < 1e-4
-
-    # Also measure fused Permute+XOR shader (vsa_batch_permuted_xor.spv)
     a_cands = rng.integers(0, np.iinfo(np.uint64).max, size=(n_candidates, 160), dtype=np.uint64)
     b_cands = rng.integers(0, np.iinfo(np.uint64).max, size=(n_candidates, 160), dtype=np.uint64)
-    res_p = eng.batch_permuted_xor_distances(q, a_cands, b_cands, shift_steps=199, prefer_gpu=True)
-    assert len(res_p["distances"]) == n_candidates
 
-    # Also measure programmable Wave64 LDS VSA DAG VM (vsa_batch_dag_vm.spv)
-    dag_ops = [
-        ("LOAD_Q", 3),
-        ("LOAD_A", 0),
-        ("LOAD_B", 1),
-        ("PERMUTE", 2, 0, 199),
-        ("XOR", 2, 2, 1),
-        ("PERMUTE", 2, 2, 64),
-        ("XOR", 2, 2, 0),
-    ]
-    res_dag = eng.batch_execute_dag_program(q, a_cands, b_cands, dag_ops, compare_regs=(2, 3), prefer_gpu=True)
-    assert len(res_dag["distances"]) == n_candidates
+    with VulkanBatchVSAEngine() as eng:
+        # Warm up resident VkInstance/Device/Pipelines cleanly before steady-state measurement
+        if eng.is_available:
+            eng.batch_hamming_distances(q, cands[:64], prefer_gpu=True)
+            eng.batch_cosine_distances(q_f32, cands_f32[:64], prefer_gpu=True)
+            eng.batch_permuted_xor_distances(q, a_cands[:64], b_cands[:64], shift_steps=199, prefer_gpu=True)
+            eng.batch_execute_dag_program(q, a_cands[:64], b_cands[:64], [("LOAD_Q", 3), ("LOAD_A", 0)], compare_regs=(0, 3), prefer_gpu=True)
+
+        # Size full 4096-candidate buffers once, then measure warm steady-state GPU dispatch
+        eng.batch_hamming_distances(q, cands, prefer_gpu=True)
+        res_h = eng.batch_hamming_distances(q, cands, prefer_gpu=True)
+        assert int(res_h["distances"][777]) == 0
+
+        eng.batch_cosine_distances(q_f32, cands_f32, prefer_gpu=True)
+        res_c = eng.batch_cosine_distances(q_f32, cands_f32, prefer_gpu=True)
+        assert abs(float(res_c["distances"][777])) < 1e-4
+
+        # Also measure fused Permute+XOR shader (vsa_batch_permuted_xor.spv)
+        eng.batch_permuted_xor_distances(q, a_cands, b_cands, shift_steps=199, prefer_gpu=True)
+        res_p = eng.batch_permuted_xor_distances(q, a_cands, b_cands, shift_steps=199, prefer_gpu=True)
+        assert len(res_p["distances"]) == n_candidates
+
+        # Also measure programmable Wave64 LDS VSA DAG VM (vsa_batch_dag_vm.spv)
+        dag_ops = [
+            ("LOAD_Q", 3),
+            ("LOAD_A", 0),
+            ("LOAD_B", 1),
+            ("PERMUTE", 2, 0, 199),
+            ("XOR", 2, 2, 1),
+            ("PERMUTE", 2, 2, 64),
+            ("XOR", 2, 2, 0),
+        ]
+        eng.batch_execute_dag_program(q, a_cands, b_cands, dag_ops, compare_regs=(2, 3), prefer_gpu=True)
+        res_dag = eng.batch_execute_dag_program(q, a_cands, b_cands, dag_ops, compare_regs=(2, 3), prefer_gpu=True)
+        assert len(res_dag["distances"]) == n_candidates
 
     return {
         "n_candidates": n_candidates,
@@ -378,7 +390,7 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "8.0.0-APEX-MODULAR-AGI-GPU-DAG-CEGIS-SOVEREIGN",
+        "version": "8.5.0-APEX-MODULAR-AGI-RESIDENT-GPU-JIT-SOVEREIGN",
         "vsa_10240": bench_vsa_10240(2000),
         "lyapunov_16x16": bench_lyapunov_16x16(200),
         "simplex_lp": bench_simplex_vs_highs(100),
@@ -405,7 +417,7 @@ def main():
     sp_thd_cy = f"{v['speedup_cython_vs_torchhd']}x" if v.get("speedup_cython_vs_torchhd") else "—"
     sp_thd_vm = f"{v['speedup_fused_vs_torchhd']}x" if v.get("speedup_fused_vs_torchhd") else "—"
 
-    md = f"""# HDC-Arena / VSA-Bench Reproducible Results (`v7.4.0`)
+    md = f"""# HDC-Arena / VSA-Bench Reproducible Results (`v8.5.0`)
 
 **Generated:** `{results['timestamp']}`  
 **Kernel Version:** `{results['version']}`  
