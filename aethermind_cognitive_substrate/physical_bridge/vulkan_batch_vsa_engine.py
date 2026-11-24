@@ -58,6 +58,7 @@ class VulkanBatchVSAEngine:
         self.shaders_dir = Path(__file__).resolve().parent.parent / "logic_symbolic" / "shaders"
         self.vsa_spv_path = self.shaders_dir / "vsa_batch_hamming.spv"
         self.cosine_spv_path = self.shaders_dir / "batch_cosine_sim.spv"
+        self.permuted_xor_spv_path = self.shaders_dir / "vsa_batch_permuted_xor.spv"
         self.vk_dll: Optional[ctypes.CDLL] = None
         self.is_available: bool = False
         self._probe_vulkan()
@@ -351,6 +352,70 @@ class VulkanBatchVSAEngine:
                 }
 
         dists = np.maximum(0.0, 1.0 - (c @ q)).astype(np.float32)
+        return {
+            "backend": "CPU_NUMPY_FALLBACK",
+            "gpu_executed": False,
+            "distances": dists,
+            "gpu_queue_ms": 0.0,
+            "elapsed_ms": round((time.perf_counter() - t0) * 1000.0, 3),
+        }
+
+    def batch_permuted_xor_distances(
+        self,
+        query_u64: np.ndarray,
+        a_candidates_u64: np.ndarray,
+        b_candidates_u64: np.ndarray,
+        shift_steps: int = 199,
+        prefer_gpu: bool = True,
+    ) -> Dict[str, Any]:
+        """Compute Hamming(query, Permute(A_i, shift_steps) ^ B_i) for N candidate pairs on RX 580 Wave64."""
+        t0 = time.perf_counter()
+        q_u32 = np.ascontiguousarray(query_u64, dtype=np.uint64).view(np.uint32)
+        a_u32 = np.ascontiguousarray(a_candidates_u64, dtype=np.uint64).view(np.uint32)
+        b_u32 = np.ascontiguousarray(b_candidates_u64, dtype=np.uint64).view(np.uint32)
+        n = a_u32.shape[0]
+        if b_u32.shape[0] != n:
+            raise ValueError("a_candidates_u64 and b_candidates_u64 must have equal batch size.")
+
+        s = int(shift_steps) % 10240
+        pairs_u32 = np.empty((n, 640), dtype=np.uint32)
+        pairs_u32[:, :320] = a_u32
+        pairs_u32[:, 320:] = b_u32
+
+        if prefer_gpu and self.is_available and self.permuted_xor_spv_path.exists():
+            res = self._dispatch_3buffer_shader(
+                self.permuted_xor_spv_path,
+                q_u32.tobytes(),
+                pairs_u32.tobytes(),
+                n * 4,
+                n,
+                s,
+            )
+            if res.get("gpu_executed"):
+                dists = np.frombuffer(res["raw_out"], dtype=np.uint32).copy()
+                return {
+                    "backend": f"VULKAN_WAVE64 ({res['gpu_name']})",
+                    "gpu_executed": True,
+                    "distances": dists,
+                    "gpu_queue_ms": res["gpu_queue_ms"],
+                    "elapsed_ms": res["total_ms"],
+                }
+
+        # Exact CPU bit-rotation parity fallback
+        a_arr = np.ascontiguousarray(a_candidates_u64, dtype=np.uint64)
+        b_arr = np.ascontiguousarray(b_candidates_u64, dtype=np.uint64)
+        w_sh = s // 64
+        b_sh = s % 64
+        if s == 0:
+            perm_a = a_arr
+        elif b_sh == 0:
+            perm_a = np.roll(a_arr, shift=w_sh, axis=1)
+        else:
+            rolled = np.roll(a_arr, shift=w_sh, axis=1)
+            prev = np.roll(rolled, shift=1, axis=1)
+            perm_a = (rolled << np.uint64(b_sh)) | (prev >> np.uint64(64 - b_sh))
+        xored = np.bitwise_xor(np.bitwise_xor(perm_a, b_arr), query_u64[None, :]).view(np.uint8)
+        dists = np.unpackbits(xored, axis=1).sum(axis=1, dtype=np.uint32)
         return {
             "backend": "CPU_NUMPY_FALLBACK",
             "gpu_executed": False,

@@ -717,3 +717,441 @@ class CEGISCodeSynthesizer:
         }
         self.verified_optimizations.append(res)
         return res
+
+    def _prove_step_algebraic_qfnra(
+        self,
+        row_ast: ast.expr,
+        global_ast: ast.expr,
+        outer_bound: str,
+        i_var: str,
+        param_vars: List[str],
+    ) -> bool:
+        """Prove inductive step via BitVec modular divisibility lemmas + QF_NRA algebra."""
+        def _to_bv_ring(node: ast.AST, env_bv: Dict[str, Any], w: int) -> Optional[Any]:
+            if isinstance(node, ast.Constant) and isinstance(node.value, int):
+                return z3.BitVecVal(int(node.value), w)
+            if isinstance(node, ast.Name) and node.id in env_bv:
+                return env_bv[node.id]
+            if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+                v = _to_bv_ring(node.operand, env_bv, w)
+                return -v if v is not None else None
+            if isinstance(node, ast.BinOp):
+                l = _to_bv_ring(node.left, env_bv, w)
+                if l is None:
+                    return None
+                if isinstance(node.op, ast.LShift) and isinstance(node.right, ast.Constant) and isinstance(node.right.value, int):
+                    sh = int(node.right.value)
+                    return (l << z3.BitVecVal(sh, w)) if 0 <= sh < w else None
+                r = _to_bv_ring(node.right, env_bv, w)
+                if r is None:
+                    return None
+                if isinstance(node.op, ast.Add):
+                    return l + r
+                if isinstance(node.op, ast.Sub):
+                    return l - r
+                if isinstance(node.op, ast.Mult):
+                    return l * r
+            return None
+
+        def _to_real_exact(node: ast.AST, env_r: Dict[str, Any], env_bv: Dict[str, Any], bv_w: int) -> Optional[Any]:
+            if isinstance(node, ast.Constant) and isinstance(node.value, int):
+                return z3.IntVal(int(node.value))
+            if isinstance(node, ast.Name) and node.id in env_r:
+                return env_r[node.id]
+            if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+                v = _to_real_exact(node.operand, env_r, env_bv, bv_w)
+                return -v if v is not None else None
+            if isinstance(node, ast.BinOp):
+                if isinstance(node.op, ast.LShift) and isinstance(node.right, ast.Constant) and isinstance(node.right.value, int):
+                    l = _to_real_exact(node.left, env_r, env_bv, bv_w)
+                    sh = int(node.right.value)
+                    return (l * (1 << sh)) if (l is not None and 0 <= sh <= 20) else None
+                if isinstance(node.op, ast.RShift) and isinstance(node.right, ast.Constant) and isinstance(node.right.value, int):
+                    sh = int(node.right.value)
+                    if not (0 <= sh <= 12):
+                        return None
+                    bv_num = _to_bv_ring(node.left, env_bv, bv_w)
+                    if bv_num is None:
+                        return None
+                    s_div = z3.Solver()
+                    s_div.set("timeout", 400)
+                    s_div.add((bv_num & z3.BitVecVal((1 << sh) - 1, bv_w)) != z3.BitVecVal(0, bv_w))
+                    if s_div.check() != z3.unsat:
+                        return None
+                    l = _to_real_exact(node.left, env_r, env_bv, bv_w)
+                    return (l / z3.RealVal(1 << sh)) if l is not None else None
+                l = _to_real_exact(node.left, env_r, env_bv, bv_w)
+                r = _to_real_exact(node.right, env_r, env_bv, bv_w)
+                if l is None or r is None:
+                    return None
+                if isinstance(node.op, ast.Add):
+                    return l + r
+                if isinstance(node.op, ast.Sub):
+                    return l - r
+                if isinstance(node.op, ast.Mult):
+                    return l * r
+            return None
+
+        bv_w = 16
+        k_r = z3.Real(f"_alg_{i_var}")
+        k_bv = z3.BitVec(f"_alg_{i_var}", bv_w)
+        r_params = {pv: z3.Real(f"_alg_{pv}") for pv in param_vars}
+        bv_params = {pv: z3.BitVec(f"_alg_{pv}", bv_w) for pv in param_vars}
+
+        row_r = _to_real_exact(row_ast, {**r_params, i_var: k_r}, {**bv_params, i_var: k_bv}, bv_w)
+        gk_r = _to_real_exact(global_ast, {**r_params, outer_bound: k_r}, {**bv_params, outer_bound: k_bv}, bv_w)
+        gk1_r = _to_real_exact(
+            global_ast,
+            {**r_params, outer_bound: k_r + z3.RealVal(1)},
+            {**bv_params, outer_bound: k_bv + z3.BitVecVal(1, bv_w)},
+            bv_w,
+        )
+        if row_r is None or gk_r is None or gk1_r is None:
+            return False
+
+        s_alg = z3.SolverFor("QF_NRA")
+        s_alg.set("timeout", 1500)
+        s_alg.add(k_r >= 0, (gk_r + row_r) != gk1_r)
+        return s_alg.check() == z3.unsat
+
+    def _extract_nested_loop_recurrence(
+        self, source_code: str
+    ) -> Tuple[str, List[str], str, str, str, str, ast.expr, ast.expr, ast.expr]:
+        """Extract (fn_name, args, acc_var, i_var, j_var, outer_bound, inner_bound_ast, init_expr, step_expr)."""
+        sec = self._ast_analyzer.analyze_source(source_code)
+        if not sec.get("is_valid_syntax") or not sec.get("security_clean"):
+            raise ValueError(f"Unsafe or invalid Python nested loop rejected: {sec}")
+
+        tree = ast.parse(source_code)
+        if len(tree.body) != 1 or not isinstance(tree.body[0], ast.FunctionDef):
+            raise ValueError("Expected single function definition with nested for loops.")
+
+        fn = tree.body[0]
+        assigns: Dict[str, ast.expr] = {}
+        outer_for: Optional[ast.For] = None
+        for stmt in fn.body:
+            if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1 and isinstance(stmt.targets[0], ast.Name):
+                assigns[stmt.targets[0].id] = stmt.value
+            elif isinstance(stmt, ast.For):
+                outer_for = stmt
+                break
+
+        if outer_for is None or not isinstance(outer_for.target, ast.Name):
+            raise ValueError("Expected outer `for i in range(n):` loop.")
+        if not (
+            isinstance(outer_for.iter, ast.Call)
+            and isinstance(outer_for.iter.func, ast.Name)
+            and outer_for.iter.func.id == "range"
+            and len(outer_for.iter.args) == 1
+            and isinstance(outer_for.iter.args[0], ast.Name)
+        ):
+            raise ValueError("Outer loop must iterate over range(bound_var).")
+
+        i_var = outer_for.target.id
+        outer_bound = outer_for.iter.args[0].id
+
+        inner_for: Optional[ast.For] = None
+        for st in outer_for.body:
+            if isinstance(st, ast.For):
+                inner_for = st
+                break
+        if inner_for is None or not isinstance(inner_for.target, ast.Name):
+            raise ValueError("Expected nested inner `for j in range(...):` loop.")
+        if not (
+            isinstance(inner_for.iter, ast.Call)
+            and isinstance(inner_for.iter.func, ast.Name)
+            and inner_for.iter.func.id == "range"
+            and len(inner_for.iter.args) == 1
+        ):
+            raise ValueError("Inner loop must iterate over range(expr).")
+
+        j_var = inner_for.target.id
+        inner_bound_ast = inner_for.iter.args[0]
+
+        acc_var = ""
+        step_expr: Optional[ast.expr] = None
+        for st in inner_for.body:
+            if isinstance(st, ast.Assign) and len(st.targets) == 1 and isinstance(st.targets[0], ast.Name):
+                if st.targets[0].id in assigns:
+                    acc_var = st.targets[0].id
+                    step_expr = st.value
+                    break
+            elif isinstance(st, ast.AugAssign) and isinstance(st.target, ast.Name):
+                if st.target.id in assigns:
+                    acc_var = st.target.id
+                    step_expr = ast.BinOp(left=ast.Name(id=acc_var, ctx=ast.Load()), op=st.op, right=st.value)
+                    break
+
+        if not acc_var or step_expr is None:
+            raise ValueError("Could not extract accumulator update inside nested loop.")
+
+        return (
+            fn.name,
+            [a.arg for a in fn.args.args],
+            acc_var,
+            i_var,
+            j_var,
+            outer_bound,
+            inner_bound_ast,
+            assigns[acc_var],
+            step_expr,
+        )
+
+    def synthesize_nested_loop_closed_form_cegis(self, source_code: str) -> Dict[str, Any]:
+        """Prove O(n*m) / O(n^2) -> O(1) closed forms for nested loops via Z3 double induction."""
+        t0 = time.perf_counter()
+        (
+            fn_name,
+            arg_names,
+            acc_var,
+            i_var,
+            j_var,
+            outer_bound,
+            inner_bound_ast,
+            init_expr,
+            step_expr,
+        ) = self._extract_nested_loop_recurrence(source_code)
+
+        # Extract inner increment term assuming additive accumulator: acc = acc + delta(i, j, params)
+        if not (
+            isinstance(step_expr, ast.BinOp)
+            and isinstance(step_expr.op, ast.Add)
+            and isinstance(step_expr.left, ast.Name)
+            and step_expr.left.id == acc_var
+        ):
+            raise ValueError("Nested loop induction currently requires additive accumulator update `acc = acc + term`.")
+        term_expr = step_expr.right
+        param_vars = [v for v in arg_names if v != outer_bound]
+
+        def _run_nested_concrete(env_p: Dict[str, int], n_val: int) -> int:
+            acc = _eval_ast_i64(init_expr, env_p)
+            for iv in range(max(0, n_val)):
+                b_env = dict(env_p)
+                b_env[outer_bound] = n_val
+                b_env[i_var] = iv
+                m_val = _eval_ast_i64(inner_bound_ast, b_env)
+                for jv in range(max(0, m_val)):
+                    t_env = dict(b_env)
+                    t_env[j_var] = jv
+                    acc = _to_i64(acc + _eval_ast_i64(term_expr, t_env))
+            return acc
+
+        inner_b_str = ast.unparse(inner_bound_ast)
+        term_str = ast.unparse(term_expr)
+
+        # Candidate row sum formulas Delta_row(i, params, inner_b) & global O(1) formulas
+        row_cands_strs: List[str] = [
+            "0",
+            inner_b_str,
+            f"({term_str}) * ({inner_b_str})",
+        ]
+        global_cands_strs: List[str] = [
+            "0",
+            f"{outer_bound}",
+            f"{outer_bound} * {outer_bound}",
+            f"({outer_bound} * ({outer_bound} - 1)) >> 1",
+            f"({outer_bound} * ({outer_bound} + 1)) >> 1",
+        ]
+        pow2_shifts = {1: 0, 2: 1, 4: 2, 8: 3, 16: 4}
+        for pv in param_vars:
+            row_cands_strs.append(f"{pv} * ({inner_b_str})")
+            global_cands_strs.extend([
+                f"{pv} * {outer_bound}",
+                f"{outer_bound} * {pv}",
+                f"({pv} * (({outer_bound} * ({outer_bound} - 1)) >> 1))",
+                f"({pv} * (({outer_bound} * ({outer_bound} + 1)) >> 1))",
+            ])
+            for pv2 in param_vars:
+                global_cands_strs.append(f"({pv} * {pv2}) * {outer_bound}")
+                for k, sh in pow2_shifts.items():
+                    if sh > 0:
+                        row_cands_strs.append(f"({pv} << {sh}) * ({inner_b_str})")
+                        global_cands_strs.append(f"(({pv} << {sh}) * {outer_bound}) * {pv2}")
+                        global_cands_strs.append(f"(({pv} << {sh}) * (({outer_bound} * ({outer_bound} - 1)) >> 1))")
+                        global_cands_strs.append(f"(({pv} << {sh}) * (({outer_bound} * ({outer_bound} + 1)) >> 1))")
+
+        def _parse_sorted(strs: List[str]) -> List[ast.expr]:
+            out_asts: List[ast.expr] = []
+            seen: set[str] = set()
+            for s in strs:
+                try:
+                    nd = ast.parse(s, mode="eval").body
+                    unp = ast.unparse(nd)
+                    if unp not in seen:
+                        seen.add(unp)
+                        out_asts.append(nd)
+                except Exception:
+                    pass
+            out_asts.sort(key=lambda n: (_ast_cycle_cost(n), len(ast.unparse(n))))
+            return out_asts
+
+        row_cands = _parse_sorted(row_cands_strs)
+        global_cands = _parse_sorted(global_cands_strs)
+
+        sample_points = [
+            ({pv: 2 + (idx % 3) for idx, pv in enumerate(param_vars)}, n_v)
+            for n_v in (0, 1, 2, 3, 4)
+        ]
+
+        z3_params = {pv: z3.BitVec(pv, 64) for pv in param_vars}
+        z3_i = z3.BitVec(i_var, 64)
+        z3_j = z3.BitVec(j_var, 64)
+        safe_bound = z3.BitVecVal(1 << 28, 64)
+
+        # Stage 1: Z3 inner-loop induction proving exact per-row closed form Delta_row(i, params)
+        proven_row_ast: Optional[ast.expr] = None
+        if j_var not in term_str:  # Constant per inner-iteration step wrt j: test inner induction
+            for rc in row_cands:
+                # Concrete filter on j = 0..3
+                ok_inner = True
+                for i_t in (0, 1, 2, 3):
+                    p_t = {pv: 3 for pv in param_vars}
+                    p_t[i_var] = i_t
+                    term_val = _eval_ast_i64(term_expr, p_t)
+                    for m_t in (0, 1, 2, 3):
+                        env_r = dict(p_t)
+                        # Check row sum for inner bound `m_t` by substituting inner_bound = j_curr
+                        env_r_sub = dict(p_t)
+                        env_r_sub.update({v: m_t for v in param_vars if v == ast.unparse(inner_bound_ast)})
+                        if ast.unparse(inner_bound_ast) == i_var:
+                            env_r_sub[i_var] = m_t
+                        elif ast.unparse(inner_bound_ast) == f"{i_var} + 1":
+                            env_r_sub[i_var] = m_t - 1
+                            if m_t == 0:
+                                continue
+                        # Compare direct recurrence if inner bound matches simple var
+                        if ast.unparse(inner_bound_ast) in param_vars:
+                            if _eval_ast_i64(rc, env_r_sub) != _to_i64(term_val * m_t):
+                                ok_inner = False
+                                break
+                    if not ok_inner:
+                        break
+                if not ok_inner:
+                    continue
+
+                # Prove inner induction symbolically over arbitrary inner bound B
+                z3_B = z3.BitVec("_inner_B", 64)
+                inner_s_step = z3.Solver()
+                env_row_0 = dict(z3_params)
+                env_row_0[i_var] = z3_i
+                env_row_k = dict(z3_params)
+                env_row_k[i_var] = z3_i
+                # Synthesize symbolic row formula where inner_bound -> B safely
+                import re
+                rc_str_sym = ast.unparse(rc).replace(f"({inner_b_str})", "_inner_B")
+                if isinstance(inner_bound_ast, ast.Name):
+                    rc_str_sym = re.sub(rf"\b{re.escape(inner_b_str)}\b", "_inner_B", rc_str_sym)
+                else:
+                    rc_str_sym = rc_str_sym.replace(inner_b_str, "_inner_B")
+                try:
+                    rc_sym_ast = ast.parse(rc_str_sym, mode="eval").body
+                except Exception:
+                    continue
+                env_b0 = dict(z3_params)
+                env_b0[i_var] = z3_i
+                env_b0["_inner_B"] = z3.BitVecVal(0, 64)
+                s_base = z3.Solver()
+                s_base.add(_ast_to_z3_bv64(rc_sym_ast, env_b0, []) != z3.BitVecVal(0, 64))
+                if s_base.check() != z3.unsat:
+                    continue
+
+                env_bk = dict(z3_params)
+                env_bk[i_var] = z3_i
+                env_bk["_inner_B"] = z3_B
+                env_bk1 = dict(z3_params)
+                env_bk1[i_var] = z3_i
+                env_bk1["_inner_B"] = z3_B + z3.BitVecVal(1, 64)
+                term_z3 = _ast_to_z3_bv64(term_expr, {**z3_params, i_var: z3_i, j_var: z3_j}, [])
+                lhs_row = _ast_to_z3_bv64(rc_sym_ast, env_bk, []) + term_z3
+                rhs_row = _ast_to_z3_bv64(rc_sym_ast, env_bk1, [])
+                inner_s_step.add(lhs_row != rhs_row)
+                if inner_s_step.check() == z3.unsat:
+                    proven_row_ast = rc
+                    break
+
+        if proven_row_ast is None:
+            return {
+                "is_equivalent": False,
+                "status": "INNER_LOOP_INDUCTION_FAILED",
+                "elapsed_ms": round((time.perf_counter() - t0) * 1000.0, 3),
+            }
+
+        # Stage 2: Z3 outer-loop induction over k -> k + 1 using proven row sum
+        proven_global_ast: Optional[ast.expr] = None
+        used_safe_range_guard = False
+        outer_iters = 0
+
+        for gc in global_cands:
+            if not all(
+                _eval_ast_i64(gc, {**p_env, outer_bound: n_val}) == _run_nested_concrete(p_env, n_val)
+                for p_env, n_val in sample_points
+            ):
+                continue
+
+            outer_iters += 1
+            env_g0 = dict(z3_params)
+            env_g0[outer_bound] = z3.BitVecVal(0, 64)
+            sb = z3.Solver()
+            sb.add(_ast_to_z3_bv64(gc, env_g0, []) != _ast_to_z3_bv64(init_expr, dict(z3_params), []))
+            if sb.check() != z3.unsat:
+                continue
+
+            env_gk = dict(z3_params)
+            env_gk[outer_bound] = z3_i
+            env_gk1 = dict(z3_params)
+            env_gk1[outer_bound] = z3_i + z3.BitVecVal(1, 64)
+            row_z3 = _ast_to_z3_bv64(proven_row_ast, {**z3_params, i_var: z3_i}, [])
+            lhs_outer = _ast_to_z3_bv64(gc, env_gk, []) + row_z3
+            rhs_outer = _ast_to_z3_bv64(gc, env_gk1, [])
+
+            ss = z3.Solver()
+            ss.set("timeout", 800)
+            ss.add(lhs_outer != rhs_outer)
+            if ss.check() == z3.unsat:
+                proven_global_ast = gc
+                used_safe_range_guard = False
+                break
+
+            # Algebraic ring + BitVec modular divisibility proof for shift-division triangular forms
+            if self._prove_step_algebraic_qfnra(proven_row_ast, gc, outer_bound, i_var, param_vars):
+                proven_global_ast = gc
+                used_safe_range_guard = True
+                break
+
+            # Fallback bounded non-negative BitVec64 guard for general bitwise formulas (0 <= i < 2^28)
+            ss_guarded = z3.Solver()
+            ss_guarded.set("timeout", 1500)
+            ss_guarded.add(z3_i >= z3.BitVecVal(0, 64), z3_i < safe_bound)
+            for zv in z3_params.values():
+                ss_guarded.add(zv >= z3.BitVecVal(-100000, 64), zv <= z3.BitVecVal(100000, 64))
+            ss_guarded.add(lhs_outer != rhs_outer)
+            if ss_guarded.check() == z3.unsat:
+                proven_global_ast = gc
+                used_safe_range_guard = True
+                break
+
+        elapsed_ms = (time.perf_counter() - t0) * 1000.0
+        if proven_global_ast is None:
+            return {
+                "is_equivalent": False,
+                "status": "OUTER_LOOP_INDUCTION_FAILED",
+                "elapsed_ms": round(elapsed_ms, 3),
+            }
+
+        cand_str = ast.unparse(proven_global_ast)
+        res = {
+            "is_equivalent": True,
+            "status": "PROVEN_BY_Z3_DOUBLE_INDUCTION",
+            "z3_inner_proof": "unsat",
+            "z3_outer_base": "unsat",
+            "z3_outer_step": "unsat",
+            "bounded_nonoverflow_guard": used_safe_range_guard,
+            "row_closed_form": ast.unparse(proven_row_ast),
+            "candidate_code": cand_str,
+            "synthesized_source": f"def {fn_name}({', '.join(arg_names)}):\n    return {cand_str}",
+            "complexity_reduction": "O(n*m) -> O(1)",
+            "outer_candidates_tested": outer_iters,
+            "elapsed_ms": round(elapsed_ms, 3),
+        }
+        self.verified_optimizations.append(res)
+        return res

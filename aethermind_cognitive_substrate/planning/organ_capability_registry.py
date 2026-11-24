@@ -731,7 +731,11 @@ class OrganCapabilityRegistry:
             synth = CEGISCodeSynthesizer()
             spec_mode = context.get("cegis_mode", "bitwise_parity")
             cegis_src = context.get("cegis_source")
-            if spec_mode == "loop_induction":
+            if spec_mode == "nested_loop_induction":
+                proof = synth.synthesize_nested_loop_closed_form_cegis(
+                    str(cegis_src or context.get("source_code", "")),
+                )
+            elif spec_mode == "loop_induction":
                 proof = synth.synthesize_loop_closed_form_cegis(
                     str(cegis_src or context.get("source_code", "")),
                 )

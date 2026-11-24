@@ -107,8 +107,8 @@ class TestV78CythonJITAndLoopCEGIS(unittest.TestCase):
         self.assertTrue(ti["odds_proven"] and ti["scale_proven"] and ti["xor_proven"])
 
         rt = SovereignCortexRuntime()
-        self.assertIn("7.8.0", rt.version)
-        self.assertIn("INDUCTIVE", rt.version)
+        self.assertIn("MODULAR-AGI", rt.version)
+        self.assertIn("SOVEREIGN", rt.version)
 
 
 if __name__ == "__main__":

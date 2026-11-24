@@ -334,6 +334,12 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
     res_c = eng.batch_cosine_distances(q_f32, cands_f32, prefer_gpu=True)
     assert abs(float(res_c["distances"][777])) < 1e-4
 
+    # Also measure fused Permute+XOR shader (vsa_batch_permuted_xor.spv)
+    a_cands = rng.integers(0, np.iinfo(np.uint64).max, size=(n_candidates, 160), dtype=np.uint64)
+    b_cands = rng.integers(0, np.iinfo(np.uint64).max, size=(n_candidates, 160), dtype=np.uint64)
+    res_p = eng.batch_permuted_xor_distances(q, a_cands, b_cands, shift_steps=199, prefer_gpu=True)
+    assert len(res_p["distances"]) == n_candidates
+
     return {
         "n_candidates": n_candidates,
         "backend": res_h["backend"],
@@ -344,13 +350,17 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
         "cosine_gpu_executed": bool(res_c["gpu_executed"]),
         "cosine_gpu_queue_ms": res_c["gpu_queue_ms"],
         "cosine_elapsed_ms": res_c["elapsed_ms"],
+        "fused_permuted_xor_backend": res_p["backend"],
+        "fused_permuted_xor_gpu_executed": bool(res_p["gpu_executed"]),
+        "fused_permuted_xor_gpu_queue_ms": res_p["gpu_queue_ms"],
+        "fused_permuted_xor_elapsed_ms": res_p["elapsed_ms"],
     }
 
 
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.8.0-APEX-MODULAR-AGI-INDUCTIVE-SOVEREIGN",
+        "version": "7.9.0-APEX-MODULAR-AGI-JIT-GPU-NESTED-SOVEREIGN",
         "vsa_10240": bench_vsa_10240(2000),
         "lyapunov_16x16": bench_lyapunov_16x16(200),
         "simplex_lp": bench_simplex_vs_highs(100),
@@ -409,6 +419,7 @@ def main():
 ## 3. Massive Batch VSA & Cosine Search ({b['n_candidates']} candidates)
 - **Hamming 10,240-bit Shader (`vsa_batch_hamming.spv`):** `{b['backend']}` (`gpu_executed={b['gpu_executed']}`) — `{b['elapsed_ms']} ms` (`gpu_queue_ms={b['gpu_queue_ms']} ms`)
 - **Dense Cosine Shader (`batch_cosine_sim.spv`):** `{b['cosine_backend']}` (`gpu_executed={b['cosine_gpu_executed']}`) — `{b['cosine_elapsed_ms']} ms` (`gpu_queue_ms={b['cosine_gpu_queue_ms']} ms`)
+- **Fused Permute+XOR Shader (`vsa_batch_permuted_xor.spv`):** `{b['fused_permuted_xor_backend']}` (`gpu_executed={b['fused_permuted_xor_gpu_executed']}`) — `{b['fused_permuted_xor_elapsed_ms']} ms` (`gpu_queue_ms={b['fused_permuted_xor_gpu_queue_ms']} ms`)
 """
 
     md_path = out_dir / "BENCHMARK_RESULTS.md"

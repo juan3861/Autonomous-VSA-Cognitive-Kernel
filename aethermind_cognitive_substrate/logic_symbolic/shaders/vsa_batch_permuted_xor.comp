@@ -1,0 +1,53 @@
+#version 450
+layout(local_size_x = 64, local_size_y = 1, local_size_z = 1) in; // Wave64 Polaris RX 580
+
+// Computes Hamming(query, Permute(A_idx, shift_steps) XOR B_idx) over 10,240-bit packed vectors.
+layout(std430, binding = 0) readonly buffer QueryBuffer {
+    uint query_words[320];
+};
+
+// Packed pairs: candidate idx occupies [idx * 640 .. idx * 640 + 319] for A_idx, [+320 .. +639] for B_idx
+layout(std430, binding = 1) readonly buffer CandidatePairsBuffer {
+    uint pair_words[];
+};
+
+layout(std430, binding = 2) writeonly buffer OutputDistances {
+    uint distances[];
+};
+
+layout(push_constant) uniform PushConstants {
+    uint num_candidates;
+    uint shift_steps; // bit rotation in [0, 10239]
+} pc;
+
+void main() {
+    uint idx = gl_GlobalInvocationID.x;
+    if (idx >= pc.num_candidates) return;
+
+    uint s = pc.shift_steps % 10240u;
+    uint w_shift = s >> 5u;
+    uint b_shift = s & 31u;
+
+    uint base_a = idx * 640u;
+    uint base_b = base_a + 320u;
+    uint dist = 0u;
+
+    if (b_shift == 0u) {
+        for (uint w = 0u; w < 320u; ++w) {
+            uint src_idx = (w + 320u - w_shift) % 320u;
+            uint fused = pair_words[base_a + src_idx] ^ pair_words[base_b + w];
+            dist += bitCount(query_words[w] ^ fused);
+        }
+    } else {
+        uint inv_shift = 32u - b_shift;
+        for (uint w = 0u; w < 320u; ++w) {
+            uint src_hi = (w + 320u - w_shift) % 320u;
+            uint src_lo = (src_hi + 319u) % 320u;
+            uint perm_a = (pair_words[base_a + src_hi] << b_shift) | (pair_words[base_a + src_lo] >> inv_shift);
+            uint fused = perm_a ^ pair_words[base_b + w];
+            dist += bitCount(query_words[w] ^ fused);
+        }
+    }
+
+    distances[idx] = dist;
+}
