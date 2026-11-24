@@ -159,6 +159,19 @@ def bench_vsa_10240(n_iters: int = 2000) -> Dict[str, Any]:
     jit_ms = (time.perf_counter() - t0) * 1000.0
     bridge_dll.vsa_jit_free_xor_chain(jit_handle)
 
+    # 8. Native x86_64 AVX2 W^X JIT Compiler (Permute circular 10,240-bit shift)
+    perm_jit_ms = None
+    if hasattr(bridge_dll, "vsa_jit_compile_permute"):
+        p_handle = bridge_dll.vsa_jit_compile_permute(199)
+        p_out = np.zeros(160, dtype=np.uint64)
+        a_ptr = a_u64.ctypes.data_as(ctypes.POINTER(ctypes.c_uint64))
+        p_out_ptr = p_out.ctypes.data_as(ctypes.POINTER(ctypes.c_uint64))
+        t0 = time.perf_counter()
+        for _ in range(n_iters):
+            bridge_dll.vsa_jit_exec_permute(p_handle, a_ptr, p_out_ptr)
+        perm_jit_ms = (time.perf_counter() - t0) * 1000.0
+        bridge_dll.vsa_jit_free_permute(p_handle)
+
     assert acc_np == 0 and acc_th == 0 and acc_ct == 0 and acc_cy == 0 and acc_vm == 0
 
     return {
@@ -171,6 +184,7 @@ def bench_vsa_10240(n_iters: int = 2000) -> Dict[str, Any]:
         "cython_backend": fast.backend_mode,
         "fused_avx2_vm_ms": round(fused_vm_ms, 3),
         "native_x64_jit_5way_ms": round(jit_ms, 3),
+        "native_x64_jit_permute_ms": round(perm_jit_ms, 3) if perm_jit_ms is not None else None,
         "speedup_cython_vs_torchhd": round(torchhd_ms / max(cython_ms, 1e-6), 2) if torchhd_ms else None,
         "speedup_fused_vs_torchhd": round(torchhd_ms / max(fused_vm_ms, 1e-6), 2) if torchhd_ms else None,
         "speedup_fused_vs_numpy": round(numpy_ms / max(fused_vm_ms, 1e-6), 2),
@@ -311,7 +325,7 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.4.0-APEX-MODULAR-AGI-SOVEREIGN",
+        "version": "7.6.0-APEX-MODULAR-AGI-JIT-ARC-SOVEREIGN",
         "vsa_10240": bench_vsa_10240(2000),
         "lyapunov_16x16": bench_lyapunov_16x16(200),
         "simplex_lp": bench_simplex_vs_highs(100),
@@ -355,6 +369,7 @@ def main():
 | **Fused AVX2 Graph VM (`vsa_eval_graph_bytecode`)** | **{v['fused_avx2_vm_ms']} ms** | **{v['speedup_fused_vs_numpy']}x** | **{sp_thd_vm}** |
 
 - *Native x86_64 AVX2 W^X JIT (5-way XOR chain, {v['n_iters']} iters):* **`{v['native_x64_jit_5way_ms']} ms`**
+- *Native x86_64 AVX2 W^X JIT Permute (shift=199, {v['n_iters']} iters):* **`{v.get('native_x64_jit_permute_ms')} ms`**
 - *Cython vs `ctypes` speedup:* **`{v['speedup_cython_vs_ctypes']}x`** | *Fused Graph latency:* **`{v['us_per_fused_graph']} µs/graph`**
 
 ## 2. Mathematical & Control Solver Benchmarks vs Scientific Python Baselines

@@ -117,7 +117,7 @@ class TestV75CompiledDAGCEGISARC(unittest.TestCase):
     def test_04_hierarchical_multi_level_planning_and_runtime(self):
         """Macro -> Meso -> Micro hierarchical composition fuses subgoal signatures via AVX2 W^X JIT."""
         rt = SovereignCortexRuntime()
-        self.assertIn("7.5.0", rt.version)
+        self.assertIn("MODULAR-AGI", rt.version)
 
         res = rt.execute_cognitive_mission(
             "hierarchical_compose_mission",

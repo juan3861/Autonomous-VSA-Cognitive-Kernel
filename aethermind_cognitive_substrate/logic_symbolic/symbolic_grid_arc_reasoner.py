@@ -66,6 +66,60 @@ def _op_mirror_concat_h(g: np.ndarray) -> np.ndarray:
     return np.hstack([g, np.fliplr(g)])
 
 
+def _op_mirror_concat_v(g: np.ndarray) -> np.ndarray:
+    return np.vstack([g, np.flipud(g)])
+
+
+def _op_gravity_left(g: np.ndarray) -> np.ndarray:
+    out = np.zeros_like(g)
+    h, _w = g.shape
+    for r in range(h):
+        nz = g[r, :][g[r, :] != 0]
+        if len(nz) > 0:
+            out[r, : len(nz)] = nz
+    return out
+
+
+def _op_tile_2x2(g: np.ndarray) -> np.ndarray:
+    return np.tile(g, (2, 2))
+
+
+def _op_fill_enclosed_zeros(g: np.ndarray) -> np.ndarray:
+    """Fill 0-cells disconnected from grid boundary using the dominant non-zero color."""
+    h, w = g.shape
+    nz_vals = g[g != 0]
+    if nz_vals.size == 0 or h < 3 or w < 3:
+        return g.copy()
+    vals, counts = np.unique(nz_vals, return_counts=True)
+    fill_color = int(vals[int(np.argmax(counts))])
+
+    visited = np.zeros((h, w), dtype=bool)
+    queue: List[Tuple[int, int]] = []
+    for r in range(h):
+        for c in (0, w - 1):
+            if g[r, c] == 0 and not visited[r, c]:
+                visited[r, c] = True
+                queue.append((r, c))
+    for c in range(w):
+        for r in (0, h - 1):
+            if g[r, c] == 0 and not visited[r, c]:
+                visited[r, c] = True
+                queue.append((r, c))
+
+    head = 0
+    while head < len(queue):
+        r, c = queue[head]
+        head += 1
+        for nr, nc in ((r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)):
+            if 0 <= nr < h and 0 <= nc < w and g[nr, nc] == 0 and not visited[nr, nc]:
+                visited[nr, nc] = True
+                queue.append((nr, nc))
+
+    out = g.copy()
+    out[(g == 0) & (~visited)] = fill_color
+    return out
+
+
 def _op_scale_2x(g: np.ndarray) -> np.ndarray:
     return np.kron(g, np.ones((2, 2), dtype=g.dtype))
 
@@ -101,10 +155,14 @@ _GRID_PRIMITIVES: Dict[str, Callable[[np.ndarray], np.ndarray]] = {
     "transpose": _op_transpose,
     "crop_nonzero": _op_crop_nonzero,
     "gravity_down": _op_gravity_down,
+    "gravity_left": _op_gravity_left,
     "mirror_concat_h": _op_mirror_concat_h,
+    "mirror_concat_v": _op_mirror_concat_v,
+    "tile_2x2": _op_tile_2x2,
     "scale_2x": _op_scale_2x,
     "invert_nonzero_color": _op_invert_nonzero_color,
     "outline_nonzero": _op_outline_nonzero,
+    "fill_enclosed_zeros": _op_fill_enclosed_zeros,
 }
 
 
@@ -259,4 +317,47 @@ class SymbolicGridARCReasoner:
             "z3_proof": z3_proof,
             "vsa_input_output_cosine": round(float(vsa_shift_sim), 4),
             "elapsed_ms": round((time.perf_counter() - t0) * 1000.0, 3),
+        }
+
+    def evaluate_benchmark_batch(self, tasks: Sequence[Dict[str, Any]], max_program_depth: int = 2) -> Dict[str, Any]:
+        """Evaluate a batch of held-out multi-step ARC puzzles against exact pixel ground truth."""
+        t0 = time.perf_counter()
+        results: List[Dict[str, Any]] = []
+        solved_count = 0
+        exact_test_matches = 0
+
+        for task in tasks:
+            res = self.solve_arc_task(
+                train_pairs=task["train_pairs"],
+                test_input=task["test_input"],
+                max_program_depth=max_program_depth,
+            )
+            solved = bool(res.get("solved"))
+            expected = task.get("expected_output")
+            exact_match = False
+            if solved and expected is not None:
+                exact_match = np.array_equal(
+                    np.asarray(res["predicted_grid"], dtype=np.int32),
+                    np.asarray(expected, dtype=np.int32),
+                )
+            if solved:
+                solved_count += 1
+            if exact_match:
+                exact_test_matches += 1
+            results.append({
+                "task_id": task.get("task_id", f"arc_{len(results)}"),
+                "solved": solved,
+                "exact_test_match": exact_match,
+                "program": res.get("synthesized_program"),
+                "elapsed_ms": res.get("elapsed_ms", 0.0),
+            })
+
+        total = len(tasks)
+        return {
+            "total_tasks": total,
+            "solved_count": solved_count,
+            "exact_test_matches": exact_test_matches,
+            "accuracy": round(exact_test_matches / max(1, total), 4),
+            "total_elapsed_ms": round((time.perf_counter() - t0) * 1000.0, 3),
+            "task_results": results,
         }

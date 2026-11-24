@@ -187,3 +187,40 @@ class VSADAGBytecodeCompiler:
 
         out = np.bitwise_xor.reduce(vecs)
         return out, 0
+
+    def jit_permute_vector(self, vec_u64: np.ndarray, steps: int) -> Tuple[np.ndarray, int]:
+        """Execute circular 10,240-bit permutation via native x86_64 AVX2 W^X machine code."""
+        src = np.ascontiguousarray(vec_u64, dtype=np.uint64)
+        out = np.zeros(WORDS, dtype=np.uint64)
+        if self._lib is not None and hasattr(self._lib, "vsa_jit_compile_permute"):
+            handle = self._lib.vsa_jit_compile_permute(int(steps))
+            if handle:
+                try:
+                    mode = int(
+                        self._lib.vsa_jit_exec_permute(
+                            handle,
+                            src.ctypes.data_as(ctypes.POINTER(ctypes.c_uint64)),
+                            out.ctypes.data_as(ctypes.POINTER(ctypes.c_uint64)),
+                        )
+                    )
+                    return out, mode
+                finally:
+                    self._lib.vsa_jit_free_permute(handle)
+
+        # Fallback pure NumPy word/bit circular shift
+        s = int(steps) % (WORDS * 64)
+        if s == 0:
+            return src.copy(), 0
+        w_sh = s // 64
+        b_sh = s % 64
+        if b_sh == 0:
+            for i in range(WORDS):
+                out[(i + w_sh) % WORDS] = src[i]
+        else:
+            inv_sh = 64 - b_sh
+            mask64 = (1 << 64) - 1
+            for i in range(WORDS):
+                out[(i + w_sh) % WORDS] = (
+                    ((int(src[i]) << b_sh) & mask64) | (int(src[(i - 1) % WORDS]) >> inv_sh)
+                )
+        return out, 0

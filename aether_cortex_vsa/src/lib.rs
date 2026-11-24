@@ -1,7 +1,16 @@
 pub mod vsa_graph_vm;
 pub use vsa_graph_vm::{VsaOp, vsa_eval_graph_bytecode};
 pub mod vsa_jit_x64;
-pub use vsa_jit_x64::{JitXorHandle, vsa_jit_compile_xor_chain, vsa_jit_exec_xor_chain, vsa_jit_free_xor_chain};
+pub use vsa_jit_x64::{
+    JitPermuteHandle,
+    JitXorHandle,
+    vsa_jit_compile_permute,
+    vsa_jit_compile_xor_chain,
+    vsa_jit_exec_permute,
+    vsa_jit_exec_xor_chain,
+    vsa_jit_free_permute,
+    vsa_jit_free_xor_chain,
+};
 
 #[no_mangle]
 pub extern "C" fn vsa_wasm_alloc(bytes: usize) -> *mut u8 {

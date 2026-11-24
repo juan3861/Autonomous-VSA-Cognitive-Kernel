@@ -69,6 +69,11 @@ JitXorHandle* vsa_jit_compile_xor_chain(size_t n_inputs);
 int32_t       vsa_jit_exec_xor_chain(const JitXorHandle* handle, const uint64_t* const* in_ptrs, uint64_t* out_buf);
 void          vsa_jit_free_xor_chain(JitXorHandle* handle);
 
+typedef struct JitPermuteHandle JitPermuteHandle;
+JitPermuteHandle* vsa_jit_compile_permute(size_t steps);
+int32_t           vsa_jit_exec_permute(const JitPermuteHandle* handle, const uint64_t* in_buf, uint64_t* out_buf);
+void              vsa_jit_free_permute(JitPermuteHandle* handle);
+
 /* -------------------------------------------------------------------------- */
 /* 2. Biophysical & Neural Solvers (HRM Fixed-Point & Ising Spin Glass)       */
 /* -------------------------------------------------------------------------- */

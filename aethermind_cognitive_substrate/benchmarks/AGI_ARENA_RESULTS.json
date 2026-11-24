@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-11-23T20:36:09.144136",
-  "version": "7.5.0-APEX-MODULAR-AGI-COMPILED-SOVEREIGN",
+  "timestamp": "2026-11-23T21:04:09.736502",
+  "version": "7.6.0-APEX-MODULAR-AGI-JIT-ARC-SOVEREIGN",
   "track_a_plug_and_play": {
     "catalog_organs_indexed": 101,
     "plugin_selected": true,
@@ -10,7 +10,7 @@
     ],
     "overall_success": true,
     "certified_safe": true,
-    "elapsed_ms": 292.001
+    "elapsed_ms": 1097.247
   },
   "track_b_pddl_planning": {
     "overall_success": true,
@@ -23,7 +23,7 @@
       "return_to_dock"
     ],
     "plan_cost": 7.0,
-    "elapsed_ms": 222.918
+    "elapsed_ms": 265.681
   },
   "track_c_ast_cegis": {
     "ast_security_clean": true,
@@ -34,7 +34,7 @@
     "cegis_equivalent": true,
     "candidate_code": "((x & 1) == 0)",
     "vsa_bus_events": 7,
-    "elapsed_ms": 259.573
+    "elapsed_ms": 288.98
   },
   "track_d_cross_session": {
     "session1_rejected_unsafe": true,
@@ -46,7 +46,7 @@
       "cbf_control_barrier_shield"
     ],
     "priors_recorded_organs": 3,
-    "elapsed_ms": 957.521
+    "elapsed_ms": 5164.151
   },
   "track_e_python_ast_cegis": {
     "scale_proven": true,
@@ -54,7 +54,7 @@
     "scale_speedup": 3.33,
     "mod4_proven": true,
     "mod4_candidate": "x & 3 == 0",
-    "elapsed_ms": 104.436
+    "elapsed_ms": 126.674
   },
   "track_f_hierarchical_arc": {
     "overall_success": true,
@@ -62,6 +62,93 @@
     "subgoals_executed": 2,
     "avx2_wx_jit_mode": 1,
     "arc_stage_executed": true,
-    "elapsed_ms": 329.567
+    "elapsed_ms": 463.298
+  },
+  "track_g_arc_batch_8": {
+    "total_tasks": 8,
+    "solved_count": 8,
+    "exact_test_matches": 8,
+    "accuracy": 1.0,
+    "total_elapsed_ms": 341.864,
+    "task_results": [
+      {
+        "task_id": "arc_01_rot90",
+        "solved": true,
+        "exact_test_match": true,
+        "program": [
+          "rot90"
+        ],
+        "elapsed_ms": 42.663
+      },
+      {
+        "task_id": "arc_02_crop_scale2x",
+        "solved": true,
+        "exact_test_match": true,
+        "program": [
+          "crop_nonzero",
+          "scale_2x"
+        ],
+        "elapsed_ms": 62.4
+      },
+      {
+        "task_id": "arc_03_gravity_mirror_h",
+        "solved": true,
+        "exact_test_match": true,
+        "program": [
+          "mirror_concat_h",
+          "gravity_down"
+        ],
+        "elapsed_ms": 46.689
+      },
+      {
+        "task_id": "arc_04_flip_h_invert",
+        "solved": true,
+        "exact_test_match": true,
+        "program": [
+          "flip_h",
+          "invert_nonzero_color"
+        ],
+        "elapsed_ms": 35.655
+      },
+      {
+        "task_id": "arc_05_fill_enclosed",
+        "solved": true,
+        "exact_test_match": true,
+        "program": [
+          "fill_enclosed_zeros"
+        ],
+        "elapsed_ms": 34.847
+      },
+      {
+        "task_id": "arc_06_gravity_left_mirror_v",
+        "solved": true,
+        "exact_test_match": true,
+        "program": [
+          "gravity_left",
+          "mirror_concat_v"
+        ],
+        "elapsed_ms": 37.91
+      },
+      {
+        "task_id": "arc_07_outline_scale2x",
+        "solved": true,
+        "exact_test_match": true,
+        "program": [
+          "outline_nonzero",
+          "scale_2x"
+        ],
+        "elapsed_ms": 47.039
+      },
+      {
+        "task_id": "arc_08_transpose_tile2x2",
+        "solved": true,
+        "exact_test_match": true,
+        "program": [
+          "transpose",
+          "tile_2x2"
+        ],
+        "elapsed_ms": 34.196
+      }
+    ]
   }
 }

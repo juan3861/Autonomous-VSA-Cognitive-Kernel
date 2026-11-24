@@ -242,16 +242,78 @@ def bench_track_f_hierarchical_arc_avx2() -> Dict[str, Any]:
     }
 
 
+def bench_track_g_arc_compositional_batch() -> Dict[str, Any]:
+    from aethermind_cognitive_substrate.logic_symbolic.symbolic_grid_arc_reasoner import SymbolicGridARCReasoner
+
+    reasoner = SymbolicGridARCReasoner()
+    # Ground-truth transforms withheld from solver: solver sees only input/output pixel demos
+    specs = [
+        ("arc_01_rot90", ["rot90"], [
+            [[1, 2], [3, 4], [5, 6]],
+            [[7, 0], [8, 9], [1, 2]],
+            [[4, 5], [6, 7], [0, 9]],
+        ]),
+        ("arc_02_crop_scale2x", ["crop_nonzero", "scale_2x"], [
+            [[0, 0, 0], [0, 1, 2], [0, 3, 0]],
+            [[0, 5, 0], [0, 0, 6], [0, 0, 0]],
+            [[0, 0, 0, 0], [0, 7, 8, 0], [0, 0, 9, 0]],
+        ]),
+        ("arc_03_gravity_mirror_h", ["gravity_down", "mirror_concat_h"], [
+            [[1, 0, 2], [0, 3, 0], [0, 0, 4]],
+            [[5, 6, 0], [0, 0, 7], [8, 0, 0]],
+            [[0, 2, 0], [3, 0, 1], [0, 4, 0]],
+        ]),
+        ("arc_04_flip_h_invert", ["flip_h", "invert_nonzero_color"], [
+            [[1, 2, 0], [0, 3, 4]],
+            [[4, 0, 1], [2, 3, 0]],
+            [[0, 1, 4], [3, 2, 0]],
+        ]),
+        ("arc_05_fill_enclosed", ["fill_enclosed_zeros"], [
+            [[2, 2, 2, 2], [2, 0, 0, 2], [2, 0, 0, 2], [2, 2, 2, 2]],
+            [[0, 3, 3, 3, 0], [0, 3, 0, 3, 0], [0, 3, 3, 3, 0], [0, 0, 0, 0, 0]],
+            [[5, 5, 5, 5], [5, 0, 5, 5], [5, 0, 0, 5], [5, 5, 5, 5]],
+        ]),
+        ("arc_06_gravity_left_mirror_v", ["gravity_left", "mirror_concat_v"], [
+            [[0, 1, 0], [2, 0, 3]],
+            [[0, 0, 4], [0, 5, 6]],
+            [[7, 0, 8], [0, 9, 0]],
+        ]),
+        ("arc_07_outline_scale2x", ["outline_nonzero", "scale_2x"], [
+            [[4, 4, 4], [4, 4, 4], [4, 4, 4]],
+            [[0, 0, 0, 0], [0, 5, 5, 5], [0, 5, 5, 5], [0, 5, 5, 5]],
+            [[7, 7, 7, 7], [7, 7, 7, 7], [7, 7, 7, 7], [7, 7, 7, 7]],
+        ]),
+        ("arc_08_transpose_tile2x2", ["transpose", "tile_2x2"], [
+            [[1, 2], [3, 4], [5, 6]],
+            [[0, 7], [8, 9], [1, 3]],
+            [[2, 0], [4, 5], [6, 8]],
+        ]),
+    ]
+    tasks = []
+    for tid, gt_prog, grids in specs:
+        demos = [(g, reasoner.apply_program(gt_prog, g)) for g in grids[:2]]
+        test_in = grids[2]
+        exp_out = reasoner.apply_program(gt_prog, test_in)
+        tasks.append({
+            "task_id": tid,
+            "train_pairs": demos,
+            "test_input": test_in,
+            "expected_output": exp_out,
+        })
+    return reasoner.evaluate_benchmark_batch(tasks, max_program_depth=2)
+
+
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "7.5.0-APEX-MODULAR-AGI-COMPILED-SOVEREIGN",
+        "version": "7.6.0-APEX-MODULAR-AGI-JIT-ARC-SOVEREIGN",
         "track_a_plug_and_play": bench_track_a_plug_and_play_discovery(),
         "track_b_pddl_planning": bench_track_b_pddl_planning(),
         "track_c_ast_cegis": bench_track_c_ast_cegis_synthesis(),
         "track_d_cross_session": bench_track_d_cross_session_learning(),
         "track_e_python_ast_cegis": bench_track_e_python_ast_cegis(),
         "track_f_hierarchical_arc": bench_track_f_hierarchical_arc_avx2(),
+        "track_g_arc_batch_8": bench_track_g_arc_compositional_batch(),
     }
 
     out_dir = Path(__file__).resolve().parent
@@ -265,8 +327,9 @@ def main():
     d = results["track_d_cross_session"]
     e = results["track_e_python_ast_cegis"]
     f_res = results["track_f_hierarchical_arc"]
+    g_res = results["track_g_arc_batch_8"]
 
-    md = f"""# AGI-Modular Multi-Domain Arena Results (`v7.5.0`)
+    md = f"""# AGI-Modular Multi-Domain Arena Results (`v7.6.0`)
 
 **Generated:** `{results['timestamp']}`  
 **Kernel Version:** `{results['version']}`
@@ -279,6 +342,7 @@ def main():
 | **Track D** | Cross-Session Closed-Loop Learning (`SQLite + HippoRAG + PagedOS + REM`) | **{'PASS' if d['session1_rejected_unsafe'] and d['session2_adapted_success'] else 'FAIL'}** | Hydrated `{d['session2_hydrated_hipporag_nodes']}` graph nodes -> `{len(d['session2_pipeline'])}` certified stages | `{d['elapsed_ms']} ms` |
 | **Track E** | Arbitrary Python AST CEGIS + E-Graph Optimization | **{'PASS' if e['scale_proven'] and e['mod4_proven'] else 'FAIL'}** | `(x*8)+(y^y) -> {e['scale_candidate']}` ({e['scale_speedup']}x cycles); `(x%4)==0 -> {e['mod4_candidate']}` | `{e['elapsed_ms']} ms` |
 | **Track F** | Hierarchical Macro->Meso->Micro Planning + ARC Grid + AVX2 W^X JIT | **{'PASS' if f_res['overall_success'] and f_res['certified_safe'] else 'FAIL'}** | `{f_res['subgoals_executed']}` hierarchical subgoals; JIT mode `{f_res['avx2_wx_jit_mode']}` | `{f_res['elapsed_ms']} ms` |
+| **Track G** | 8-Task Compositional ARC Grid Induction Batch | **{'PASS' if g_res['exact_test_matches'] == g_res['total_tasks'] else 'FAIL'}** | `{g_res['exact_test_matches']}/{g_res['total_tasks']}` exact pixel accuracy (`{g_res['accuracy']*100:.1f}%`) | `{g_res['total_elapsed_ms']} ms` |
 """
     md_path = out_dir / "AGI_ARENA_RESULTS.md"
     with open(md_path, "w", encoding="utf-8") as f:
