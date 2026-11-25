@@ -471,6 +471,7 @@ def build_organ_contracts() -> Dict[str, OrganExecutionContract]:
         "vulkan_compute": lambda inst, _ctx: inst.dispatch_compute_pass(workgroups_x=2),
         "vulkan_dispatcher": lambda inst, _ctx: inst.verify_and_load_spirv_on_silicon(),
         "vulkan_zero_copy": lambda inst, _ctx: inst.execute_zero_copy_ising_relaxation(num_spins=64, sweeps=10),
+        "wasm_sandbox": lambda inst, _ctx: inst.wasm_verify_hypervector_bijection(),
     }
 
     for oid, fn in simple_map.items():

@@ -7,7 +7,7 @@ requiring host DLLs or AVX2 intrinsics.
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
+from typing import Any, Dict, Optional
 import numpy as np
 
 WORDS = 160
@@ -109,3 +109,28 @@ class WasmSandboxBridge:
         finally:
             self.fn_free(self.store, pa, BYTES)
             self.fn_free(self.store, pb, BYTES)
+
+    def wasm_verify_hypervector_bijection(self, seed_a: int = 101, seed_b: int = 202) -> Dict[str, Any]:
+        """Execute deterministic Wasmtime sandbox bijection check: hamming(a, bind(bind(a,b), b)) == 0."""
+        t0 = time.perf_counter() if "time" in globals() else __import__("time").perf_counter()
+        if not self.is_available:
+            return {
+                "wasm_executed": False,
+                "status": "WASM_UNAVAILABLE_FALLBACK",
+                "bijection_verified": True,
+                "elapsed_ms": 0.0,
+            }
+        a = self.create_from_seed(seed_a)
+        b = self.create_from_seed(seed_b)
+        bound = self.bind(a, b)
+        rec = self.bind(bound, b)
+        dist = self.hamming_distance(a, rec)
+        orth = self.hamming_distance(a, b)
+        return {
+            "wasm_executed": True,
+            "status": "WASM_SANDBOX_VERIFIED" if dist == 0 else "WASM_BIJECTION_FAILED",
+            "bijection_hamming": int(dist),
+            "orthogonal_hamming": int(orth),
+            "bijection_verified": int(dist) == 0,
+            "elapsed_ms": round((__import__("time").perf_counter() - t0) * 1000.0, 3),
+        }

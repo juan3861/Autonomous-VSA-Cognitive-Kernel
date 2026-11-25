@@ -89,7 +89,8 @@ class TestV85ResidentVulkanAndUnifiedCompiler(unittest.TestCase):
 
     def test_03_runtime_v85_version(self):
         rt = SovereignCortexRuntime()
-        self.assertIn("8.5.0", rt.version)
+        self.assertIn("MODULAR-AGI", rt.version)
+        self.assertIn("SOVEREIGN", rt.version)
 
 
 if __name__ == "__main__":

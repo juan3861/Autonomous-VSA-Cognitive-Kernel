@@ -496,10 +496,72 @@ def bench_track_k_gpu_dag_vm_arc4_and_cubic_cegis() -> Dict[str, Any]:
     }
 
 
+def bench_track_l_v90_longitudinal_wasm_and_resident_gpu() -> Dict[str, Any]:
+    import tempfile
+    from aethermind_cognitive_substrate.memory_vault.hierarchical_paged_memory_os import HierarchicalPagedMemoryOS
+    from aethermind_cognitive_substrate.memory_vault.hipporag_knowledge_graph import HippoRAGKnowledgeGraph
+    from aethermind_cognitive_substrate.memory_vault.vsa_dag_compiler import VSADAGBytecodeCompiler
+    from aethermind_cognitive_substrate.memory_vault.vsa_persistence_bridge import VSA10240PersistenceBridge
+    from aethermind_cognitive_substrate.metacognition.rem_autonomous_dream_daemon import REMAutonomousDreamEngine
+    from aethermind_cognitive_substrate.physical_bridge.wasm_sandbox_bridge import WasmSandboxBridge
+    from aethermind_cognitive_substrate.planning.autonomous_cognitive_composer import AutonomousCognitiveComposer
+    from aethermind_cognitive_substrate.planning.neuro_symbolic_bridge import VerifiedNeuroSymbolicBridge
+    import numpy as np
+
+    t0 = time.perf_counter()
+    with tempfile.TemporaryDirectory() as tmpd:
+        pers = VSA10240PersistenceBridge(db_path=str(Path(tmpd) / "track_l_longitudinal.db"))
+        hippo = HippoRAGKnowledgeGraph()
+        pager = HierarchicalPagedMemoryOS(max_hot_pages=16, max_warm_pages=64)
+        composer = AutonomousCognitiveComposer(persistence=pers, hipporag=hippo, paged_memory=pager)
+        rem = REMAutonomousDreamEngine()
+        rem.persistence = pers
+
+        episodes = [
+            {
+                "objective": f"stabilize_domain_{idx % 5}",
+                "spec": {"observations": [0.1 * ((idx % 4) + 1), 0.05, -0.02, 0.0], "goal_state": [0.0, 0.0], "require_formal_safety": True},
+            }
+            for idx in range(50)
+        ]
+        long_res = rem.consolidate_longitudinal_episodes(composer, episodes, pager=pager, replay_probe_count=10)
+
+    wasm_res = WasmSandboxBridge().wasm_verify_hypervector_bijection(101, 202)
+    ns_res = VerifiedNeuroSymbolicBridge().propose_verify_and_refine(
+        "verify shift equivalence", context={"target_spec_source": "def spec(x):\n    return x * 8\n"}
+    )
+
+    comp = VSADAGBytecodeCompiler()
+    try:
+        rng = np.random.default_rng(9000)
+        q = rng.integers(0, np.iinfo(np.uint64).max, size=160, dtype=np.uint64)
+        a = rng.integers(0, np.iinfo(np.uint64).max, size=(1024, 160), dtype=np.uint64)
+        b = rng.integers(0, np.iinfo(np.uint64).max, size=(1024, 160), dtype=np.uint64)
+        ops = [("LOAD_Q", 3), ("LOAD_A", 0), ("LOAD_B", 1), ("PERMUTE", 2, 0, 199), ("XOR", 2, 2, 1)]
+        comp.compile_and_execute_batch(q, a[:64], b[:64], ops, compare_regs=(2, 3), gpu_threshold=64)
+        vm_warm = comp.compile_and_execute_batch(q, a, b, ops, compare_regs=(2, 3), gpu_threshold=64)
+    finally:
+        comp.close()
+
+    elapsed_ms = (time.perf_counter() - t0) * 1000.0
+    return {
+        "episodes_processed": long_res["episodes_processed"],
+        "episodes_certified": long_res["episodes_certified"],
+        "zero_forgetting": bool(long_res["zero_forgetting"]),
+        "retention_rate": long_res["retention_rate"],
+        "wasm_bijection_verified": bool(wasm_res["bijection_verified"]),
+        "wasm_executed": bool(wasm_res["wasm_executed"]),
+        "neuro_symbolic_approved": bool(ns_res["approved"]),
+        "resident_gpu_route": vm_warm["cost_model_route"],
+        "resident_gpu_ms": vm_warm["elapsed_ms"],
+        "elapsed_ms": round(elapsed_ms, 3),
+    }
+
+
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "8.0.0-APEX-MODULAR-AGI-GPU-DAG-CEGIS-SOVEREIGN",
+        "version": "9.0.0-APEX-MODULAR-AGI-SOVEREIGN",
         "track_a_plug_and_play": bench_track_a_plug_and_play_discovery(),
         "track_b_pddl_planning": bench_track_b_pddl_planning(),
         "track_c_ast_cegis": bench_track_c_ast_cegis_synthesis(),
@@ -511,6 +573,7 @@ def main():
         "track_i_cython_jit_loop_induction": bench_track_i_cython_jit_and_loop_induction(),
         "track_j_vulkan_fused_nested_cegis": bench_track_j_vulkan_fused_vsa_and_nested_cegis(),
         "track_k_gpu_dag_arc4_cubic_cegis": bench_track_k_gpu_dag_vm_arc4_and_cubic_cegis(),
+        "track_l_v90_longitudinal_wasm_gpu": bench_track_l_v90_longitudinal_wasm_and_resident_gpu(),
     }
 
     out_dir = Path(__file__).resolve().parent
@@ -529,8 +592,9 @@ def main():
     i_res = results["track_i_cython_jit_loop_induction"]
     j_res = results["track_j_vulkan_fused_nested_cegis"]
     k_res = results["track_k_gpu_dag_arc4_cubic_cegis"]
+    l_res = results["track_l_v90_longitudinal_wasm_gpu"]
 
-    md = f"""# AGI-Modular Multi-Domain Arena Results (`v8.0.0`)
+    md = f"""# AGI-Modular Multi-Domain Arena Results (`v9.0.0`)
 
 **Generated:** `{results['timestamp']}`  
 **Kernel Version:** `{results['version']}`
@@ -548,6 +612,7 @@ def main():
 | **Track I** | Cython Zero-Copy Fused JIT + Z3 Loop Mathematical Induction | **{'PASS' if i_res['cython_zero_copy_jit_executed'] and i_res['odds_proven'] and i_res['scale_proven'] and i_res['xor_proven'] else 'FAIL'}** | `O(n)->O(1)`: `sum_odds->{i_res['odds_closed_form']}`, `scale->{i_res['scale_closed_form']}`, `xor->{i_res['xor_closed_form']}` | `{i_res['elapsed_ms']} ms` |
 | **Track J** | Vulkan Wave64 Fused PERMUTE+XOR + Z3 Nested Loop Double Induction | **{'PASS' if j_res['exact_pair_hit_hamming_0'] and j_res['rect_proven'] and j_res['tri_proven'] else 'FAIL'}** | GPU=`{j_res['gpu_executed']}`; `rect->{j_res['rect_closed_form']}`, `tri->{j_res['tri_closed_form']}` | `{j_res['elapsed_ms']} ms` |
 | **Track K** | Vulkan LDS VSA DAG VM + Depth-4 ARC + Faulhaber Cubic Z3 CEGIS | **{'PASS' if k_res['exact_dag_vm_hit_hamming_0'] and k_res['arc4_exact_match'] and k_res['cubic_cegis_proven'] else 'FAIL'}** | GPU=`{k_res['gpu_executed']}` (`{k_res['vm_op_count']}` ops); `ARC4`; `sum_sq->{k_res['cubic_closed_form']}` | `{k_res['elapsed_ms']} ms` |
+| **Track L** | 50-Episode REM Consolidation + Wasmtime Sandbox + Resident GPU Router | **{'PASS' if l_res['zero_forgetting'] and l_res['wasm_bijection_verified'] and l_res['neuro_symbolic_approved'] else 'FAIL'}** | `50` eps (`{l_res['retention_rate']*100:.0f}%` ret); Wasm=`{l_res['wasm_executed']}`; GPU `{l_res['resident_gpu_ms']} ms` | `{l_res['elapsed_ms']} ms` |
 """
     md_path = out_dir / "AGI_ARENA_RESULTS.md"
     with open(md_path, "w", encoding="utf-8") as f:

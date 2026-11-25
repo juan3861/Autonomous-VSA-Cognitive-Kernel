@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-11-24T16:02:34.338937",
-  "version": "8.0.0-APEX-MODULAR-AGI-GPU-DAG-CEGIS-SOVEREIGN",
+  "timestamp": "2026-11-24T20:48:29.130138",
+  "version": "9.0.0-APEX-MODULAR-AGI-SOVEREIGN",
   "track_a_plug_and_play": {
-    "catalog_organs_indexed": 101,
+    "catalog_organs_indexed": 103,
     "plugin_selected": true,
     "synthesized_pipeline": [
       "quantum_anomaly_observer",
@@ -10,7 +10,7 @@
     ],
     "overall_success": true,
     "certified_safe": true,
-    "elapsed_ms": 329.763
+    "elapsed_ms": 318.725
   },
   "track_b_pddl_planning": {
     "overall_success": true,
@@ -23,7 +23,7 @@
       "return_to_dock"
     ],
     "plan_cost": 7.0,
-    "elapsed_ms": 237.117
+    "elapsed_ms": 254.571
   },
   "track_c_ast_cegis": {
     "ast_security_clean": true,
@@ -34,7 +34,7 @@
     "cegis_equivalent": true,
     "candidate_code": "((x & 1) == 0)",
     "vsa_bus_events": 7,
-    "elapsed_ms": 273.797
+    "elapsed_ms": 266.421
   },
   "track_d_cross_session": {
     "session1_rejected_unsafe": true,
@@ -46,7 +46,7 @@
       "cbf_control_barrier_shield"
     ],
     "priors_recorded_organs": 3,
-    "elapsed_ms": 1117.071
+    "elapsed_ms": 1750.274
   },
   "track_e_python_ast_cegis": {
     "scale_proven": true,
@@ -54,7 +54,7 @@
     "scale_speedup": 3.33,
     "mod4_proven": true,
     "mod4_candidate": "x & 3 == 0",
-    "elapsed_ms": 103.845
+    "elapsed_ms": 100.3
   },
   "track_f_hierarchical_arc": {
     "overall_success": true,
@@ -62,14 +62,14 @@
     "subgoals_executed": 2,
     "avx2_wx_jit_mode": 1,
     "arc_stage_executed": true,
-    "elapsed_ms": 314.934
+    "elapsed_ms": 305.267
   },
   "track_g_arc_batch_8": {
     "total_tasks": 8,
     "solved_count": 8,
     "exact_test_matches": 8,
     "accuracy": 1.0,
-    "total_elapsed_ms": 228.367,
+    "total_elapsed_ms": 241.741,
     "task_results": [
       {
         "task_id": "arc_01_rot90",
@@ -78,7 +78,7 @@
         "program": [
           "rot90"
         ],
-        "elapsed_ms": 25.568
+        "elapsed_ms": 24.418
       },
       {
         "task_id": "arc_02_crop_scale2x",
@@ -88,7 +88,7 @@
           "crop_nonzero",
           "scale_2x"
         ],
-        "elapsed_ms": 28.136
+        "elapsed_ms": 28.687
       },
       {
         "task_id": "arc_03_gravity_mirror_h",
@@ -98,7 +98,7 @@
           "mirror_concat_h",
           "gravity_down"
         ],
-        "elapsed_ms": 28.269
+        "elapsed_ms": 31.918
       },
       {
         "task_id": "arc_04_flip_h_invert",
@@ -108,7 +108,7 @@
           "flip_h",
           "invert_nonzero_color"
         ],
-        "elapsed_ms": 26.906
+        "elapsed_ms": 28.091
       },
       {
         "task_id": "arc_05_fill_enclosed",
@@ -117,7 +117,7 @@
         "program": [
           "fill_enclosed_zeros"
         ],
-        "elapsed_ms": 25.25
+        "elapsed_ms": 27.18
       },
       {
         "task_id": "arc_06_gravity_left_mirror_v",
@@ -127,7 +127,7 @@
           "gravity_left",
           "mirror_concat_v"
         ],
-        "elapsed_ms": 29.258
+        "elapsed_ms": 32.942
       },
       {
         "task_id": "arc_07_outline_scale2x",
@@ -137,7 +137,7 @@
           "outline_nonzero",
           "scale_2x"
         ],
-        "elapsed_ms": 38.245
+        "elapsed_ms": 39.893
       },
       {
         "task_id": "arc_08_transpose_tile2x2",
@@ -147,7 +147,7 @@
           "transpose",
           "tile_2x2"
         ],
-        "elapsed_ms": 26.423
+        "elapsed_ms": 28.145
       }
     ]
   },
@@ -161,7 +161,7 @@
       "scale_2x",
       "flip_h"
     ],
-    "elapsed_ms": 126.625
+    "elapsed_ms": 139.278
   },
   "track_i_cython_jit_loop_induction": {
     "cython_zero_copy_jit_executed": true,
@@ -171,7 +171,7 @@
     "scale_closed_form": "(x << 2) * n",
     "xor_proven": true,
     "xor_closed_form": "x if n & 1 != 0 else 0",
-    "elapsed_ms": 141.117
+    "elapsed_ms": 154.838
   },
   "track_j_vulkan_fused_nested_cegis": {
     "gpu_executed": true,
@@ -181,7 +181,7 @@
     "rect_closed_form": "(x << 2) * n * m",
     "tri_proven": true,
     "tri_closed_form": "n * (n - 1) >> 1",
-    "elapsed_ms": 1142.978
+    "elapsed_ms": 1156.425
   },
   "track_k_gpu_dag_arc4_cubic_cegis": {
     "gpu_executed": true,
@@ -197,6 +197,18 @@
     ],
     "cubic_cegis_proven": true,
     "cubic_closed_form": "n * (n - 1) * (2 * n - 1) // 6",
-    "elapsed_ms": 1691.667
+    "elapsed_ms": 1724.89
+  },
+  "track_l_v90_longitudinal_wasm_gpu": {
+    "episodes_processed": 50,
+    "episodes_certified": 50,
+    "zero_forgetting": true,
+    "retention_rate": 1.0,
+    "wasm_bijection_verified": true,
+    "wasm_executed": true,
+    "neuro_symbolic_approved": true,
+    "resident_gpu_route": "GPU_RESIDENT_WAVE64_LDS_VM",
+    "resident_gpu_ms": 3.892,
+    "elapsed_ms": 19211.552
   }
 }

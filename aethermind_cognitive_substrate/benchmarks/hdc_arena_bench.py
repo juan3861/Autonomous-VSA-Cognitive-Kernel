@@ -390,7 +390,7 @@ def bench_batch_vsa_search(n_candidates: int = 4096) -> Dict[str, Any]:
 def main():
     results = {
         "timestamp": datetime.now().isoformat(),
-        "version": "8.5.0-APEX-MODULAR-AGI-RESIDENT-GPU-JIT-SOVEREIGN",
+        "version": "9.0.0-APEX-MODULAR-AGI-SOVEREIGN",
         "vsa_10240": bench_vsa_10240(2000),
         "lyapunov_16x16": bench_lyapunov_16x16(200),
         "simplex_lp": bench_simplex_vs_highs(100),
@@ -417,7 +417,7 @@ def main():
     sp_thd_cy = f"{v['speedup_cython_vs_torchhd']}x" if v.get("speedup_cython_vs_torchhd") else "—"
     sp_thd_vm = f"{v['speedup_fused_vs_torchhd']}x" if v.get("speedup_fused_vs_torchhd") else "—"
 
-    md = f"""# HDC-Arena / VSA-Bench Reproducible Results (`v8.5.0`)
+    md = f"""# HDC-Arena / VSA-Bench Reproducible Results (`v9.0.0`)
 
 **Generated:** `{results['timestamp']}`  
 **Kernel Version:** `{results['version']}`  
